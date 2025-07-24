@@ -4,12 +4,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import logo from '../public/logo.png';
-import { useCart } from '../contexts/CartContext';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { items, addItem, removeItem, total } = useCart();
-  
+
   // dummy categories
   const categories = ['Electronics', 'Fashion', 'Groceries', 'Books', 'Toys'];
 
