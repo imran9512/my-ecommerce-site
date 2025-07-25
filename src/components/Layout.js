@@ -1,6 +1,6 @@
 // Layout component ka code hai. Isme header aur footer include hai.
 import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import Footer from '@/components/footer';
 
 const Layout = ({ children }) => {
   return (
