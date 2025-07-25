@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import logo from '../public/logo.png';
+import logo from '/public/logo.png';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
