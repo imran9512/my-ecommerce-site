@@ -7,12 +7,14 @@ const products = [
     sku: 'TM-001',                // SEO schema ke liye, page pe nahi dikhayenge
     stock: 4,                    // 15 → green pill “In Stock”
     rating: 4.8,                  // sirf stars, counts nahi
+    reviewCount: 5,              // reviews ki taadad
     images: [
       '/Prod-images/best numbing cream in pakistan.webp',
       '/Prod-images/buy ritalin 10 in lahore.webp',
       '/Prod-images/cialis alternative price in pakistan.webp',
     ],
     price: 300,                 // 1 qty base price
+    offerPrice: 270,             // discounted price (lowest qtyDiscount ya actual offer)
     qtyDiscount: {                // jitni qty utna discount
       1: 300,
       2: 285,
@@ -28,6 +30,8 @@ const products = [
     specialNote:
       '“Free installation & 1-year warranty inside twin-cities only.”',
     related: ['002', '003'],      // related products IDs
+    metaTitle: 'Indoor Steel Adjustable Silent Treadmill – Best Home Gym in Pakistan',
+    metaDescription: 'Compact, foldable & Bluetooth treadmill for home workouts. Free installation & 1-year warranty. Order now for Rs 300 only!',
   },
   // … more products
 ];

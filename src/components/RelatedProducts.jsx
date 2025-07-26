@@ -10,7 +10,7 @@ export default function RelatedProducts({ products }) {
       <h2 className="text-2xl font-bold mb-4">Recently Viewed</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {products.map((p) => (
-          <Link key={p.id} href={`/products/${p.id}`}>
+          <Link key={p.slug} href={`/products/${p.slug}`}>
             <a className="border rounded p-2 hover:shadow">
               <Image
                 src={p.images[0]}

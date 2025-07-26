@@ -11,6 +11,9 @@ export default function QuantityPrice({ product, qty, setQty }) {
   // total discount = (base price - discounted price) × quantity
   const totalSaved = (product.price - price) * qty;
 
+  /* ---------- 2. Total Price ---------- */
+  const totalPrice = price * qty;
+
   // sab se sasta price (max qty ka)
   const maxQty = Math.max(...Object.keys(prices).map(Number));
   const lowestPrice = prices[maxQty];
@@ -42,21 +45,31 @@ export default function QuantityPrice({ product, qty, setQty }) {
       </p>
 
       {/* Quantity selector */}
-      <div className="flex items-center mt-2">
-        <button
-          onClick={() => setQty(Math.max(1, qty - 1))}
-          className="px-2 py-1 border rounded"
-        >
-          −
-        </button>
-        <span className="px-4 font-medium">{qty}</span>
-        <button
-          onClick={() => setQty(qty + 1)}
-          className="px-2 py-1 border rounded"
-        >
-          +
-        </button>
-      </div>
+       <div className="flex items-center space-x-2 mt-2">
+          <button
+           onClick={() => setQty(Math.max(1, qty - 1))}
+           className="px-2 py-1 border border-gray-400 rounded hover:bg-gray-100"
+           >
+           ⇩
+          </button>
+
+          <input
+            type="number"
+            value={qty}
+            onChange={(e) => setQty(Math.max(1, Number(e.target.value)))}
+            className="w-18 text-center text-xl"
+          />
+
+          <button
+           onClick={() => setQty(qty + 1)}
+           className="px-2 py-1 border border-gray-400 rounded hover:bg-gray-100"
+           >
+           ⇧
+          </button>
+          <span className="ml-2 text-xl font-bold">
+              Total Rs: {totalPrice.toLocaleString()}
+          </span>
+       </div>
     </div>
   );
 }

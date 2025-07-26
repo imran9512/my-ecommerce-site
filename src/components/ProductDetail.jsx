@@ -72,7 +72,7 @@ export default function ProductDetail({ product }) {
             className="rounded-lg object-cover"
           />
           {/* Thin bordered thumbnails */}
-          <div className="flex mt-2 space-x-1.5">
+          <div className="flex justify-center mt-2 space-x-1.5">
             {product.images.map((img, idx) => (
               <button
                 key={idx}
@@ -118,6 +118,9 @@ export default function ProductDetail({ product }) {
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.182c.969 0 1.371 1.24.588 1.81l-3.386 2.46a1 1 0 00-.364 1.118l1.287 3.967c.3.921-.755 1.688-1.54 1.118l-3.386-2.46a1 1 0 00-1.176 0l-3.386 2.46c-.784.57-1.838-.197-1.539-1.118l1.287-3.967a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.182a1 1 0 00.95-.69L9.049 2.927z" />
               </svg>
             ))}
+             <span className="ml-2 text-sm text-gray-600">
+               ({product.reviewCount ?? 0} reviews)
+             </span>
           </div>
 
           {/* Price & Qty */}
