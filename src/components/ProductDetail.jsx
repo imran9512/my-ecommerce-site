@@ -13,10 +13,10 @@ export default function ProductDetail({ product }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: product.name,
+    name: product.metaTitle,
     sku: product.sku,
     image: product.images,
-    description: product.shortDesc,
+    description: product.metaDescription,
     brand: { '@type': 'Brand', name: SITE_NAME },
     offers: {
       '@type': 'Offer',
@@ -102,6 +102,12 @@ export default function ProductDetail({ product }) {
           >
             {stockText}
           </span>
+          {/* Notification line (only when Out of Stock) */}
+          {product.stock === 0 && (
+            <p className="mt-1 text-red-600 bg-yellow-200 px-2 py-1 text-xs font-semibold rounded">
+              Contact Us to Get Notified when Restocked
+            </p>
+          )}
 
           {/* Stars */}
           <div className="flex items-center mt-2">
@@ -124,6 +130,12 @@ export default function ProductDetail({ product }) {
              </span>
           </div>
 
+          {/* Product's featuers */}
+          <div className="mt-4">
+            <p className="text-sm">In One Pack: <span className='font-semibold italic'>{product.tabsMg}</span></p>
+            <p className="text-sm">Origin: <span className='font-semibold italic'>{product.origin}</span></p>
+            <p className="text-sm">Type: <span className='font-semibold italic'>{product.quality}</span></p>
+          </div>
           {/* Price & Qty */}
           <QuantityPrice product={product} qty={qty} setQty={setQty} />
 
@@ -146,7 +158,7 @@ export default function ProductDetail({ product }) {
             </button>
           </div>
 
-          {/* ---------- 2. "Get Discount" dropdown ---------- */}
+          {/* ---------- 2. "Get Discount" dropdown 
           {product.stock !== 0 && (
            <div className="mt-6">
             <div className="relative w-full max-w-xs">
@@ -191,7 +203,7 @@ export default function ProductDetail({ product }) {
                </ul>
              </div>
             </div>
-          )}
+          )} ---------- */}
 
           {/* Special Note */}
           {product.specialNote && (

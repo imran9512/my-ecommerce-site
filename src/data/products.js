@@ -17,9 +17,10 @@ const products = [
     price: 300,                 // 1 qty base price
     offerPrice: 270,             // discounted price (lowest qtyDiscount ya actual offer)
     qtyDiscount: {                // jitni qty utna discount
-      1: 300,
+      //1: 300,
       2: 285,
       5: 270,
+      8: 250,
     },
     shortDesc: 'Compact, foldable, Bluetooth enabled treadmill for home workouts.',
     longDesc: `
@@ -72,7 +73,7 @@ const products = [
     price: 500,                 // 1 qty base price
     offerPrice: 450,             // discounted price (lowest qtyDiscount ya actual offer)
     qtyDiscount: {                // jitni qty utna discount
-      1: 500,
+      //1: 500,
       2: 470,
       5: 450,
       8: 420,
@@ -128,7 +129,7 @@ const products = [
     price: 300,                 // 1 qty base price
     offerPrice: 270,             // discounted price (lowest qtyDiscount ya actual offer)
     qtyDiscount: {                // jitni qty utna discount
-      1: 300,
+      //1: 300,
       2: 285,
       5: 270,
     },
@@ -183,11 +184,20 @@ const products = [
     price: 500,                 // 1 qty base price
     offerPrice: 450,             // discounted price (lowest qtyDiscount ya actual offer)
     qtyDiscount: {                // jitni qty utna discount
-      1: 500,
-      2: 470,
-      5: 450,
-      8: 420,
+      //1: 500,
+      2: 490,
+      //3: 480,
+      4: 470,
+      //5: 460,
+      6: 450,
+      //7: 440,
+      8: 430,
+      //9: 420,
+      10: 410,
     },
+    tabsMg: '5 Tabs * 20mg',
+    origin: 'Made in Pakistan',
+    quality: 'Original not genric',
     shortDesc: 'Compact, foldable, Bluetooth enabled treadmill for home workouts.',
     longDesc: `
       * **Motor:** 2.25 HP continuous duty  

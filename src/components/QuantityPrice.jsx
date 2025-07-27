@@ -1,75 +1,112 @@
-// src/components/QuantityPrice.jsx  (error-proof, final)
-import { useMemo } from 'react';
+// src/components/QuantityPrice.jsx
+import { useState } from 'react';
 
 export default function QuantityPrice({ product, qty, setQty }) {
-  // agar qtyDiscount na ho to fallback
-  const prices = product.qtyDiscount || { 1: product.price };
+  /* ---------- 1. Build full price map ---------- */
+  const raw = product.qtyDiscount || {};
+  const tiers = Object.keys(raw).map(Number).sort((a, b) => a - b);
 
-  // pehle exact qty ka price, warna sab se bara qty ka price
-  const price = prices[qty] || prices[Math.max(...Object.keys(prices).map(Number))];
+  // helper: price for Q ≥ 1
+  const priceForQty = (q) => {
+    // 1) exact tier
+    if (raw[q]) return raw[q];
+    // 2) last tier ≤ q
+    const last = tiers.filter(t => t <= q).pop();
+    return last ? raw[last] : product.price;
+  };
 
-  // total discount = (base price - discounted price) × quantity
-  const totalSaved = (product.price - price) * qty;
+  const unitPrice = priceForQty(qty);
+  const totalPrice = unitPrice * qty;
+  const saved = (product.price - unitPrice) * qty;
 
-  /* ---------- 2. Total Price ---------- */
-  const totalPrice = price * qty;
-
-  // sab se sasta price (max qty ka)
-  const maxQty = Math.max(...Object.keys(prices).map(Number));
-  const lowestPrice = prices[maxQty];
+  /* ---------- 2. Dropdown data (only tiers that exist) ---------- */
+  const entries = Object.entries(raw).sort(([a], [b]) => +a - +b);
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="mt-4">
-      {/* Price + Discount Badge */}
+    <div className="mt-6 space-y-4">
+      {/* Price badge */}
       <div className="flex items-end space-x-2">
-        <span className="text-2xl font-bold">Rs {price.toLocaleString()}</span>
-
-        {/* Original price only if discounted */}
-        {product.price !== price && (
+        <span className="text-2xl font-bold">Rs {unitPrice.toLocaleString()}</span>
+        {product.price !== unitPrice && (
           <>
-            <span className="line-through text-gray-500">
-              Rs {product.price.toLocaleString()}
-            </span>
-
-            {/* Total saved amount (quantity × per-unit discount) */}
-            <span className="text-green-600 text-sm">
-              You saved Rs {totalSaved.toLocaleString()} on {qty} unit(s)
-            </span>
+            <span className="line-through text-gray-500">Rs {product.price.toLocaleString()}</span>
+            <span className="text-green-600 text-sm">Saved Rs {saved}</span>
           </>
         )}
       </div>
 
-      {/* Lowest possible price note */}
+      {/* Lowest price note */}
       <p className="text-sm text-gray-600 mt-1">
-        As low as Rs {lowestPrice.toLocaleString()} on higher quantity
-      </p>
+  As low as Rs {Math.min(...Object.values(product.qtyDiscount || { 1: product.price })).toLocaleString()} on higher quantity
+</p>
 
-      {/* Quantity selector */}
-       <div className="flex items-center space-x-2 mt-2">
+      {/* ---------- Stylish Quantity Control ---------- */}
+<div className="mt-6 flex items-left space-x-3">
+  {/* minus */}
+  <button
+    onClick={() => setQty(Math.max(1, qty - 1))}
+    className="flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full shadow transition"
+  >
+    <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
+    </svg>
+  </button>
+
+  {/* editable number */}
+  <input
+    type="number"
+    value={qty}
+    onChange={(e) => setQty(Math.max(1, +e.target.value))}
+    className="w-16 h-10 text-center text-xl font-semibold border border-gray-300 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+    min="1"
+  />
+
+  {/* plus */}
+  <button
+    onClick={() => setQty(qty + 1)}
+    className="flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full shadow transition"
+  >
+    <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+      <path fillRule="evenodd" d="M10 3a1 1 0 011 1v6h6a1 1 0 110 2h-6v6a1 1 0 11-2 0v-6H3a1 1 0 110-2h6V4a1 1 0 011-1z" clipRule="evenodd" />
+    </svg>
+  </button>
+
+  <span className="ml-4 text-xl font-bold text-gray-800">Total Rs {totalPrice.toLocaleString()}</span>
+</div>
+
+      {/* Dropdown for existing discount tiers only */}
+      {entries.length > 1 && (
+        <div className="relative w-full max-w-md">
           <button
-           onClick={() => setQty(Math.max(1, qty - 1))}
-           className="px-2 py-1 border border-gray-400 rounded hover:bg-gray-100"
-           >
-           ⇩
+            onClick={() => setOpen(!open)}
+            className="w-full flex items-center justify-between px-4 py-2 bg-blue-600 text-white rounded-md"
+          >
+            Get Discount
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
           </button>
 
-          <input
-            type="number"
-            value={qty}
-            onChange={(e) => setQty(Math.max(1, Number(e.target.value)))}
-            className="w-18 text-center text-xl"
-          />
-
-          <button
-           onClick={() => setQty(qty + 1)}
-           className="px-2 py-1 border border-gray-400 rounded hover:bg-gray-100"
-           >
-           ⇧
-          </button>
-          <span className="ml-2 text-xl font-bold">
-              Total Rs: {totalPrice.toLocaleString()}
-          </span>
-       </div>
+          {open && (
+            <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
+              <div className="grid grid-cols-4 gap-2 px-3 py-1 bg-gray-100 text-xs font-semibold">
+                <span>Qty</span><span>Per Unit</span><span>Total</span><span>Saved</span>
+              </div>
+              {entries.map(([q, p]) => (
+                <div
+                  key={q}
+                  className="grid grid-cols-4 gap-2 px-3 py-2 text-xs cursor-pointer hover:bg-blue-50"
+                  onClick={() => { setQty(+q); setOpen(false); }}
+                >
+                  <span>{q}</span>
+                  <span>Rs {p}</span>
+                  <span>Rs {p * +q}</span>
+                  <span className="text-green-600">Rs {(product.price - p) * +q}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
