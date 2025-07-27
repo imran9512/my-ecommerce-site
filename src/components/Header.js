@@ -1,68 +1,76 @@
-// components/Header.js
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Bars3Icon, ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import logo from '/public/logo.png';
+import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 
-export default function Header() {
+export default function Header({ cartCount = 0 }) {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // dummy categories
-  const categories = ['Electronics', 'Fashion', 'Groceries', 'Books', 'Toys'];
+  const categories = [{ name: 'Fitness', sub: ['Treadmills'] }, { name: 'Health', sub: ['Medicine'] }];
 
   return (
     <>
-      {/* Top bar */}
-      <header className="w-full bg-white shadow-md h-20 flex items-center justify-between px-6">
-        {/* Left: Hamburger (desktop only) */}
-        <button
-          className="hidden md:block text-gray-700 hover:text-sky-600"
-          onClick={() => setMenuOpen(true)}
-        >
-          <Bars3Icon className="w-7 h-7" />
-        </button>
+      {/* sticky, shadow-less, WHITE background */}
+      <header className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 px-3 md:px-6 h-16 flex items-center">
+        <div className="w-full max-w-screen-xl mx-auto grid grid-cols-3 items-center">
+          {/* 1. Left: Hamburger + Search (desktop) */}
+          <div className="flex items-center space-x-3">
+          {/* Hamburger / Close */}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-700">
+            {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+          </button>
 
-        {/* Logo */}
-        <Link href="/">
-          <Image src={logo} alt="Logo" width={120} height={48} className="object-contain" />
-        </Link>
+          {/* Extra space between hamburger & search */}
+          <div className="w-6 md:w-8"></div>
 
-        {/* Right: Cart */}
-        <Link href="/checkout" className="flex items-center gap-2 text-sky-600">
-          <ShoppingCartIcon className="w-7 h-7" />
-          <span className="text-sm font-semibold">Cart</span>
-        </Link>
+          {/* Search bar with large radius */}
+          <input
+            type="text"
+            placeholder="Search..."
+            className="hidden bg-gray-100 md:block w-48 lg:w-60 border border-gray-400 rounded-full px-4 py-1 text-sm"
+          />
+          </div>
+
+          {/* 2. Center: Logo (dead-center) */}
+          <div className="flex justify-center">
+          {/* Logo */}
+          <Link href="/" className="mx-auto">
+            <Image src="/logo.png" alt="Logo" width={110} height={44} className="object-contain" />
+          </Link>
+          </div>
+
+          {/* 3. Right: Links + Cart */}
+          <div className="flex items-center justify-end space-x-3 text-sm text-gray-700">
+          {/* Right links */}
+          <div className="flex items-center space-x-4 text-gray-700 text-sm">
+            <Link href="/contact">Contact&nbsp;Us</Link>
+            <span className="text-gray-400">|</span>
+            <Link href="/faq">FAQ</Link>
+            <Link href="/cart" className="flex items-center space-x-1">
+              <ShoppingCartIcon className="w-5 h-5" />
+              {cartCount > 0 && <span>{cartCount}</span>}
+            </Link>
+            </div>
+          </div>
+        </div>
       </header>
 
-      {/* Side menu (desktop only) */}
+      {/* Drawer under header */}
       {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 z-40 md:block hidden"
-          onClick={() => setMenuOpen(false)}
-        >
-          <div
-            className="fixed top-0 left-0 h-full w-72 bg-white shadow-xl p-6"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="mb-4 text-gray-700 hover:text-red-500"
-              onClick={() => setMenuOpen(false)}
-            >
-              <XMarkIcon className="w-7 h-7" />
-            </button>
-
-            <h2 className="text-lg font-semibold mb-4">Categories</h2>
-
+        <div className="fixed top-16 inset-x-0 h-[calc(100vh-4rem)] bg-black/40 z-40" onClick={() => setMenuOpen(false)}>
+          <div className="fixed top-16 left-0 w-72 h-full bg-white shadow-xl p-4" onClick={(e) => e.stopPropagation()}>
             <nav className="space-y-2">
-              {categories.map((cat) => (
-                <Link
-                  key={cat}
-                  href={`/category/${cat.toLowerCase()}`}
-                  className="block px-3 py-2 rounded hover:bg-sky-100"
-                >
-                  {cat}
-                </Link>
+              {categories.map(cat => (
+                <div key={cat.name}>
+                  <Link href={`/category/${cat.name.toLowerCase()}`} className="block font-semibold text-gray-800">
+                    {cat.name}
+                  </Link>
+                  {cat.sub?.map(sub => (
+                    <Link key={sub} href={`/category/${cat.name.toLowerCase()}/${sub.toLowerCase()}`}
+                          className="block pl-4 text-sm text-gray-600">
+                      ‑ {sub}
+                    </Link>
+                  ))}
+                </div>
               ))}
             </nav>
           </div>

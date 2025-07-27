@@ -53,12 +53,11 @@ export default function TabsSection({ product }) {
 
         {active === 'reviews' && (
           <div>
-            <h3 className="text-lg font-semibold mb-4">Reviews</h3>
             <ul className="list-disc space-y-4">
               {product.reviews.map((review, index) => (
-                <li key={index} className="flex flex-col items-start space-x-2 mb-4 border border border-gray-300 rounded p-4">
+                <li key={index} className="flex flex-col items-start space-x-1 mb-4 border border border-gray-300 rounded p-4">
                   <div className="flex items-center space-x-2">
-                      <span className="font-semibold mr-2">{review.name}</span> <span className="italic text-green-500">(Verified Buyer)</span>
+                      <span className="font-semibold mr-2">{review.name}</span> &emsp; <span className="italic text-green-500">(Verified Buyer)</span>&emsp; &emsp;
                       {renderStars(review.rating)}
                   </div>
                   <p className="mt-2">{review.date}</p>

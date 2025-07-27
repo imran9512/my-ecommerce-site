@@ -103,10 +103,18 @@ export default function ProductDetail({ product }) {
             {stockText}
           </span>
           {/* Notification line (only when Out of Stock) */}
+
+          <p className="w-2 md:w-2"></p>
           {product.stock === 0 && (
-            <p className="mt-1 text-red-600 bg-yellow-200 px-2 py-1 text-xs font-semibold rounded">
-              Contact Us to Get Notified when Restocked
-            </p>
+            <span className="mt-1 text-red-600 bg-yellow-200 px-2 py-1 text-xs font-semibold rounded">
+               Contact Us to Get Notified when Restocked
+            </span>
+          )}
+          {/* Low-Stock message */}
+          {product.stock < 5 && product.stock > 0 && (
+            <span className="mt-1 text-blue-600 bg-yellow-100 px-2 py-1 text-xs font-semibold rounded">
+               Grab this item before stock ends again
+            </span>
           )}
 
           {/* Stars */}
