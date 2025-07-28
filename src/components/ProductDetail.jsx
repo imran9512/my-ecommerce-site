@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { PhoneIcon } from '@heroicons/react/24/solid';
 import QuantityPrice from './QuantityPrice';
 import { SITE_NAME, WHATSAPP_NUMBER } from '@/data/constants';
+import { useCartStore } from '@/stores/cart';
 
 export default function ProductDetail({ product }) {
   const [qty, setQty] = useState(1);
@@ -152,7 +153,27 @@ export default function ProductDetail({ product }) {
             <button
               disabled={product.stock === 0}
               className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60"
-              onClick={() => alert('Added to cart!')}
+              onClick={() => {
+  useCartStore.getState().addItem(product, qty);
+}}
+              /*onClick={() => {
+  const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const idx  = cart.findIndex(i => i.id === product.id);
+
+  if (idx > -1) {
+    cart[idx].quantity += qty;
+  } else {
+    cart.push({ ...product, quantity: qty });
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+  // trigger a custom event so Footer instantly refreshes
+  window.dispatchEvent(new Event('storage'));
+  //alert('Added to cart!');
+
+  // const addItem = useCartStore((s) => s.addItem);
+   //addItem(product, qty);
+}}*/
             >
               Add to Cart
             </button>

@@ -1,5 +1,5 @@
 // src/components/Footer.js
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import {
   HomeIcon,
@@ -8,42 +8,22 @@ import {
   QuestionMarkCircleIcon,
   ShoppingCartIcon
 } from '@heroicons/react/24/solid';
+import { useCartStore } from '@/stores/cart';   // ➊ single source
 
-/* ------------- helpers ------------- */
-const readCart = () =>
-  (typeof window !== 'undefined' && JSON.parse(localStorage.getItem('cart') || '[]')) || [];
-
-/* ------------- component ------------- */
 export default function Footer() {
   const [isOpen, setIsOpen] = useState(null);
   const [active, setActive] = useState(null);
-  const [cart, setCart] = useState([]);
 
-  // hydrate cart once on mount + listen to storage events
-  useEffect(() => {
-    setCart(readCart());
-    const handler = () => setCart(readCart());
-    window.addEventListener('storage', handler);
-    return () => window.removeEventListener('storage', handler);
-  }, []);
+  /* ---------- cart ---------- */
+  const cart      = useCartStore((s) => s.items);
+  const cartCount = useCartStore((s) => s.items.reduce((a, b) => a + b.quantity, 0));
+  const cartTotal = useCartStore((s) => s.items.reduce((sum, i) => sum + i.price * i.quantity, 0));
 
-  const cartCount   = cart.reduce((sum, i) => sum + i.quantity, 0);
-  const cartTotal   = cart.reduce((sum, i) => sum + i.price * i.quantity, 0);
-
-  /* ------------- drawer contents ------------- */
+  /* ---------- drawer contents ---------- */
   const sheets = {
-    shop: {
-      title: 'Categories',
-      content: <p className="p-4">Categories here…</p>
-    },
-    help: {
-      title: 'Contact',
-      content: <p className="p-4">Email: contact@example.com</p>
-    },
-    search: {
-      title: 'Search',
-      content: <p className="p-4">Search bar here…</p>
-    },
+    shop:   { title: 'Categories', content: <p className="p-4">Categories here…</p> },
+    help:   { title: 'Contact',    content: <p className="p-4">Email: contact@example.com</p> },
+    search: { title: 'Search',     content: <p className="p-4">Search bar here…</p> },
     cart: {
       title: 'Your Cart',
       content: (
@@ -52,7 +32,6 @@ export default function Footer() {
             <p className="p-4 text-center text-gray-500">Your cart is empty</p>
           ) : (
             <>
-              {/* list items */}
               <ul className="divide-y divide-gray-200 max-h-[35vh] overflow-y-auto">
                 {cart.map(item => (
                   <li key={item.id} className="flex justify-between items-center px-4 py-3 text-sm">
@@ -64,19 +43,19 @@ export default function Footer() {
                 ))}
               </ul>
 
-              {/* totals + checkout */}
               <div className="border-t p-4 space-y-3">
                 <div className="flex justify-between font-bold">
                   <span>Total</span>
                   <span>${(cartTotal / 100).toFixed(2)}</span>
                 </div>
-                <Link href="/checkout">
-                  <a
+
+                <Link href="/checkout" legacyBehavior={false} passHref>
+                  <button
                     onClick={() => setIsOpen(null)}
-                    className="w-full block text-center bg-green-500 text-white py-2 rounded"
+                    className="w-full bg-green-500 text-white py-2 rounded"
                   >
                     Checkout
-                  </a>
+                  </button>
                 </Link>
               </div>
             </>
@@ -86,7 +65,7 @@ export default function Footer() {
     }
   };
 
-  /* ------------- nav items ------------- */
+  /* ---------- nav items ---------- */
   const navItems = [
     { key: 'home', label: 'Home', icon: HomeIcon, href: '/' },
     { key: 'shop', label: 'Shop', icon: BuildingStorefrontIcon, action: () => setIsOpen('shop') },
