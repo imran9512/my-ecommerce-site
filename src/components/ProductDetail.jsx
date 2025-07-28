@@ -166,53 +166,6 @@ export default function ProductDetail({ product }) {
             </button>
           </div>
 
-          {/* ---------- 2. "Get Discount" dropdown 
-          {product.stock !== 0 && (
-           <div className="mt-6">
-            <div className="relative w-full max-w-xs">
-             <button
-               onClick={() => {
-                 const list = document.getElementById(`discount-list-${product.id}`);
-                 list.style.display = list.style.display === 'block' ? 'none' : 'block';
-                 }}
-               className="w-full flex items-center justify-between px-4 py-2 bg-white border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
-                >
-               Get Discount
-               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-               </svg>
-             </button>
- 
-             <ul
-               id={`discount-list-${product.id}`}
-               className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg hidden"
-              >
-               {Object.entries(product.qtyDiscount || { 1: product.price })
-              .sort(([a], [b]) => +a - +b)
-              .map(([q, p]) => {
-              const total = p * +q;
-              const saved = (product.price - p) * +q;
-              return (
-                <li
-                  key={q}
-                  className="grid grid-cols-4 gap-2 px-3 py-2 text-xs cursor-pointer hover:bg-blue-50"
-                  onClick={() => {
-                    setQty(+q);
-                    document.getElementById(`discount-list-${product.id}`).style.display = 'none';
-                  }}
-                  >
-                  <span className="font-semibold">Qty {q}</span>
-                  <span>Rs {p}</span>
-                  <span>Total Rs {total}</span>
-                  <span className="text-green-600">Saved Rs {saved}</span>
-                 </li>
-                );
-               })}
-               </ul>
-             </div>
-            </div>
-          )} ---------- */}
-
           {/* Special Note */}
           {product.specialNote && (
             <p className="mt-4 italic font-bold text-blue-800 bg-blue-100 p-2 rounded">

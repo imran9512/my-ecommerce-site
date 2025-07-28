@@ -1,3 +1,4 @@
+//src/components/Header.js
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,9 +16,14 @@ export default function Header({ cartCount = 0 }) {
           {/* 1. Left: Hamburger + Search (desktop) */}
           <div className="flex items-center space-x-3">
           {/* Hamburger / Close */}
-          <button onClick={() => setMenuOpen(!menuOpen)} className="text-gray-700">
-            {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
-          </button>
+         
+<button
+  onClick={() => setMenuOpen(!menuOpen)}
+  aria-label="Toggle menu"
+  className="text-gray-700"
+>
+  {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+</button>
 
           {/* Extra space between hamburger & search */}
           <div className="w-6 md:w-8"></div>
@@ -33,22 +39,28 @@ export default function Header({ cartCount = 0 }) {
           {/* 2. Center: Logo (dead-center) */}
           <div className="flex justify-center">
           {/* Logo */}
-          <Link href="/" className="mx-auto">
-            <Image src="/logo.png" alt="Logo" width={110} height={44} className="object-contain" />
-          </Link>
+          
+<Link href="/" className="mx-auto">
+  <Image src="/logo.png" alt="Store Logo" width={110} height={44} className="object-contain" />
+</Link>
           </div>
 
           {/* 3. Right: Links + Cart */}
           <div className="flex items-center justify-end space-x-3 text-sm text-gray-700">
           {/* Right links */}
           <div className="flex items-center space-x-4 text-gray-700 text-sm">
-            <Link href="/contact">Contact&nbsp;Us</Link>
-            <span className="text-gray-400">|</span>
-            <Link href="/faq">FAQ</Link>
-            <Link href="/cart" className="flex items-center space-x-1">
-              <ShoppingCartIcon className="w-5 h-5" />
-              {cartCount > 0 && <span>{cartCount}</span>}
-            </Link>
+            <Link href="/contact" className="hidden md:block">Contact&nbsp;Us</Link>
+            <span className="hidden md:block text-gray-400">|</span>
+            <Link href="/faq" className="hidden md:block">FAQ</Link>
+            
+<Link href="/cart" className="flex items-center space-x-1">
+  <ShoppingCartIcon className="w-5 h-5" />
+  {cartCount > 0 && (
+    <span className="text-xs bg-sky-600 text-white rounded-full px-1.5 py-0.5">
+      {cartCount}
+    </span>
+  )}
+</Link>
             </div>
           </div>
         </div>

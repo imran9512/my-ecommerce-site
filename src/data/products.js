@@ -6,7 +6,7 @@ const products = [
     name: 'Indoor Steel Adjustable Silent Treadmill',
     categories: ['fitness', 'home-gym'],
     sku: 'TM-001',                // SEO schema ke liye, page pe nahi dikhayenge
-    stock: 4,                    // 15 → green pill “In Stock”
+    stock: 50,                    // 15 → green pill “In Stock”
     rating: 4.8,                  // sirf stars, counts nahi
     reviewCount: 5,              // reviews ki taadad
     images: [
