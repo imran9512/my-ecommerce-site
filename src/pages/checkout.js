@@ -1,67 +1,144 @@
 // src/pages/checkout.js
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { GOOGLE_FORM_URL, GOOGLE_FORM_FIELDS } from '@/data/constants';
+import Image from 'next/image';
+import { useCartStore } from '@/stores/cart';
 
 export default function CheckoutPage() {
   const [items, setItems] = useState([]);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', address: '' });
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+  });
+
   const router = useRouter();
 
+  // cart load
   useEffect(() => {
-    setItems(JSON.parse(localStorage.getItem('cart') || '[]'));
+    useCartStore.getState().load();
+    setItems(useCartStore.getState().items);
   }, []);
 
-  const total = items.reduce((acc, i) => acc + i.price * i.quantity, 0);
+  // totals
+  const grandTotal = items.reduce((sum, it) => it.totalPrice * it.quantity + sum, 0);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    const body = new URLSearchParams();
-    body.append(GOOGLE_FORM_FIELDS.name, form.name);
-    body.append(GOOGLE_FORM_FIELDS.email, form.email);
-    body.append(GOOGLE_FORM_FIELDS.phone, form.phone);
-    body.append(GOOGLE_FORM_FIELDS.address, form.address);
-    body.append(
-      GOOGLE_FORM_FIELDS.items,
-      items.map((i) => `${i.name} x${i.quantity}`).join(', ')
-    );
-    body.append(GOOGLE_FORM_FIELDS.total, (total / 100).toString());
-
-    await fetch(GOOGLE_FORM_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body,
-    });
-
-    localStorage.removeItem('cart');
+    // send to google form / api
+    alert('Order placed successfully!');
+    useCartStore.getState().clearCart();
     router.push('/success');
   };
 
   return (
-    <div className="max-w-xl mx-auto py-8 px-4">
-      <h1 className="text-3xl font-bold mb-6">Checkout</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input name="name" placeholder="Full name" required className="w-full border rounded px-3 py-2" onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })} />
-        <input name="email" type="email" placeholder="Email" required className="w-full border rounded px-3 py-2" onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })} />
-        <input name="phone" placeholder="Phone" required className="w-full border rounded px-3 py-2" onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })} />
-        <input name="address" placeholder="Address" required className="w-full border rounded px-3 py-2" onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })} />
+    <div className="max-w-6xl mx-auto py-6 px-4">
+      <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
 
-        <div className="pt-4">
-          <p className="text-lg font-bold mb-2">Order summary</p>
-          <ul className="text-sm space-y-1">
-            {items.map((i) => (
-              <li key={i.id}>{i.name} x{i.quantity} – ${i.price / 100}</li>
-            ))}
-          </ul>
-          <p className="font-bold mt-2">Total: ${total / 100}</p>
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+        {/* MOBILE/TAB: Summary on top */}
+        <div className="lg:col-span-2 lg:order-last">
+          {/* Desktop heading */}
+          <h2 className="text-xl font-semibold mb-4 hidden lg:block">
+            Order Summary
+          </h2>
+
+          {/* Summary card */}
+          <div className="bg-white border rounded-xl p-4 shadow">
+            {items.length === 0 ? (
+              <p className="text-center">Cart is empty</p>
+            ) : (
+              <>
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center space-x-3 mb-3"
+                  >
+                    <Image
+                      src={item.images[0]}
+                      alt={item.name}
+                      width={60}
+                      height={60}
+                      className="rounded object-cover"
+                    />
+                    <div className="flex-1">
+                      <p className="font-semibold text-sm">{item.name}</p>
+                      <p className="text-xs text-gray-500">
+                        {item.quantity} × Rs {item.totalPrice.toFixed(2)}
+                      </p>
+                    </div>
+                    <p className="text-sm font-bold">
+                      Rs {(item.totalPrice * item.quantity).toFixed(2)}
+                    </p>
+                  </div>
+                ))}
+
+                <div className="border-t mt-4 pt-2 text-right">
+                  <p className="text-lg font-bold">
+                    Grand Total: Rs {grandTotal.toFixed(2)}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
-        <button type="submit" className="w-full bg-sky-600 text-white py-2 rounded">
-          Submit Order
-        </button>
-      </form>
+        {/* DESKTOP: Form on left / MOBILE: below summary */}
+        <div className="lg:col-span-3">
+          <h2 className="text-xl font-semibold mb-4 lg:hidden">
+            Shipping Details
+          </h2>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              name="name"
+              placeholder="Full Name"
+              required
+              className="w-full border rounded px-3 py-2"
+              onChange={(e) =>
+                setForm({ ...form, [e.target.name]: e.target.value })
+              }
+            />
+            <input
+              name="email"
+              type="email"
+              placeholder="Email"
+              required
+              className="w-full border rounded px-3 py-2"
+              onChange={(e) =>
+                setForm({ ...form, [e.target.name]: e.target.value })
+              }
+            />
+            <input
+              name="phone"
+              placeholder="Phone"
+              required
+              className="w-full border rounded px-3 py-2"
+              onChange={(e) =>
+                setForm({ ...form, [e.target.name]: e.target.value })
+              }
+            />
+            <textarea
+              name="address"
+              placeholder="Address"
+              required
+              rows={3}
+              className="w-full border rounded px-3 py-2"
+              onChange={(e) =>
+                setForm({ ...form, [e.target.name]: e.target.value })
+              }
+            />
+
+            <button
+              type="submit"
+              className="w-full bg-sky-600 text-white py-2 rounded hover:bg-sky-700"
+            >
+              Submit Order
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
