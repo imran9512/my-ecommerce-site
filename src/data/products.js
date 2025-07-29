@@ -1,4 +1,4 @@
-// src/data/products.js  – Roman-Urdu comments
+// src/data/products.js  
 const products = [
   {
     id: '001',
@@ -17,10 +17,13 @@ const products = [
     price: 300,                 // 1 qty base price
     offerPrice: 270,             // discounted price (lowest qtyDiscount ya actual offer)
     qtyDiscount: {                // jitni qty utna discount
-      //1: 300,
-      2: 285,
-      5: 270,
-      8: 250,
+      2: 290,
+      3: 280,
+      4: 270,
+      5: 260,
+      6: 250,
+      7: 240,
+      8: 230,
     },
     shortDesc: 'Compact, foldable, Bluetooth enabled treadmill for home workouts.',
     longDesc: `
