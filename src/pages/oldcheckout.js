@@ -98,38 +98,36 @@ export default function CheckoutPage() {
               name="name"
               placeholder="Full Name"
               required
-              className="w-full border rounded-md px-3 py-2 bg-gray-100 shadow-sm focus:outline-none focus:ring-sky-500 focus:ring-opacity-50"
+              className="w-full border rounded px-3 py-2"
               onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
             />
-            <div className="flex space-x-4">
-              <input
-                name="phone"
-                placeholder="Phone"
-                required
-                className="w-1/2 border rounded-md px-3 py-2 bg-gray-100 shadow-sm focus:outline-none focus:ring-sky-500 focus:ring-opacity-50"
-                onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
-              />
-              <input
-                name="city"
-                placeholder="City"
-                required
-                className="w-1/2 border rounded-md px-3 py-2 bg-gray-100 shadow-sm focus:outline-none focus:ring-sky-500 focus:ring-opacity-50"
-                onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
-              />
-            </div>
+            <input
+              name="phone"
+              placeholder="Phone"
+              required
+              className="w-full border rounded px-3 py-2"
+              onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
+            />
+            <input
+              name="city"
+              placeholder="City"
+              required
+              className="w-full border rounded px-3 py-2"
+              onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
+            />
             <textarea
               name="address"
               placeholder="Address"
               required
               rows={3}
-              className="w-full border rounded-md px-3 py-2 bg-gray-100 shadow-sm focus:outline-none focus:ring-sky-500 focus:ring-opacity-50"
+              className="w-full border rounded px-3 py-2"
               onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
             />
             <textarea
               name="instructions"
               placeholder="Delivery Instructions (optional)"
               rows={2}
-              className="w-full border rounded-md px-3 py-2 bg-gray-100 shadow-sm focus:outline-none focus:ring-sky-500 focus:ring-opacity-50"
+              className="w-full border rounded px-3 py-2"
               onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
             />
 
@@ -138,7 +136,7 @@ export default function CheckoutPage() {
               <label className="font-semibold">Payment Method</label>
               <select
                 name="payment_method"
-                className="w-full border rounded-md px-3 py-2 mt-1 bg-gray-100 shadow-sm focus:outline-none focus:ring-sky-500 focus:ring-opacity-50"
+                className="w-full border rounded px-3 py-2 mt-1"
                 value={form.payment_method}
                 onChange={(e) => setForm({ ...form, payment_method: e.target.value })}
               >
@@ -154,7 +152,7 @@ export default function CheckoutPage() {
               <label className="font-semibold">Courier Option</label>
               <select
                 name="courier_option"
-                className="w-full border rounded-md px-3 py-2 mt-1 bg-gray-100 shadow-sm focus:outline-none focus:ring-sky-500 focus:ring-opacity-50"
+                className="w-full border rounded px-3 py-2 mt-1"
                 value={form.courier_option}
                 onChange={(e) => setForm({ ...form, courier_option: e.target.value })}
               >
@@ -182,7 +180,7 @@ export default function CheckoutPage() {
 
             <button
               type="submit"
-              className="w-1/2 mx-auto bg-sky-600 text-white py-2 rounded-md hover:bg-sky-700"
+              className="w-full bg-sky-600 text-white py-2 rounded hover:bg-sky-700"
             >
               Submit Order
             </button>
@@ -197,13 +195,13 @@ export default function CheckoutPage() {
           ) : (
             <div className="space-y-3">
               {items.map((item) => (
-                <div key={item.id} className="flex items-center space-x-3 bg-gray-100 p-4 rounded-md">
+                <div key={item.id} className="flex items-center space-x-3">
                   <Image
                     src={item.images[0]}
                     alt={item.name}
                     width={60}
                     height={60}
-                    className="rounded-full object-cover"
+                    className="rounded object-cover"
                   />
                   <div className="flex-1">
                     <p className="font-semibold text-sm">{item.name}</p>

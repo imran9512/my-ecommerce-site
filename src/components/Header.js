@@ -51,11 +51,11 @@ export default function Header() {
           {/* Right */}
           <div className="flex items-center justify-end space-x-3 text-sm text-gray-700">
             <div className="hidden md:flex items-center space-x-4">
-              <Link href="/contact">Contact Us</Link>
+              <Link href="/contact">Contact Us📞</Link>
               <span className="text-gray-400">|</span>
             </div>
             <div className=" items-center space-x-4">
-              <Link href="/faq">FAQ </Link>
+              <Link href="/faq">FAQ❓</Link>
             </div>
 
             {/* Cart – desktop only */}
