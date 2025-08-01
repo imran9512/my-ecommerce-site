@@ -1,7 +1,12 @@
 // src/stores/cart.js
 import { create } from 'zustand';
 
-const toNum = (v) => Number(v) || 0;
+function calculatePrice(product, qty) {
+  const disc = product.qtyDiscount || {};
+  const tiers = Object.keys(disc).map(Number).sort((a, b) => a - b);
+  const last = tiers.filter((t) => t <= qty).pop();
+  return last ? Number(disc[last]) : Number(product.price);
+}
 
 export const useCartStore = create((set, get) => ({
   items: [],
@@ -12,8 +17,8 @@ export const useCartStore = create((set, get) => ({
       const saved = JSON.parse(localStorage.getItem('my-cart') || '[]');
       const items = saved.map((it) => ({
         ...it,
-        price: toNum(it.price),
-        totalPrice: toNum(it.totalPrice),
+        price: Number(it.price),
+        totalPrice: calculatePrice(it, it.quantity),
         quantity: Number(it.quantity) || 0,
       }));
       set({ items });
@@ -33,12 +38,12 @@ export const useCartStore = create((set, get) => ({
       const idx = items.findIndex((i) => i.id === product.id);
       if (idx > -1) {
         items[idx].quantity += qty;
+        items[idx].totalPrice = calculatePrice(items[idx], items[idx].quantity);
       } else {
         items.push({
           ...product,
-          price: toNum(product.price),
-          totalPrice: toNum(product.totalPrice || product.price),
           quantity: qty,
+          totalPrice: calculatePrice(product, qty),
         });
       }
       get().save(items);
@@ -49,7 +54,9 @@ export const useCartStore = create((set, get) => ({
   updateQuantity(id, newQty) {
     set((state) => {
       const items = state.items.map((it) =>
-        it.id === id ? { ...it, quantity: newQty } : it
+        it.id === id
+          ? { ...it, quantity: newQty, totalPrice: calculatePrice(it, newQty) }
+          : it
       );
       get().save(items);
       return { items };
@@ -69,9 +76,8 @@ export const useCartStore = create((set, get) => ({
     if (typeof window !== 'undefined') localStorage.removeItem('my-cart');
   },
 
-  // yahan getter add kiya
   get total() {
-    return get().items.reduce((sum, it) => toNum(it.totalPrice) * it.quantity, 0);
+    return get().items.reduce((sum, it) => it.totalPrice * it.quantity, 0);
   },
 
   get totalQuantity() {

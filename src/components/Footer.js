@@ -8,18 +8,18 @@ import {
   QuestionMarkCircleIcon,
   ShoppingCartIcon
 } from '@heroicons/react/24/solid';
-import { useCartStore } from '@/stores/cart';   // ➊ single source
+import { useCartStore } from '@/stores/cart';
 
 export default function Footer() {
   const [isOpen, setIsOpen] = useState(null);
   const [active, setActive] = useState(null);
 
-  /* ---------- cart ---------- */
+  // ---------- cart ---------- */
   const cart      = useCartStore((s) => s.items);
   const cartCount = useCartStore((s) => s.items.reduce((a, b) => a + b.quantity, 0));
   const cartTotal = useCartStore((s) => s.items.reduce((sum, i) => sum + i.price * i.quantity, 0));
 
-  /* ---------- drawer contents ---------- */
+  // ---------- drawer contents ----------
   const sheets = {
     shop:   { title: 'Categories', content: <p className="p-4">Categories here…</p> },
     help:   { title: 'Contact',    content: <p className="p-4">Email: contact@example.com</p> },
@@ -65,7 +65,7 @@ export default function Footer() {
     }
   };
 
-  /* ---------- nav items ---------- */
+  // ---------- nav items ----------
   const navItems = [
     { key: 'home', label: 'Home', icon: HomeIcon, href: '/' },
     { key: 'shop', label: 'Shop', icon: BuildingStorefrontIcon, action: () => setIsOpen('shop') },
