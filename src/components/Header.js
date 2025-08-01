@@ -19,6 +19,7 @@ export default function Header() {
   const categories = [
     { name: 'Fitness', sub: ['Treadmills'] },
     { name: 'Health', sub: ['Medicine'] },
+    { name: 'home-gym', sub: ['cat3', 'cat4'] },
   ];
 
   return (
