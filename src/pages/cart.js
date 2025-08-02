@@ -52,7 +52,7 @@ export default function CartPage() {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between bg-white border rounded-xl p-4 shadow mb-4"
+                className="flex flex-col sm:flex-row sm:items-center justify-between bg-sky-100 shadow-lg p-4 shadow mb-4"
               >
                 <div className="flex items-center space-x-4 mb-3 sm:mb-0">
                   <Link href={`/products/${item.slug}`}>

@@ -77,7 +77,7 @@ export default function Header() {
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyDown}
-                className="bg-gray-100 w-48 lg:w-60 border border-gray-400 rounded-full px-4 py-1 text-sm"
+                className="focus:outline-none bg-gray-100 w-48 lg:w-60 border border-gray-300 rounded-full px-4 shadow-lg py-1 text-sm"
               />
               {searchTerm && results.length > 0 && (
                 <ul className="absolute top-full left-0 mt-1 w-full max-h-48 bg-white border rounded shadow-lg overflow-y-auto z-30">

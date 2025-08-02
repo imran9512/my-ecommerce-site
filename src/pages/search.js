@@ -1,14 +1,24 @@
 // src/pages/search.js
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { searchProducts } from '@/utils/searchProducts';
 import { useRouter } from 'next/router';
+import ProductCard from '@/components/ProductCard';
+import { searchProducts } from '@/utils/searchProducts';
 
 export default function SearchPage() {
   const router = useRouter();
-  const query = (router.query.q || '').toString();
-  const results = searchProducts(query);
+  const urlQuery = (router.query.q || '').toString();
+
+  // local input state
+  const [query, setQuery] = useState(urlQuery);
+  const [hasTyped, setHasTyped] = useState(false);
+
+  // live filter
+  const results = searchProducts(hasTyped ? query : '');
+
+  // keep input & URL in sync
+  useEffect(() => {
+    setQuery(urlQuery);
+  }, [urlQuery]);
 
   return (
     <div className="max-w-3xl mx-auto p-4">
@@ -17,40 +27,27 @@ export default function SearchPage() {
       <input
         type="text"
         value={query}
-        onChange={e => setQuery(e.target.value)}
+        onChange={(e) => {
+          const val = e.target.value;
+          setQuery(val);
+          if (!hasTyped) setHasTyped(true);
+          router.replace(`/search?q=${encodeURIComponent(val)}`, undefined, { shallow: true });
+        }}
         placeholder="Type name, slug, salt or category…"
         className="w-full border border-gray-300 rounded-md px-3 py-2 mb-4"
+        autoFocus
       />
 
-      {results.length ? (
+      {hasTyped && results.length ? (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-          {results.map(p => (
-            <Link
-              key={p.id}
-              href={`/products/${p.slug}`}
-              className="rounded-lg p-2 shadow-md transition-shadow"
-            >
-              <Image
-                src={p.images[0]}
-                alt={p.name}
-                width={150}
-                height={150}
-                className="w-full h-[150px] object-cover rounded"
-              />
-              <h3 className="text-center text-sm font-semibold mt-2 truncate">
-              {p.name}
-            </h3>
-            <p className="text-center text-xs">
-                  Formula: <span className="text-blue-600">{p.ActiveSalt}</span>
-                </p>
-            <p className="text-center text-xs text-blue-600">
-              As Low As Rs: {p.offerPrice}
-            </p>
-            </Link>
+          {results.map((p) => (
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
-      ) : (
+      ) : hasTyped ? (
         <p className="text-center text-gray-500">No products found.</p>
+      ) : (
+        <p className="text-center text-gray-500">Type something to search…</p>
       )}
     </div>
   );
