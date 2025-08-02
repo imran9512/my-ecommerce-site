@@ -4,7 +4,7 @@ const products = [
     id: '001',
     slug: 'indoor-steel-adjustable-silent-treadmill',  // custom URL path
     name: 'Indoor Steel Adjustable Silent Treadmill',
-    categories: ['fitness', 'home-gym', 'Medicine'],
+    categories: ['fitness', 'cat4', 'treadmills', 'home-gym', 'Medicine'],
     sku: 'TM-001',                // SEO schema ke liye, page pe nahi dikhayenge
     stock: 50,                    // 15 → green pill “In Stock”
     rating: 4.8,                  // sirf stars, counts nahi
