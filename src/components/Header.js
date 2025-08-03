@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useCartStore } from '@/stores/cart';
-import products from '@/data/products'; 
+import products from '@/data/products';
 
 export default function Header() {
   const router = useRouter();
@@ -31,16 +31,15 @@ export default function Header() {
     const q = searchTerm.trim().toLowerCase();
     if (!q) return setResults([]);
     const filtered = products.filter(
-      p =>
+      (p) =>
         p.name.toLowerCase().includes(q) ||
         p.slug.toLowerCase().includes(q) ||
         p.ActiveSalt.toLowerCase().includes(q) ||
-        p.categories.some(c => c.toLowerCase().includes(q))
+        p.categories.some((c) => c.toLowerCase().includes(q))
     );
     setResults(filtered);
   }, [searchTerm]);
 
-  /* when Enter pressed on desktop search */
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       router.push(`/search?q=${encodeURIComponent(searchTerm)}`);
@@ -48,12 +47,27 @@ export default function Header() {
     }
   };
 
-  /* build nav list */
   const navLinks = categories.reduce((acc, { name, sub }) => {
     acc.push({ label: name, href: `/category/${name.toLowerCase()}` });
-    sub.forEach(s => acc.push({ label: s, href: `/category/${s.toLowerCase()}` }));
+    sub.forEach((s) => acc.push({ label: s, href: `/category/${s.toLowerCase()}` }));
     return acc;
   }, []);
+
+  /* Help drawer links */
+  const helpLinks = [
+    { label: 'About Us', href: '/about' },
+    { label: 'Privacy', href: '/privacy' },
+    { label: 'Terms', href: '/terms-and-conditions' },
+    { label: 'Contact', href: '/contact' },
+  ];
+
+  const openWhatsApp = () =>
+    window.open(
+      `https://wa.me/+923001234567?text=${encodeURIComponent(
+        'Hi! I need help with products or my order.'
+      )}`,
+      '_blank'
+    );
 
   return (
     <>
@@ -69,19 +83,18 @@ export default function Header() {
               {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
             </button>
 
-            {/* Desktop live search */}
             <div className="relative hidden md:block">
               <input
                 type="text"
                 placeholder="Search…"
                 value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 onKeyDown={handleKeyDown}
                 className="focus:outline-none bg-gray-100 w-48 lg:w-60 border border-gray-300 rounded-full px-4 shadow-lg py-1 text-sm"
               />
               {searchTerm && results.length > 0 && (
                 <ul className="absolute top-full left-0 mt-1 w-full max-h-48 bg-white border rounded shadow-lg overflow-y-auto z-30">
-                  {results.slice(0, 6).map(p => (
+                  {results.slice(0, 6).map((p) => (
                     <li key={p.id}>
                       <Link
                         href={`/products/${p.slug}`}
@@ -114,8 +127,6 @@ export default function Header() {
               <span className="text-gray-400">|</span>
             </div>
             <Link href="/faq">FAQ❓</Link>
-
-            {/* Cart – desktop only */}
             <Link href="/cart" className="hidden md:flex items-center space-x-1">
               <span className="text-gray-400">| </span>
               <ShoppingCartIcon className="w-5 h-5" />
@@ -129,10 +140,10 @@ export default function Header() {
         </div>
       </header>
 
-      {/* Mobile drawer (unchanged) */}
+      {/* ------------- MOBILE DRAWER --------------- */}
       {menuOpen && (
         <div
-          className="fixed top-16 inset-x-0 h-[calc(100vh-4rem)] bg-black/40 z-40"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
           onClick={() => setMenuOpen(false)}
         >
           <div
@@ -148,19 +159,24 @@ export default function Header() {
                   >
                     <Link
                       href={`/category/${name.toLowerCase()}`}
-                      onClick={(e) => { e.stopPropagation(); setMenuOpen(false); }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMenuOpen(false);
+                      }}
                     >
                       {name}
                     </Link>
                     {sub && sub.length > 0 && (
                       <ChevronDownIcon
-                        className={`w-4 h-4 transition-transform ${openCategory === idx ? 'rotate-180' : ''}`}
+                        className={`w-4 h-4 transition-transform ${
+                          openCategory === idx ? 'rotate-180' : ''
+                        }`}
                       />
                     )}
                   </div>
                   {openCategory === idx && sub && sub.length > 0 && (
                     <ul className="pl-4 space-y-0.5">
-                      {sub.map(s => (
+                      {sub.map((s) => (
                         <li key={s}>
                           <Link
                             href={`/category/${s.toLowerCase()}`}
@@ -175,6 +191,32 @@ export default function Header() {
                   )}
                 </div>
               ))}
+
+              {/* Help section */}
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <p className="px-2 mb-2 font-semibold text-gray-700">Help</p>
+                {helpLinks.map(({ label, href }) => (
+                  <Link
+                    key={label}
+                    href={href}
+                    onClick={() => setMenuOpen(false)}
+                    className="block px-2 py-1 text-sm text-sky-600 hover:bg-sky-100 rounded"
+                  >
+                    {label}
+                  </Link>
+                ))}
+
+                {/* WhatsApp */}
+                <button
+                  onClick={() => {
+                    openWhatsApp();
+                    setMenuOpen(false);
+                  }}
+                  className="w-full mt-2 bg-green-500 text-white py-2 rounded-md text-sm font-semibold hover:bg-green-600 transition"
+                >
+                  📲 WhatsApp Us
+                </button>
+              </div>
             </nav>
           </div>
         </div>

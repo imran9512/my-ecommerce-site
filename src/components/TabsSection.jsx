@@ -9,15 +9,12 @@ export default function TabsSection({ product }) {
     const fullStars = Math.floor(rating);
     const halfStars = rating % 1 === 0.5 ? 1 : 0;
     const emptyStars = 5 - fullStars - halfStars;
-
     return (
       <div className="flex items-center space-x-2">
         {Array.from({ length: fullStars }).map((_, i) => (
           <StarIcon key={i} className="w-5 h-5 text-yellow-400" />
         ))}
-        {halfStars > 0 && (
-          <StarIcon className="w-5 h-5 text-yellow-300" />
-        )}
+        {halfStars > 0 && <StarIcon className="w-5 h-5 text-yellow-300" />}
         {Array.from({ length: emptyStars }).map((_, i) => (
           <StarIcon key={i + fullStars + halfStars} className="w-5 h-5 text-gray-300" />
         ))}
@@ -28,17 +25,19 @@ export default function TabsSection({ product }) {
   return (
     <div className="mt-10">
       <div className="flex border-b">
-        {['desc', 'reviews'].map((tab) => (
+        {['desc', 'reviews', 'meta'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActive(tab)}
             className={`px-4 py-2 font-semibold ${
               active === tab
                 ? 'border-b-2 border-blue-500 text-blue-600'
+                : tab === 'meta'
+                ? 'text-gray-400 hover:text-gray-500'
                 : 'text-gray-600'
             }`}
           >
-            {tab === 'desc' ? 'Description' : 'Reviews'}
+            {tab === 'desc' ? 'Description' : tab === 'reviews' ? 'Reviews' : 'Meta Info'}
           </button>
         ))}
       </div>
@@ -55,16 +54,28 @@ export default function TabsSection({ product }) {
           <div>
             <ul className="list-disc space-y-4">
               {product.reviews.map((review, index) => (
-                <li key={index} className="flex flex-col items-start space-x-1 mb-4 border border border-gray-300 rounded p-4">
+                <li key={index} className="flex flex-col items-start space-x-1 mb-4 border border-gray-300 rounded p-4">
                   <div className="flex items-center space-x-2">
-                      <span className="font-semibold mr-2">{review.name}</span> &emsp; <span className="italic text-green-500">(Verified Buyer)</span>&emsp; &emsp;
-                      {renderStars(review.rating)}
+                    <span className="font-semibold mr-2">{review.name}</span>
+                    <span className="italic text-green-500">(Verified Buyer)</span>
+                    {renderStars(review.rating)}
                   </div>
                   <p className="mt-2">{review.date}</p>
                   <p className="mt-2">{review.comment}</p>
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {active === 'meta' && (
+          <div className="text-sm text-gray-400 space-y-2 p-4 bg-gray-50 rounded">
+            <p>
+              <strong>Meta Title:</strong> {product.metaTitle}
+            </p>
+            <p>
+              <strong>Meta Description:</strong> {product.metaDescription}
+            </p>
           </div>
         )}
       </div>
