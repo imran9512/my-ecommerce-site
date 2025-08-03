@@ -14,6 +14,7 @@ export const GOOGLE_FORM_FIELDS = {
   products_json: 'entry.2042780537',
   subtotal:  'entry.706630286',
   discount:  'entry.2035867855',
+  delivery_charges: 'entry.2077670955',
   grand_total: 'entry.1062659703',
 };
 
@@ -33,10 +34,19 @@ export const SITE_NAME = 'AAP KI SEHAT';
 export const WHATSAPP_NUMBER = '+923001234567';
 
 // helper – generate order id
-export const generateOrderId = (orderNum = 1) => {
+export const generateOrderId = () => {
   const now = new Date();
   const year = now.getFullYear().toString().slice(-2);
-  const month = String.fromCharCode(65 + now.getMonth()); // A=Jan … L=Dec
+  const month = String.fromCharCode(65 + now.getMonth()); // A–L
   const day = now.getDate().toString().padStart(2, '0');
-  return `${year}${month}${day}O${orderNum}`;
+  const key = `${year}${month}${day}`;
+  const stored = Number(localStorage.getItem(`orderCounter-${key}`)) || 0;
+  const next = stored + 1;
+  localStorage.setItem(`orderCounter-${key}`, next);
+
+  return `${year}${month}${day}O${next}`;
 };
+
+// Search COnsol Tag
+export const GOOGLE_SEARCH_CONSOLE_TAG =
+  '<meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />';

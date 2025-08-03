@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useCartStore } from '@/stores/cart';
-import products from '@/data/products'; // default export
+import products from '@/data/products'; 
 
 export default function Header() {
   const router = useRouter();
