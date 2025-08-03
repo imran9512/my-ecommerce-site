@@ -39,12 +39,8 @@ export const generateOrderId = () => {
   const year = now.getFullYear().toString().slice(-2);
   const month = String.fromCharCode(65 + now.getMonth()); // A–L
   const day = now.getDate().toString().padStart(2, '0');
-  const key = `${year}${month}${day}`;
-  const stored = Number(localStorage.getItem(`orderCounter-${key}`)) || 0;
-  const next = stored + 1;
-  localStorage.setItem(`orderCounter-${key}`, next);
-
-  return `${year}${month}${day}O${next}`;
+  const ms = now.getTime().toString().slice(-5); // last 5 digits → unique
+  return `${year}${month}${day}O${ms}`;
 };
 
 // Search COnsol Tag
