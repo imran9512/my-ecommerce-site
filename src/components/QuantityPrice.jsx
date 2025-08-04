@@ -24,7 +24,7 @@ export default function QuantityPrice({ product, qty, setQty }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="mt-6 space-y-4">
+    <div className="mt-2 space-y-3">
       {/* Price badge */}
       <div className="flex items-end space-x-2">
         <span className="text-2xl font-bold">Rs {unitPrice.toLocaleString()}</span>
@@ -37,9 +37,9 @@ export default function QuantityPrice({ product, qty, setQty }) {
       </div>
 
       {/* Lowest price note */}
-      <p className="text-sm text-gray-600 mt-1">
-  As low as Rs {Math.min(...Object.values(product.qtyDiscount || { 1: product.price })).toLocaleString()} on higher quantity
-</p>
+      <p className="mt-1 text-sm text-gray-600">
+        As low as Rs {Math.min(...Object.values(product.qtyDiscount || { 1: product.price })).toLocaleString()}
+      </p>
 
       {/* ---------- Stylish Quantity Control ---------- */}
 <div className="mt-6 flex items-left space-x-3">

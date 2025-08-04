@@ -1,7 +1,7 @@
 // src/components/ProductDetail.jsx
 import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
-import { PhoneIcon } from '@heroicons/react/24/solid';
+import { PhoneIcon, CheckIcon } from '@heroicons/react/24/solid';
 import QuantityPrice from './QuantityPrice';
 import { SITE_NAME, WHATSAPP_NUMBER } from '@/data/constants';
 import { useCartStore } from '@/stores/cart';
@@ -10,6 +10,13 @@ export default function ProductDetail({ product }) {
   const [qty, setQty] = useState(1);               // reset per product
   const [currentImg, setCurrentImg] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
+  const [adding, setAdding] = useState(false);
+
+  const handleAddToCart = () => {
+    setAdding(true);
+     useCartStore.getState().addItem(product, qty);
+     setTimeout(() => setAdding(false), 1200); // animation duration
+   };
 
   /* ---------- reset qty when product changes ---------- */
   useEffect(() => {
@@ -164,34 +171,46 @@ export default function ProductDetail({ product }) {
             </span>
           </div>
 
-          <div className="mt-4">
-            <p className="text-sm">In One Pack: <span className="font-semibold italic">{product.tabsMg}</span></p>
-            <p className="text-sm">Origin: <span className="font-semibold italic">{product.origin}</span></p>
-            <p className="text-sm">Type: <span className="font-semibold italic">{product.quality}</span></p>
+          <div className="mt-1">
+            <p className="text-xs">Pack: <span className="underline font-semibold italic">{product.tabsMg}</span> &nbsp; Origin: <span className="underline font-semibold italic">{product.origin}</span>&nbsp; Type: <span className="underline font-semibold italic">{product.quality}</span></p>
           </div>
 
           <QuantityPrice product={product} qty={qty} setQty={setQty} />
 
           <div className="mt-4 flex items-center space-x-3">
             <button
-              disabled={product.stock === 0}
-              className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60"
-              onClick={() => useCartStore.getState().addItem(product, qty)}
-            >
-              Add to Cart
-            </button>
-            <button
+              disabled={product.stock === 0 || adding}
+              onClick={handleAddToCart}
+              className={`relative px-6 py-2 rounded text-white transition-all duration-300 ease-in-out
+                  ${adding ? 'bg-green-500 scale-105' : 'bg-blue-600 hover:bg-blue-700'}
+                  disabled:opacity-60`}
+>
+                  {adding ? (
+                  <span className="flex items-center space-x-1">
+                  <CheckIcon className="w-5 h-5 animate-ping" />
+                   Added
+                  </span>
+                   ) : (
+                   'Add to Cart'
+                   )}
+                  </button>
+             <button
               onClick={openWhatsApp}
               className="flex items-center space-x-1.5 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-            >
+             >
               <PhoneIcon className="w-5 h-5" />
               <span>WhatsApp</span>
             </button>
           </div>
 
           {product.specialNote && (
-            <p className="mt-4 italic font-bold text-blue-800 bg-blue-100 p-2 rounded">
+            <p className="mt-4 bg-pink-100 p-2 rounded">
               {product.specialNote}
+            </p>
+          )}
+          {product.shortDesc && (
+            <p className="mt-2  p-2 rounded">
+              {product.shortDesc}
             </p>
           )}
         </div>

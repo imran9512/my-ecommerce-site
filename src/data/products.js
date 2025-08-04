@@ -10,9 +10,10 @@ const products = [
     rating: 4.8,                  // sirf stars, counts nahi
     reviewCount: 5,              // reviews ki taadad
     images: [
-      '/Prod-images/best numbing cream in pakistan.webp',
-      '/Prod-images/buy ritalin 10 in lahore.webp',
-      '/Prod-images/cialis alternative price in pakistan.webp',
+      '/Prod-images/1.webp',
+      '/Prod-images/2.webp',
+      '/Prod-images/3.webp',
+      '/Prod-images/4.webp',
     ],
     price: 300,                 // 1 qty base price
     offerPrice: 270,             // discounted price (lowest qtyDiscount ya actual offer)
@@ -25,6 +26,9 @@ const products = [
       7: 240,
       8: 230,
     },
+    tabsMg: '5 Tabs',
+    origin: 'Pakistan',
+    quality: 'Original not genric',
     shortDesc: 'Compact, foldable, Bluetooth enabled treadmill for home workouts.',
     longDesc: `
       * **Motor:** 2.25 HP continuous duty  
@@ -69,9 +73,10 @@ const products = [
     rating: 4.8,                  // sirf stars, counts nahi
     reviewCount: 3,              // reviews ki taadad
     images: [
-      '/Prod-images/best numbing cream in pakistan.webp',
-      '/Prod-images/buy ritalin 10 in lahore.webp',
-      '/Prod-images/cialis alternative price in pakistan.webp',
+      '/Prod-images/2.webp',
+      '/Prod-images/3.webp',
+      '/Prod-images/4.webp',
+      '/Prod-images/1.webp',
     ],
     price: 500,                 // 1 qty base price
     offerPrice: 450,             // discounted price (lowest qtyDiscount ya actual offer)
@@ -125,9 +130,10 @@ const products = [
     rating: 4.8,                  // sirf stars, counts nahi
     reviewCount: 2,              // reviews ki taadad
     images: [
-      '/Prod-images/best numbing cream in pakistan.webp',
-      '/Prod-images/buy ritalin 10 in lahore.webp',
-      '/Prod-images/cialis alternative price in pakistan.webp',
+      '/Prod-images/3.webp',
+      '/Prod-images/4.webp',
+      '/Prod-images/1.webp',
+      '/Prod-images/2.webp',
     ],
     price: 300,                 // 1 qty base price
     offerPrice: 270,             // discounted price (lowest qtyDiscount ya actual offer)
@@ -180,9 +186,10 @@ const products = [
     rating: 4.8,                  // sirf stars, counts nahi
     reviewCount: 3,              // reviews ki taadad
     images: [
-      '/Prod-images/best numbing cream in pakistan.webp',
-      '/Prod-images/buy ritalin 10 in lahore.webp',
-      '/Prod-images/cialis alternative price in pakistan.webp',
+      '/Prod-images/4.webp',
+      '/Prod-images/1.webp',
+      '/Prod-images/2.webp',
+      '/Prod-images/3.webp',
     ],
     price: 500,                 // 1 qty base price
     offerPrice: 450,             // discounted price (lowest qtyDiscount ya actual offer)

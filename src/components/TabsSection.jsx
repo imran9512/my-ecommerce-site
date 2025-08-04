@@ -33,7 +33,7 @@ export default function TabsSection({ product }) {
               active === tab
                 ? 'border-b-2 border-blue-500 text-blue-600'
                 : tab === 'meta'
-                ? 'text-gray-400 hover:text-gray-500'
+                ? 'text-gray-200 hover:text-gray-500'
                 : 'text-gray-600'
             }`}
           >
@@ -55,7 +55,7 @@ export default function TabsSection({ product }) {
             <ul className="list-disc space-y-4">
               {product.reviews.map((review, index) => (
                 <li key={index} className="flex flex-col items-start space-x-1 mb-4 border border-gray-300 rounded p-4">
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-3">
                     <span className="font-semibold mr-2">{review.name}</span>
                     <span className="italic text-green-500">(Verified Buyer)</span>
                     {renderStars(review.rating)}
@@ -71,10 +71,10 @@ export default function TabsSection({ product }) {
         {active === 'meta' && (
           <div className="text-sm text-gray-400 space-y-2 p-4 bg-gray-50 rounded">
             <p>
-              <strong>Meta Title:</strong> {product.metaTitle}
+              <strong>Title:</strong> {product.metaTitle}
             </p>
             <p>
-              <strong>Meta Description:</strong> {product.metaDescription}
+              <strong>Description:</strong> {product.metaDescription}
             </p>
           </div>
         )}
