@@ -96,21 +96,36 @@ export default function ProductDetail({ product }) {
       <div className="grid md:grid-cols-2 gap-8">
         {/* ---------- Image Slider ---------- */}
         <div
-          className="relative cursor-pointer select-none"
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-          onClick={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            e.clientX - rect.left > rect.width / 2 ? nextImg() : prevImg();
-          }}
+         className="relative cursor-pointer select-none w-full max-w-full overflow-hidden"
+         onTouchStart={onTouchStart}
+         onTouchEnd={onTouchEnd}
+         onClick={(e) => {
+         const rect = e.currentTarget.getBoundingClientRect();
+         e.clientX - rect.left > rect.width / 2 ? nextImg() : prevImg();
+        }}
         >
-          <Image
-            src={product.images[currentImg]}
-            alt={product.name}
-            width={600}
-            height={400}
-            className="rounded-lg object-cover"
-          />
+        <Image
+         src={product.images[currentImg]}
+         alt={product.name}
+         layout="responsive"
+         width={600}
+         height={400}
+         className="rounded-lg object-cover w-full"
+         />
+
+       {/* subtle left / right chevrons */}
+        <button
+         onClick={(e) => { e.stopPropagation(); prevImg(); }}
+    className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/30 text-white rounded-full p-1.5 text-xs transition"
+         >
+          &larr;
+        </button>
+        <button
+          onClick={(e) => { e.stopPropagation(); nextImg(); }}
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/20 hover:bg-black/30 text-white rounded-full p-1.5 text-xs transition"
+         >
+          &rarr;
+        </button>
           {/* Thumbnails */}
           <div className="flex justify-center mt-2 space-x-1.5">
             {product.images.map((img, idx) => (
