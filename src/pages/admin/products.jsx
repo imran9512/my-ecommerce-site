@@ -4,10 +4,10 @@ import { SITE_NAME } from '@/data/constants';
 import { PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 const OWNER = 'imran9512';
-const REPO  = 'my-ecommerce-site';
-const FILE  = 'src/data/products.js';
+const REPO = 'my-ecommerce-site';
+const FILE = 'src/data/products.js';
 
-/* ---------------- helpers ---------------- */
+/* ---------- helpers ---------- */
 const api = (path, opts) =>
   fetch(`https://api.github.com/repos/${OWNER}/${REPO}${path}`, {
     headers: { Authorization: `token ${localStorage.getItem('gh_token')}`, 'Content-Type': 'application/json' },
@@ -43,22 +43,22 @@ export default function AdminProducts() {
   const [edit, setEdit] = useState(null);
   const [images, setImages] = useState([]);
 
-  /* load products */
+  /* load products & images */
   useEffect(() => {
     const t = localStorage.getItem('gh_token');
-    if (!t) return setToken('');
+    if (!t) return;
     setToken(t);
     api(`/contents/${FILE}`)
       .then((f) => fetch(f.download_url))
       .then((r) => r.text())
       .then((txt) => setProducts(eval(txt.replace('export default', ''))));
 
-    /* load images from public/Prod-images */
+    /* list images from public/Prod-images */
     fetch('/Prod-images')
       .then((r) => r.text())
-      .then((txt) => {
+      .then((html) => {
         const parser = new DOMParser();
-        const doc = parser.parseFromString(txt, 'text/html');
+        const doc = parser.parseFromString(html, 'text/html');
         const links = Array.from(doc.querySelectorAll('a'))
           .map((a) => a.textContent.trim())
           .filter((t) => t.endsWith('.webp') || t.endsWith('.jpg'));
@@ -71,7 +71,7 @@ export default function AdminProducts() {
     const content = btoa(`export default ${JSON.stringify(list, null, 2)}`);
     await api(`/contents/${FILE}`, {
       method: 'PUT',
-      body: JSON.stringify({ message: 'Update via admin', content, sha }),
+      body: JSON.stringify({ message: 'Update products via admin', content, sha }),
     });
     alert('Saved!');
     window.location.reload();
@@ -102,6 +102,7 @@ export default function AdminProducts() {
   };
 
   /* helpers */
+  const handleChange = (k, v) => setEdit((prev) => ({ ...prev, [k]: v }));
   const handleArray = (val) => val.split(',').map((v) => v.trim()).filter(Boolean);
   const handleObj = (val) => {
     const obj = {};
@@ -112,19 +113,26 @@ export default function AdminProducts() {
     return obj;
   };
 
-  /* form state & refs */
-  const formRef = useRef(null);
+  /* review helpers */
+  const addReview = () =>
+    setEdit((f) => ({ ...f, reviews: [...f.reviews, { date: '', name: '', rating: 0, comment: '' }] }));
+  const updateReview = (idx, key, val) =>
+    setEdit((f) => ({
+      ...f,
+      reviews: f.reviews.map((r, i) => (i === idx ? { ...r, [key]: val } : r)),
+    }));
+  const removeReview = (idx) =>
+    setEdit((f) => ({ ...f, reviews: f.reviews.filter((_, i) => i !== idx) }));
+
+  /* form state */
   const [form, setForm] = useState({ ...blank });
 
-  /* edit existing */
+  /* mount products */
   useEffect(() => {
-    if (edit) setForm({ ...edit });
-  }, [edit]);
+    if (products.length) setForm({ ...blank });
+  }, [products]);
 
-  const handleChange = (k, v) => {
-    setForm((prev) => ({ ...prev, [k]: v }));
-  };
-
+  /* save / delete */
   const handleSave = () => {
     const idx = products.findIndex((p) => p.id === form.id);
     const list = idx >= 0 ? [...products] : [...products, form];
@@ -133,42 +141,7 @@ export default function AdminProducts() {
   };
   const remove = (id) => save(products.filter((p) => p.id !== id));
 
-  /* review helpers */
-  const addReview = () =>
-    setForm((f) => ({ ...f, reviews: [...f.reviews, { date: '', name: '', rating: 0, comment: '' }] }));
-  const updateReview = (idx, key, val) =>
-    setForm((f) => ({
-      ...f,
-      reviews: f.reviews.map((r, i) => (i === idx ? { ...r, [key]: val } : r)),
-    }));
-  const removeReview = (idx) =>
-    setForm((f) => ({ ...f, reviews: f.reviews.filter((_, i) => i !== idx) }));
-
-  /* image picker */
-  const ImagePicker = ({ value, onChange }) => (
-    <div>
-      <label>Images</label>
-      <select
-        multiple
-        value={value || []}
-        onChange={(e) => onChange(Array.from(e.target.selectedOptions, (o) => o.value))}
-        className="w-full border px-2 py-1 h-32"
-      >
-        {images.map((img) => (
-          <option key={img} value={`/Prod-images/${img}`}>
-            {img}
-          </option>
-        ))}
-      </select>
-      <div className="flex flex-wrap gap-1 mt-1">
-        {value?.map((img) => (
-          <img key={img} src={img} className="w-10 h-10 object-cover rounded" alt="" />
-        ))}
-      </div>
-    </div>
-  );
-
-  /* form field component */
+  /* field component */
   const Field = ({ k, type = 'text', isArray = false, isObj = false }) => (
     <div>
       <label className="block font-semibold text-sm">{k}</label>
@@ -202,6 +175,30 @@ export default function AdminProducts() {
           type={type}
         />
       )}
+    </div>
+  );
+
+  /* image picker */
+  const ImagePicker = ({ value, onChange }) => (
+    <div>
+      <label className="block font-semibold text-sm">Images</label>
+      <select
+        multiple
+        value={value || []}
+        onChange={(e) => onChange(Array.from(e.target.selectedOptions, (o) => o.value))}
+        className="w-full border px-2 py-1 h-32"
+      >
+        {images.map((img) => (
+          <option key={img} value={`/Prod-images/${img}`}>
+            {img}
+          </option>
+        ))}
+      </select>
+      <div className="flex flex-wrap gap-1 mt-1">
+        {value?.map((img) => (
+          <img key={img} src={img} className="w-10 h-10 object-cover rounded" alt="" />
+        ))}
+      </div>
     </div>
   );
 
@@ -242,7 +239,7 @@ export default function AdminProducts() {
       {/* dropdown of existing products */}
       <select
         value={edit?.id || ''}
-        onChange={(e) => setEdit(products.find((p) => p.id === e.target.value))}
+        onChange={(e) => setForm(products.find((p) => p.id === e.target.value) || { ...blank })}
         className="mb-4 border px-2 py-1"
       >
         <option value="">-- Select Product to Edit --</option>
@@ -254,11 +251,11 @@ export default function AdminProducts() {
       </select>
 
       {/* new product */}
-      <button onClick={() => setEdit({ ...blank })} className="mb-4 bg-green-500 text-white px-3 py-1">
+      <button onClick={() => setForm({ ...blank })} className="mb-4 bg-green-500 text-white px-3 py-1">
         + New Product
       </button>
 
-      {edit && (
+      {form && (
         <div className="space-y-3 border p-4 rounded">
           <Field k="id" />
           <Field k="slug" />
@@ -269,7 +266,7 @@ export default function AdminProducts() {
           <Field k="reviewCount" type="number" />
           <Field k="price" type="number" />
           <Field k="offerPrice" type="number" />
-          <ImagePicker value={edit.images} onChange={(v) => handleChange('images', v)} />
+          <ImagePicker value={form.images} onChange={(v) => handleChange('images', v)} />
           <Field k="categories" isArray />
           <Field k="qtyDiscount" isObj />
           <Field k="related" isArray />
@@ -284,8 +281,8 @@ export default function AdminProducts() {
             <button onClick={handleSave} className="bg-blue-500 text-white px-3 py-1">
               Save
             </button>
-            {edit.id && (
-              <button onClick={() => remove(edit.id)} className="bg-red-500 text-white px-3 py-1">
+            {form.id && (
+              <button onClick={() => remove(form.id)} className="bg-red-500 text-white px-3 py-1">
                 Delete
               </button>
             )}

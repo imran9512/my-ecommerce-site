@@ -8,8 +8,8 @@ import {
   GOOGLE_FORM_FIELDS,
   COURIER_OPTIONS,
   ONLINE_DISCOUNT_PERCENT,
-  generateOrderId,
 } from '@/data/constants';
+import { generateOrderId } from '@/components/orderId';
 
 export default function CheckoutPage() {
   const [items, setItems] = useState([]);
