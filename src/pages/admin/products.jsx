@@ -1,23 +1,25 @@
 // src/pages/admin/products.jsx
 import { useEffect, useState } from 'react';
 import { SITE_NAME } from '@/data/constants';
+import { PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 const OWNER = 'imran9512';
-const REPO = 'my-ecommerce-site';
-const FILE = 'src/data/products.js';
+const REPO  = 'my-ecommerce-site';
+const FILE  = 'src/data/products.js';
 
 export default function AdminProducts() {
   const [token, setToken] = useState('');
   const [products, setProducts] = useState([]);
   const [form, setForm] = useState(null);
 
-  /* GitHub helpers */
+  /* GitHub helpers (token from localStorage) */
   const api = (path, opts) =>
     fetch(`https://api.github.com/repos/${OWNER}/${REPO}${path}`, {
       headers: { Authorization: `token ${localStorage.getItem('gh_token')}`, 'Content-Type': 'application/json' },
       ...opts,
     }).then((r) => r.json());
 
+  /* OAuth login (popup) */
   const login = () => {
     const url = `https://github.com/login/oauth/authorize?client_id=Ov23liigiC0PS07gHcCK&scope=repo`;
     const popup = window.open(url, 'oauth', 'width=500,height=600');
@@ -48,10 +50,7 @@ export default function AdminProducts() {
     api(`/contents/${FILE}`)
       .then((f) => fetch(f.download_url))
       .then((r) => r.text())
-      .then((txt) => {
-        const data = eval(txt.replace('export default', ''));
-        setProducts(data);
-      });
+      .then((txt) => setProducts(eval(txt.replace('export default', ''))));
   }, [token]);
 
   const save = async (list) => {
@@ -59,15 +58,15 @@ export default function AdminProducts() {
     const content = btoa(`export default ${JSON.stringify(list, null, 2)}`);
     await api(`/contents/${FILE}`, {
       method: 'PUT',
-      body: JSON.stringify({ message: 'Update products', content, sha }),
+      body: JSON.stringify({ message: 'Update products via admin', content, sha }),
     });
     alert('Saved!');
     window.location.reload();
   };
 
-  /* blank template */
+  /* helpers */
   const blank = {
-    id: '',
+    id: Date.now().toString(),
     slug: '',
     name: '',
     categories: [],
@@ -89,7 +88,7 @@ export default function AdminProducts() {
     reviews: [],
   };
 
-  /* helpers */
+  /* field helpers */
   const handleChange = (k, v) => setForm((f) => ({ ...f, [k]: v }));
   const handleArray = (val) => val.split(',').map((v) => v.trim()).filter(Boolean);
   const handleObj = (val) => {
@@ -117,6 +116,71 @@ export default function AdminProducts() {
     if (products.length) setForm({ ...blank });
   }, [products]);
 
+  /* save / delete */
+  const handleSave = () => {
+    const idx = products.findIndex((p) => p.id === form.id);
+    const list = idx >= 0 ? [...products] : [...products, form];
+    list[idx >= 0 ? idx : list.length - 1] = form;
+    save(list);
+  };
+  const remove = (id) => save(products.filter((p) => p.id !== id));
+
+  /* field component */
+  const Field = ({ k, type = 'text', isArray = false, isObj = false }) => (
+    <div>
+      <label className="block font-semibold text-sm">{k}</label>
+      {type === 'textarea' ? (
+        <textarea
+          value={form[k] || ''}
+          onChange={(e) => handleChange(k, e.target.value)}
+          className="w-full border px-2 py-1"
+        />
+      ) : isArray ? (
+        <input
+          value={(form[k] || []).join(', ')}
+          onChange={(e) => handleChange(k, handleArray(e.target.value))}
+          className="w-full border px-2 py-1"
+          placeholder="comma separated"
+        />
+      ) : isObj ? (
+        <input
+          value={Object.entries(form[k] || {})
+            .map(([a, b]) => `${a}:${b}`)
+            .join(', ')}
+          onChange={(e) => handleChange(k, handleObj(e.target.value))}
+          className="w-full border px-2 py-1"
+          placeholder="qty:price, qty:price"
+        />
+      ) : (
+        <input
+          value={form[k] || ''}
+          onChange={(e) => handleChange(k, type === 'number' ? Number(e.target.value) : e.target.value)}
+          className="w-full border px-2 py-1"
+          type={type}
+        />
+      )}
+    </div>
+  );
+
+  /* review builder */
+  const ReviewBuilder = () => (
+    <div>
+      <label className="block font-semibold text-sm">Reviews</label>
+      {form.reviews.map((r, idx) => (
+        <div key={idx} className="flex flex-col space-y-1 border p-2 mb-2">
+          <input placeholder="date" value={r.date} onChange={(e) => updateReview(idx, 'date', e.target.value)} />
+          <input placeholder="name" value={r.name} onChange={(e) => updateReview(idx, 'name', e.target.value)} />
+          <input placeholder="rating" type="number" value={r.rating} onChange={(e) => updateReview(idx, 'rating', Number(e.target.value))} />
+          <textarea placeholder="comment" value={r.comment} onChange={(e) => updateReview(idx, 'comment', e.target.value)} />
+          <button onClick={() => removeReview(idx)} className="text-red-500 text-xs">Remove</button>
+        </div>
+      ))}
+      <button onClick={addReview} className="text-xs bg-blue-500 text-white px-2 py-1 rounded">
+        + Add Review
+      </button>
+    </div>
+  );
+
   if (!token)
     return (
       <div className="p-10 text-center">
@@ -125,73 +189,6 @@ export default function AdminProducts() {
         </button>
       </div>
     );
-
-  /* ---------- FORM ---------- */
-  const Form = ({ f }) => (
-    <div className="space-y-3 border p-4 rounded">
-      {['id', 'slug', 'name', 'sku', 'stock', 'rating', 'reviewCount', 'price', 'offerPrice', 'shortDesc', 'longDesc', 'specialNote', 'metaTitle', 'metaDescription', 'ActiveSalt'].map((k) => (
-        <input
-          key={k}
-          placeholder={k}
-          value={f[k] || ''}
-          onChange={(e) => handleChange(k, k === 'stock' || k === 'rating' ? Number(e.target.value) : e.target.value)}
-          className="w-full border px-2 py-1"
-        />
-      ))}
-      <label>Categories (comma)</label>
-      <input
-        value={(f.categories || []).join(', ')}
-        onChange={(e) => handleChange('categories', handleArray(e.target.value))}
-        className="w-full border px-2 py-1"
-      />
-      <label>Qty Discount (qty:price,...)</label>
-      <input
-        value={Object.entries(f.qtyDiscount || {})
-          .map(([k, v]) => `${k}:${v}`)
-          .join(', ')}
-        onChange={(e) => handleChange('qtyDiscount', handleObj(e.target.value))}
-        className="w-full border px-2 py-1"
-      />
-      <label>Images (comma URLs)</label>
-      <textarea
-        value={(f.images || []).join(', ')}
-        onChange={(e) => handleChange('images', handleArray(e.target.value))}
-        className="w-full border px-2 py-1"
-      />
-      <label>Related IDs (comma)</label>
-      <input
-        value={(f.related || []).join(', ')}
-        onChange={(e) => handleChange('related', handleArray(e.target.value))}
-        className="w-full border px-2 py-1"
-      />
-
-      {/* reviews builder */}
-      <div>
-        <label className="block font-semibold text-sm">Reviews</label>
-        {f.reviews.map((r, idx) => (
-          <div key={idx} className="flex flex-col space-y-1 border p-2 mb-2">
-            <input placeholder="date" value={r.date} onChange={(e) => updateReview(idx, 'date', e.target.value)} />
-            <input placeholder="name" value={r.name} onChange={(e) => updateReview(idx, 'name', e.target.value)} />
-            <input placeholder="rating" type="number" value={r.rating} onChange={(e) => updateReview(idx, 'rating', Number(e.target.value))} />
-            <textarea placeholder="comment" value={r.comment} onChange={(e) => updateReview(idx, 'comment', e.target.value)} />
-            <button onClick={() => removeReview(idx)} className="text-red-500 text-xs">Remove</button>
-          </div>
-        ))}
-        <button onClick={addReview} className="text-xs bg-blue-500 text-white px-2 py-1 rounded">+ Add Review</button>
-      </div>
-
-      <div className="flex space-x-2">
-        <button onClick={() => save(products.find((p) => p.id === form.id) ? products : [...products, form])} className="bg-blue-500 text-white px-3 py-1">
-          Save
-        </button>
-        {form.id && (
-          <button onClick={() => save(products.filter((p) => p.id !== form.id))} className="bg-red-500 text-white px-3 py-1">
-            Delete
-          </button>
-        )}
-      </div>
-    </div>
-  );
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -216,7 +213,41 @@ export default function AdminProducts() {
         + New Product
       </button>
 
-      {form && <Form f={form} />}
+      {form && (
+        <div className="space-y-3 border p-4 rounded">
+          <Field k="id" />
+          <Field k="slug" />
+          <Field k="name" />
+          <Field k="sku" />
+          <Field k="stock" type="number" />
+          <Field k="rating" type="number" />
+          <Field k="reviewCount" type="number" />
+          <Field k="price" type="number" />
+          <Field k="offerPrice" type="number" />
+          <label>Images (comma URLs)</label>
+          <textarea value={(form.images || []).join(', ')} onChange={(e) => handleChange('images', handleArray(e.target.value))} className="w-full border px-2 py-1" />
+          <Field k="categories" isArray />
+          <Field k="qtyDiscount" isObj />
+          <Field k="related" isArray />
+          <Field k="shortDesc" type="textarea" />
+          <Field k="longDesc" type="textarea" />
+          <Field k="specialNote" />
+          <Field k="metaTitle" />
+          <Field k="metaDescription" />
+          <Field k="ActiveSalt" />
+          <ReviewBuilder />
+          <div className="flex space-x-2">
+            <button onClick={handleSave} className="bg-blue-500 text-white px-3 py-1">
+              Save
+            </button>
+            {form.id && (
+              <button onClick={() => remove(form.id)} className="bg-red-500 text-white px-3 py-1">
+                Delete
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
