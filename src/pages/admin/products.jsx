@@ -1,38 +1,57 @@
+// src/pages/admin/products.jsx
 import { useEffect, useState } from 'react';
+import { SITE_NAME } from '@/data/constants';
 
 const OWNER = 'imran9512';
 const REPO  = 'my-ecommerce-site';
 const FILE  = 'src/data/products.js';
 
 export default function AdminProducts() {
-  const [token, setToken]         = useState('');
+  /* 👇 useEffect runs only on the client */
+  const [token, setToken]         = useState(null);
   const [products, setProducts]   = useState([]);
   const [form, setForm]           = useState(null);
 
-  /* GitHub API wrapper */
+  /* GitHub API wrapper (browser only) */
   const api = (path, opts) =>
     fetch(`https://api.github.com/repos/${OWNER}/${REPO}${path}`, {
-      headers: { Authorization: `token ${localStorage.getItem('gh_token')}` },
+      headers: { Authorization: `token ${typeof window !== 'undefined' ? window.localStorage.getItem('gh_token') : ''}` },
       ...opts,
     }).then((r) => r.json());
 
   /* OAuth popup (unchanged) */
-  const login = () => {
-    const url = `https://github.com/login/oauth/authorize?client_id=Ov23liigiC0PS07gHcCK&scope=repo`;
-    window.open(url, 'oauth', 'width=500,height=600');
-  };
+  const login = () =>
+    window.open(`https://github.com/login/oauth/authorize?client_id=Ov23liigiC0PS07gHcCK&scope=repo`, 'oauth', 'width=500,height=600');
 
-  /* load products once on mount */
+  /* load products once on client mount */
   useEffect(() => {
-    const t = localStorage.getItem('gh_token');
+    const t = typeof window !== 'undefined' ? window.localStorage.getItem('gh_token') : null;
     if (!t) return;
+    setToken(t);
     api(`/contents/${FILE}`)
       .then((f) => fetch(f.download_url))
       .then((r) => r.text())
       .then((txt) => setProducts(eval(txt.replace('export default', ''))));
   }, []);
 
-  /* save */
+  /* helpers */
+  const blank = {
+    id: Date.now().toString(),
+    name: '',
+    slug: '',
+    images: [],
+    categories: [],
+    price: 0,
+    offerPrice: 0,
+    qtyDiscount: {},
+    reviews: [],
+  };
+
+  /* 💡 editable form */
+  const handleChange = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const handleArray = (val) => val.split(',').map((v) => v.trim()).filter(Boolean);
+
+  /* save / delete */
   const save = async (list) => {
     const { sha } = await api(`/contents/${FILE}`);
     const content = btoa(`export default ${JSON.stringify(list, null, 2)}`);
@@ -40,15 +59,12 @@ export default function AdminProducts() {
       method: 'PUT',
       body: JSON.stringify({ message: 'Update products', content, sha }),
     });
-    alert('Products updated');
+    alert('Saved!');
     location.reload();
   };
 
-  /* helpers */
-  const blank = { id: Date.now().toString(), name: '', slug: '', price: 0, images: [], categories: [], reviews: [] };
-  const [edit, setEdit] = useState(blank);
-
-  if (!localStorage.getItem('gh_token'))
+  /* 🔐 login screen */
+  if (typeof window === 'undefined' || !localStorage.getItem('gh_token'))
     return (
       <div className="p-10 text-center">
         <button onClick={login} className="bg-blue-600 text-white px-4 py-2 rounded">
@@ -57,14 +73,14 @@ export default function AdminProducts() {
       </div>
     );
 
-  /* dropdown of existing products */
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Product Admin</h1>
+      <h1 className="text-2xl font-bold mb-4">{SITE_NAME} – Product Admin</h1>
 
+      {/* ✅ dropdown of existing products */}
       <select
-        value={edit?.id || ''}
-        onChange={(e) => setEdit(products.find((p) => p.id === e.target.value) || blank)}
+        value={form?.id || ''}
+        onChange={(e) => setForm(products.find((p) => p.id === e.target.value) || blank)}
         className="mb-4 border px-2 py-1"
       >
         <option value="">-- Select Product to Edit --</option>
@@ -75,18 +91,23 @@ export default function AdminProducts() {
         ))}
       </select>
 
-      {/* Form (simple JSON textarea) */}
-      <textarea
-        value={JSON.stringify(edit, null, 2)}
-        onChange={(e) => setEdit(JSON.parse(e.target.value))}
-        className="w-full border px-2 py-1 h-96"
-      />
+      {/* 🆕 new product button */}
+      <button onClick={() => setForm(blank)} className="mb-4 bg-green-500 text-white px-3 py-1">
+        + New Product
+      </button>
 
-      <div className="mt-4 flex space-x-2">
-        <button onClick={() => save(products)} className="bg-blue-500 text-white px-3 py-1">
-          Save All
-        </button>
-      </div>
+      {form && (
+        <div className="space-y-3 border p-4 rounded">
+          <input placeholder="Name" value={form.name} onChange={(e) => handleChange('name', e.target.value)} className="w-full border px-2 py-1" />
+          <input placeholder="Slug" value={form.slug} onChange={(e) => handleChange('slug', e.target.value)} className="w-full border px-2 py-1" />
+          <input placeholder="Price" type="number" value={form.price} onChange={(e) => handleChange('price', Number(e.target.value))} className="w-full border px-2 py-1" />
+          <textarea placeholder="Images (comma URLs)" value={form.images.join(', ')} onChange={(e) => handleChange('images', handleArray(e.target.value))} className="w-full border px-2 py-1" />
+          <textarea placeholder="Categories (comma)" value={form.categories.join(', ')} onChange={(e) => handleChange('categories', handleArray(e.target.value))} className="w-full border px-2 py-1" />
+          <button onClick={() => save([...products, form])} className="bg-blue-500 text-white px-3 py-1">
+            Save
+          </button>
+        </div>
+      )}
     </div>
   );
 }
