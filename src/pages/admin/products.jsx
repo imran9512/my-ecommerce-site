@@ -1,13 +1,11 @@
 // src/pages/admin/products.jsx
 import { useEffect, useState } from 'react';
-import { SITE_NAME } from '@/data/constants';
 
 const OWNER = 'imran9512';
 const REPO  = 'my-ecommerce-site';
 const FILE  = 'src/data/products.js';
 
 export default function AdminProducts() {
-  /* 👇 useEffect runs only on the client */
   const [token, setToken]         = useState(null);
   const [products, setProducts]   = useState([]);
   const [form, setForm]           = useState(null);
@@ -34,36 +32,47 @@ export default function AdminProducts() {
       .then((txt) => setProducts(eval(txt.replace('export default', ''))));
   }, []);
 
-  /* helpers */
-  const blank = {
-    id: Date.now().toString(),
-    name: '',
-    slug: '',
-    images: [],
-    categories: [],
-    price: 0,
-    offerPrice: 0,
-    qtyDiscount: {},
-    reviews: [],
-  };
-
-  /* 💡 editable form */
-  const handleChange = (k, v) => setForm((f) => ({ ...f, [k]: v }));
-  const handleArray = (val) => val.split(',').map((v) => v.trim()).filter(Boolean);
-
-  /* save / delete */
+  /* save changes */
   const save = async (list) => {
     const { sha } = await api(`/contents/${FILE}`);
     const content = btoa(`export default ${JSON.stringify(list, null, 2)}`);
     await api(`/contents/${FILE}`, {
       method: 'PUT',
-      body: JSON.stringify({ message: 'Update products', content, sha }),
+      body: JSON.stringify({ message: 'Update products via admin', content, sha }),
     });
-    alert('Saved!');
-    location.reload();
+    alert('Saved! Refresh to see new product on site.');
+    window.location.reload();
   };
 
-  /* 🔐 login screen */
+  /* blank template */
+  const blank = {
+    id: Date.now().toString(),
+    slug: '',
+    name: '',
+    categories: [],
+    sku: '',
+    stock: 0,
+    rating: 0,
+    reviewCount: 0,
+    images: [],
+    price: 0,
+    offerPrice: 0,
+    qtyDiscount: {},
+    shortDesc: '',
+    longDesc: '',
+    specialNote: '',
+    related: [],
+    metaTitle: '',
+    metaDescription: '',
+    ActiveSalt: '',
+    reviews: [],
+  };
+
+  /* helpers */
+  const handleChange = (k, v) => setForm((f) => ({ ...f, [k]: v }));
+  const handleArray = (val) => val.split(',').map((v) => v.trim()).filter(Boolean);
+
+  /* login screen */
   if (typeof window === 'undefined' || !localStorage.getItem('gh_token'))
     return (
       <div className="p-10 text-center">
@@ -75,9 +84,9 @@ export default function AdminProducts() {
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">{SITE_NAME} – Product Admin</h1>
+      <h1 className="text-2xl font-bold mb-4">{SITE_NAME} – Product Manager</h1>
 
-      {/* ✅ dropdown of existing products */}
+      {/* dropdown of existing products */}
       <select
         value={form?.id || ''}
         onChange={(e) => setForm(products.find((p) => p.id === e.target.value) || blank)}
@@ -91,7 +100,7 @@ export default function AdminProducts() {
         ))}
       </select>
 
-      {/* 🆕 new product button */}
+      {/* new product */}
       <button onClick={() => setForm(blank)} className="mb-4 bg-green-500 text-white px-3 py-1">
         + New Product
       </button>
@@ -101,8 +110,11 @@ export default function AdminProducts() {
           <input placeholder="Name" value={form.name} onChange={(e) => handleChange('name', e.target.value)} className="w-full border px-2 py-1" />
           <input placeholder="Slug" value={form.slug} onChange={(e) => handleChange('slug', e.target.value)} className="w-full border px-2 py-1" />
           <input placeholder="Price" type="number" value={form.price} onChange={(e) => handleChange('price', Number(e.target.value))} className="w-full border px-2 py-1" />
-          <textarea placeholder="Images (comma URLs)" value={form.images.join(', ')} onChange={(e) => handleChange('images', handleArray(e.target.value))} className="w-full border px-2 py-1" />
-          <textarea placeholder="Categories (comma)" value={form.categories.join(', ')} onChange={(e) => handleChange('categories', handleArray(e.target.value))} className="w-full border px-2 py-1" />
+          <input placeholder="Offer Price" type="number" value={form.offerPrice} onChange={(e) => handleChange('offerPrice', Number(e.target.value))} className="w-full border px-2 py-1" />
+          <input placeholder="Images (comma URLs)" value={form.images.join(', ')} onChange={(e) => handleChange('images', handleArray(e.target.value))} className="w-full border px-2 py-1" />
+          <input placeholder="Categories (comma)" value={form.categories.join(', ')} onChange={(e) => handleChange('categories', handleArray(e.target.value))} className="w-full border px-2 py-1" />
+          <textarea placeholder="Short Description" value={form.shortDesc} onChange={(e) => handleChange('shortDesc', e.target.value)} className="w-full border px-2 py-1" />
+          <textarea placeholder="Long Description" value={form.longDesc} onChange={(e) => handleChange('longDesc', e.target.value)} className="w-full border px-2 py-1" />
           <button onClick={() => save([...products, form])} className="bg-blue-500 text-white px-3 py-1">
             Save
           </button>
