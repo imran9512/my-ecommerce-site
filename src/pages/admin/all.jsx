@@ -5,9 +5,13 @@ import { useSession, signIn } from 'next-auth/react';
 export default function AdminAll() {
   const { data: session, status } = useSession();
 
-  // -------------------- AUTH GUARD --------------------
-  // Do NOT return anything until client-side hydration is complete
-  if (typeof window === 'undefined') return null;
+  /* 1️⃣  Render NOTHING on server (prevents hook crash) */
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true), []);
+
+  if (!isClient) return null; // ⬅️ stops SSR hydration error
+
+  /* 2️⃣  Loading / Not-Logged-In states */
   if (status === 'loading') return <p className="text-center mt-10">Loading…</p>;
   if (!session) {
     return (
@@ -23,13 +27,13 @@ export default function AdminAll() {
     );
   }
 
-  // -------------------- ADMIN UI --------------------
+  /* 3️⃣  Rest of Admin UI (copied from earlier) */
   const [products, setProducts]   = useState([]);
   const [selectedId, setSelectedId] = useState('');
   const [formData, setFormData]   = useState(null);
   const [isNew, setIsNew]         = useState(false);
 
-  // load products from raw GitHub
+  /* load products */
   useEffect(() => {
     const repo   = process.env.NEXT_PUBLIC_GITHUB_REPO || 'username/repo';
     const branch = process.env.NEXT_PUBLIC_GITHUB_BRANCH || 'main';
@@ -39,9 +43,7 @@ export default function AdminAll() {
   }, []);
 
   const resetForm = () => {
-    const maxId = products.length
-      ? Math.max(...products.map(p => parseInt(p.id, 10)))
-      : 0;
+    const maxId = products.length ? Math.max(...products.map(p => +p.id)) : 0;
     setFormData({
       id: String(maxId + 1).padStart(3, '0'),
       slug: '',
@@ -86,21 +88,16 @@ export default function AdminAll() {
       try { parsed = JSON.parse(value); } catch { parsed = {}; }
     } else if (type === 'number') parsed = Number(value);
     else if (type === 'checkbox') parsed = checked;
-
     setFormData(prev => ({ ...prev, [name]: parsed }));
   };
 
   const saveProduct = async () => {
-    const updated = isNew
-      ? [...products, formData]
-      : products.map(p => (p.id === formData.id ? formData : p));
-
+    const updated = isNew ? [...products, formData] : products.map(p => p.id === formData.id ? formData : p);
     const res = await fetch('/api/update-products', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ products: updated, token: session.accessToken }),
     });
-
     if (res.ok) {
       alert('✅ Changes pushed to GitHub!');
       window.location.reload();
@@ -113,13 +110,11 @@ export default function AdminAll() {
   const deleteProduct = async () => {
     if (!confirm('Delete this product?')) return;
     const updated = products.filter(p => p.id !== formData.id);
-
     const res = await fetch('/api/update-products', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ products: updated, token: session.accessToken }),
     });
-
     if (res.ok) {
       alert('✅ Product deleted & pushed to GitHub!');
       window.location.reload();
@@ -135,20 +130,15 @@ export default function AdminAll() {
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <h1 className="text-2xl font-bold">Admin – Products (Live)</h1>
 
-      {/* Product selector */}
       <select onChange={e => handleSelect(e.target.value)} value={selectedId} className="border px-2 py-1">
         <option value="">-- Select Product --</option>
-        {products.map(p => (
-          <option key={p.id} value={p.id}>{p.id} - {p.name}</option>
-        ))}
+        {products.map(p => <option key={p.id} value={p.id}>{p.id} - {p.name}</option>)}
         <option value="new">➕ Add New Product</option>
       </select>
 
-      {/* Form */}
       {formData && (
         <div className="border p-4 rounded space-y-4">
           <h2 className="text-xl font-semibold">{isNew ? 'Add New' : 'Edit'} Product</h2>
-
           {Object.keys(formData).map(key => (
             <div key={key} className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
               <label className="font-semibold">{key}</label>
