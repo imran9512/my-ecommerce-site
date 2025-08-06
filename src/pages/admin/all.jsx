@@ -3,20 +3,18 @@ import { useEffect, useState } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 
 export default function AdminAll() {
+  /* 1️⃣  NEVER render on server (prevents hook count mismatch) */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  /* 2️⃣  Auth states */
   const { data: session, status } = useSession();
-
-  /* 1️⃣  Render NOTHING on server (prevents hook crash) */
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => setIsClient(true), []);
-
-  if (!isClient) return null; // ⬅️ stops SSR hydration error
-
-  /* 2️⃣  Loading / Not-Logged-In states */
   if (status === 'loading') return <p className="text-center mt-10">Loading…</p>;
   if (!session) {
     return (
-      <div className="p-8 max-w-md mx-auto space-y-4 text-center">
-        <h1 className="text-2xl font-bold">Admin Login</h1>
+      <div className="p-8 max-w-md mx-auto text-center">
+        <h1 className="text-2xl font-bold mb-4">Admin Login</h1>
         <button
           onClick={() => signIn('github')}
           className="bg-black text-white px-5 py-2 rounded"
@@ -27,15 +25,14 @@ export default function AdminAll() {
     );
   }
 
-  /* 3️⃣  Rest of Admin UI (copied from earlier) */
-  const [products, setProducts]   = useState([]);
+  /* 3️⃣  Admin panel */
+  const [products, setProducts] = useState([]);
   const [selectedId, setSelectedId] = useState('');
-  const [formData, setFormData]   = useState(null);
-  const [isNew, setIsNew]         = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [isNew, setIsNew] = useState(false);
 
-  /* load products */
   useEffect(() => {
-    const repo   = process.env.NEXT_PUBLIC_GITHUB_REPO || 'username/repo';
+    const repo = process.env.NEXT_PUBLIC_GITHUB_REPO || 'username/repo';
     const branch = process.env.NEXT_PUBLIC_GITHUB_BRANCH || 'main';
     fetch(`https://raw.githubusercontent.com/${repo}/${branch}/src/data/products.js`)
       .then(r => r.text())
@@ -71,12 +68,8 @@ export default function AdminAll() {
 
   const handleSelect = id => {
     setSelectedId(id);
-    if (id === 'new') {
-      setIsNew(true); resetForm();
-    } else {
-      setIsNew(false);
-      setFormData({ ...products.find(p => p.id === id) });
-    }
+    if (id === 'new') { setIsNew(true); resetForm(); }
+    else { setIsNew(false); setFormData({ ...products.find(p => p.id === id) }); }
   };
 
   const handleChange = e => {
@@ -99,7 +92,7 @@ export default function AdminAll() {
       body: JSON.stringify({ products: updated, token: session.accessToken }),
     });
     if (res.ok) {
-      alert('✅ Changes pushed to GitHub!');
+      alert('✅ Saved to GitHub!');
       window.location.reload();
     } else {
       const err = await res.json();
@@ -116,7 +109,7 @@ export default function AdminAll() {
       body: JSON.stringify({ products: updated, token: session.accessToken }),
     });
     if (res.ok) {
-      alert('✅ Product deleted & pushed to GitHub!');
+      alert('✅ Deleted & pushed to GitHub!');
       window.location.reload();
     } else {
       const err = await res.json();
@@ -143,11 +136,11 @@ export default function AdminAll() {
             <div key={key} className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
               <label className="font-semibold">{key}</label>
               {['longDesc', 'metaDescription', 'specialNote'].includes(key) ? (
-                <textarea name={key} value={formData[key]} onChange={handleChange} className="border px-2 py-1" rows={3} />
+                <textarea name={key} value={formData[key]} onChange={handleChange} rows={3} className="border px-2 py-1" />
               ) : key === 'active' ? (
                 <input type="checkbox" name={key} checked={formData[key]} onChange={handleChange} />
               ) : key === 'qtyDiscount' ? (
-                <textarea name={key} value={JSON.stringify(formData[key], null, 2)} onChange={handleChange} className="font-mono border px-2 py-1" rows={3} />
+                <textarea name={key} value={JSON.stringify(formData[key], null, 2)} onChange={handleChange} rows={3} className="font-mono border px-2 py-1" />
               ) : (
                 <input type={typeof formData[key] === 'number' ? 'number' : 'text'} name={key} value={formData[key]} onChange={handleChange} className="border px-2 py-1" />
               )}
