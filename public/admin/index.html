@@ -3,36 +3,217 @@
 <head>
   <meta charset="utf-8" />
   <title>Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body { font-family: sans-serif; margin: 0; }
-    .login { padding: 40px; text-align: center; }
-    button { padding: 8px 16px; cursor: pointer; }
+    body { font-family: sans-serif; margin: 0; padding: 40px; max-width: 900px; }
+    label { font-weight: 600; display: block; margin: 8px 0 2px; }
+    input, textarea, select { width: 100%; padding: 6px; margin-bottom: 10px; }
+    button { padding: 8px 16px; margin-right: 8px; cursor: pointer; }
+    .section { margin-bottom: 30px; }
   </style>
 </head>
 <body>
-  <div id="root" class="login">
-    <h1>Admin Login</h1>
-    <button id="loginBtn">Login with GitHub</button>
+
+  <h1>Admin – Products</h1>
+
+  <!-- GitHub OAuth -->
+  <div id="login" style="display:none">
+    <button onclick="login()">Login with GitHub</button>
+  </div>
+
+  <!-- Product selector -->
+  <div id="panel" style="display:none">
+    <select id="productSelect">
+      <option value="">-- Select Product --</option>
+      <option value="new">➕ Add New Product</option>
+    </select>
+
+    <form id="form">
+      <!-- all fields auto-generated -->
+    </form>
   </div>
 
   <script>
-    /* Simple GitHub OAuth pop-up */
-    document.getElementById('loginBtn').addEventListener('click', () => {
+    // GitHub OAuth
+    function login() {
+      const clientId = 'Ov23liigiC0PS07gHcCK'; // your GitHub App client id
       const redirectUri = location.origin + '/api/auth/callback/github';
-      const clientId = 'Ov23liigiC0PS07gHcCK'; // <-- your GitHub client id
       const url =
         'https://github.com/login/oauth/authorize' +
         '?client_id=' + clientId +
         '&redirect_uri=' + encodeURIComponent(redirectUri) +
         '&scope=repo';
       window.location.href = url;
-    });
+    }
 
-    /* after callback (optional) */
+    // Check if we have a GitHub token
     const params = new URLSearchParams(location.search);
-    if (params.has('code')) {
-      document.getElementById('root').innerHTML =
-        '<h1>Logged in</h1><p>Admin panel will be here</p>';
+    const token = params.get('token') || localStorage.getItem('ghToken');
+    if (!token) {
+      document.getElementById('login').style.display = 'block';
+    } else {
+      localStorage.setItem('ghToken', token);
+      document.getElementById('panel').style.display = 'block';
+      loadProducts(token);
+    }
+
+    // Load products
+    async function loadProducts(token) {
+      const repo = 'username/repo'; // <- your repo
+      const branch = 'main';
+      const res = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/src/data/products.js`);
+      const text = await res.text();
+      const products = eval(text.replace('export default', ''));
+      populateSelect(products);
+    }
+
+    // Populate dropdown
+    function populateSelect(products) {
+      const select = document.getElementById('productSelect');
+      products.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = `${p.id} - ${p.name}`;
+        select.appendChild(opt);
+      });
+      window.products = products;
+      select.addEventListener('change', handleSelect);
+    }
+
+    // Show form
+    function handleSelect(e) {
+      const id = e.target.value;
+      if (id === 'new') {
+        buildForm(newProduct());
+      } else {
+        buildForm(window.products.find(p => p.id === id));
+      }
+    }
+
+    // Empty product skeleton
+    function newProduct() {
+      const maxId = window.products.length ? Math.max(...window.products.map(p => +p.id)) : 0;
+      return {
+        id: String(maxId + 1).padStart(3, '0'),
+        slug: '',
+        name: '',
+        active: true,
+        categories: [],
+        sku: '',
+        stock: 0,
+        rating: 0,
+        reviewCount: 0,
+        images: [],
+        price: 0,
+        offerPrice: 0,
+        qtyDiscount: {},
+        shortDesc: '',
+        longDesc: '',
+        specialNote: '',
+        related: [],
+        metaTitle: '',
+        metaDescription: '',
+        ActiveSalt: '',
+        reviews: []
+      };
+    }
+
+    // Build form
+    function buildForm(obj) {
+      const form = document.getElementById('form');
+      form.innerHTML = '';
+      Object.entries(obj).forEach(([k, v]) => {
+        const lbl = document.createElement('label');
+        lbl.textContent = k;
+        form.appendChild(lbl);
+
+        let input;
+        if (typeof v === 'boolean') {
+          input = document.createElement('input');
+          input.type = 'checkbox';
+          input.checked = v;
+        } else if (typeof v === 'number') {
+          input = document.createElement('input');
+          input.type = 'number';
+          input.value = v;
+        } else if (['longDesc', 'metaDescription', 'specialNote'].includes(k)) {
+          input = document.createElement('textarea');
+          input.rows = 3;
+          input.value = v;
+        } else if (k === 'qtyDiscount') {
+          input = document.createElement('textarea');
+          input.rows = 3;
+          input.value = JSON.stringify(v, null, 2);
+        } else {
+          input = document.createElement('input');
+          input.type = 'text';
+          input.value = Array.isArray(v) ? v.join(', ') : v;
+        }
+        input.name = k;
+        form.appendChild(input);
+      });
+
+      const saveBtn = document.createElement('button');
+      saveBtn.textContent = 'Save to GitHub';
+      saveBtn.onclick = () => saveProduct();
+      form.appendChild(saveBtn);
+    }
+
+    // Save
+    async function saveProduct() {
+      const token = localStorage.getItem('ghToken');
+      if (!token) return alert('Not logged in');
+
+      const form = document.getElementById('form');
+      const data = {};
+      [...form.elements].forEach(el => {
+        if (el.name === '') return;
+        let val = el.type === 'checkbox' ? el.checked : el.value;
+        if (el.name === 'categories' || el.name === 'related' || el.name === 'images') {
+          val = val.split(',').map(s => s.trim()).filter(Boolean);
+        }
+        if (el.name === 'qtyDiscount') {
+          try { val = JSON.parse(val); } catch { val = {}; }
+        }
+        if (el.name === 'stock' || el.name === 'price' || el.name === 'rating' || el.name === 'reviewCount') {
+          val = Number(val);
+        }
+        data[el.name] = val;
+      });
+
+      const repo = 'username/repo'; // <- your repo
+      const branch = 'main';
+      const filePath = 'src/data/products.js';
+
+      // 1. get current SHA
+      const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`, {
+        headers: { Authorization: `token ${token}` }
+      });
+      const { sha } = await getRes.json();
+
+      // 2. push new content
+      const content = `export default ${JSON.stringify([...window.products.filter(p => p.id !== data.id), data], null, 2)};`;
+      const body = {
+        message: 'Admin update',
+        content: btoa(content),
+        sha,
+        branch
+      };
+      const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: `token ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+      });
+
+      if (putRes.ok) {
+        alert('✅ Saved!');
+        window.location.reload();
+      } else {
+        alert('❌ ' + (await putRes.json()).message);
+      }
     }
   </script>
 </body>
