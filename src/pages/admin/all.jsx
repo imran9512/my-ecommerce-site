@@ -6,9 +6,10 @@ export default function AdminAll() {
   /* 1️⃣  NEVER render on server (prevents hook count mismatch) */
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
   if (!mounted) return null;
 
-  /* 2️⃣  Auth states */
+  /* 2️⃣  Session check */
   const { data: session, status } = useSession();
   if (status === 'loading') return <p className="text-center mt-10">Loading…</p>;
   if (!session) {
@@ -25,12 +26,13 @@ export default function AdminAll() {
     );
   }
 
-  /* 3️⃣  Admin panel */
+  /* 3️⃣  Admin UI */
   const [products, setProducts] = useState([]);
   const [selectedId, setSelectedId] = useState('');
   const [formData, setFormData] = useState(null);
   const [isNew, setIsNew] = useState(false);
 
+  /* load products */
   useEffect(() => {
     const repo = process.env.NEXT_PUBLIC_GITHUB_REPO || 'username/repo';
     const branch = process.env.NEXT_PUBLIC_GITHUB_BRANCH || 'main';
