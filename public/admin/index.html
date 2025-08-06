@@ -6,209 +6,195 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body{font-family:sans-serif;margin:0;padding:40px;max-width:900px}
-    button{padding:8px 16px;cursor:pointer}
+    label{font-weight:600;display:block;margin:8px 0 2px}
+    input,textarea,select{width:100%;padding:6px;margin-bottom:10px}
+    button{padding:8px 16px;margin-right:8px;cursor:pointer}
+    .section{margin-bottom:30px}
   </style>
 </head>
 <body>
 
-<div id="root">
-  <p>Loading…</p>
+<!--  LOGIN  -->
+<div id="login">
+  <h1>Admin Login</h1>
+  <button onclick="login()">Login with GitHub</button>
 </div>
 
-<!-- NextAuth client bundle -->
-<script src="https://cdn.jsdelivr.net/npm/next-auth@4.24.11/client/index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.development.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.development.js"></script>
+<!--  FORM  -->
+<div id="panel" style="display:none">
+  <h1>Admin – Products</h1>
+  <select id="productSelect">
+    <option value="">-- Select Product --</option>
+    <option value="new">➕ Add New Product</option>
+  </select>
+  <form id="form"></form>
+</div>
 
-<script type="module">
-  /* React mini-app */
-  const { useEffect, useState } = React;
-  const { useSession, signIn } = NextAuth;
+<script>
+/* ---------- CONFIG ---------- */
+const repo = 'imran9512/my-ecommerce-site'; // ← your repo
+const branch = 'main';
+const filePath = 'src/data/products.js';
+const clientId = 'Ov23liigiC0PS07gHcCK';  // ← GitHub App client_id
+const redirectUri = window.location.origin.replace(/\/$/, '') + '/admin/index.html';
 
-  function AdminApp() {
-    const { data: session, status } = useSession();
+/* ---------- OAuth helper ---------- */
+function login() {
+  const url =
+    'https://github.com/login/oauth/access_token' +
+    '?client_id=' + clientId +
+    '&redirect_uri=' + encodeURIComponent(redirectUri) +
+    '&scope=repo';
+  window.location.href = url;
+}
 
-    if (status === 'loading') return <p>Loading…</p>;
-    if (!session) return (
-      <>
-        <h1>Admin Login</h1>
-        <button onClick={() => signIn('github')}>Login with GitHub</button>
-      </>
-    );
+/* ---------- token from URL ---------- */
+function getTokenFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('access_token');
+}
 
-    /* ↓ full product form can go here ↓ */
-    return <p>Logged-in admin panel coming next…</p>;
-  }
+/* ---------- store / retrieve ---------- */
+function store(token) { localStorage.setItem('ghToken', token); }
+function retrieve() { return localStorage.getItem('ghToken'); }
 
-  ReactDOM.createRoot(document.getElementById('root')).render(<AdminApp />);
-</script>
+/* ---------- init ---------- */
+const token = getTokenFromUrl() || retrieve();
+if (token) {
+  store(token);
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+  loadProducts(token);
+} else {
+  /* show GitHub token input manually for now */
+  const div = document.getElementById('login');
+  div.innerHTML += '<br><input id="tokenInput" placeholder="Paste GitHub token"><button onclick="storeAndGo()">Go</button>';
+  window.storeAndGo = () => {
+    const t = document.getElementById('tokenInput').value.trim();
+    if (t) { store(t); window.location.reload(); }
+  };
+}
 
-<script type="module">
-  /* ---------- helper ---------- */
-  const repo = 'imran9512/my-ecommerce-site';   // ← your repo
-  const branch = 'main';
-  const filePath = 'src/data/products.js';
+/* ---------- load products ---------- */
+async function loadProducts(token) {
+  const res = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`);
+  const text = await res.text();
+  window.products = eval(text.replace('export default', ''));
+  populateSelector(window.products);
+}
 
-  let products = [];
-  let token = localStorage.getItem('ghToken');
+/* ---------- dropdown ---------- */
+function populateSelector(list) {
+  const sel = document.getElementById('productSelect');
+  sel.innerHTML = '<option value="">-- Select Product --</option><option value="new">➕ Add New Product</option>';
+  list.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = `${p.id} - ${p.name}`;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', handleSelect);
+}
 
-  /* ---------- OAuth helper ---------- */
-  function login() {
-    const clientId = 'Ov23liigiC0PS07gHcCK';
-    const redirectUri = location.origin + '/api/auth/callback/github';
-    const url =
-      'https://github.com/login/oauth/authorize' +
-      '?client_id=' + clientId +
-      '&redirect_uri=' + encodeURIComponent(redirectUri) +
-      '&scope=repo';
-    window.location.href = url;
-  }
+/* ---------- show form ---------- */
+function handleSelect(e) {
+  const id = e.target.value;
+  const prod = id === 'new' ? newProduct() : window.products.find(p => p.id === id);
+  buildForm(prod);
+}
 
-  /* ---------- load products ---------- */
-  async function loadProducts() {
-    if (!token) { login(); return; }
-    const res = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`);
-    const text = await res.text();
-    products = eval(text.replace('export default', ''));
-    renderSelector(products);
-  }
+/* ---------- empty skeleton ---------- */
+function newProduct() {
+  const maxId = window.products.length ? Math.max(...window.products.map(p => +p.id)) : 0;
+  return {
+    id: String(maxId + 1).padStart(3, '0'),
+    slug: '',
+    name: '',
+    active: true,
+    categories: [],
+    sku: '',
+    stock: 0,
+    rating: 0,
+    reviewCount: 0,
+    images: [],
+    price: 0,
+    offerPrice: 0,
+    qtyDiscount: {},
+    shortDesc: '',
+    longDesc: '',
+    specialNote: '',
+    related: [],
+    metaTitle: '',
+    metaDescription: '',
+    ActiveSalt: '',
+    reviews: []
+  };
+}
 
-  /* ---------- dropdown ---------- */
-  function renderSelector(list) {
-    const select = document.getElementById('productSelect') || document.createElement('select');
-    select.id = 'productSelect';
-    select.innerHTML = '<option value="">-- Select Product --</option><option value="new">➕ Add New Product</option>';
-    list.forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = `${p.id} - ${p.name}`;
-      select.appendChild(opt);
-    });
-    document.getElementById('root').appendChild(select);
-    select.addEventListener('change', handleSelect);
-  }
-
-  /* ---------- empty skeleton ---------- */
-  function newProduct() {
-    const maxId = products.length ? Math.max(...products.map(p => +p.id)) : 0;
-    return {
-      id: String(maxId + 1).padStart(3, '0'),
-      slug: '',
-      name: '',
-      active: true,
-      categories: [],
-      sku: '',
-      stock: 0,
-      rating: 0,
-      reviewCount: 0,
-      images: [],
-      price: 0,
-      offerPrice: 0,
-      qtyDiscount: {},
-      shortDesc: '',
-      longDesc: '',
-      specialNote: '',
-      related: [],
-      metaTitle: '',
-      metaDescription: '',
-      ActiveSalt: '',
-      reviews: []
-    };
-  }
-
-  /* ---------- show form ---------- */
-  function handleSelect(e) {
-    const id = e.target.value;
-    const prod = id === 'new' ? newProduct() : products.find(p => p.id === id);
-    buildForm(prod);
-  }
-
-  /* ---------- build form ---------- */
-  function buildForm(prod) {
-    const form = document.createElement('form');
-    Object.entries(prod).forEach(([k, v]) => {
-      const lbl = document.createElement('label');
-      lbl.textContent = k;
-      form.appendChild(lbl);
-
-      let input;
-      if (typeof v === 'boolean') {
-        input = document.createElement('input');
-        input.type = 'checkbox';
-        input.checked = v;
-      } else if (typeof v === 'number') {
-        input = document.createElement('input');
-        input.type = 'number';
-        input.value = v;
-      } else if (['longDesc', 'metaDescription', 'specialNote'].includes(k)) {
-        input = document.createElement('textarea');
-        input.rows = 3;
-        input.value = v;
-      } else if (k === 'qtyDiscount') {
-        input = document.createElement('textarea');
-        input.rows = 3;
-        input.value = JSON.stringify(v, null, 2);
-      } else {
-        input = document.createElement('input');
-        input.type = 'text';
-        input.value = Array.isArray(v) ? v.join(', ') : v;
-      }
-      input.name = k;
-      form.appendChild(input);
-    });
-
-    const save = document.createElement('button');
-    save.textContent = 'Save to GitHub';
-    save.onclick = () => saveProduct(prod);
-    form.appendChild(save);
-    document.getElementById('root').appendChild(form);
-  }
-
-  /* ---------- save ---------- */
-  async function saveProduct(prod) {
-    const form = document.querySelector('form');
-    const data = {};
-    [...form.elements].forEach(el => {
-      if (!el.name) return;
-      let val = el.type === 'checkbox' ? el.checked : el.value;
-      if (['categories', 'related', 'images'].includes(el.name)) val = val.split(',').map(s => s.trim()).filter(Boolean);
-      if (el.name === 'qtyDiscount') try { val = JSON.parse(val); } catch { val = {}; }
-      if (['stock', 'price', 'rating', 'reviewCount'].includes(el.name)) val = Number(val);
-      data[el.name] = val;
-    });
-
-    const updated = [...products.filter(p => p.id !== data.id), data];
-    const content = `export default ${JSON.stringify(updated, null, 2)};`;
-    const body = {
-      message: 'Admin update',
-      content: btoa(content),
-      sha: await getFileSha(),
-      branch: 'main'
-    };
-    const res = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-      method: 'PUT',
-      headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    if (res.ok) {
-      alert('✅ Saved!');
-      window.location.reload();
+/* ---------- build form ---------- */
+function buildForm(prod) {
+  const form = document.getElementById('form');
+  form.innerHTML = '';
+  Object.entries(prod).forEach(([k, v]) => {
+    const lbl = document.createElement('label'); lbl.textContent = k;
+    form.appendChild(lbl);
+    let input;
+    if (typeof v === 'boolean') {
+      input = document.createElement('input'); input.type = 'checkbox'; input.checked = v;
+    } else if (typeof v === 'number') {
+      input = document.createElement('input'); input.type = 'number'; input.value = v;
+    } else if (k === 'qtyDiscount') {
+      input = document.createElement('textarea'); input.rows = 3; input.value = JSON.stringify(v, null, 2);
+    } else if (['longDesc', 'metaDescription', 'specialNote'].includes(k)) {
+      input = document.createElement('textarea'); input.rows = 3; input.value = v;
     } else {
-      alert('❌ ' + (await res.json()).message);
+      input = document.createElement('input'); input.type = 'text'; input.value = Array.isArray(v) ? v.join(', ') : v;
     }
-  }
+    input.name = k;
+    form.appendChild(input);
+  });
+  const saveBtn = document.createElement('button');
+  saveBtn.textContent = 'Save to GitHub';
+  saveBtn.onclick = () => saveProduct(prod);
+  form.appendChild(saveBtn);
+}
 
-  /* ---------- helpers ---------- */
-  async function getFileSha() {
-    const res = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`);
-    const json = await res.json();
-    return json.sha;
-  }
+/* ---------- save ---------- */
+async function saveProduct(prod) {
+  const token = retrieve();
+  if (!token) return alert('Not logged in');
 
-  /* ---------- init ---------- */
-  loadProducts();
+  const form = document.getElementById('form');
+  const data = {};
+  [...form.elements].forEach(el => {
+    if (!el.name) return;
+    let val = el.type === 'checkbox' ? el.checked : el.value;
+    if (['categories', 'related', 'images'].includes(el.name)) val = val.split(',').map(s => s.trim()).filter(Boolean);
+    if (el.name === 'qtyDiscount') try { val = JSON.parse(val); } catch { val = {}; }
+    if (['stock', 'price', 'rating', 'reviewCount'].includes(el.name)) val = Number(val);
+    data[el.name] = val;
+  });
+
+  const updated = [...window.products.filter(p => p.id !== data.id), data];
+  const content = `export default ${JSON.stringify(updated, null, 2)};`;
+
+  const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`);
+  const { sha } = await shaRes.json();
+
+  const body = { message: 'Admin update', content: btoa(content), sha, branch };
+  const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+    method: 'PUT',
+    headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+
+  if (putRes.ok) {
+    alert('✅ Saved!');
+    window.location.reload();
+  } else {
+    alert('❌ ' + (await putRes.json()).message);
+  }
+}
 </script>
-
-
 </body>
 </html>
