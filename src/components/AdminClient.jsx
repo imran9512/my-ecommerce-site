@@ -64,7 +64,6 @@ export default function AdminClient() {
     });
   };
 
-  /* handlers */
   const handleSelect = id => {
     setSelectedId(id);
     if (id === 'new') { setIsNew(true); resetForm(); }
