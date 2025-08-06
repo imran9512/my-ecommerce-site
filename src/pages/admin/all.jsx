@@ -6,6 +6,8 @@ export default function AdminAll() {
   const { data: session, status } = useSession();
 
   // -------------------- AUTH GUARD --------------------
+  // Do NOT return anything until client-side hydration is complete
+  if (typeof window === 'undefined') return null;
   if (status === 'loading') return <p className="text-center mt-10">Loading…</p>;
   if (!session) {
     return (
