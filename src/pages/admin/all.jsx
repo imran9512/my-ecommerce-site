@@ -1,8 +1,12 @@
 // src/pages/admin/all.jsx
-import dynamic from 'next/dynamic';
-
-const AdminClient = dynamic(() => import('../../components/AdminClient'), {
-  ssr: false, // 100 % client-side
-});
-
-export default AdminClient;
+export default function AdminAll() {
+  return (
+    <div className="w-full h-screen">
+      <iframe
+        src="/admin/client"          // client-only route
+        className="w-full h-full border-0"
+        title="Admin"
+      />
+    </div>
+  );
+}
