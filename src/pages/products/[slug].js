@@ -5,6 +5,7 @@ import TabsSection from '@/components/TabsSection';
 import RelatedProducts from '@/components/RelatedProducts';
 import products from '@/data/products';
 
+
 export default function ProductPage({ product, related }) {
   return (
     <>
@@ -34,7 +35,8 @@ export async function getStaticPaths() {
 
 /* ---------- Fetch product via slug ---------- */
 export async function getStaticProps({ params }) {
-  const product = products.find((p) => p.slug === params.slug);
+  const product = products.find((p) => p.slug === params.slug && p.active);
+  //const product = products.find((p) => p.slug === params.slug);
   if (!product) return { notFound: true };
 
   const related = products.filter((p) => product.related?.includes(p.id));

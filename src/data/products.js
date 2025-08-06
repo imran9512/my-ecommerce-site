@@ -4,6 +4,7 @@ const products = [
     id: '001',
     slug: 'indoor-steel-adjustable-silent-treadmill',  // custom URL path
     name: 'Indoor Steel Adjustable Silent Treadmill',
+    active: true,
     categories: ['fitness', 'cat4', 'treadmills', 'home-gym', 'Medicine'],
     sku: 'TM-001',                // SEO schema ke liye, page pe nahi dikhayenge
     stock: 50,                    // 15 → green pill “In Stock”
@@ -67,6 +68,7 @@ const products = [
     id: '002',
     slug: '2nd',  // custom URL path
     name: 'test product',
+    active: true,
     categories: ['health', 'medicine', 'Treadmills'],
     sku: 'TM-002',                // SEO schema ke liye, page pe nahi dikhayenge
     stock: 4.5,                    // 15 → green pill “In Stock”
@@ -124,6 +126,7 @@ const products = [
     id: '003',
     slug: '3rd',  // custom URL path
     name: 'Test 3',
+    active: true,
     categories: ['health', 'cat3'],
     sku: 'TM-003',                // SEO schema ke liye, page pe nahi dikhayenge
     stock: 4,                    // 15 → green pill “In Stock”
@@ -180,6 +183,7 @@ const products = [
     id: '004',
     slug: '4th',  // custom URL path
     name: '4 test product',
+    active: false,
     categories: ['cat3', 'medicine', 'Fitness', 'cat3'],
     sku: 'TM-004',                // SEO schema ke liye, page pe nahi dikhayenge
     stock: 0,                    // 15 → green pill “In Stock”
