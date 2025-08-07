@@ -175,12 +175,7 @@ async function saveProduct(prod) {
   const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`);
   const { sha } = await shaRes.json();
 
-  const body = {
-    message: 'Admin update',
-    content: safeB64(content),
-    sha,
-    branch
-  };
+  const body = { message: 'Admin update', content: btoa(unescape(encodeURIComponent(content))), sha, branch };
 
   const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
     method: 'PUT',
