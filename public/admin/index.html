@@ -1,3 +1,4 @@
+<!-- public/admin/index.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,6 +175,7 @@ async function saveProduct(prod) {
     if (['stock', 'price', 'rating', 'reviewCount'].includes(el.name)) val = Number(val);
     data[el.name] = val;
   });
+  console.log('token:', retrieve());
 
   const updated = [...window.products.filter(p => p.id !== data.id), data];
   const content = `export default ${JSON.stringify(updated, null, 2)};`;
