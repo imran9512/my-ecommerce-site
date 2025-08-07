@@ -1,4 +1,3 @@
-<!-- public/admin/index.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,22 +5,23 @@
   <title>Admin Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    body{font-family:sans-serif;margin:0;padding:40px;max-width:900px}
-    label{font-weight:600;display:block;margin:8px 0 2px}
-    input,textarea,select{width:100%;padding:6px;margin-bottom:10px}
-    button{padding:8px 16px;margin-right:8px;cursor:pointer}
-    .section{margin-bottom:30px}
+    body { font-family: sans-serif; margin: 0; padding: 40px; max-width: 900px; }
+    label { font-weight: 600; display: block; margin: 8px 0 2px; }
+    input, textarea, select { width: 100%; padding: 6px; margin-bottom: 10px; box-sizing: border-box; }
+    button { padding: 8px 16px; margin-right: 8px; cursor: pointer; }
+    .section { margin-bottom: 30px; }
   </style>
 </head>
 <body>
 
-<!--  LOGIN  -->
+<!-- LOGIN  -->
 <div id="login">
   <h1>Admin Login</h1>
-  <button onclick="login()">Login with GitHub</button>
+  <input id="tokenInput" placeholder="Paste GitHub token (repo scope)" style="width: 300px;">
+  <button onclick="storeToken()">Go</button>
 </div>
 
-<!--  FORM  -->
+<!-- FORM -->
 <div id="panel" style="display:none">
   <h1>Admin – Products</h1>
   <select id="productSelect">
@@ -33,61 +33,43 @@
 
 <script>
 /* ---------- CONFIG ---------- */
-const repo = 'imran9512/my-ecommerce-site'; // ← your repo
+const repo = 'imran9512/my-ecommerce-site';
 const branch = 'main';
 const filePath = 'src/data/products.js';
-const clientId = 'Ov23liigiC0PS07gHcCK';  // ← GitHub App client_id
-const redirectUri = window.location.origin.replace(/\/$/, '') + '/admin/index.html';
 
-/* ---------- OAuth helper ---------- */
-function login() {
-  const url =
-    'https://github.com/login/oauth/access_token' +
-    '?client_id=' + clientId +
-    '&redirect_uri=' + encodeURIComponent(redirectUri) +
-    '&scope=repo';
-  window.location.href = url;
+/* ---------- TOKEN ---------- */
+function storeToken() {
+  const t = document.getElementById('tokenInput').value.trim();
+  if (t) {
+    localStorage.setItem('ghToken', t);
+    window.location.reload();
+  }
+}
+function getToken() {
+  return localStorage.getItem('ghToken');
 }
 
-/* ---------- token from URL ---------- */
-function getTokenFromUrl() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get('access_token');
+/* ---------- UTIL ---------- */
+function safeB64(str) {
+  return btoa(unescape(encodeURIComponent(str)));
 }
 
-/* ---------- store / retrieve ---------- */
-function store(token) { localStorage.setItem('ghToken', token); }
-function retrieve() { return localStorage.getItem('ghToken'); }
+/* ---------- LOAD ---------- */
+async function loadProducts() {
+  const token = getToken();
+  if (!token) return;
 
-/* ---------- init ---------- */
-const token = getTokenFromUrl() || retrieve();
-if (token) {
-  store(token);
-  document.getElementById('login').style.display = 'none';
-  document.getElementById('panel').style.display = 'block';
-  loadProducts(token);
-} else {
-  /* show GitHub token input manually for now */
-  const div = document.getElementById('login');
-  div.innerHTML += '<br><input id="tokenInput" placeholder="Paste GitHub token"><button onclick="storeAndGo()">Go</button>';
-  window.storeAndGo = () => {
-    const t = document.getElementById('tokenInput').value.trim();
-    if (t) { store(t); window.location.reload(); }
-  };
-}
-
-/* ---------- load products ---------- */
-async function loadProducts(token) {
   const res = await fetch(`https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`);
+  if (!res.ok) return alert('File not found or token invalid');
   const text = await res.text();
   window.products = eval(text.replace('export default', ''));
   populateSelector(window.products);
 }
 
-/* ---------- dropdown ---------- */
+/* ---------- DROPDOWN ---------- */
 function populateSelector(list) {
   const sel = document.getElementById('productSelect');
-  sel.innerHTML = '<option value="">-- Select Product --</option><option value="new">➕ Add New Product</option>';
+  sel.innerHTML = `<option value="">-- Select Product --</option><option value="new">➕ Add New Product</option>`;
   list.forEach(p => {
     const opt = document.createElement('option');
     opt.value = p.id;
@@ -97,14 +79,7 @@ function populateSelector(list) {
   sel.addEventListener('change', handleSelect);
 }
 
-/* ---------- show form ---------- */
-function handleSelect(e) {
-  const id = e.target.value;
-  const prod = id === 'new' ? newProduct() : window.products.find(p => p.id === id);
-  buildForm(prod);
-}
-
-/* ---------- empty skeleton ---------- */
+/* ---------- FORM ---------- */
 function newProduct() {
   const maxId = window.products.length ? Math.max(...window.products.map(p => +p.id)) : 0;
   return {
@@ -132,38 +107,56 @@ function newProduct() {
   };
 }
 
-/* ---------- build form ---------- */
+function handleSelect(e) {
+  const id = e.target.value;
+  const prod = id === 'new' ? newProduct() : window.products.find(p => p.id === id);
+  buildForm(prod);
+}
+
 function buildForm(prod) {
   const form = document.getElementById('form');
   form.innerHTML = '';
   Object.entries(prod).forEach(([k, v]) => {
-    const lbl = document.createElement('label'); lbl.textContent = k;
+    const lbl = document.createElement('label');
+    lbl.textContent = k;
     form.appendChild(lbl);
+
     let input;
     if (typeof v === 'boolean') {
-      input = document.createElement('input'); input.type = 'checkbox'; input.checked = v;
+      input = document.createElement('input');
+      input.type = 'checkbox';
+      input.checked = v;
     } else if (typeof v === 'number') {
-      input = document.createElement('input'); input.type = 'number'; input.value = v;
-    } else if (k === 'qtyDiscount') {
-      input = document.createElement('textarea'); input.rows = 3; input.value = JSON.stringify(v, null, 2);
+      input = document.createElement('input');
+      input.type = 'number';
+      input.value = v;
     } else if (['longDesc', 'metaDescription', 'specialNote'].includes(k)) {
-      input = document.createElement('textarea'); input.rows = 3; input.value = v;
+      input = document.createElement('textarea');
+      input.rows = 3;
+      input.value = v;
+    } else if (k === 'qtyDiscount') {
+      input = document.createElement('textarea');
+      input.rows = 3;
+      input.value = JSON.stringify(v, null, 2);
     } else {
-      input = document.createElement('input'); input.type = 'text'; input.value = Array.isArray(v) ? v.join(', ') : v;
+      input = document.createElement('input');
+      input.type = 'text';
+      input.value = Array.isArray(v) ? v.join(', ') : v;
     }
     input.name = k;
     form.appendChild(input);
   });
+
   const saveBtn = document.createElement('button');
   saveBtn.textContent = 'Save to GitHub';
   saveBtn.onclick = () => saveProduct(prod);
   form.appendChild(saveBtn);
 }
 
-/* ---------- save ---------- */
+/* ---------- SAVE ---------- */
 async function saveProduct(prod) {
-  const token = retrieve();
-  if (!token) return alert('Not logged in');
+  const token = getToken();
+  if (!token) return alert('No token');
 
   const form = document.getElementById('form');
   const data = {};
@@ -175,7 +168,6 @@ async function saveProduct(prod) {
     if (['stock', 'price', 'rating', 'reviewCount'].includes(el.name)) val = Number(val);
     data[el.name] = val;
   });
-  console.log('token:', retrieve());
 
   const updated = [...window.products.filter(p => p.id !== data.id), data];
   const content = `export default ${JSON.stringify(updated, null, 2)};`;
@@ -183,7 +175,13 @@ async function saveProduct(prod) {
   const shaRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`);
   const { sha } = await shaRes.json();
 
-  const body = { message: 'Admin update', content: btoa(content), sha, branch };
+  const body = {
+    message: 'Admin update',
+    content: safeB64(content),
+    sha,
+    branch
+  };
+
   const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
     method: 'PUT',
     headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
@@ -196,6 +194,13 @@ async function saveProduct(prod) {
   } else {
     alert('❌ ' + (await putRes.json()).message);
   }
+}
+
+/* ---------- INIT ---------- */
+if (getToken()) {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('panel').style.display = 'block';
+  loadProducts();
 }
 </script>
 </body>
