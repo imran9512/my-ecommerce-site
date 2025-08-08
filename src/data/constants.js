@@ -27,11 +27,11 @@ export const COURIER_OPTIONS = [
 ];
 
 // discount
-export const ONLINE_DISCOUNT_PERCENT = 4;
+export const ONLINE_DISCOUNT_PERCENT = 3;
 
 // misc
 export const SITE_NAME = 'AAP KI SEHAT';
-export const WHATSAPP_NUMBER = '+923001234567';
+export const WHATSAPP_NUMBER = '+923142831690';
 
 // Search COnsol Tag
 export const GOOGLE_SEARCH_CONSOLE_TAG =
