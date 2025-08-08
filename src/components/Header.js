@@ -11,6 +11,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useCartStore } from '@/stores/cart';
 import products from '@/data/products';
+import { WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function Header() {
   const router = useRouter();
@@ -63,7 +64,7 @@ export default function Header() {
 
   const openWhatsApp = () =>
     window.open(
-      `https://wa.me/+923001234567?text=${encodeURIComponent(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
         'Hi! I need help with products or my order.'
       )}`,
       '_blank'
