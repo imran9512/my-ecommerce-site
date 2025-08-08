@@ -1,5 +1,5 @@
 // pages/api/products.js
-import products from '.../src/data/products';
+import products from '../src/data/products';
 
 export default function handler(req, res) {
   // allow CORS if you need to call this from another origin
