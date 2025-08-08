@@ -129,7 +129,7 @@ const products = [
     active: true,
     categories: ['health', 'cat3'],
     sku: 'TM-003',                // SEO schema ke liye, page pe nahi dikhayenge
-    stock: 4,                    // 15 → green pill “In Stock”
+    stock: 0,                    // 15 → green pill “In Stock”
     rating: 4.8,                  // sirf stars, counts nahi
     reviewCount: 2,              // reviews ki taadad
     images: [
@@ -183,10 +183,10 @@ const products = [
     id: '004',
     slug: '4th',  // custom URL path
     name: '4 test product',
-    active: false,
+    active: true,
     categories: ['cat3', 'medicine', 'Fitness', 'cat3'],
     sku: 'TM-004',                // SEO schema ke liye, page pe nahi dikhayenge
-    stock: 0,                    // 15 → green pill “In Stock”
+    stock: 1,                    // 15 → green pill “In Stock”
     rating: 4.8,                  // sirf stars, counts nahi
     reviewCount: 3,              // reviews ki taadad
     images: [
