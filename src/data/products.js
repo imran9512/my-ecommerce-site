@@ -1,246 +1,254 @@
 const products = [
   {
     "id": "001",
-    "slug": "indoor-steel-adjustable-silent-treadmill",
-    "name": "Indoor Steel Adjustable Silent Treadmill",
+    "slug": "buy-Coity-Long-Dapoxetine-60mg",
+    "name": "Coity Long - Dapoxetine 60mg",
     "active": true,
     "categories": [
       "fitness",
-      "cat4",
-      "treadmills",
-      "home-gym",
       "Medicine"
     ],
-    "sku": "TM-001",
+    "sku": "Dapoxetine-01",
     "stock": 50,
     "rating": 4.8,
-    "reviewCount": 5,
+    "reviewCount": 2,
     "images": [
-      "/Prod-images/1.webp",
-      "/Prod-images/2.webp",
-      "/Prod-images/3.webp",
-      "/Prod-images/4.webp"
+      "/Prod-images/Buy Coity Long Dapoxetine 60mg in pakistan.webp"
     ],
-    "price": 300,
-    "offerPrice": 270,
+    "price": 2650,
+    "offerPrice": 2100,
     "qtyDiscount": {
-      "2": 290,
-      "3": 280,
-      "4": 270,
-      "5": 260,
-      "6": 250,
-      "7": 240,
-      "8": 230
+      "2": 2470,
+      "3": 2340,
+      "4": 2200,
+      "5": 22100
     },
     "tabsMg": "5 Tabs",
-    "origin": "Pakistan",
-    "quality": "Original not genric",
-    "shortDesc": "Compact, foldable, Bluetooth enabled treadmill for home workouts.",
-    "longDesc": "\n      * **Motor:** 2.25 HP continuous duty  \n      * **Speed:** 1 – 14 km/h  \n      * **Incline:** 3-level manual  \n      * **Features:** App tracking, safety key, hydraulic fold  \n    ",
-    "specialNote": "“Free installation & 1-year warranty inside twin-cities only.”",
+    "origin": "Thailand",
+    "quality": "Original not Genric",
+    "shortDesc": "A perfect solution PE",
+    "longDesc": "",
+    "specialNote": "Fresh Stock",
     "related": [
       "002",
       "004",
       "003"
     ],
-    "metaTitle": "Indoor Steel Adjustable Silent Treadmill – Best Home Gym in Pakistan",
-    "metaDescription": "Compact, foldable & Bluetooth treadmill for home workouts. Free installation & 1-year warranty. Order now for Rs 300 only!",
-    "ActiveSalt": "peracitamol, brufine,",
+    "metaTitle": "buy Coity long Dapoxetine 60mg original in Pakistan",
+    "metaDescription": "Dapoxetine is one of the best treatment for Premature Ejaculation, its effective in all ages, no need to use external delay creams or sprays , feel n enjoy naturally ",
+    "ActiveSalt": "Dapoxetine 60mg",
     "reviews": [
       {
         "date": "May-15-2024",
-        "name": "John Doe",
+        "name": "Zafar Ali",
         "rating": 5,
-        "comment": "Great product, I use it daily for my health."
+        "comment": "Great product, I use it every time for my best moments"
       },
       {
-        "date": "Feb-01-2024",
-        "name": "Jane Smith",
-        "rating": 4,
-        "comment": "I recommend this to everyone. It’s a good value for money."
+        "date": "",
+        "name": "",
+        "rating": 0,
+        "comment": ""
       },
       {
-        "date": "Dec-5-2025",
-        "name": "Alice Johnson",
-        "rating": 3,
-        "comment": "Not a happy camper - by Ellie, April 1, 2011"
+        "date": "",
+        "name": "",
+        "rating": 0,
+        "comment": ""
       }
     ]
   },
   {
     "id": "002",
-    "slug": "2nd",
-    "name": "test product",
+    "slug": "buy-Tiafil-20mg-at-best-price-in-pakistan",
+    "name": "Tiafil 20mg",
     "active": true,
     "categories": [
       "health",
-      "medicine",
-      "Treadmills"
+      "medicine"
     ],
-    "sku": "TM-002",
-    "stock": 4.5,
-    "rating": 4.8,
+    "sku": "Tadalafil-ir-1",
+    "stock": 50,
+    "rating": 5,
     "reviewCount": 3,
     "images": [
-      "/Prod-images/2.webp",
-      "/Prod-images/3.webp",
-      "/Prod-images/4.webp",
-      "/Prod-images/1.webp"
+      "/Prod-images/cialis alternative price in pakistan.webp",
+      "/Prod-images/irani cialis price in pakistan.webp",
+      "/Prod-images/Tiafil price in pakistan.webp"
     ],
-    "price": 500,
-    "offerPrice": 450,
+    "price": 4300,
+    "offerPrice": 3450,
     "qtyDiscount": {
-      "2": 470,
-      "5": 450,
-      "8": 420
+      "2": 4050,
+      "3": 3880,
+      "4": 3750,
+      "5": 3650,
+      "6": 3550,
+      "7": 3450,
+      "8": 3380
     },
-    "shortDesc": "Compact, foldable, Bluetooth enabled treadmill for home workouts.",
-    "longDesc": "\n      * **Motor:** 2.25 HP continuous duty  \n      * **Speed:** 1 – 14 km/h  \n      * **Incline:** 3-level manual  \n      * **Features:** App tracking, safety key, hydraulic fold  \n    ",
-    "specialNote": "“Free installation & 1-year warranty inside twin-cities only.”",
+    "shortDesc": "The best alternative of Cialis 20mg in very very reasonable price, authentic product",
+    "longDesc": "",
+    "specialNote": "fresh stock with long expiry",
     "related": [
       "001",
       "004",
       "003"
     ],
-    "metaTitle": "Indoor Steel Adjustable Silent Treadmill – Best Home Gym in Pakistan",
-    "metaDescription": "Compact, foldable & Bluetooth treadmill for home workouts. Free installation & 1-year warranty. Order now for Rs 300 only!",
-    "ActiveSalt": "peracitamol, brufine,",
+    "metaTitle": "Buy Tiafil 20mg (Tadalafil 20mg) in Pakistan",
+    "metaDescription": "if you are looking for original Cialis  alternatives in Pakistan then this product is for you..  we delivery across the country with cash on delivery option ",
+    "ActiveSalt": "Tadalafil 20mg",
     "reviews": [
       {
-        "date": "May-15-2024",
-        "name": "John Doe",
-        "rating": 5,
-        "comment": "Great product, I use it daily for my health."
+        "date": "",
+        "name": "",
+        "rating": 0,
+        "comment": ""
       },
       {
         "date": "Feb-01-2024",
-        "name": "Jane Smith",
-        "rating": 4,
-        "comment": "I recommend this to everyone. It’s a good value for money."
+        "name": "Numan",
+        "rating": 5,
+        "comment": "I recommend this to everyone. It’s a good value for money. if u are looking for pure Tadalafil 20mg"
       },
       {
-        "date": "Dec-5-2025",
-        "name": "Alice Johnson",
-        "rating": 3,
-        "comment": "Not a happy camper - by Ellie, April 1, 2011"
+        "date": "",
+        "name": "",
+        "rating": 0,
+        "comment": ""
       }
-    ]
+    ],
+    "tabsMg": "5 Tabs",
+    "origin": "Iran",
+    "quality": "Original not Genric"
   },
   {
-    id: '003',
-    slug: '3rd',  // custom URL path
-    name: 'Test 3',
-    active: true,
-    categories: ['health', 'cat3'],
-    sku: 'TM-003',                // SEO schema ke liye, page pe nahi dikhayenge
-    stock: 4,                    // 15 → green pill “In Stock”
-    rating: 4.8,                  // sirf stars, counts nahi
-    reviewCount: 2,              // reviews ki taadad
-    images: [
-      '/Prod-images/3.webp',
-      '/Prod-images/4.webp',
-      '/Prod-images/1.webp',
-      '/Prod-images/2.webp',
+    "id": "003",
+    "slug": "buy-modiwake-100-mg-price-in-pakistan",
+    "name": "Modiwake 100mg",
+    "active": true,
+    "categories": [
+      "health",
+      "medicine"
     ],
-    "price": 300,
-    "offerPrice": 270,
+    "sku": "Modi-100",
+    "stock": 50,
+    "rating": 4.8,
+    "reviewCount": 1,
+    "images": [
+      "/Prod-images/modafinil 100mg lahore.webp",
+      "/Prod-images/modafinil 100mg.webp"
+    ],
+    "price": 11000,
+    "offerPrice": 10000,
     "qtyDiscount": {
-      "2": 285,
-      "5": 270
+      "2": 10600,
+      "3": 10300,
+      "4": 10000,
+      "5": 9900,
+      "8": 9700
     },
-    "shortDesc": "Compact, foldable, Bluetooth enabled treadmill for home workouts.",
-    "longDesc": "\n      * **Motor:** 2.25 HP continuous duty  \n      * **Speed:** 1 – 14 km/h  \n      * **Incline:** 3-level manual  \n      * **Features:** App tracking, safety key, hydraulic fold  \n    ",
-    "specialNote": "“Free installation & 1-year warranty inside twin-cities only.”",
+    "shortDesc": "To keep the narcolepsy patients awake",
+    "longDesc": "",
+    "specialNote": "Exp:11/2027,  Fresh Stock",
     "related": [
       "001",
       "002",
       "004"
     ],
-    "metaTitle": "Indoor Steel Adjustable Silent Treadmill – Best Home Gym in Pakistan",
-    "metaDescription": "Compact, foldable & Bluetooth treadmill for home workouts. Free installation & 1-year warranty. Order now for Rs 300 only!",
-    "ActiveSalt": "peracitamol, brufine,",
+    "metaTitle": "Looking for Modiwake 100mg ? here you can buy",
+    "metaDescription": "Modiwake 100mg available on very reasonable price in pakistan ",
+    "ActiveSalt": "Modafinil",
     "reviews": [
       {
-        "date": "May-15-2024",
-        "name": "John Doe",
+        "date": "May-15-2025",
+        "name": "Ibrahim Shah",
         "rating": 5,
         "comment": "Great product, I use it daily for my health."
       },
       {
-        "date": "Feb-01-2024",
-        "name": "Jane Smith",
-        "rating": 4,
-        "comment": "I recommend this to everyone. It’s a good value for money."
+        "date": "",
+        "name": "",
+        "rating": 0,
+        "comment": ""
       },
       {
-        "date": "Dec-5-2025",
-        "name": "Alice Johnson",
-        "rating": 3,
-        "comment": "Not a happy camper - by Ellie, April 1, 2011"
+        "date": "",
+        "name": "",
+        "rating": 0,
+        "comment": ""
       }
-    ]
+    ],
+    "tabsMg": "30 Tabs",
+    "origin": "Turkey",
+    "quality": "Original not Genric"
   },
   {
-    id: '004',
-    slug: '4th',  // custom URL path
-    name: '4 test product',
-    active: false,
-    categories: ['cat3', 'medicine', 'Fitness', 'cat3'],
-    sku: 'TM-004',                // SEO schema ke liye, page pe nahi dikhayenge
-    stock: 0,                    // 15 → green pill “In Stock”
-    rating: 4.8,                  // sirf stars, counts nahi
-    reviewCount: 3,              // reviews ki taadad
-    images: [
-      '/Prod-images/4.webp',
-      '/Prod-images/1.webp',
-      '/Prod-images/2.webp',
-      '/Prod-images/3.webp',
+    "id": "004",
+    "slug": "buy-viagra-alternative-SDF-100mg-in-pakistan",
+    "name": "SDF 100mg",
+    "active": true,
+    "categories": [
+      "medicine",
+      "Fitness"
     ],
-    "price": 500,
-    "offerPrice": 450,
+    "sku": "SDF-100",
+    "stock": 50,
+    "rating": 5,
+    "reviewCount": 1,
+    "images": [
+      "/Prod-images/SDF 100-1.webp",
+      "/Prod-images/SDF 100-2.webp",
+      "/Prod-images/SDF 100-3.webp",
+      "/Prod-images/SDF 100-4.webp"
+    ],
+    "price": 4300,
+    "offerPrice": 3150,
     "qtyDiscount": {
-      "2": 490,
-      "4": 470,
-      "6": 450,
-      "8": 430,
-      "10": 410
+      "2": 4050,
+      "3": 3880,
+      "4": 3770,
+      "5": 3660,
+      "6": 3550,
+      "7": 3470,
+      "8": 3400,
+      "10": 3300
     },
-    "tabsMg": "5 Tabs * 20mg",
-    "origin": "Made in Pakistan",
+    "tabsMg": "8 Tabs",
+    "origin": "Iran",
     "quality": "Original not genric",
-    "shortDesc": "Compact, foldable, Bluetooth enabled treadmill for home workouts.",
-    "longDesc": "\n      * **Motor:** 2.25 HP continuous duty  \n      * **Speed:** 1 – 14 km/h  \n      * **Incline:** 3-level manual  \n      * **Features:** App tracking, safety key, hydraulic fold  \n    ",
-    "specialNote": "“Free installation & 1-year warranty inside twin-cities only.”",
+    "shortDesc": "Original Product and official import not a single percent doubt while using this product instead of Viagra , Yes it is mirror product of well known branded Viagra  ",
+    "longDesc": "",
+    "specialNote": "",
     "related": [
       "001",
       "002",
       "003"
     ],
-    "metaTitle": "Indoor Steel Adjustable Silent Treadmill – Best Home Gym in Pakistan",
-    "metaDescription": "Compact, foldable & Bluetooth treadmill for home workouts. Free installation & 1-year warranty. Order now for Rs 300 only!",
+    "metaTitle": "Best Viagra Alternative in 100mg  SDF 100mg in Pakistan",
+    "metaDescription": "if you are looking for original Viagra and its hard to fined and also shockingly expensive here u can but 100% authentic and original alternative its same sildenafil 100mg  u can order us and but with cash on delivery",
     "ActiveSalt": "peracitamol, brufine,",
     "reviews": [
       {
-        "date": "May-15-2024",
-        "name": "John Doe",
+        "date": "Aug-19-2022",
+        "name": "Ijaz Khan",
         "rating": 5,
-        "comment": "Great product, I use it daily for my health."
+        "comment": "best alternative of Viagra, I used it and fully satisfied "
       },
       {
-        "date": "Feb-01-2024",
-        "name": "Jane Smith",
-        "rating": 4,
-        "comment": "I recommend this to everyone. It’s a good value for money."
+        "date": "",
+        "name": "",
+        "rating": 0,
+        "comment": ""
       },
       {
-        "date": "Dec-5-2025",
-        "name": "Alice Johnson",
-        "rating": 3,
-        "comment": "Not a happy camper - by Ellie, April 1, 2011"
+        "date": "",
+        "name": "",
+        "rating": 0,
+        "comment": ""
       }
     ]
-  },
-  // … more products
+  }
 ];
 
 export default products;
