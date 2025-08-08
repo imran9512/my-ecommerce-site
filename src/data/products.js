@@ -1,4 +1,4 @@
-export default [
+const products = [
   {
     "id": "001",
     "slug": "indoor-steel-adjustable-silent-treadmill",
@@ -239,5 +239,8 @@ export default [
         "comment": "Not a happy camper - by Ellie, April 1, 2011"
       }
     ]
-  }
+  },
+  // … more products
 ];
+
+export default products;
