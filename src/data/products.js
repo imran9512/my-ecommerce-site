@@ -45,18 +45,7 @@ const products = [
         "rating": 5,
         "comment": "Great product, I use it every time for my best moments"
       },
-      {
-        "date": "",
-        "name": "",
-        "rating": 0,
-        "comment": ""
-      },
-      {
-        "date": "",
-        "name": "",
-        "rating": 0,
-        "comment": ""
-      }
+      
     ]
   },
   {
@@ -100,24 +89,14 @@ const products = [
     "metaDescription": "if you are looking for original Cialis  alternatives in Pakistan then this product is for you..  we delivery across the country with cash on delivery option ",
     "ActiveSalt": "Tadalafil 20mg",
     "reviews": [
-      {
-        "date": "",
-        "name": "",
-        "rating": 0,
-        "comment": ""
-      },
+      
       {
         "date": "Feb-01-2024",
         "name": "Numan",
         "rating": 5,
         "comment": "I recommend this to everyone. It’s a good value for money. if u are looking for pure Tadalafil 20mg"
       },
-      {
-        "date": "",
-        "name": "",
-        "rating": 0,
-        "comment": ""
-      }
+      
     ],
     "tabsMg": "5 Tabs",
     "origin": "Iran",
@@ -228,7 +207,7 @@ const products = [
     ],
     "metaTitle": "Best Viagra Alternative in 100mg  SDF 100mg in Pakistan",
     "metaDescription": "if you are looking for original Viagra and its hard to fined and also shockingly expensive here u can but 100% authentic and original alternative its same sildenafil 100mg  u can order us and but with cash on delivery",
-    "ActiveSalt": "peracitamol, brufine,",
+    "ActiveSalt": "sildenafil",
     "reviews": [
       {
         "date": "Aug-19-2022",
@@ -236,18 +215,7 @@ const products = [
         "rating": 5,
         "comment": "best alternative of Viagra, I used it and fully satisfied "
       },
-      {
-        "date": "",
-        "name": "",
-        "rating": 0,
-        "comment": ""
-      },
-      {
-        "date": "",
-        "name": "",
-        "rating": 0,
-        "comment": ""
-      }
+      
     ]
   }
 ];
