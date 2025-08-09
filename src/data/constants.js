@@ -18,6 +18,17 @@ export const GOOGLE_FORM_FIELDS = {
   grand_total: 'entry.1062659703',
 };
 
+// categories
+export const categories = [
+  { name: 'Fitness', sub: ['Delay/Timing', 'Erection', 'Combo'] },
+  { name: 'ADHD', sub: ['Ritalin (Methylphenidate)', 'Lisdexamfetamine', 'Modafinil', 'Atomoxetine', 'Clonidine'] },
+  { name: 'For Men', sub: ['VIAGRA+', 'CIALIS+', 'Dapoxitine'] },
+  { name: 'Others', sub: ['For women', 'Miscellaneous'] },
+]; 
+/* Fitness > Delay/Timing - Erection - Combo
+ADHD > Ritalin (Methylphenidate) - Lisdexamfetamine - Modafinil - Atomoxetine - Clonidine
+For Men > VIAGRA+ - CIALIS+ - Dapoxitine
+Others > For women - Miscellaneous */
 
 // courier
 export const COURIER_OPTIONS = [

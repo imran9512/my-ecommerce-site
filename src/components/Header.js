@@ -11,19 +11,22 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useCartStore } from '@/stores/cart';
 import products from '@/data/products';
-import { WHATSAPP_NUMBER } from '@/data/constants';
+import { categories, WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function Header() {
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const cartCount = useCartStore((s) => s.items.reduce((a, b) => a + b.quantity, 0));
+  const [openUseful, setOpenUseful] = useState(false);
 
-  const categories = [
-    { name: 'Fitness', sub: ['Treadmills'] },
-    { name: 'Health', sub: ['Medicine'] },
-    { name: 'home-gym', sub: ['cat3', 'cat4'] },
-  ];
+  /*const categories = [
+    { name: 'Fitness', sub: ['Delay/Timing', 'Erection', 'Combo'] },
+    { name: 'ADHD', sub: ['Ritalin (Methylphenidate)','Lisdexamfetamine','Modafinil','Atomoxetine','Clonidine'] },
+    { name: 'For Men', sub: ['VIAGRA+','CIALIS+','Dapoxitine'] },
+    { name: 'Others', sub: ['For women','Miscellaneous'] },
+  ];*/
+  
   const [openCategory, setOpenCategory] = useState(null);
 
   /* live search logic */
@@ -143,85 +146,100 @@ export default function Header() {
 
       {/* ------------- MOBILE DRAWER --------------- */}
       {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
-          onClick={() => setMenuOpen(false)}
-        >
-          <div
-            className="fixed top-16 left-0 w-72 h-full bg-white shadow-xl p-4 overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <nav className="space-y-1">
-              {categories.map(({ name, sub }, idx) => (
-                <div key={name}>
-                  <div
-                    className="flex items-center justify-between font-semibold text-gray-800 py-1.5 cursor-pointer"
-                    onClick={() => setOpenCategory(openCategory === idx ? null : idx)}
-                  >
+  <div
+    className="fixed inset-0 bg-black/20  backdrop-blur-sm z-40"
+    onClick={() => setMenuOpen(false)}
+  >
+    <div
+      className="fixed top-16 left-0 w-60 rounded-bl-md h-full bg-gray-200 shadow-2xl p-4 overflow-y-auto"
+      onClick={(e) => e.stopPropagation()}
+    >
+      {/* Categories */}
+      <nav className="space-y-4">
+        {categories.map(({ name, sub }, idx) => (
+          <div key={name}>
+            <div
+              className="flex items-center justify-between cursor-pointer"
+              onClick={() => setOpenCategory(openCategory === idx ? null : idx)}
+            >
+              <Link
+                href={`/category/${name.toLowerCase()}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setMenuOpen(false);
+                }}
+                className="bg-slate-300  px-3 py-1.5 rounded-full shadow hover:bg-slate-600 transition"
+              >
+                {name}
+              </Link>
+              {sub && sub.length > 0 && (
+                <ChevronDownIcon
+                  className={`w-4 h-4 transition-transform ${openCategory === idx ? 'rotate-180' : ''}`}
+                />
+              )}
+            </div>
+            {openCategory === idx && sub && sub.length > 0 && (
+              <ul className="pl-4 space-y-1 mt-1">
+                {sub.map((s) => (
+                  <li key={s}>
                     <Link
-                      href={`/category/${name.toLowerCase()}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setMenuOpen(false);
-                      }}
+                      href={`/category/${s.toLowerCase()}`}
+                      onClick={() => setMenuOpen(false)}
+                      className="inline-block bg-slate-400  px-4 py-1 rounded-full shadow text-xs hover:bg-slate-300 transition"
                     >
-                      {name}
+                      {s}
                     </Link>
-                    {sub && sub.length > 0 && (
-                      <ChevronDownIcon
-                        className={`w-4 h-4 transition-transform ${
-                          openCategory === idx ? 'rotate-180' : ''
-                        }`}
-                      />
-                    )}
-                  </div>
-                  {openCategory === idx && sub && sub.length > 0 && (
-                    <ul className="pl-4 space-y-0.5">
-                      {sub.map((s) => (
-                        <li key={s}>
-                          <Link
-                            href={`/category/${s.toLowerCase()}`}
-                            onClick={() => setMenuOpen(false)}
-                            className="block text-sm text-gray-600 hover:text-black"
-                          >
-                            – {s}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
-
-              {/* Help section */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <p className="px-2 mb-2 font-semibold text-gray-700">Help</p>
-                {helpLinks.map(({ label, href }) => (
-                  <Link
-                    key={label}
-                    href={href}
-                    onClick={() => setMenuOpen(false)}
-                    className="block px-2 py-1 text-sm text-sky-600 hover:bg-sky-100 rounded"
-                  >
-                    {label}
-                  </Link>
+                  </li>
                 ))}
-
-                {/* WhatsApp */}
-                <button
-                  onClick={() => {
-                    openWhatsApp();
-                    setMenuOpen(false);
-                  }}
-                  className="w-full mt-2 bg-green-500 text-white py-2 rounded-md text-sm font-semibold hover:bg-green-600 transition"
-                >
-                  📲 WhatsApp Us
-                </button>
-              </div>
-            </nav>
+              </ul>
+            )}
           </div>
+        ))}
+      </nav>
+
+      {/* Useful Links (dropdown) */}
+      <div className="mt-6 pt-4 border-t border-slate-700">
+        <div
+          className="flex items-center justify-between font-semibold cursor-pointer"
+          onClick={() => setOpenUseful(!openUseful)}
+        >
+          Useful Links
+          <ChevronDownIcon
+            className={`w-4 h-4 transition-transform ${openUseful ? 'rotate-180' : ''}`}
+          />
         </div>
-      )}
+        {openUseful && (
+          <ul className="pl-4 space-y-1 mt-2">
+            {helpLinks.map(({ label, href }) => (
+              <li key={label}>
+                <Link
+                  href={href}
+                  onClick={() => setMenuOpen(false)}
+                  className="block text-sm text-sky-500 hover:text-black"
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      {/* WhatsApp button */}
+      <button
+        onClick={() => {
+          openWhatsApp();
+          setMenuOpen(false);
+        }}
+        className="w-full mt-4 h-8 flex items-center justify-center bg-green-500 text-white rounded-md text-xs font-semibold hover:bg-green-600 transition"
+      >
+        <img src="/whatsapp.png" alt="WhatsApp" className="w-4 h-4 mr-1.5" />
+        WhatsApp Us
+      </button>
+    </div>
+  </div>
+)}
+        
     </>
   );
 }

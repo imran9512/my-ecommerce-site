@@ -6,8 +6,11 @@ const products = [
     "name": "Coity Long - Dapoxetine 60mg",
     "active": true,
     "categories": [
-      "fitness",
-      "Medicine"
+      "Fitness",
+      "Dapoxitine",
+      "Delay/Timing",
+      "For Men",
+      "Others"
     ],
     "sku": "Dapoxetine-01",
     "stock": 50,
@@ -65,8 +68,10 @@ const products = [
     "name": "Tiafil 20mg",
     "active": true,
     "categories": [
-      "health",
-      "medicine"
+      "Fitness",
+      "Erection",
+      "CIALIS+",
+      "For Men"
     ],
     "sku": "Tadalafil-ir-1",
     "stock": 50,
@@ -129,8 +134,8 @@ const products = [
     "name": "Modiwake 100mg",
     "active": true,
     "categories": [
-      "health",
-      "medicine"
+      "ADHD",
+      "Modafinil"
     ],
     "sku": "Modi-100",
     "stock": 50,
@@ -190,7 +195,9 @@ const products = [
     "name": "SDF 100mg",
     "active": true,
     "categories": [
-      "medicine",
+      "VIAGRA+",
+      "For Men",
+      "Erection",
       "Fitness"
     ],
     "sku": "SDF-100",

@@ -107,21 +107,26 @@ export default function Footer() {
 
             {/* WhatsApp button */}
             <div className="p-4 border-t border-gray-200">
-              <button
-                onClick={() => {
-                  window.open(
-                    `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-                      'Hi! I need help with products or my order.'
-                    )}`,
-                    '_blank'
-                  );
-                  setIsOpen(false);
-                }}
-                className="w-full bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition"
-              >
-                📲 Chat on WhatsApp
-              </button>
-            </div>
+  <button
+    onClick={() => {
+      window.open(
+        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+          'Hi! I need help with products or my order.'
+        )}`,
+        '_blank'
+      );
+      setIsOpen(false);
+    }}
+    className="w-full bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition flex items-center justify-center"
+  >
+    <img
+      src="/whatsapp.png"
+      alt="WhatsApp"
+      className="w-5 h-5 mr-2"
+    />
+    Chat on WhatsApp
+  </button>
+</div>
           </div>
         </div>
       )}
