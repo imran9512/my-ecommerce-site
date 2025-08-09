@@ -52,7 +52,7 @@ export default function CartPage() {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex flex-col sm:flex-row sm:items-center justify-between bg-sky-100 shadow-lg p-4 shadow mb-4"
+                className="flex flex-col sm:flex-row sm:items-center justify-between bg-sky-100 shadow-lg p-4 shadow mb-4 rounded-lg"
               >
                 <div className="flex items-center space-x-4 mb-3 sm:mb-0">
                   <Link href={`/products/${item.slug}`}>
@@ -75,8 +75,15 @@ export default function CartPage() {
                       <span className="text-lg font-semibold">
                         {(item.totalPrice * item.quantity).toFixed(2)}
                       </span>{' '}
-                      <span className="text-sm line-through text-red-500">
-                        Rs {(item.price * item.quantity).toFixed(2)}
+                      
+                    </p>
+                    <p>
+                      <span className="text-xs text-green-500 font-semibold">
+                        {((item.price * item.quantity) - (item.totalPrice * item.quantity)) > 0 ? (
+                        `*Saved Rs ${((item.price * item.quantity) - (item.totalPrice * item.quantity)).toFixed(2)}`
+                         ) : (
+                        <span className="text-yellow-500">add more to get discount</span>
+                        )}
                       </span>
                     </p>
                   </div>
