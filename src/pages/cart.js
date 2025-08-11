@@ -116,21 +116,27 @@ export default function CartPage() {
             ))}
 
             {/* grand totals */}
-
             <div className="mt-6 text-right border-t pt-4 space-y-1">
-              <p className="text-xl">
-                <span className="text-gray-600">Regular Total:</span>{' '}
-                <span className="text-red-500 line-through">
-                  Rs {regularTotal.toFixed(2)}
-                </span>
-              </p>
-              <p className="text-2xl font-bold">
-                <span className="text-gray-600">Grand Total:</span>{' '}
-                Rs {grandTotal.toFixed(2)}
-              </p>
-            </div>
+                 {regularTotal - grandTotal > 0 && (
+                  <>
+                  <p className="text-lg">
+                  <span className="text-gray-600">Regular Total:</span>{' '}
+                  <span className="text-red-500 line-through">
+                    Rs {regularTotal.toFixed(2)}
+                  </span>
+                  </p>
+                  <p className="text-green-500 font-bold">
+                    You Saved: Rs {(regularTotal - grandTotal).toFixed(2)}
+                  </p>
+                  </>
+                 )}
+                  <p className="text-xl font-bold">
+                  <span className="text-gray-600">Grand Total:</span>{' '}
+                   Rs {grandTotal.toFixed(2)}
+                  </p>
+             </div>
 
-            <div className="mt-4 text-right">
+             <div className="mt-4 text-right">
               <Link
                 href="/checkout"
                 className="inline-block bg-sky-600 text-white px-6 py-2 rounded hover:bg-sky-700"
@@ -139,7 +145,7 @@ export default function CartPage() {
               </Link>
             </div>
           </>
-        )}
+         )}
       </div>
     </>
   );

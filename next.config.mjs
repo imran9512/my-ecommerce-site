@@ -1,3 +1,4 @@
+// next.config.mjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -9,6 +10,22 @@ const nextConfig = {
         ? `https://${process.env.VERCEL_URL}`
         : 'http://localhost:3000',
   },
+  async rewrites() {
+    return [
+      {
+        source: '/Prod-images/:path*',
+        destination: '/api/images/:path*',
+      },
+    ];
+  },
+  async rewrites() {
+  return [
+    {
+      source: '/Prod-images/:slug*',
+      destination: '/api/images/:slug*',
+    },
+  ];
+}
 };
 
 export default nextConfig;

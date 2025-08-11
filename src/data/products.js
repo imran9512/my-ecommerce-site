@@ -17,7 +17,7 @@ const products = [
     "rating": 4.8,
     "reviewCount": 2,
     "images": [
-      "/Prod-images/Buy Coity Long Dapoxetine 60mg in pakistan.webp"
+      "/api/images/Buy Coity Long Dapoxetine 60mg in pakistan.webp"
     ],
     "price": 2650,
     "offerPrice": 2100,
@@ -67,9 +67,9 @@ const products = [
     "rating": 5,
     "reviewCount": 3,
     "images": [
-      "/Prod-images/cialis alternative price in pakistan.webp",
-      "/Prod-images/irani cialis price in pakistan.webp",
-      "/Prod-images/Tiafil price in pakistan.webp"
+      "/api/images/cialis alternative price in pakistan.webp",
+      "/api/images/irani cialis price in pakistan.webp",
+      "/api/images/Tiafil price in pakistan.webp"
     ],
     "price": 4300,
     "offerPrice": 3450,
@@ -121,8 +121,8 @@ const products = [
     "rating": 4.8,
     "reviewCount": 1,
     "images": [
-      "/Prod-images/modafinil 100mg lahore.webp",
-      "/Prod-images/modafinil 100mg.webp"
+      "/api/images/modafinil 100mg lahore.webp",
+      "/api/images/modafinil 100mg.webp"
     ],
     "price": 11000,
     "offerPrice": 10000,
@@ -184,10 +184,10 @@ const products = [
     "rating": 5,
     "reviewCount": 1,
     "images": [
-      "/Prod-images/SDF 100-1.webp",
-      "/Prod-images/SDF 100-2.webp",
-      "/Prod-images/SDF 100-3.webp",
-      "/Prod-images/SDF 100-4.webp"
+      "/api/images/SDF 100-1.webp",
+      "/api/images/SDF 100-2.webp",
+      "/api/images/SDF 100-3.webp",
+      "/api/images/SDF 100-4.webp"
     ],
     "price": 4300,
     "offerPrice": 3150,
