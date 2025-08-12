@@ -21,19 +21,20 @@ export default function ProductCard({ product }) {
       )}
 
       <Image
-        src={product.images[0]}
+        src={`${product.images[0]}?v=2`}
         alt={product.name}
-        width={150}
-        height={150}
+        width={200}
+        height={200}
+        priority
         className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
       />
 
       <h3 className="mt-2 text-sm font-semibold truncate">{product.name}</h3>
       <p className="text-xs">
-        Formula: <span className="text-blue-600">{product.ActiveSalt}</span>
+        Formula: <span className="text-blue-600 shadow">{product.ActiveSalt}</span>
       </p>
       <p className="text-xs">
-        Rs: {product.price} As Low As: <span className="text-blue-600 font-semibold">Rs {product.offerPrice}</span>
+        Rs: {product.price} As Low As: <span className="shadow text-blue-600 font-semibold">Rs {product.offerPrice}</span>
       </p>
     </Link>
   );

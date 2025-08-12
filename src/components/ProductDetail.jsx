@@ -199,14 +199,14 @@ export default function ProductDetail({ product }) {
         
                   {(product.tabsMg || product.origin || product.quality) && (
                     <div className="mt-1 text-xs">
-                      {product.tabsMg && <>Pack: <span className="underline font-semibold italic">{product.tabsMg}</span> &nbsp;</>}
-                      {product.origin && <>Origin: <span className="underline font-semibold italic">{product.origin}</span> &nbsp;</>}
-                      {product.quality && <>Type: <span className="underline font-semibold italic">{product.quality}</span></>}
+                      {product.tabsMg && <>Pack: <span className="underline shadow-lg font-semibold italic">{product.tabsMg}</span> &nbsp;</>}
+                      {product.origin && <>Origin: <span className="underline shadow-lg font-semibold italic">{product.origin}</span> &nbsp;</>}
+                      {product.quality && <>Type: <span className="underline shadow-lg font-semibold italic">{product.quality}</span></>}
                     </div>
                   )}
                   {product.ActiveSalt && (
                     <h2 className="mt-2 rounded">
-                    Formula: <span className="bg-gray-100 font-semibold italic">{product.ActiveSalt}</span>
+                    Formula: <span className="bg-yellow-100 shadow-lg font-semibold">{product.ActiveSalt}</span>
                     </h2>
                   )}
 
@@ -234,14 +234,14 @@ export default function ProductDetail({ product }) {
                       onClick={openWhatsApp}
                       className="flex items-center space-x-1.5 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
                      >
-                      <PhoneIcon className="w-5 h-5" />
+                      <img src="/whatsapp.png" alt="WhatsApp" className="w-6 h-6 mr-1.5" />
                       <span>WhatsApp</span>
                     </button>
                   </div>
         
                   {product.specialNote && (
-                    <p className="mt-4 bg-pink-100 p-2 rounded">
-                      {product.specialNote}
+                    <p className="inline-block mt-4 bg-pink-100 p-2 rounded italic shadow-lg font-semibold text-red-800">
+                      ❝ {product.specialNote} ❞
                     </p>
                   )}
                   {product.shortDesc && (

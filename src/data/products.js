@@ -4,7 +4,7 @@ const products = [
     id: "001",
     slug: "buy-Coity-Long-Dapoxetine-60mg",
     name: "Coity Long - Dapoxetine 60mg",
-    active: true,
+    active: "true",
     categories: [
       "Fitness",
       "Dapoxitine",
@@ -25,7 +25,7 @@ const products = [
       "2": 2470,
       "3": 2340,
       "4": 2200,
-      "5": 22100
+      "5": 2100
     },
     "tabsMg": "5 Tabs",
     "origin": "Thailand",
@@ -92,7 +92,7 @@ const products = [
     ],
     "metaTitle": "Buy Tiafil 20mg (Tadalafil 20mg) in Pakistan",
     "metaDescription": "if you are looking for original Cialis  alternatives in Pakistan then this product is for you..  we delivery across the country with cash on delivery option ",
-    "ActiveSalt": "Tadalafil 20mg",
+    "ActiveSalt": "Tadalafil",
     "reviews": [
       
       {

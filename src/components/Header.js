@@ -19,13 +19,6 @@ export default function Header() {
   const [searchTerm, setSearchTerm] = useState('');
   const cartCount = useCartStore((s) => s.items.reduce((a, b) => a + b.quantity, 0));
   const [openUseful, setOpenUseful] = useState(false);
-
-  /*const categories = [
-    { name: 'Fitness', sub: ['Delay/Timing', 'Erection', 'Combo'] },
-    { name: 'ADHD', sub: ['Ritalin (Methylphenidate)','Lisdexamfetamine','Modafinil','Atomoxetine','Clonidine'] },
-    { name: 'For Men', sub: ['VIAGRA+','CIALIS+','Dapoxitine'] },
-    { name: 'Others', sub: ['For women','Miscellaneous'] },
-  ];*/
   
   const [openCategory, setOpenCategory] = useState(null);
 

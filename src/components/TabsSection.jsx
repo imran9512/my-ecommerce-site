@@ -1,6 +1,7 @@
 // src/components/TabsSection.jsx
 import { useState } from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
+import ReviewsSection from './ReviewsSection';
 
 export default function TabsSection({ product }) {
   const [active, setActive] = useState('desc');

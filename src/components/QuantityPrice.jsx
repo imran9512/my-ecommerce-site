@@ -37,11 +37,11 @@ export default function QuantityPrice({ product, qty, setQty }) {
       </div>
 
       {/* Lowest price note */}
-      <p className="mt-1 text-sm text-gray-600">
+      <p className="inline-block shadow-xl font-semibold text-red-800">
         As low as Rs {Math.min(...Object.values(product.qtyDiscount || { 1: product.price })).toLocaleString()}
       </p>
-
-      {/* ---------- Stylish Quantity Control ---------- */}
+      
+      {/* ---------- Quantity Control ---------- */}
 <div className="mt-6 flex items-left space-x-3">
   {/* minus */}
   <button
