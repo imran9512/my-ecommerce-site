@@ -25,7 +25,7 @@ export default function ProductCard({ product }) {
         alt={product.name}
         width={150}
         height={150}
-        className={`w-full h-[150px] object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
+        className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
       />
 
       <h3 className="mt-2 text-sm font-semibold truncate">{product.name}</h3>

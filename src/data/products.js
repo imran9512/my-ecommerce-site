@@ -1,22 +1,22 @@
 // src/data/products.js
 const products = [
   {
-    "id": "001",
-    "slug": "buy-Coity-Long-Dapoxetine-60mg",
-    "name": "Coity Long - Dapoxetine 60mg",
-    "active": true,
-    "categories": [
+    id: "001",
+    slug: "buy-Coity-Long-Dapoxetine-60mg",
+    name: "Coity Long - Dapoxetine 60mg",
+    active: true,
+    categories: [
       "Fitness",
       "Dapoxitine",
       "Delay/Timing",
       "For Men",
       "Others"
     ],
-    "sku": "Dapoxetine-01",
-    "stock": 50,
-    "rating": 4.8,
-    "reviewCount": 2,
-    "images": [
+    sku: "Dapoxetine-01",
+    stock: 50,
+    rating: 4.8,
+    reviewCount: 2,
+    images: [
       "/api/images/Buy Coity Long Dapoxetine 60mg in pakistan.webp"
     ],
     "price": 2650,

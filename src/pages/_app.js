@@ -4,7 +4,6 @@ import '../styles/globals.css';
 import { useEffect } from 'react';
 import { useCartStore } from '@/stores/cart';
 import Head from 'next/head';
-import { SessionProvider } from 'next-auth/react';
 
 function MyApp({ Component, pageProps }) {
   /* load cart on first mount */
@@ -13,21 +12,16 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return (
-    <SessionProvider session={pageProps.session}>
-      <>
+    <>
+      <Head>
         {/* Google Search Console tag */}
-        <Head>
-          <meta
-            name="google-site-verification"
-            content="YOUR_VERIFICATION_CODE"
-          />
-        </Head>
+        <meta name="google-site-verification" content={process.env.NEXT_PUBLIC_GOOGLE_VERIFICATION} />
+      </Head>
 
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </>
-    </SessionProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </>
   );
 }
 

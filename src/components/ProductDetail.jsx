@@ -5,7 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon, PhoneIcon, CheckIcon } from '@heroic
 import { useSwipeable } from 'react-swipeable';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
-
+import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import QuantityPrice from './QuantityPrice';
 import { SITE_NAME, WHATSAPP_NUMBER } from '@/data/constants';
 import { useCartStore } from '@/stores/cart';
@@ -103,9 +103,9 @@ export default function ProductDetail({ product }) {
             alt={product.name}
             width={600}
             height={400}
-            layout="responsive"
-            className="rounded-lg cursor-pointer"
+            className="rounded w-full h-auto object-cover"
             onClick={() => setLightboxOpen(true)}
+            priority
           />
 
           {/* Heroicons arrows */}
@@ -113,13 +113,13 @@ export default function ProductDetail({ product }) {
             <>
               <button
                 onClick={(e) => { e.stopPropagation(); prevImg(); }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow"
+                className="absolute left-2 top-2/3 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow"
               >
                 <ChevronLeftIcon className="h-6 w-6 text-gray-800" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); nextImg(); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow"
+                className="absolute right-2 top-2/3 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow"
               >
                 <ChevronRightIcon className="h-6 w-6 text-gray-800" />
               </button>
@@ -147,12 +147,15 @@ export default function ProductDetail({ product }) {
           </div>
           {/* Lightbox */}
       <Lightbox
-        open={lightboxOpen}
-        close={() => setLightboxOpen(false)}
-        slides={images.map((img) => ({ src: `${img}?v=2` }))}
-        index={current}
-        on={{ view: ({ index }) => setCurrent(index) }}
-      />
+  open={lightboxOpen}
+  close={() => setLightboxOpen(false)}
+  slides={images.map((img) => ({ src: `${img}?v=2` }))}
+  index={current}
+  plugins={[Zoom]}                     // ← enable zoom plugin
+  zoom={{ maxZoomPixelRatio: 3 }}      // zoom settings
+  carousel={{ finite: true }}          // slider off
+  render={{ buttonPrev: () => null, buttonNext: () => null }}
+/>
           
         </div>
         
@@ -194,9 +197,19 @@ export default function ProductDetail({ product }) {
                     </span>
                   </div>
         
-                  <div className="mt-1">
-                    <p className="text-xs">Pack: <span className="underline font-semibold italic">{product.tabsMg}</span> &nbsp; Origin: <span className="underline font-semibold italic">{product.origin}</span>&nbsp; Type: <span className="underline font-semibold italic">{product.quality}</span></p>
-                  </div>
+                  {(product.tabsMg || product.origin || product.quality) && (
+                    <div className="mt-1 text-xs">
+                      {product.tabsMg && <>Pack: <span className="underline font-semibold italic">{product.tabsMg}</span> &nbsp;</>}
+                      {product.origin && <>Origin: <span className="underline font-semibold italic">{product.origin}</span> &nbsp;</>}
+                      {product.quality && <>Type: <span className="underline font-semibold italic">{product.quality}</span></>}
+                    </div>
+                  )}
+                  {product.ActiveSalt && (
+                    <h2 className="mt-2 rounded">
+                    Formula: <span className="bg-gray-100 font-semibold italic">{product.ActiveSalt}</span>
+                    </h2>
+                  )}
+
         
                   <QuantityPrice product={product} qty={qty} setQty={setQty} />
         

@@ -120,7 +120,7 @@ export default function Header() {
           {/* Center: Logo */}
           <div className="flex justify-center">
             <Link href="/" className="mx-auto">
-              <Image src="/logo.png" alt="Logo" width={110} height={44} className="object-contain" />
+              <Image src="/logo.png" alt="Logo" width={110} height={44} className="w-auto h-auto object-contain" />
             </Link>
           </div>
 
