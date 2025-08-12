@@ -205,7 +205,7 @@ const products = [
     "origin": "Iran",
     "quality": "Original not genric",
     "shortDesc": "Original Product and official import not a single percent doubt while using this product instead of Viagra , Yes it is mirror product of well known branded Viagra  ",
-    "longDesc": "",
+    "longDesc": "SSSSSSSSSSSSSSSSSSSSSSSS",
     "specialNote": "",
     "related": [
       "001",
