@@ -10,10 +10,11 @@ export default function SearchPage() {
 
   // local input state
   const [query, setQuery] = useState(urlQuery);
-  const [hasTyped, setHasTyped] = useState(false);
-
+  //const [hasTyped, setHasTyped] = useState(false);
+  // new
+  const results = searchProducts(query);
   // live filter
-  const results = searchProducts(hasTyped ? query : '');
+  //const results = searchProducts(hasTyped ? query : '');
 
   // keep input & URL in sync
   useEffect(() => {
@@ -30,7 +31,7 @@ export default function SearchPage() {
         onChange={(e) => {
           const val = e.target.value;
           setQuery(val);
-          if (!hasTyped) setHasTyped(true);
+          //if (!hasTyped) setHasTyped(true);
           router.replace(`/search?q=${encodeURIComponent(val)}`, undefined, { shallow: true });
         }}
         placeholder="Type name, slug, salt or category…"
@@ -38,13 +39,15 @@ export default function SearchPage() {
         autoFocus
       />
 
-      {hasTyped && results.length ? (
+      {/*{hasTyped && results.length ? (*/}
+      {results.length ? (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {results.map((p) => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
-      ) : hasTyped ? (
+      //) : hasTyped ? (
+      ) : query ? (
         <p className="text-center text-gray-500">No products found.</p>
       ) : (
         <p className="text-center text-gray-500">Type something to search…</p>

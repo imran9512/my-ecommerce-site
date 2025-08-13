@@ -28,8 +28,10 @@ export default function ProductCard({ product }) {
         priority
         className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
       />
-
-      <h3 className="mt-2 text-sm font-semibold truncate">{product.name}</h3>
+       {product.brand && (
+        <h3 className="mt-2 text-xs font-semibold ">{product.brand}'s</h3>
+        )}
+      <h3 className=" text-sm font-semibold truncate">{product.name}</h3>
       <p className="text-xs">
         Formula: <span className="text-blue-600 shadow">{product.ActiveSalt}</span>
       </p>

@@ -1,5 +1,5 @@
 // src/components/QuantityPrice.jsx
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function QuantityPrice({ product, qty, setQty }) {
   /* ---------- 1. Build full price map ---------- */
@@ -22,6 +22,18 @@ export default function QuantityPrice({ product, qty, setQty }) {
   /* ---------- 2. Dropdown data (only tiers that exist) ---------- */
   const entries = Object.entries(raw).sort(([a], [b]) => +a - +b);
   const [open, setOpen] = useState(false);
+  const wrapperRef = useRef(null);
+
+  /* click-outside to close */
+  useEffect(() => {
+    const outside = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', outside);
+    return () => document.removeEventListener('mousedown', outside);
+  }, []);
 
   return (
     <div className="mt-2 space-y-3">
@@ -77,7 +89,7 @@ export default function QuantityPrice({ product, qty, setQty }) {
 
       {/* Dropdown for existing discount tiers only */}
       {entries.length > 1 && (
-        <div className="relative w-full max-w-md">
+        <div className="relative w-full max-w-md"ref={wrapperRef}>
           <button
             onClick={() => setOpen(!open)}
             className="w-full flex items-center justify-between px-4 py-2 bg-blue-600 text-white rounded-md"

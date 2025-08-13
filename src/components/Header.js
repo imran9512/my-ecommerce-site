@@ -1,5 +1,5 @@
 // src/components/Header.js
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
@@ -14,6 +14,8 @@ import products from '@/data/products';
 import { categories, WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function Header() {
+  const [cursor, setCursor] = useState(-1);
+  const searchWrapperRef = useRef(null);
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -37,6 +39,16 @@ export default function Header() {
     );
     setResults(filtered);
   }, [searchTerm]);
+
+  useEffect(() => {
+  const handleOutside = (e) => {
+    if (searchWrapperRef.current && !searchWrapperRef.current.contains(e.target)) {
+      setResults([]);
+    }
+  };
+  document.addEventListener('mousedown', handleOutside);
+  return () => document.removeEventListener('mousedown', handleOutside);
+}, []);
 
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
@@ -81,34 +93,61 @@ export default function Header() {
               {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
             </button>
 
-            <div className="relative hidden md:block">
-              <input
-                type="text"
-                placeholder="Search…"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="focus:outline-none bg-gray-100 w-48 lg:w-60 border border-gray-300 rounded-full px-4 shadow-lg py-1 text-sm"
-              />
-              {searchTerm && results.length > 0 && (
-                <ul className="absolute top-full left-0 mt-1 w-full max-h-48 bg-white border rounded shadow-lg overflow-y-auto z-30">
-                  {results.slice(0, 6).map((p) => (
-                    <li key={p.id}>
-                      <Link
-                        href={`/products/${p.slug}`}
-                        onClick={() => {
-                          setSearchTerm('');
-                          setMenuOpen(false);
-                        }}
-                        className="block px-3 py-2 text-sm hover:bg-gray-100"
-                      >
-                        {p.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
+            <div className="relative hidden md:block" ref={searchWrapperRef}>
+  <input
+    type="text"
+    placeholder="Search…"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    onKeyDown={(e) => {
+      const visible = results.slice(0, 6);
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setCursor((c) => (c + 1) % visible.length);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setCursor((c) => (c - 1 + visible.length) % visible.length);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (cursor >= 0 && visible[cursor]) {
+          router.push(`/products/${visible[cursor].slug}`);
+          setSearchTerm('');
+          setCursor(-1);
+        }
+      }
+    }}
+    className="focus:outline-none bg-gray-100 w-48 lg:w-60 border border-gray-300 rounded-full px-4 shadow-lg py-1 text-sm"
+  />
+
+  {searchTerm && results.length > 0 && (
+    <ul
+      ref={(ul) => {
+        if (ul && cursor >= 0) {
+          const li = ul.children[cursor];
+          li?.scrollIntoView({ block: 'nearest' });
+        }
+      }}
+      className="absolute top-full left-0 mt-1 w-full max-h-48 bg-white border rounded shadow-lg overflow-y-auto z-30"
+    >
+      {results.slice(0, 6).map((p, idx) => (
+        <li key={p.id}>
+          <Link
+            href={`/products/${p.slug}`}
+            onClick={() => {
+              setSearchTerm('');
+              setCursor(-1);
+            }}
+            className={`block px-3 py-2 text-sm ${
+              idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-100'
+            }`}
+          >
+            {p.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
           </div>
 
           {/* Center: Logo */}

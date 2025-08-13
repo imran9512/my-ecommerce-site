@@ -1,14 +1,15 @@
 // src/components/ProductDetail.jsx
 import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon, PhoneIcon, CheckIcon } from '@heroicons/react/24/solid';
+import { ChevronLeftIcon, ChevronRightIcon, CheckIcon } from '@heroicons/react/24/solid';
 import { useSwipeable } from 'react-swipeable';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import QuantityPrice from './QuantityPrice';
-import { SITE_NAME, WHATSAPP_NUMBER } from '@/data/constants';
+import { WHATSAPP_NUMBER } from '@/data/constants';
 import { useCartStore } from '@/stores/cart';
+import Link from 'next/link'
 
 export default function ProductDetail({ product }) {
   const [current, setCurrent] = useState(0);
@@ -73,7 +74,7 @@ export default function ProductDetail({ product }) {
     brand: { '@type': 'Brand', name: product.brand },
     offers: {
       '@type': 'Offer',
-      price: product.qtyDiscount?.[qty] ?? product.price,
+      price: product.price - product.offerPrice,
       priceCurrency: 'PKR',
       availability:
         product.stock === 0
@@ -81,6 +82,7 @@ export default function ProductDetail({ product }) {
           : product.stock < 5
           ? 'https://schema.org/LimitedAvailability'
           : 'https://schema.org/InStock',
+      priceValidUntil: '2035-12-31',
     },
     aggregateRating: {
       '@type': 'AggregateRating',
@@ -161,11 +163,17 @@ export default function ProductDetail({ product }) {
         
                 {/* ---------- Details ---------- */}
                <div>
-                  {product.brand && (
-                    <h2 className=" rounded">
-                    By: <span className=" shadow-lg font-semibold">{product.brand}</span>
-                    </h2>
-                  )}
+                {product.brand && (
+                 <h2 className="rounded">
+                   By:{' '}
+                   <Link
+                    href={`/search?q=${encodeURIComponent(product.brand)}`}
+                    className="shadow-lg font-semibold hover:underline"
+                    >
+                    {product.brand}
+                   </Link>
+                 </h2>
+                 )}
                   <h1 className="text-3xl font-bold">{product.name}</h1>
                   <span
                     className={`inline-block px-3 py-1 text-white text-xs rounded-full ${stockColor}`}

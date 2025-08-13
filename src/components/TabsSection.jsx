@@ -6,8 +6,7 @@ import products from '@/data/products';
 
 export default function TabsSection({ product }) {
   const [active, setActive] = useState('desc');
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
+  
   // reviews jo is product k hain
   const productReviews = reviews.filter(r => r.productId === product.id);
 
@@ -55,39 +54,73 @@ export default function TabsSection({ product }) {
         )}
 
         {/* REVIEWS */}
-            {active === 'reviews' && (
-  <>
-    {/* swipeable container */}
-    <div className="flex overflow-x-auto space-x-4 pb-2">
-      {reviews.map((r) => {
-        const productName = products.find((p) => p.id === r.productId)?.name || 'Unknown';
-        return (
+        {active === 'reviews' && (
+        <>
+        {/* swipeable container */}
+        <div className="flex overflow-x-auto space-x-4 pb-2">
+         {productReviews.map((r) => {
+          const productName = products.find((p) => p.id === r.productId)?.name || 'Unknown';
+         return (
           <div
             key={r.id}
             className="min-w-[300px] w-full md:w-1/3 lg:w-1/3 shrink-0 border border-gray-200 rounded-xl p-4"
           >
-            <div className="flex justify-between items-start">
-              <div>
-                <p><span className="font-semibold text-sm">{r.name}</span> - 
+          <div className="flex justify-between items-start">
+               <div>
+                 <p><span className="font-semibold text-sm">{r.name}</span> - 
                  <span className="text-xs text-gray-500"> {r.date}</span></p>
-                <p className="text-xs">
-                  Purchased: <span className="text-xs text-blue-600 mt-0.5">{productName}</span>
-                </p>
+                 <p className="text-xs">
+                   Purchased: <span className="text-xs text-blue-600 mt-0.5">{productName}</span>
+                 </p>
+                </div>
+                <div className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <StarIcon
+                      key={i}
+                      className={`w-4 h-4 ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                    />
+                  ))}
+                </div>
               </div>
-              <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <StarIcon
-                    key={i}
-                    className={`w-4 h-4 ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'}`}
-                  />
-                ))}
-              </div>
+              <p className="text-sm text-gray-800 mt-2">{r.comment}</p>
             </div>
-            <p className="text-sm text-gray-800 mt-2">{r.comment}</p>
+           );
+          })}
+          {/* 2. Other reviews (different product IDs) */}
+          {reviews
+           .filter((r) => r.productId !== product.id)
+           .map((r) => {
+          const productName = products.find((p) => p.id === r.productId)?.name || 'Unknown';
+           return (
+            <div
+            key={r.id}
+            className="min-w-[300px] w-full md:w-1/3 lg:w-1/3 shrink-0 border border-gray-200 rounded-xl p-4"
+            >
+           <div className="flex justify-between items-start">
+            <div>
+             <p>
+              <span className="font-semibold text-sm">{r.name}</span> -
+              <span className="text-xs text-gray-500"> {r.date}</span>
+             </p>
+             <p className="text-xs">
+              Purchased:{' '}
+             <span className="text-xs text-blue-600 mt-0.5">{productName}</span>
+             </p>
+            </div>
+            <div className="flex items-center">
+             {[...Array(5)].map((_, i) => (
+               <StarIcon
+                key={i}
+                className={`w-4 h-4 ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+              />
+              ))}
+           </div>
           </div>
-        );
-      })}
-    </div>
+             <p className="text-sm text-gray-800 mt-2">{r.comment}</p>
+          </div>
+          );
+         })}     
+        </div>
 
     {/* button */}
     <button
@@ -102,7 +135,7 @@ export default function TabsSection({ product }) {
 
         {/* META */}
         {active === 'meta' && (
-          <div className="text-sm text-gray-400 space-y-2 p-4 bg-gray-50 rounded">
+          <div className="text-sm text-gray-400 space-y-2 p-4">
             <p><strong>Title:</strong> {product.metaTitle}</p>
             <p><strong>Description:</strong> {product.metaDescription}</p>
           </div>
