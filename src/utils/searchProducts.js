@@ -8,6 +8,7 @@ export function searchProducts(query) {
   return products.filter(p =>
     p.name.toLowerCase().includes(q) ||
     p.slug.toLowerCase().includes(q) ||
+    p.brand.toLowerCase().includes(q) ||
     p.ActiveSalt.toLowerCase().includes(q) ||
     p.categories.some(c => c.toLowerCase().includes(q))
   );

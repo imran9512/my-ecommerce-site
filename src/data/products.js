@@ -4,6 +4,7 @@ const products = [
     id: "001",
     slug: "buy-Coity-Long-Dapoxetine-60mg",
     name: "Coity Long - Dapoxetine 60mg",
+    brand: "Advanz",
     active: "true",
     categories: [
       "Fitness",
@@ -55,6 +56,7 @@ const products = [
     "id": "002",
     "slug": "buy-Tiafil-20mg-at-best-price-in-pakistan",
     "name": "Tiafil 20mg",
+    brand: "",
     "active": true,
     "categories": [
       "Fitness",
@@ -111,6 +113,7 @@ const products = [
     "id": "003",
     "slug": "buy-modiwake-100-mg-price-in-pakistan",
     "name": "Modiwake 100mg",
+    brand: "",
     "active": true,
     "categories": [
       "ADHD",
@@ -172,6 +175,7 @@ const products = [
     "id": "004",
     "slug": "buy-viagra-alternative-SDF-100mg-in-pakistan",
     "name": "SDF 100mg",
+    brand: "",
     "active": true,
     "categories": [
       "VIAGRA+",

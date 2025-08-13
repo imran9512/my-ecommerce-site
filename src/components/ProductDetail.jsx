@@ -70,7 +70,7 @@ export default function ProductDetail({ product }) {
     sku: product.sku,
     image: images,
     description: product.metaDescription,
-    brand: { '@type': 'Brand', name: SITE_NAME },
+    brand: { '@type': 'Brand', name: product.brand },
     offers: {
       '@type': 'Offer',
       price: product.qtyDiscount?.[qty] ?? product.price,
@@ -160,7 +160,12 @@ export default function ProductDetail({ product }) {
         </div>
         
                 {/* ---------- Details ---------- */}
-                <div>
+               <div>
+                  {product.brand && (
+                    <h2 className=" rounded">
+                    By: <span className=" shadow-lg font-semibold">{product.brand}</span>
+                    </h2>
+                  )}
                   <h1 className="text-3xl font-bold">{product.name}</h1>
                   <span
                     className={`inline-block px-3 py-1 text-white text-xs rounded-full ${stockColor}`}
