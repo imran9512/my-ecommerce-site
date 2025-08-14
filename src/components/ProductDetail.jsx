@@ -74,8 +74,12 @@ export default function ProductDetail({ product }) {
     brand: { '@type': 'Brand', name: product.brand },
     offers: {
       '@type': 'Offer',
-      price: product.price - product.offerPrice,
-      priceCurrency: 'PKR',
+      priceSpecification: {
+         '@type': 'UnitPriceSpecification',
+          minPrice: product.offerPrice,
+          maxPrice: product.price,
+          priceCurrency: 'PKR',
+         },
       availability:
         product.stock === 0
           ? 'https://schema.org/OutOfStock'
@@ -89,7 +93,7 @@ export default function ProductDetail({ product }) {
         ratingValue: product.rating,
         reviewCount: product.reviewCount ?? 0,
     },
-      shippingDetails: {
+    shippingDetails: {
         "@type": "OfferShippingDetails",
       shippingRate: {
         "@type": "MonetaryAmount",
@@ -101,7 +105,7 @@ export default function ProductDetail({ product }) {
         addressCountry: "PK"
       }
     },
-      hasMerchantReturnPolicy: {
+    hasMerchantReturnPolicy: {
         "@type": "MerchantReturnPolicy",
         returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
         merchantReturnDays: 7,
