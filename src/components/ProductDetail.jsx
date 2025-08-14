@@ -84,11 +84,29 @@ export default function ProductDetail({ product }) {
           : 'https://schema.org/InStock',
       priceValidUntil: '2035-12-31',
     },
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: product.rating,
-      reviewCount: product.reviewCount ?? 0,
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: product.rating,
+        reviewCount: product.reviewCount ?? 0,
     },
+      shippingDetails: {
+        "@type": "OfferShippingDetails",
+      shippingRate: {
+        "@type": "MonetaryAmount",
+        value: 150,
+        currency: "PKR"
+      },
+      shippingDestination: {
+        "@type": "DefinedRegion",
+        addressCountry: "PK"
+      }
+    },
+      hasMerchantReturnPolicy: {
+        "@type": "MerchantReturnPolicy",
+        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+        merchantReturnDays: 7,
+        returnMethod: "https://schema.org/ReturnByMail"
+     }
   };
 
   return (
