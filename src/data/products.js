@@ -42,15 +42,7 @@ const products = [
     "metaTitle": "buy Coity long Dapoxetine 60mg original in Pakistan",
     "metaDescription": "Dapoxetine is one of the best treatment for Premature Ejaculation, its effective in all ages, no need to use external delay creams or sprays , feel n enjoy naturally ",
     "ActiveSalt": "Dapoxetine 60mg",
-    "reviews": [
-      {
-        "date": "May-15-2024",
-        "name": "Zafar Ali",
-        "rating": 5,
-        "comment": "Great product, I use it every time for my best moments"
-      },
-      
-    ]
+    "reviews": [ { },]
   },
   {
     "id": "002",

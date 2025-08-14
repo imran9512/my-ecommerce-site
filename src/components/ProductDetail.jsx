@@ -63,54 +63,55 @@ export default function ProductDetail({ product }) {
   const stockColor =
     product.stock === 0 ? 'bg-red-500' : product.stock < 5 ? 'bg-yellow-500' : 'bg-green-500';
 
-  /* --- SEO Schema --- */
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: product.metaTitle,
-    sku: product.sku,
-    image: images.map(img => `https://www.aapkisehat.com${img}`),
-    description: product.metaDescription,
-    brand: { '@type': 'Brand', name: product.brand },
-    offers: {
-      '@type': 'Offer',
-      price: product.Price,
-      priceCurrency: 'PKR',
-      availability:
-        product.stock === 0
-          ? 'https://schema.org/OutOfStock'
-          : product.stock < 5
-          ? 'https://schema.org/LimitedAvailability'
-          : 'https://schema.org/InStock',
-      priceValidUntil: '2035-12-31',
-    },
+  /* --- SEO Schema  --- */
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.metaTitle,
+  sku: product.sku,
+  image: images.map(img => `https://www.aapkisehat.com${img}`),
+  description: product.metaDescription,
+  brand: { '@type': 'Brand', name: product.brand },
 
-    aggregateRating: {
-       '@type': 'AggregateRating',
-       ratingValue: product.rating,
-       reviewCount: product.reviewCount ?? 0,
-    },
+  offers: {
+    '@type': 'Offer',
+    price: product.price,
+    priceCurrency: 'PKR',
+    availability:
+      product.stock === 0
+        ? 'https://schema.org/OutOfStock'
+        : product.stock < 5
+        ? 'https://schema.org/LimitedAvailability'
+        : 'https://schema.org/InStock',
+    priceValidUntil: '2035-12-31',
+  },
 
-    shippingDetails: {
-       "@type": "OfferShippingDetails",
-      shippingRate: {
-        "@type": "MonetaryAmount",
-       value: 150,
-       currency: "PKR"
-     },
-     shippingDestination: {
-       "@type": "DefinedRegion",
-        addressCountry: "PK"
-     },
-    },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: product.rating,
+    reviewCount: product.reviewCount ?? 0,
+  },
 
-    hasMerchantReturnPolicy: {
-      "@type": "MerchantReturnPolicy",
-      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-      merchantReturnDays: 7,
-      returnMethod: "https://schema.org/ReturnByMail"
-     },
-  };
+  shippingDetails: {
+    '@type': 'OfferShippingDetails',
+    shippingRate: {
+      '@type': 'MonetaryAmount',
+      value: 150,
+      currency: 'PKR',
+    },
+    shippingDestination: {
+      '@type': 'DefinedRegion',
+      addressCountry: 'PK',
+    },
+  },
+
+  hasMerchantReturnPolicy: {
+    '@type': 'MerchantReturnPolicy',
+    returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+    merchantReturnDays: 7,
+    returnMethod: 'https://schema.org/ReturnByMail',
+  },
+};
 
   return (
     <>
