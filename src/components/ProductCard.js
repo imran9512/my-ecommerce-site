@@ -6,6 +6,7 @@ export default function ProductCard({ product }) {
   if (!product.active) return null;
 
   const outOfStock = product.stock === 0;
+  const lowestPrice = Math.min(...Object.values(product.qtyDiscount || { 1: product.price }));
 
   return (
     <Link
@@ -36,7 +37,7 @@ export default function ProductCard({ product }) {
         Formula: <span className="text-blue-600 shadow">{product.ActiveSalt}</span>
       </p>
       <p className="text-xs">
-        Rs: {product.price} As Low As: <span className="shadow text-blue-600 font-semibold">Rs {product.offerPrice}</span>
+        Rs: {product.price} As Low As: <span className="shadow text-blue-600 font-semibold">Rs {lowestPrice.toLocaleString()}</span>
       </p>
     </Link>
   );

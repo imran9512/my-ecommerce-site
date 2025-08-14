@@ -15,6 +15,7 @@ export default function QuantityPrice({ product, qty, setQty }) {
     return last ? raw[last] : product.price;
   };
 
+  const lowestPrice = Math.min(...Object.values(product.qtyDiscount || { 1: product.price }));
   const unitPrice = priceForQty(qty);
   const totalPrice = unitPrice * qty;
   const saved = (product.price - unitPrice) * qty;
@@ -39,18 +40,23 @@ export default function QuantityPrice({ product, qty, setQty }) {
     <div className="mt-2 space-y-3">
       {/* Price badge */}
       <div className="flex items-end space-x-2">
-        <span className="text-2xl font-bold">Rs {unitPrice.toLocaleString()}</span>
+        <span className="text-2xl font-bold">
+           {qty === 1
+            ? `Rs ${product.price.toLocaleString()} – Rs ${lowestPrice.toLocaleString()}`
+            : `Rs ${unitPrice.toLocaleString()}`}
+        </span>
         {product.price !== unitPrice && (
           <>
             <span className="line-through text-gray-500">Rs {product.price.toLocaleString()}</span>
             <span className="text-green-600 text-sm">Saved Rs {saved}</span>
           </>
         )}
+        
       </div>
 
       {/* Lowest price note */}
       <p className="inline-block shadow-xl font-semibold text-red-800">
-        As low as Rs {Math.min(...Object.values(product.qtyDiscount || { 1: product.price })).toLocaleString()}
+        As low as Rs {lowestPrice.toLocaleString()}
       </p>
       
       {/* ---------- Quantity Control ---------- */}

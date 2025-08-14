@@ -74,7 +74,7 @@ const products = [
       "/api/images/Tiafil price in pakistan.webp"
     ],
     "price": 4300,
-    "offerPrice": 3450,
+    "offerPrice": 3380,
     "qtyDiscount": {
       "2": 4050,
       "3": 3880,
@@ -82,7 +82,7 @@ const products = [
       "5": 3650,
       "6": 3550,
       "7": 3450,
-      "8": 3380
+      "8": 3370
     },
     "shortDesc": "The best alternative of Cialis 20mg in very very reasonable price, authentic product",
     "longDesc": "",

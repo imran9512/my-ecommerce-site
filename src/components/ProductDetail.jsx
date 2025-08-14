@@ -63,23 +63,19 @@ export default function ProductDetail({ product }) {
   const stockColor =
     product.stock === 0 ? 'bg-red-500' : product.stock < 5 ? 'bg-yellow-500' : 'bg-green-500';
 
-  /* --- SEO Schema (unchanged) --- */
+  /* --- SEO Schema --- */
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.metaTitle,
     sku: product.sku,
-    image: images,
+    image: images.map(img => `https://www.aapkisehat.com${img}`),
     description: product.metaDescription,
     brand: { '@type': 'Brand', name: product.brand },
     offers: {
       '@type': 'Offer',
-      priceSpecification: {
-         '@type': 'UnitPriceSpecification',
-          minPrice: product.offerPrice,
-          maxPrice: product.price,
-          priceCurrency: 'PKR',
-         },
+      price: product.Price,
+      priceCurrency: 'PKR',
       availability:
         product.stock === 0
           ? 'https://schema.org/OutOfStock'
@@ -88,29 +84,32 @@ export default function ProductDetail({ product }) {
           : 'https://schema.org/InStock',
       priceValidUntil: '2035-12-31',
     },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: product.rating,
-        reviewCount: product.reviewCount ?? 0,
+
+    aggregateRating: {
+       '@type': 'AggregateRating',
+       ratingValue: product.rating,
+       reviewCount: product.reviewCount ?? 0,
     },
+
     shippingDetails: {
-        "@type": "OfferShippingDetails",
+       "@type": "OfferShippingDetails",
       shippingRate: {
         "@type": "MonetaryAmount",
-        value: 150,
-        currency: "PKR"
-      },
-      shippingDestination: {
-        "@type": "DefinedRegion",
+       value: 150,
+       currency: "PKR"
+     },
+     shippingDestination: {
+       "@type": "DefinedRegion",
         addressCountry: "PK"
-      }
+     },
     },
+
     hasMerchantReturnPolicy: {
-        "@type": "MerchantReturnPolicy",
-        returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
-        merchantReturnDays: 7,
-        returnMethod: "https://schema.org/ReturnByMail"
-     }
+      "@type": "MerchantReturnPolicy",
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 7,
+      returnMethod: "https://schema.org/ReturnByMail"
+     },
   };
 
   return (

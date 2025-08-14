@@ -15,7 +15,6 @@ const blankProduct = () => ({
   reviewCount: 0,
   images: [],
   price: 0,
-  offerPrice: 0,
   qtyDiscount: {},
   tabsMg: '',
   origin: '',
