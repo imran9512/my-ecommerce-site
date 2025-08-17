@@ -164,31 +164,28 @@ const products = [
     "quality": "Original not Genric"
   },
   {
-    "id": "004",
-    "slug": "buy-viagra-alternative-SDF-100mg-in-pakistan",
-    "name": "SDF 100mg",
-    brand: "",
-    "active": true,
-    "categories": [
-      "VIAGRA+",
+  id: "004",
+  slug: "sdf-100-mg-sildenafil-100mg-tablet-price-pakistan",
+  name: "SDF Sildenafil 100 mg",
+  brand: "Marham Daru Co.",
+  active: "true",
+  categories: ["VIAGRA+",
       "For Men",
       "Erection",
-      "Fitness"
-    ],
-    "sku": "SDF-100",
-    "stock": 50,
-    "rating": 5,
-    "reviewCount": 1,
-    "images": [
-      "/api/images/SDF 100-1.webp",
+      "Fitness"],
+  sku: "SDF100",
+  stock: 50,
+  rating: 4.9,
+  reviewCount: 15,
+  images: [
+"/api/images/SDF 100-1.webp",
       "/api/images/SDF 100-2.webp",
       "/api/images/SDF 100-3.webp",
       "/api/images/SDF 100-4.webp"
-    ],
-    "price": 4300,
-    "offerPrice": 3150,
-    "qtyDiscount": {
-      "2": 4050,
+],
+  price: 4300,
+  qtyDiscount: {
+"2": 4050,
       "3": 3880,
       "4": 3770,
       "5": 3660,
@@ -196,31 +193,21 @@ const products = [
       "7": 3470,
       "8": 3400,
       "10": 3300
-    },
-    "tabsMg": "8 Tabs",
-    "origin": "Iran",
-    "quality": "Original not genric",
-    "shortDesc": "Original Product and official import not a single percent doubt while using this product instead of Viagra , Yes it is mirror product of well known branded Viagra  ",
-    "longDesc": "SSSSSSSSSSSSSSSSSSSSSSSS",
-    "specialNote": "",
-    "related": [
-      "001",
+},
+  tabsMg: "8 Tabs",
+  origin: "Iran",
+  quality: "100% Original",
+  shortDesc: "SDF 100 mg has the same 100 mg sildenafil strength as Viagra. However, it costs less than the branded Viagra in Pakistan. it is mirror product of well known branded Viagra.",
+  longDesc: "<h2 class=\"text-1xl font-bold\">SDF 100 mg (Sildenafil 100 mg)</h2>\nSildenafil is no longer exclusively accessible through costly imports in Pakistan. SDF 100 mg tablets are among the most dependable Viagra alternatives available, as they contain the same 100 mg of sildenafil citrate as the most popular sildenafil brands in the world. As a result, they are a cost-effective and reliable alternative for males who desire clinically validated outcomes without the substantial expense. Currently, it is possible to obtain authentic sildenafil brands in Pakistan with a few keystrokes, regardless of whether you reside in Karachi, Lahore, Islamabad, or the smallest remote village.\r\nThe sildenafil tablet price in Pakistan is the initial item that most men investigate. Almost every other sildenafil tablet price in Pakistan is eclipsed by a strip of four SDF 100 mg tablets, which is why these Viagra alternatives are gaining traction. The cost of a strip is approximately one-eighth of that of branded Viagra. Contrast this with Viagra that is imported, and the savings are evident. We guarantee authenticity and deliver nationwide within 24 to 48 hours, making it simpler than ever to access quality sildenafil in Pakistan. SDF is available from international pharmacies and verified online merchants worldwide.\r\nConsistency is indispensable when selecting between sildenafil brands in Pakistan. SDF is produced in WHO-GMP-certified facilities, and each quantity undergoes purity testing. Each pill contains 100 mg of sildenafil, which is effective for moderate to severe erectile dysfunction and acts within 30 to 60 minutes, regardless of whether it is taken with or without food. The efficacy window of pricier Viagra alternatives is matched by the effects, which can last for up to four hours.\r\nIn addition to the competitive price of sildenafil tablets in Pakistan, SDF provides discreet packaging and cash-on-delivery services throughout the nation. There are no brand-name premiums and no uncomfortable counter conversations\u2014only lab-validated results. If you are seeking Viagra alternatives that are both cost-effective and of high quality, SDF 100 mg is a standout among sildenafil brands in Pakistan. You can order it today and find out why thousands of guys in Pakistan say it is the best sildenafil for value, dependability, and privacy.",
+  specialNote: "",
+  related: ["001",
       "002",
-      "003"
-    ],
-    "metaTitle": "Best Viagra Alternative in 100mg  SDF 100mg in Pakistan",
-    "metaDescription": "if you are looking for original Viagra and its hard to fined and also shockingly expensive here u can but 100% authentic and original alternative its same sildenafil 100mg  u can order us and but with cash on delivery",
-    "ActiveSalt": "sildenafil",
-    "reviews": [
-      {
-        "date": "Aug-19-2022",
-        "name": "Ijaz Khan",
-        "rating": 5,
-        "comment": "best alternative of Viagra, I used it and fully satisfied "
-      },
-      
-    ]
-  }
+      "003"],
+  metaTitle: "SDF 100 mg Sildenafil Tablet Price in Pakistan – Best Deals",
+  metaDescription: "The Best Viagra alternatives, compare prices of SDF 100mg sildenafil & get reliable Viagra alternatives that will be delivered discreetly to you",
+  reviews: {},
+},
+
 ];
 
 export default products;
