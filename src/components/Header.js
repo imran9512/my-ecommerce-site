@@ -138,7 +138,7 @@ export default function Header() {
               setCursor(-1);
             }}
             className={`block px-3 py-2 text-sm ${
-              idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-100'
+              idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-1zz00'
             }`}
           >
             {p.name}
@@ -184,7 +184,7 @@ export default function Header() {
     onClick={() => setMenuOpen(false)}
   >
     <div
-      className="fixed top-16 left-0 w-60 rounded-bl-md h-full bg-gray-200 shadow-2xl p-4 overflow-y-auto"
+      className="fixed top-16 left-0 w-60 rounded-bl-md h-full bg-gray-100 shadow-2xl p-4 overflow-y-auto"
       onClick={(e) => e.stopPropagation()}
     >
       {/* Categories */}
@@ -201,7 +201,7 @@ export default function Header() {
                   e.stopPropagation();
                   setMenuOpen(false);
                 }}
-                className="bg-slate-300  px-3 py-1.5 rounded-full shadow hover:bg-slate-600 transition"
+                className="bg-gray-300  px-3 py-1.5 rounded-full shadow hover:bg-slate-200 transition"
               >
                 {name}
               </Link>

@@ -7,7 +7,7 @@ import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import QuantityPrice from './QuantityPrice';
-import { WHATSAPP_NUMBER } from '@/data/constants';
+import { WHATSAPP_NUMBER, SITE_URL } from '@/data/constants';
 import { useCartStore } from '@/stores/cart';
 import Link from 'next/link'
 
@@ -69,7 +69,7 @@ const schema = {
   '@type': 'Product',
   name: product.metaTitle,
   sku: product.sku,
-  image: images.map(img => `https://www.aapkisehat.com${img}`),
+  image: images.map(img => `${SITE_URL}${img}`),
   description: product.metaDescription,
   brand: { '@type': 'Brand', name: product.brand },
 
@@ -119,12 +119,12 @@ const schema = {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <div className="grid md:grid-cols-2 gap-8 p-4 max-w-4xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-8 p-4 max-w-6xl mx-auto">
         {/* ----------- IMAGE GALLERY ----------- */}
         <div {...swipeHandlers} className="relative">
           <Image
             src={`${images[currentImg]}?v=2`}
-            alt={product.name}
+            alt={product.images[currentImg]?.split('/').pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') || product.name}
             width={600}
             height={400}
             className="rounded w-full h-auto object-cover"
@@ -137,13 +137,13 @@ const schema = {
             <>
               <button
                 onClick={(e) => { e.stopPropagation(); prevImg(); }}
-                className="absolute left-2 top-2/3 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow"
+                className="absolute left-2 top-2.5/3 -translate-y-2/2 rounded-full p-2 shadow-lg"
               >
                 <ChevronLeftIcon className="h-6 w-6 text-gray-800" />
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); nextImg(); }}
-                className="absolute right-2 top-2/3 -translate-y-1/2 bg-white/70 hover:bg-white rounded-full p-2 shadow"
+                className="absolute right-2 top-2.5/3 -translate-y-2/2 bg-white/70 hover:bg-white rounded-full p-2 shadow-lg"
               >
                 <ChevronRightIcon className="h-6 w-6 text-gray-800" />
               </button>
@@ -151,7 +151,7 @@ const schema = {
           )}
 
           {/* Thumbnails */}
-          <div className="flex gap-2 mt-3 overflow-x-auto">
+          <div className="flex justify-center gap-2 mt-3 overflow-x-auto">
             {images.map((img, idx) => (
               <button
                 key={idx}
@@ -275,7 +275,7 @@ const schema = {
                   </div>
         
                   {product.specialNote && (
-                    <p className="inline-block mt-4 bg-pink-100 p-2 rounded italic shadow-lg font-semibold text-red-800">
+                    <p className="flex inline-block justify-center text-xs mt-4 bg-pink-100 p-2 rounded italic shadow-lg font-semibold text-red-800">
                       ❝ {product.specialNote} ❞
                     </p>
                   )}

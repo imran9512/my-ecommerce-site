@@ -37,6 +37,9 @@ export const COURIER_OPTIONS = [
   { name: 'TCS', charge: 299 },
 ];
 
+// website URL
+export const SITE_URL = 'https://www.aapkisehat.com';
+
 // discount
 export const ONLINE_DISCOUNT_PERCENT = 3;
 

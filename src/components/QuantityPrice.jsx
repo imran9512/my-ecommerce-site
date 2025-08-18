@@ -55,12 +55,13 @@ export default function QuantityPrice({ product, qty, setQty }) {
       </div>
 
       {/* Lowest price note */}
-      <p className="inline-block shadow-xl font-semibold text-red-800">
+      <p style={{ display: qty === 1 ? 'none' : 'inline-block' }}
+         className="inline-block shadow-lg font-semibold text-red-800">
         As low as Rs {lowestPrice.toLocaleString()}
       </p>
       
       {/* ---------- Quantity Control ---------- */}
-<div className="mt-6 flex items-left space-x-3">
+<div className="mt-4 flex items-left space-x-3">
   {/* minus */}
   <button
     onClick={() => setQty(Math.max(1, qty - 1))}
@@ -90,7 +91,7 @@ export default function QuantityPrice({ product, qty, setQty }) {
     </svg>
   </button>
 
-  <span className="ml-4 text-xl font-bold text-gray-800">Total Rs {totalPrice.toLocaleString()}</span>
+  <span className="ml-4 mt-2 text-xl font-bold text-gray-800">Total Rs: {totalPrice.toLocaleString()}</span>
 </div>
 
       {/* Dropdown for existing discount tiers only */}

@@ -3,15 +3,42 @@ import Head from 'next/head';
 import ProductCard from '@/components/ProductCard';
 import products from '@/data/products';
 import categoryContent from '@/data/categoryContent';
+import { SITE_URL } from '@/data/constants';
 
 export default function CategoryPage({ products, slug }) {
   const content = categoryContent[slug] || {};
+  const catSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: content.metaTitle,
+    description: content.metaDesc,
+    url: `${SITE_URL}/category/${slug}`,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: products.map((p, idx) => ({
+        '@type': 'ListItem',
+        position: idx + 1,
+        url: `${SITE_URL}/products/${p.slug}`,
+        name: p.name,
+        image: `${SITE_URL}${p.images[0]}`,
+        offers: {
+          '@type': 'Offer',
+          price: p.price,
+          priceCurrency: 'PKR',
+        },
+      })),
+    },
+  };
+
 
   return (
     <>
       <Head>
         <title>{content.metaTitle || slug.replace('-', ' ').toUpperCase()}</title>
         <meta name="description" content={content.metaDesc || ''} />
+        <script  type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(catSchema) }}
+        />
       </Head>
 
       <div className="container mx-auto px-4 py-8">

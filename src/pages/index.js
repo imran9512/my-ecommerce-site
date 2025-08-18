@@ -1,9 +1,20 @@
 // src/pages/index.js
 import Link from 'next/link';
-import { SITE_NAME } from '@/data/constants';
+import Head from 'next/head';
+import { SITE_NAME, SITE_URL } from '@/data/constants';
 
 const Home = () => {
-  return (
+  return ( 
+    <>
+      <Head>
+        <title>{SITE_NAME} – Empowering Wellbeing for Men & Women</title>
+        <meta
+          name="description"
+          content="Aap Ki Sehat – discreet, effective health solutions for every body and mind. Shop confidently with plain packaging & secure payment."
+        />
+        <link rel="canonical" href={SITE_URL} />
+      </Head>
+
     <div className="max-w-3xl mx-auto px-4 py-12 text-center">
       <h1 className="text-4xl font-bold text-sky-700 mb-4">
         Empowering Wellbeing for Men and Women
@@ -22,9 +33,10 @@ const Home = () => {
       </p>
 
       <Link href="/shop" className="mt-8 inline-block bg-sky-600 text-white px-6 py-3 rounded-md hover:bg-sky-700">
-  Shop Now
-</Link>
+       Shop Now
+      </Link>
     </div>
+    </>
   );
 };
 
