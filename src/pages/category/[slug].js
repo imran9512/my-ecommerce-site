@@ -30,17 +30,17 @@ export default function CategoryPage({ products, slug }) {
   },
 };
 
-
-  return (
-    <>
-      <Head>
-        <title>{content.metaTitle || slug.replace('-', ' ').toUpperCase()}</title>
-        <meta name="description" content={content.metaDesc || ''} />
-        <script  type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(catSchema) }}
-        />
-      </Head>
-
+return (
+  <>
+    <Head>
+      <title>{content.metaTitle}</title>
+      <meta name="description" content={content.metaDesc} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(catSchema) }}
+      />
+    </Head>
+      
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-4 capitalize">
           {slug.replace('-', ' ')}
