@@ -8,27 +8,27 @@ import { SITE_URL } from '@/data/constants';
 export default function CategoryPage({ products, slug }) {
   const content = categoryContent[slug] || {};
   const catSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: content.metaTitle,
-    description: content.metaDesc,
-    url: `${SITE_URL}/category/${slug}`,
-    mainEntity: {
-      '@type': 'ItemList',
-      itemListElement: products.map((p, idx) => ({
-        '@type': 'ListItem',
-        position: idx + 1,
-        url: `${SITE_URL}/products/${p.slug}`,
-        name: p.name,
-        image: `${SITE_URL}${p.images[0]}`,
-        offers: {
-          '@type': 'Offer',
-          price: p.price,
-          priceCurrency: 'PKR',
-        },
-      })),
-    },
-  };
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: content.metaTitle,
+  description: content.metaDesc,
+  url: `${SITE_URL}/category/${slug}`,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: products.map((p, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      url: `${SITE_URL}/products/${p.slug}`,
+      name: p.name,
+      image: `${SITE_URL}${encodeURIComponent(p.images[0])}`,
+      offers: {
+        '@type': 'Offer',
+        price: p.price,
+        priceCurrency: 'PKR',
+      },
+    })),
+  },
+};
 
 
   return (
@@ -84,10 +84,6 @@ export async function getStaticPaths() {
   };
 }
 
-/*export async function getStaticProps({ params }) {
-  const filtered = products.filter((p) => p.categories?.includes(params.slug));
-  return { props: { products: filtered, slug: params.slug } };
-}*/
 export async function getStaticProps({ params }) {
   const slug = params.slug.toLowerCase();
   const filtered = products.filter((p) =>
