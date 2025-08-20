@@ -8,7 +8,7 @@ import { SITE_URL } from '@/data/constants';
 export default function CategoryPage({ products, slug }) {
   const content = categoryContent[slug] || {};
   const catSchema = {
-  '@context': 'https://schema.org',
+  '@context':'https://schema.org',
   '@type': 'CollectionPage',
   name: content.metaTitle,
   description: content.metaDesc,
