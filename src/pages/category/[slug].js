@@ -8,26 +8,21 @@ import { SITE_URL } from '@/data/constants';
 export default function CategoryPage({ products, slug }) {
   const content = categoryContent[slug] || {};
   const catSchema = {
-  '@context':'https://schema.org',
-  '@type': 'CollectionPage',
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',          // <- root type Google recognises
   name: content.metaTitle,
-  description: content.metaDesc,
-  url: `${SITE_URL}/category/${slug}`,
-  mainEntity: {
-    '@type': 'ItemList',
-    itemListElement: products.map((p, idx) => ({
-      '@type': 'ListItem',
-      position: idx + 1,
-      url: `${SITE_URL}/products/${p.slug}`,
-      name: p.name,
-      image: `${SITE_URL}${encodeURIComponent(p.images[0])}`,
-      offers: {
-        '@type': 'Offer',
-        price: p.price,
-        priceCurrency: 'PKR',
-      },
-    })),
-  },
+  itemListElement: products.map((p, idx) => ({
+    '@type': 'ListItem',
+    position: idx + 1,
+    url: `${SITE_URL}/products/${p.slug}`,
+    name: p.name,
+    image: `${SITE_URL}${p.images[0]}`,   // <- clean, no encodeURIComponent
+    offers: {
+      '@type': 'Offer',
+      price: p.price,
+      priceCurrency: 'PKR',
+    },
+  })),
 };
 
 return (
