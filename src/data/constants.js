@@ -45,6 +45,7 @@ export const ONLINE_DISCOUNT_PERCENT = 3;
 
 // misc
 export const SITE_NAME = 'AAP KI SEHAT';
+export const SITE_DESCRIPTION = '🌿 Welcome to AAP KI SEHAT — We’re here whenever you need a quiet, judgment-free space to look after your body and mind. From everyday questions to the things you’d rather not say out loud';
 export const WHATSAPP_NUMBER = '+923142831690';
 
 // Search COnsol Tag

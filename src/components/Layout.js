@@ -1,4 +1,4 @@
-// Layout component ka code hai. Isme header aur footer include hai.
+// src/components/Layout
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
