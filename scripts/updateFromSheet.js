@@ -19,7 +19,7 @@ const FILE_MAP = [
   null,
   SERVICE_ACCOUNT_JSON.private_key,
   ['https://www.googleapis.com/auth/spreadsheets.readonly']
-);
+};
 await jwtClient.authorize();
 const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
