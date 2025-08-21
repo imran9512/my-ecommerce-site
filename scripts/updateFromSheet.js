@@ -18,7 +18,7 @@ const FILE_MAP = [
   const jwtClient = new google.auth.JWT(
     SERVICE_ACCOUNT_JSON.client_email,
     null,
-    SERVICE_ACCOUNT_KEY.private_key,
+    SERVICE_ACCOUNT_JSON.private_key,
     ['https://www.googleapis.com/auth/spreadsheets.readonly']
   );
   await jwtClient.authorize();
