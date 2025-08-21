@@ -3,7 +3,7 @@ export const reviews = [
   {
     id: "r1",
     productId: "001",
-    name: "Zafar Ali",
+    name: "Zafar Ali Khan",
     date: "2024-05-15",
     rating: 4.8,
     comment: "Great product, I use it every time for my best moments"
