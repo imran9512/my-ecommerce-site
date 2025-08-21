@@ -1,10 +1,9 @@
 name: Auto-update files from Google Sheet
 
 on:
-  schedule:
-    - cron: "0 * * * *"  # har ghanta
-  workflow_dispatch:
-
+  repository_dispatch:
+    types: [update-from-sheet]
+ 
 jobs:
   update:
     runs-on: ubuntu-latest
