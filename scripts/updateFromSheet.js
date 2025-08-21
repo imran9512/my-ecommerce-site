@@ -1,11 +1,10 @@
 // scripts/updateFromSheet.js
-console.log('ENV SERVICE_ACCOUNT_JSON length:', process.env.SERVICE_ACCOUNT_JSON?.length || 0);
-const fs   = require('fs');
 const { google } = require('googleapis');
+const fs   = require('fs');
 
 // Environment variables injected by GitHub Actions
 const SERVICE_ACCOUNT_JSON = JSON.parse(process.env.SERVICE_ACCOUNT_JSON);
-const SHEET_ID             = process.env.GOOGLE_SHEET_ID;
+const SHEET_ID = process.env.GOOGLE_SHEET_ID;
 
 const FILE_MAP = [
   { sheet: 'prod-code', cell: 'B1', filePath: 'src/data/products.js' },
@@ -15,15 +14,14 @@ const FILE_MAP = [
 ];
 
 (async () => {
-  // Auth
-  const jwtClient = new google.auth.JWT(
-    SERVICE_ACCOUNT_JSON.client_email,
-    null,
-    SERVICE_ACCOUNT_JSON.private_key,
-    ['https://www.googleapis.com/auth/spreadsheets.readonly']
-  );
-  await jwtClient.authorize();
-  const sheets = google.sheets({ version: 'v4', auth: jwtClient });
+  // Authconst jwtClient = new google.auth.JWT(
+  SERVICE_ACCOUNT_JSON.client_email,
+  null,
+  SERVICE_ACCOUNT_JSON.private_key,
+  ['https://www.googleapis.com/auth/spreadsheets.readonly']
+);
+await jwtClient.authorize();
+const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
   // Loop over files
   for (const { sheet, cell, filePath } of FILE_MAP) {
