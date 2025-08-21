@@ -18,8 +18,8 @@ jobs:
 
       - run: node scripts/updateFromSheet.js
         env:
+          SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
           GOOGLE_SHEET_ID: 1cqDr7guz4fGHKgU00H8f24dpp9llMlYVylZL1cn3PlA
-          GOOGLE_API_KEY: AIzaSyDvDkD3PoXoC-yJs95vKsi4e9PSgaHGAUs
 
       - run: |
           git config user.name "github-actions[bot]"
