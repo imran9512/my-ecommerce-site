@@ -1,4 +1,5 @@
 // scripts/updateFromSheet.js
+console.log('ENV SERVICE_ACCOUNT_JSON length:', process.env.SERVICE_ACCOUNT_JSON?.length || 0);
 const fs   = require('fs');
 const { google } = require('googleapis');
 
