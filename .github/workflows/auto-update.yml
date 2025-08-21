@@ -16,6 +16,7 @@ jobs:
 
       - run: npm install axios
 
+      - run: echo "$SERVICE_ACCOUNT_JSON" > /tmp/key.json && cat /tmp/key.json
       - run: node scripts/updateFromSheet.js
         env:
           SERVICE_ACCOUNT_JSON: ${{ secrets.SERVICE_ACCOUNT_JSON }}
