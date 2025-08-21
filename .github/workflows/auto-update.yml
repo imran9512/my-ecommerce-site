@@ -1,0 +1,29 @@
+name: Auto-update files from Google Sheet
+
+on:
+  schedule:
+    - cron: "0 * * * *"  # har ghanta
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - run: npm install axios
+
+      - run: node scripts/updateFromSheet.js
+        env:
+          GOOGLE_SHEET_ID: 1cqDr7guz4fGHKgU00H8f24dpp9llMlYVylZL1cn3PlA
+          GOOGLE_API_KEY: AIzaSyDvDkD3PoXoC-yJs95vKsi4e9PSgaHGAUs
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🔄 Auto-update from Google Sheet" && git push)
