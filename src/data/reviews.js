@@ -11,7 +11,7 @@ export const reviews = [
   {
     id: "r2",
     productId: "001",
-    name: "Ali Khan",
+    name: "Ali Shan",
     date: "2024-05-20",
     rating: 4,
     comment: "Effective and value for money"
@@ -19,7 +19,7 @@ export const reviews = [
   {
     id: "r3",
     productId: "001",
-    name: "Sana Bibi",
+    name: "Sana Ibrar",
     date: "2024-05-25",
     rating: 5,
     comment: "Fast delivery and genuine item"

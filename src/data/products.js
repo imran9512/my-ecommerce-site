@@ -3,7 +3,7 @@ const products = [
   {
     id: "001",
     slug: "buy-Coity-Long-Dapoxetine-60mg",
-    name: "Coity Long - Dapoxetine 60mg",
+    name: "Coity Long 60 - Dapoxetine 60mg",
     brand: "Advanz",
     active: "true",
     categories: [
