@@ -1,5 +1,4 @@
 // scripts/updateFromSheet.js
-// scripts/updateFromSheet.js
 const https = require('https');
 const fs = require('fs');
 

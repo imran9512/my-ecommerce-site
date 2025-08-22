@@ -201,7 +201,7 @@ export default function Header() {
                   e.stopPropagation();
                   setMenuOpen(false);
                 }}
-                className="bg-gray-300  px-3 py-1.5 rounded-full shadow hover:bg-slate-200 transition"
+                className="bg-gray-100  px-3 py-1.5 rounded shadow-lg hover:bg-slate-100 transition"
               >
                 {name}
               </Link>
@@ -212,13 +212,13 @@ export default function Header() {
               )}
             </div>
             {openCategory === idx && sub && sub.length > 0 && (
-              <ul className="pl-4 space-y-1 mt-1">
+              <ul className="pl-4 mt-2 space-y-1 mt-1">
                 {sub.map((s) => (
                   <li key={s}>
                     <Link
                       href={`/category/${s.toLowerCase()}`}
                       onClick={() => setMenuOpen(false)}
-                      className="inline-block bg-slate-400  px-4 py-1 rounded-full shadow text-xs hover:bg-slate-300 transition"
+                      className="inline-block bg-slate-100  px-4 py-1 rounded shadow-lg text-xs hover:bg-slate-300 transition"
                     >
                       {s}
                     </Link>
