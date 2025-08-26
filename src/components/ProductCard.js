@@ -37,7 +37,7 @@ export default function ProductCard({ product }) {
         Formula: <span className="text-blue-600 shadow">{product.ActiveSalt}</span>
       </p>
       <p className="text-xs">
-        Rs: {product.price} As Low As: <span className="shadow text-blue-600 font-semibold">Rs {lowestPrice.toLocaleString()}</span>
+        Rs: {product.price}</p><p className="text-xs">As Low As: <span className="shadow text-blue-700 font-semibold">Rs {lowestPrice.toLocaleString()}</span>
       </p>
     </Link>
   );

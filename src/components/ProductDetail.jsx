@@ -190,7 +190,7 @@ const schema = {
                    By:{' '}
                    <Link
                     href={`/search?q=${encodeURIComponent(product.brand)}`}
-                    className="shadow-lg font-semibold hover:underline"
+                    className="shadow-lg font-semibold underline underline-offset-2 decoration-2 decoration-red-300"
                     >
                     {product.brand}
                    </Link>
@@ -275,7 +275,7 @@ const schema = {
                   </div>
         
                   {product.specialNote && (
-                    <p className="flex inline-block justify-center text-xs mt-4 bg-pink-100 p-2 rounded italic shadow-lg font-semibold text-red-800">
+                    <p className="flex inline-block justify-center text-[10px] mt-4 bg-pink-100 p-2 rounded italic shadow-lg font-semibold text-red-800">
                       ❝ {product.specialNote} ❞
                     </p>
                   )}
