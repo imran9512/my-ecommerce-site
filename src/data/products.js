@@ -26,7 +26,7 @@ const products = [
       "2": 2470,
       "3": 2340,
       "4": 2200,
-      "5": 2100
+      "5": 2100,
     },
     "tabsMg": "5 Tabs",
     "origin": "Thailand",
@@ -42,6 +42,8 @@ const products = [
     "metaTitle": "buy Coity long Dapoxetine 60mg original in Pakistan",
     "metaDescription": "Dapoxetine is one of the best treatment for Premature Ejaculation, its effective in all ages, no need to use external delay creams or sprays , feel n enjoy naturally ",
     "ActiveSalt": "Dapoxetine 60mg",
+    tags:["Dapoxetine price in pakistan", "Dapoxetine 60mg in pakistan" ],
+    uses:"who to use depoxitine",
     "reviews": [ { },]
   },
   {
@@ -117,7 +119,8 @@ const products = [
     "reviewCount": 1,
     "images": [
       "/api/images/modafinil 100mg lahore.webp",
-      "/api/images/modafinil 100mg.webp"
+      "/api/images/modafinil 100mg.webp",
+      "/api/images/modi/4.webp",
     ],
     "price": 11000,
     "offerPrice": 10000,
@@ -178,10 +181,8 @@ const products = [
   rating: 4.9,
   reviewCount: 15,
   images: [
-"/api/images/SDF 100-1.webp",
-      "/api/images/SDF 100-2.webp",
-      "/api/images/SDF 100-3.webp",
-      "/api/images/SDF 100-4.webp"
+      "/api/images/SDF100/1.webp",
+      "/api/images/SDF100/2.webp",
 ],
   price: 4300,
   qtyDiscount: {

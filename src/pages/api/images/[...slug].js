@@ -21,12 +21,18 @@ export default async function handler(req, res) {
     const watermarkBuffer = fs.readFileSync(watermarkPath);
 
     const imgMeta = await sharp(imageBuffer).metadata();
-    const wmMeta  = await sharp(watermarkBuffer).metadata();
 
-    // ---- tweak here ----
-    const scale    = 1.5;              // <== bigger / smaller
-    const opacity  = 255;              // <== 0–255
-    // --------------------
+    // 15% padding har side se
+    const padding = 0.15;
+    const availW  = Math.round(imgMeta.width  * (1 - 2 * padding));   // usable width
+    const availH  = Math.round(imgMeta.height * (1 - 2 * padding));   // usable height
+
+    // watermark ko available area ka 100% tak resize karo
+    const wmMeta  = await sharp(watermarkBuffer).metadata();
+    const scale   = Math.min(
+      availW / wmMeta.width,
+      availH / wmMeta.height
+    );
 
     const wmWidth  = Math.round(wmMeta.width  * scale);
     const wmHeight = Math.round(wmMeta.height * scale);
@@ -35,14 +41,16 @@ export default async function handler(req, res) {
     const left = Math.round((imgMeta.width  - wmWidth)  / 2);
 
     const processed = await sharp(imageBuffer)
-      .composite([{
-        input: await sharp(watermarkBuffer)
-                 .resize(wmWidth, wmHeight)
-                 .modulate({ opacity })
-                 .toBuffer(),
-        top,
-        left,
-      }])
+      .composite([
+        {
+          input: await sharp(watermarkBuffer)
+                   .resize(wmWidth, wmHeight)
+                   .modulate({ opacity: 255 })
+                   .toBuffer(),
+          top,
+          left,
+        },
+      ])
       .webp({ quality: 100 })
       .toBuffer();
 
