@@ -3,7 +3,7 @@ const products = [
   {
     id: "001",
     slug: "buy-Coity-Long-Dapoxetine-60mg",
-    name: "Coity Long 60 - Dapoxetine 60mg",
+    name: "Coity Long - Dapoxetine 60mg",
     brand: "Advanz",
     active: "true",
     categories: [
@@ -18,7 +18,8 @@ const products = [
     rating: 4.8,
     reviewCount: 2,
     images: [
-      "/api/images/Buy Coity Long Dapoxetine 60mg in pakistan.webp"
+      "/api/images/coity60/1.webp",
+      "/api/images/coity60/2.webp"
     ],
     "price": 2650,
     "offerPrice": 2100,
@@ -41,7 +42,7 @@ const products = [
     ],
     "metaTitle": "buy Coity long Dapoxetine 60mg original in Pakistan",
     "metaDescription": "Dapoxetine is one of the best treatment for Premature Ejaculation, its effective in all ages, no need to use external delay creams or sprays , feel n enjoy naturally ",
-    "ActiveSalt": "Dapoxetine 60mg",
+    "ActiveSalt": "Dapoxetine",
     tags:["Dapoxetine price in pakistan", "Dapoxetine 60mg in pakistan" ],
     uses:"who to use depoxitine",
     "reviews": [ { },]
@@ -50,7 +51,7 @@ const products = [
     "id": "002",
     "slug": "buy-Tiafil-20mg-at-best-price-in-pakistan",
     "name": "Tiafil 20mg",
-    brand: "",
+    brand: "SAMISAZ",
     "active": true,
     "categories": [
       "Fitness",
@@ -63,9 +64,9 @@ const products = [
     "rating": 5,
     "reviewCount": 3,
     "images": [
-      "/api/images/cialis alternative price in pakistan.webp",
-      "/api/images/irani cialis price in pakistan.webp",
-      "/api/images/Tiafil price in pakistan.webp"
+      "/api/images/tia20/1.webp",
+      "/api/images/tia20/2.webp",
+      "/api/images/tia20/3.webp"
     ],
     "price": 4300,
     "offerPrice": 3380,
@@ -107,7 +108,7 @@ const products = [
     "id": "003",
     "slug": "buy-modiwake-100-mg-price-in-pakistan",
     "name": "Modiwake 100mg",
-    brand: "",
+    brand: "Genveon",
     "active": true,
     "categories": [
       "ADHD",
@@ -118,9 +119,10 @@ const products = [
     "rating": 4.8,
     "reviewCount": 1,
     "images": [
-      "/api/images/modafinil 100mg lahore.webp",
-      "/api/images/modafinil 100mg.webp",
-      "/api/images/modi/4.webp",
+      "/api/images/modi/modi100/1.webp",
+      "/api/images/modi/modi100/2.webp",
+      "/api/images/modi/modi100/3.webp",
+      "/api/images/modi/modi100/4.webp",
     ],
     "price": 11000,
     "offerPrice": 10000,
@@ -143,25 +145,7 @@ const products = [
     "metaDescription": "Modiwake 100mg available on very reasonable price in pakistan ",
     "ActiveSalt": "Modafinil",
     "reviews": [
-      {
-        "date": "May-15-2025",
-        "name": "Ibrahim Shah",
-        "rating": 5,
-        "comment": "Great product, I use it daily for my health."
-      },
-      {
-        "date": "",
-        "name": "",
-        "rating": 0,
-        "comment": ""
-      },
-      {
-        "date": "",
-        "name": "",
-        "rating": 0,
-        "comment": ""
-      }
-    ],
+          ],
     "tabsMg": "30 Tabs",
     "origin": "Turkey",
     "quality": "Original not Genric"
@@ -206,6 +190,7 @@ const products = [
       "003"],
   metaTitle: "SDF 100 mg Sildenafil Tablet Price in Pakistan – Best Deals",
   metaDescription: "The Best Viagra alternatives, compare prices of SDF 100mg sildenafil & get reliable Viagra alternatives that will be delivered discreetly to you",
+  "ActiveSalt": "sildenafil",
   reviews: {},
 },
 

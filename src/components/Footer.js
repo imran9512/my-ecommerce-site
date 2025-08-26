@@ -34,7 +34,7 @@ export default function Footer() {
   return (
     <>
       {/* Bottom nav */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 flex justify-around items-center lg:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white/70 backdrop-blur-md border-t border-gray-200 z-30 flex justify-around items-center lg:hidden">
         {[
           { key: 'home', label: 'Home', icon: HomeIcon, href: '/' },
           { key: 'shop', label: 'Shop', icon: BuildingStorefrontIcon, href: '/shop' },
@@ -73,16 +73,16 @@ export default function Footer() {
       {/* Glassy drawer */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40"
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
           onClick={() => setIsOpen(false)}
         >
           <div
-            className="absolute bottom-16 left-0 right-0 bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl max-h-[60vh] overflow-auto"
+            className="absolute bottom-16 left-0 right-0 bg-white/50 backdrop-blur-lg rounded-3xl shadow-2xl max-h-[60vh] overflow-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
-            <div className="flex justify-between items-center px-4 py-3 border-b border-gray-200">
-              <h2 className="font-semibold text-sky-600">Quick Links</h2>
+            <div className="flex justify-between items-center px-4 py-2">
+              <h2 className="text-gray-600">Useful Links</h2>
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-xl text-gray-500"
@@ -97,7 +97,7 @@ export default function Footer() {
                 <Link
                   key={label}
                   href={href}
-                  className="flex items-center justify-center bg-sky-100 hover:bg-sky-200 text-sky-700 rounded-xl p-4 text-sm font-semibold transition"
+                  className="flex items-center justify-center bg-white/50 hover:bg-white-800 text-gray-700 rounded-xl p-4 text-sm font-semibold transition"
                   onClick={() => setIsOpen(false)}
                 >
                   {label}
@@ -106,27 +106,27 @@ export default function Footer() {
             </div>
 
             {/* WhatsApp button */}
-            <div className="p-4 border-t border-gray-200">
-  <button
-    onClick={() => {
-      window.open(
-        `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-          'Hi! I need help with products or my order.'
-        )}`,
-        '_blank'
-      );
-      setIsOpen(false);
-    }}
-    className="w-full bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition flex items-center justify-center"
-  >
-    <img
-      src="/whatsapp.png"
-      alt="WhatsApp"
-      className="w-5 h-5 mr-2"
-    />
-    Chat on WhatsApp
-  </button>
-</div>
+            <div className="p-4 ">
+             <button
+               onClick={() => {
+               window.open(
+                `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                'Hi! I need help with products or my order.'
+                 )}`,
+                 '_blank'
+                 );
+                 setIsOpen(false);
+                 }}
+                className="w-full bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition flex items-center justify-center"
+                >
+                <img
+                src="/whatsapp.png"
+                alt="WhatsApp"
+                className="w-5 h-5 mr-2"
+                />
+               Chat on WhatsApp
+             </button>
+           </div>
           </div>
         </div>
       )}

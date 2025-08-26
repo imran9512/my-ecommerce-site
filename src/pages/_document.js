@@ -6,7 +6,7 @@ import { SITE_NAME, SITE_URL, SITE_DESCRIPTION } from '@/data/constants';
 class MyDocument extends Document {
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" data-scroll-behavior="smooth">
         <Head>
           <title>{SITE_NAME} – Empowering Wellbeing for Men & Women</title>
           <meta name="description" content={SITE_DESCRIPTION} />
