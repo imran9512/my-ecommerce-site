@@ -64,7 +64,7 @@ export default function ProductDetail({ product }) {
     product.stock === 0 ? 'bg-red-500' : product.stock < 5 ? 'bg-yellow-500' : 'bg-green-500';
 
   /* --- SEO Schema  --- */
-const schema = {
+{/*const schema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
   name: product.name,
@@ -111,14 +111,14 @@ const schema = {
     merchantReturnDays: 7,
     returnMethod: 'https://schema.org/ReturnByMail',
   },
-};
+};*/}
 
   return (
     <>
-      <script
+      {/*<script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+      />*/}
       <div className="grid mt-8 md:grid-cols-2 gap-4 md:gap-8 p-0 md:p-2 max-w-none md:max-w-6xl mx-auto">
         {/* ----------- IMAGE GALLERY ----------- */}
 <div className="relative w-full">

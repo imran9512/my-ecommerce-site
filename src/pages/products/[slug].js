@@ -4,9 +4,61 @@ import ProductDetail from '@/components/ProductDetail';
 import TabsSection from '@/components/TabsSection';
 import RelatedProducts from '@/components/RelatedProducts';
 import products from '@/data/products';
+import { SITE_URL } from '@/data/constants';
 
 
 export default function ProductPage({ product, related }) {
+  
+    /* ---------- Product Schema ---------- */
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    sku: product.sku,
+    image: product.images.map(img => `${SITE_URL}${img}`),
+    description: product.metaDescription,
+    brand: { '@type': 'Brand', name: product.brand },
+
+    offers: {
+      '@type': 'Offer',
+      price: product.price,
+      priceCurrency: 'PKR',
+      availability:
+        product.stock === 0
+          ? 'https://schema.org/OutOfStock'
+          : product.stock < 5
+          ? 'https://schema.org/LimitedAvailability'
+          : 'https://schema.org/InStock',
+      priceValidUntil: '2035-12-31',
+    },
+
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount ?? 0,
+    },
+
+    shippingDetails: {
+      '@type': 'OfferShippingDetails',
+      shippingRate: {
+        '@type': 'MonetaryAmount',
+        value: 150,
+        currency: 'PKR',
+      },
+      shippingDestination: {
+        '@type': 'DefinedRegion',
+        addressCountry: 'PK',
+      },
+    },
+
+    hasMerchantReturnPolicy: {
+      '@type': 'MerchantReturnPolicy',
+      returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
+      merchantReturnDays: 7,
+      returnMethod: 'https://schema.org/ReturnByMail',
+    },
+  };
+  
   return (
     <>
       {/* ---------- SEO Meta ---------- */}
@@ -16,6 +68,10 @@ export default function ProductPage({ product, related }) {
         <meta property="og:title" content={product.metaTitle} />
         <meta property="og:description" content={product.metaDescription} />
         <meta property="og:image" content={product.images[0]} />
+          <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       </Head>
 
       <div className="container mx-auto px-4 py-8">
