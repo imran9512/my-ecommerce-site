@@ -8,8 +8,8 @@ class MyDocument extends Document {
     return (
       <Html lang="en" data-scroll-behavior="smooth">
         <Head>
-          <title>{SITE_NAME} – Empowering Wellbeing for Men & Women</title>
-          <meta name="description" content={SITE_DESCRIPTION} />
+          {/*<title>{SITE_NAME} – Empowering Wellbeing for Men & Women</title>
+          <meta name="description" content={SITE_DESCRIPTION} />*/}
           <link rel="canonical" href={SITE_URL} />
           <meta name="robots" content="index,follow" />
           
