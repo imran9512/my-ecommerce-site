@@ -119,60 +119,69 @@ const schema = {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <div className="grid mt-8 md:grid-cols-2 gap-4 md:gap-8 p-0 md:p-2 max-w-none md:max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-4 md:gap-8 p-0 md:p-2 max-w-none md:max-w-6xl mx-auto">
         {/* ----------- IMAGE GALLERY ----------- */}
-<div className="relative w-full">
-  {/* scrollable images */}
-  <div
-    id="gallery-scroll"
-    className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth
-               scrollbar-thin scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-500
-               scrollbar-track-transparent"
-  >
-    {images.map((img, idx) => (
-      <div key={idx} id={`slide-${idx}`} className="w-full shrink-0 snap-center">
-        <Image
-          src={`${img}?v=2`}
-          alt={
-            product.images[idx]?.split('/')?.pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') ||
-            product.name
-          }
-          width={600}
-          height={400}
-          className="w-full h-auto object-cover cursor-pointer"
-          //onClick={() => window.open(`${img}?v=2`, '_blank')}
-          priority={idx === 0}
-        />
-      </div>
-    ))}
-  </div>
+        <div {...swipeHandlers} className="relative w-full overflow-hidden">
+          <Image
+            src={`${images[currentImg]}?v=2`}
+            alt={product.images[currentImg]?.split('/').pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') || product.name}
+            width={600}
+            height={400}
+            className="rounded w-full h-auto object-cover"
+            onClick={() => setLightboxOpen(true)}
+            priority
+          />
 
-  {/* thumbnails */}
-  <div className="flex justify-center gap-2 mt-3 overflow-x-auto">
-    {images.map((img, idx) => (
-      <button
-        key={idx}
-        onClick={() => {
-          document.getElementById(`slide-${idx}`).scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'start',
-          });
-        }}
-        className={`w-16 h-16 shrink-0 border-2 rounded overflow-hidden transition
-          ${idx === currentImg ? 'border-blue-500' : 'border-transparent'}`}
-      >
-        <Image
-          src={`${img}?v=2`}
-          alt={`thumb-${idx}`}
-          width={72}
-          height={72}
-          className="object-cover"
-        />
-      </button>
-    ))}
-  </div>
-</div>
+          {/* Heroicons arrows */}
+          {images.length > 1 && (
+            <>
+              <button
+                onClick={(e) => { e.stopPropagation(); prevImg(); }}
+                className="absolute left-2 top-2.5/3 -translate-y-2/2 rounded-full p-2 shadow-lg"
+              >
+                <ChevronLeftIcon className="h-6 w-6 text-gray-800" />
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); nextImg(); }}
+                className="absolute right-2 top-2.5/3 -translate-y-2/2 bg-white/70 hover:bg-white rounded-full p-2 shadow-lg"
+              >
+                <ChevronRightIcon className="h-6 w-6 text-gray-800" />
+              </button>
+            </>
+          )}
+
+          {/* Thumbnails */}
+          <div className="flex justify-center gap-2 mt-3 overflow-x-auto">
+            {images.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentImg(idx)}
+                className={`w-18 h-18 shrink-0 border-2 rounded overflow-hidden
+                  ${idx === currentImg ? 'border-blue-500' : 'border-transparent'}`}
+              >
+                <Image
+                  src={`${img}?v=2`}
+                  alt={`thumb-${idx}`}
+                  width={72}
+                  height={72}
+                  className="object-cover"
+                />
+              </button>
+            ))}
+          </div>
+          {/* Lightbox */}
+      <Lightbox
+  open={lightboxOpen}
+  close={() => setLightboxOpen(false)}
+  slides={images.map((img) => ({ src: `${img}?v=2` }))}
+  index={current}
+  plugins={[Zoom]}                     // ← enable zoom plugin
+  zoom={{ maxZoomPixelRatio: 3 }}      // zoom settings
+  carousel={{ finite: true }}          // slider off
+  render={{ buttonPrev: () => null, buttonNext: () => null }}
+/>
+          
+        </div>
         
                 {/* ---------- Details ---------- */}
                <div className="w-full">
@@ -205,18 +214,7 @@ const schema = {
                     </span>
                   )}
         
-                  <div className="flex mt-2">
-                                        <span>
-                      {product.ActiveSalt && (
-                    <h2 className="mr-6 rounded">
-                     Formula: <span className="bg-yellow-100 shadow-lg font-semibold">{product.ActiveSalt}</span>
-                    </h2>
-                    )}
-                    </span>
-                    <span className="ml-4 mr-2 text-sm text-gray-600">
-                      ({product.reviewCount ?? 0} reviews)
-                    </span>
-                    
+                  <div className="flex items-center mt-2">
                     {[...Array(5)].map((_, i) => (
                       <svg
                         key={i}
@@ -229,18 +227,24 @@ const schema = {
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.182c.969 0 1.371 1.24.588 1.81l-3.386 2.46a1 1 0 00-.364 1.118l1.287 3.967c.3.921-.755 1.688-1.54 1.118l-3.386-2.46a1 1 0 00-1.176 0l-3.386 2.46c-.784.57-1.838-.197-1.539-1.118l1.287-3.967a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.182a1 1 0 00.95-.69L9.049 2.927z" />
                       </svg>
                     ))}
-
-                    
+                    <span className="ml-2 text-sm text-gray-600">
+                      ({product.reviewCount ?? 0} reviews)
+                    </span>
                   </div>
         
                   {(product.tabsMg || product.origin || product.quality) && (
-                    <div className="mt-1 text-sm">
+                    <div className="mt-1 text-xs">
                       {product.tabsMg && <>Pack: <span className="underline shadow-lg font-semibold italic">{product.tabsMg}</span> &nbsp;</>}
                       {product.origin && <>Origin: <span className="underline shadow-lg font-semibold italic">{product.origin}</span> &nbsp;</>}
                       {product.quality && <>Type: <span className="underline shadow-lg font-semibold italic">{product.quality}</span></>}
                     </div>
                   )}
-                  
+                  {product.ActiveSalt && (
+                    <h2 className="mt-2 rounded">
+                    Formula: <span className="bg-yellow-100 shadow-lg font-semibold">{product.ActiveSalt}</span>
+                    </h2>
+                  )}
+
         
                   <QuantityPrice product={product} qty={qty} setQty={setQty} />
         
