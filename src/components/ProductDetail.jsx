@@ -67,7 +67,7 @@ export default function ProductDetail({ product }) {
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Product',
-  name: product.metaTitle,
+  name: product.name,
   sku: product.sku,
   image: images.map(img => `${SITE_URL}${img}`),
   description: product.metaDescription,
