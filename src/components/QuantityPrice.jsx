@@ -96,7 +96,7 @@ export default function QuantityPrice({ product, qty, setQty }) {
 
       {/* Dropdown for existing discount tiers only */}
       {entries.length > 1 && (
-        <div className="relative w-90 max-w-md"ref={wrapperRef}>
+        <div className="relative w-auto max-w-md"ref={wrapperRef}>
           <button
             onClick={() => setOpen(!open)}
             className="w-full flex items-center justify-between px-4 py-2 bg-blue-600 text-white rounded-md"

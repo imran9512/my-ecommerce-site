@@ -76,7 +76,7 @@ export default function Footer() {
   <div
     className="fixed inset-0 z-40 flex items-end
      justify-center sm:items-start sm:justify-end
-     bg-white/10 backdrop-blur-xs"
+     bg-white/20 backdrop-blur-xs"
     onClick={() => setIsOpen(false)}
   >
     <div

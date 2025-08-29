@@ -1,6 +1,7 @@
 // src/components/Menu.jsx
 import { useState } from 'react';
 import Link from 'next/link';
+import { WHATSAPP_NUMBER } from '@/data/constants';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
 export default function Menu({ categories, helpLinks, onClose }) {

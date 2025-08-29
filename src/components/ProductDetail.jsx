@@ -38,7 +38,7 @@ export default function ProductDetail({ product }) {
 
     /* --- Stock pill --- */
     const stockText =
-      product.stock === 0 ? 'Out of Stock' : product.stock < 5 ? 'Low Stock' : 'In Stock';
+      product.stock === 0 ? '😞 Out of Stock' : product.stock < 5 ? '😲 Low Stock' : '😃 In Stock';
     const stockColor =
       product.stock === 0 ? 'bg-red-500' : product.stock < 5 ? 'bg-yellow-500' : 'bg-green-500';
    return (
@@ -101,7 +101,7 @@ export default function ProductDetail({ product }) {
                 {/* ---------- Details ---------- */}
                <div className="w-full">
                 {product.brand && (
-                 <h3 className="rounded">
+                 <h3 className="flex items-center w-full">
                    By:{' '}
                    <Link
                     href={`/search?q=${encodeURIComponent(product.brand)}`}
@@ -109,35 +109,28 @@ export default function ProductDetail({ product }) {
                     >
                     {product.brand}
                    </Link>
-                 </h3>
-                 )}
-                  <h1 className="text-3xl font-bold">{product.name}</h1>
-                  <span
-                    className={`inline-block px-3 py-1 text-white text-xs rounded-full ${stockColor}`}
+                   <span
+                    className={`ml-auto mr-4 h-6 px-2 py-1 text-white text-xs rounded-full ${stockColor}`}
                   >
                     {stockText}
                   </span>
-        
-                  {product.stock === 0 && (
-                    <span className="mt-1 text-red-600 bg-yellow-200 px-2 py-1 text-xs font-semibold rounded">
-                      Contact Us to Get Notified when Restocked
-                    </span>
-                  )}
-                  {product.stock < 5 && product.stock > 0 && (
-                    <span className="mt-1 text-blue-600 bg-yellow-100 px-2 py-1 text-xs font-semibold rounded">
-                      Grab this item before stock ends again
-                    </span>
-                  )}
+                 </h3>
+                
+
+                 )}
+
+                  <h1 className="text-3xl mt-4 font-bold">{product.name}</h1>
+                  
         
                   <div className="flex mt-2">
                                         <span>
                       {product.ActiveSalt && (
-                    <h2 className="mr-2 rounded">
-                     Formula: <span className="bg-yellow-100 shadow-lg font-semibold">{product.ActiveSalt}</span>
+                    <h2 className="text-xs mr-2 rounded">
+                     Formula: <span className="text-sm bg-yellow-100 shadow-lg font-semibold">{product.ActiveSalt}</span>
                     </h2>
                     )}
                     </span>
-                    <span className="ml-2 mr-2 text-sm text-gray-600">
+                    <span className="text-xs text-gray-600">
                       ({product.reviewCount ?? 0} reviews)
                     </span>
                     
@@ -163,7 +156,21 @@ export default function ProductDetail({ product }) {
                   )}
         
                   <QuantityPrice product={product} qty={qty} setQty={setQty} />
-                  <div className="mt-4 flex items-center space-x-3">
+                  <h3 className="flex mt-2 items-center w-full"> 
+                    {product.stock === 0 && (
+                    <span className="text-red-600 bg-yellow-100 px-2 py-1 text-xs font-semibold rounded">
+                      Contact Us to Get Notified when Restocked
+                    </span>
+                   )}
+                   {product.stock < 5 && product.stock > 0 && (
+                    <span className="text-blue-600 bg-yellow-100 px-2 py-1 text-xs font-semibold rounded">
+                      Grab this item before stock ends again
+                    </span>
+                   )}
+                  </h3>                  
+
+                  
+                  <div className="mt-2 flex items-center space-x-3">
                     <button
                       disabled={product.stock === 0 || adding}
                       onClick={handleAddToCart}

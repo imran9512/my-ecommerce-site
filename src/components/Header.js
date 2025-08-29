@@ -9,10 +9,10 @@ import {
   XMarkIcon,
   ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
+//import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useCartStore } from '@/stores/cart';
 import products from '@/data/products';
-import { categories, WHATSAPP_NUMBER } from '@/data/constants';
+import { categories } from '@/data/constants';
 
 export default function Header() {
   const [cursor, setCursor] = useState(-1);
@@ -49,7 +49,7 @@ export default function Header() {
     return () => document.removeEventListener('mousedown', handleOutside);
   }, []);
 
-  const handleKeyDown = (e) => {
+  {/*const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       router.push(`/search?q=${encodeURIComponent(searchTerm)}`);
       setSearchTerm('');
@@ -60,7 +60,7 @@ export default function Header() {
     acc.push({ label: name, href: `/category/${name.toLowerCase()}` });
     sub.forEach((s) => acc.push({ label: s, href: `/category/${s.toLowerCase()}` }));
     return acc;
-  }, []);
+  }, []); */}
 
   /* Help drawer links */
   const helpLinks = [
@@ -70,18 +70,18 @@ export default function Header() {
     { label: 'Contact', href: '/contact' },
   ];
 
-  const openWhatsApp = () =>
+  {/*const openWhatsApp = () =>
     window.open(
       `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
         'Hi! I need help with products or my order.'
       )}`,
       '_blank'
-    );
+    );*/}
 
   return (
     <>
       {/* ------------- FLOATING PILL ------------- */}
-      <header className="fixed top-3 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-3xl bg-white/20 backdrop-blur-md shadow-xl rounded-full px-3 md:px-5 h-14 flex items-center">
+      <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl bg-white/20 backdrop-blur-md shadow-xl rounded-full px-3 md:px-5 h-14 flex items-center">
         <div className="w-full grid grid-cols-3 items-center">
           {/* Left: Hamburger */}
           <div className="flex items-center">
