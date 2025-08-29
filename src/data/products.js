@@ -185,7 +185,7 @@ const products = [
   ActiveSalt: "Lisdexamfetamine",
   brand: "Tekaje",
   active: "true",
-  categories: ["ADHD"
+  categories: ["ADHD",
 "Lisdexamfetamine" ],
   sku: "VS-30",
   stock: 14,
@@ -229,7 +229,7 @@ const products = [
   ActiveSalt: "Lisdexamfetamine",
   brand: "Tekaje",
   active: "true",
-  categories: ["ADHD"
+  categories: ["ADHD",
 "Lisdexamfetamine" ],
   sku: "VS-50",
   stock: 14,
@@ -273,7 +273,7 @@ const products = [
   ActiveSalt: "Lisdexamfetamine",
   brand: "Tekaje",
   active: "true",
-  categories: ["ADHD"
+  categories: ["ADHD",
 "Lisdexamfetamine" ],
   sku: "VS-70",
   stock: 0,
