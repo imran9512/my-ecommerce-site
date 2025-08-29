@@ -1,21 +1,15 @@
 // src/components/ProductDetail.jsx
 import Image from 'next/image';
-import { useState, useEffect, useCallback } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon, CheckIcon } from '@heroicons/react/24/solid';
-import { useSwipeable } from 'react-swipeable';
-import Lightbox from 'yet-another-react-lightbox';
-import 'yet-another-react-lightbox/styles.css';
-import Zoom from 'yet-another-react-lightbox/plugins/zoom';
+import { useState, useEffect } from 'react';
+import { CheckIcon } from '@heroicons/react/24/solid';
 import QuantityPrice from './QuantityPrice';
-import { WHATSAPP_NUMBER, SITE_URL } from '@/data/constants';
+import { WHATSAPP_NUMBER } from '@/data/constants';
 import { useCartStore } from '@/stores/cart';
 import Link from 'next/link'
 
 export default function ProductDetail({ product }) {
-  const [current, setCurrent] = useState(0);
   const [qty, setQty] = useState(1);
   const [currentImg, setCurrentImg] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [adding, setAdding] = useState(false);
 
   const images = Array.isArray(product?.images) && product.images.length
@@ -36,143 +30,73 @@ export default function ProductDetail({ product }) {
     setCurrentImg(0);
   }, [product.id]);
 
-  /* --- Swipe & arrows --- */
-  const nextImg = useCallback(() => {
-    setCurrentImg((c) => (c + 1) % images.length);
-  }, [images.length]);
-
-  const prevImg = useCallback(() => {
-    setCurrentImg((c) => (c - 1 + images.length) % images.length);
-  }, [images.length]);
-
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft : nextImg,
-    onSwipedRight: prevImg,
-    trackMouse   : true,
-  });
-
   /* --- WhatsApp --- */
   const openWhatsApp = () => {
     const msg = `Hi, I want more information about ${product.name}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
-  /* --- Stock pill --- */
-  const stockText =
-    product.stock === 0 ? 'Out of Stock' : product.stock < 5 ? 'Low Stock' : 'In Stock';
-  const stockColor =
-    product.stock === 0 ? 'bg-red-500' : product.stock < 5 ? 'bg-yellow-500' : 'bg-green-500';
-
-  /* --- SEO Schema  --- */
-{/*const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'Product',
-  name: product.name,
-  sku: product.sku,
-  image: images.map(img => `${SITE_URL}${img}`),
-  description: product.metaDescription,
-  brand: { '@type': 'Brand', name: product.brand },
-
-  offers: {
-    '@type': 'Offer',
-    price: product.price,
-    priceCurrency: 'PKR',
-    availability:
-      product.stock === 0
-        ? 'https://schema.org/OutOfStock'
-        : product.stock < 5
-        ? 'https://schema.org/LimitedAvailability'
-        : 'https://schema.org/InStock',
-    priceValidUntil: '2035-12-31',
-  },
-
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: product.rating,
-    reviewCount: product.reviewCount ?? 0,
-  },
-
-  shippingDetails: {
-    '@type': 'OfferShippingDetails',
-    shippingRate: {
-      '@type': 'MonetaryAmount',
-      value: 150,
-      currency: 'PKR',
-    },
-    shippingDestination: {
-      '@type': 'DefinedRegion',
-      addressCountry: 'PK',
-    },
-  },
-
-  hasMerchantReturnPolicy: {
-    '@type': 'MerchantReturnPolicy',
-    returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-    merchantReturnDays: 7,
-    returnMethod: 'https://schema.org/ReturnByMail',
-  },
-};*/}
-
-  return (
+    /* --- Stock pill --- */
+    const stockText =
+      product.stock === 0 ? 'Out of Stock' : product.stock < 5 ? 'Low Stock' : 'In Stock';
+    const stockColor =
+      product.stock === 0 ? 'bg-red-500' : product.stock < 5 ? 'bg-yellow-500' : 'bg-green-500';
+   return (
     <>
-      {/*<script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />*/}
       <div className="grid mt-8 md:grid-cols-2 gap-4 md:gap-8 p-0 md:p-2 max-w-none md:max-w-6xl mx-auto">
         {/* ----------- IMAGE GALLERY ----------- */}
-<div className="relative w-full">
-  {/* scrollable images */}
-  <div
-    id="gallery-scroll"
-    className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth
+        <div className="relative w-full">
+         {/* scrollable images */}
+          <div
+           id="gallery-scroll"
+           className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth
                scrollbar-thin scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-500
                scrollbar-track-transparent"
-  >
-    {images.map((img, idx) => (
-      <div key={idx} id={`slide-${idx}`} className="w-full shrink-0 snap-center">
-        <Image
-          src={`${img}?v=2`}
-          alt={
-            product.images[idx]?.split('/')?.pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') ||
-            product.name
-          }
-          width={600}
-          height={400}
-          className="w-full h-auto object-cover cursor-pointer"
-          //onClick={() => window.open(`${img}?v=2`, '_blank')}
-          priority={idx === 0}
-        />
-      </div>
-    ))}
-  </div>
+           >
+           {images.map((img, idx) => (
+            <div key={idx} id={`slide-${idx}`} className="w-full shrink-0 snap-center">
+             <Image
+               src={`${img}?v=2`}
+               alt={
+                product.images[idx]?.split('/')?.pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') ||
+                product.name
+                }
+               width={600}
+               height={400}
+               className="w-full h-auto object-cover cursor-pointer"
+               //onClick={() => window.open(`${img}?v=2`, '_blank')}
+               priority={idx === 0}
+              />
+            </div>
+            ))}
+          </div>
 
-  {/* thumbnails */}
-  <div className="flex justify-center gap-2 mt-3 overflow-x-auto">
-    {images.map((img, idx) => (
-      <button
-        key={idx}
-        onClick={() => {
-          document.getElementById(`slide-${idx}`).scrollIntoView({
+          {/* thumbnails */}
+          <div className="flex justify-center gap-2 mt-3 overflow-x-auto">
+          {images.map((img, idx) => (
+           <button
+            key={idx}
+            onClick={() => {
+            document.getElementById(`slide-${idx}`).scrollIntoView({
             behavior: 'smooth',
             block: 'nearest',
             inline: 'start',
           });
-        }}
-        className={`w-16 h-16 shrink-0 border-2 rounded overflow-hidden transition
+         }}
+         className={`w-16 h-16 shrink-0 border-2 rounded overflow-hidden transition
           ${idx === currentImg ? 'border-blue-500' : 'border-transparent'}`}
-      >
-        <Image
-          src={`${img}?v=2`}
-          alt={`thumb-${idx}`}
-          width={72}
-          height={72}
-          className="object-cover"
-        />
-      </button>
-    ))}
-  </div>
-</div>
+         >
+         <Image
+           src={`${img}?v=2`}
+           alt={`thumb-${idx}`}
+           width={72}
+           height={72}
+           className="object-cover"
+         />
+        </button>
+       ))}
+      </div>
+     </div>
         
                 {/* ---------- Details ---------- */}
                <div className="w-full">
@@ -208,12 +132,12 @@ export default function ProductDetail({ product }) {
                   <div className="flex mt-2">
                                         <span>
                       {product.ActiveSalt && (
-                    <h2 className="mr-6 rounded">
+                    <h2 className="mr-2 rounded">
                      Formula: <span className="bg-yellow-100 shadow-lg font-semibold">{product.ActiveSalt}</span>
                     </h2>
                     )}
                     </span>
-                    <span className="ml-4 mr-2 text-sm text-gray-600">
+                    <span className="ml-2 mr-2 text-sm text-gray-600">
                       ({product.reviewCount ?? 0} reviews)
                     </span>
                     
@@ -229,10 +153,7 @@ export default function ProductDetail({ product }) {
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.182c.969 0 1.371 1.24.588 1.81l-3.386 2.46a1 1 0 00-.364 1.118l1.287 3.967c.3.921-.755 1.688-1.54 1.118l-3.386-2.46a1 1 0 00-1.176 0l-3.386 2.46c-.784.57-1.838-.197-1.539-1.118l1.287-3.967a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.182a1 1 0 00.95-.69L9.049 2.927z" />
                       </svg>
                     ))}
-
-                    
                   </div>
-        
                   {(product.tabsMg || product.origin || product.quality) && (
                     <div className="mt-1 text-sm">
                       {product.tabsMg && <>Pack: <span className="underline shadow-lg font-semibold italic">{product.tabsMg}</span> &nbsp;</>}
@@ -240,10 +161,8 @@ export default function ProductDetail({ product }) {
                       {product.quality && <>Type: <span className="underline shadow-lg font-semibold italic">{product.quality}</span></>}
                     </div>
                   )}
-                  
         
                   <QuantityPrice product={product} qty={qty} setQty={setQty} />
-        
                   <div className="mt-4 flex items-center space-x-3">
                     <button
                       disabled={product.stock === 0 || adding}
@@ -251,7 +170,7 @@ export default function ProductDetail({ product }) {
                       className={`relative px-6 py-2 rounded text-white transition-all duration-300 ease-in-out
                           ${adding ? 'bg-green-500 scale-105' : 'bg-blue-600 hover:bg-blue-700'}
                           disabled:opacity-60`}
-        >
+                     >
                           {adding ? (
                           <span className="flex items-center space-x-1">
                           <CheckIcon className="w-5 h-5 animate-ping" />

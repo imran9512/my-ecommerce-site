@@ -3,11 +3,15 @@ import { useState } from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { reviews } from '@/data/reviews';
 import products from '@/data/products';
+import { faqsByProduct } from '@/data/faq';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
-export default function TabsSection({ product }) {
+export default function TabsSection({ product, faqItems }) {
   const [active, setActive] = useState('desc');
   const [showMeta, setShowMeta] = useState(false);
+  const [openFaq, setOpenFaq] = useState(null);
+  const toggleFaq = (idx) =>
+    setOpenFaq(openFaq === idx ? null : idx);
 
   // reviews jo is product k hain
   const productReviews = reviews.filter((r) => r.productId === product.id);
@@ -25,11 +29,12 @@ export default function TabsSection({ product }) {
 
   const getProductName = (pid) => products.find((p) => p.id === pid)?.name || '';
 
+  
   return (
     <div className="mt-10">
       {/* Tab buttons */}
       <div className="flex border-b">
-        {['desc', 'reviews', 'uses'].map((tab) => (
+        {['desc', 'reviews', 'uses', 'faq' ].map((tab) => (
           <button
             key={tab}
             onClick={() => setActive(tab)}
@@ -43,7 +48,10 @@ export default function TabsSection({ product }) {
               ? 'Description'
               : tab === 'reviews'
               ? 'Reviews'
-              : 'Uses'}
+              : tab === 'uses'
+              ? 'Uses'
+              : 'FAQs'
+              }
           </button>
         ))}
       </div>
@@ -196,8 +204,38 @@ export default function TabsSection({ product }) {
               }}
             />
           </div>
+          )}
+
+                  {/* FAQs */}
+        {active === 'faq' && (
+          <div className="max-w-none">
+            {faqItems && faqItems.length ? (
+              faqItems.map((item, idx) => (
+                <div key={idx} className="border-b">
+                  <button
+                    onClick={() => toggleFaq(idx)}
+                    className="w-full flex justify-between items-center py-3 text-left font-medium focus:outline-none"
+                  >
+                    <span>{item.q}</span>
+                    {openFaq === idx ? (
+                      <ChevronUpIcon className="w-5 h-5 text-blue-500" />
+                    ) : (
+                      <ChevronDownIcon className="w-5 h-5 text-blue-500" />
+                    )}
+                  </button>
+                  {openFaq === idx && (
+                    <div className="pb-3 text-sm text-gray-700">
+                      {item.a}
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p>No FAQs available yet.</p>
+            )}
+          </div>
         )}
-      </div>
+        </div>
     </div>
   );
 }

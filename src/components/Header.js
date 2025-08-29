@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import Menu from '@/components/Menu';
 import {
   Bars3Icon,
   XMarkIcon,
@@ -20,9 +21,8 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const cartCount = useCartStore((s) => s.items.reduce((a, b) => a + b.quantity, 0));
-  const [openUseful, setOpenUseful] = useState(false);
-  const [openCategory, setOpenCategory] = useState(null);
 
+  
   /* live search logic */
   const [results, setResults] = useState([]);
   useEffect(() => {
@@ -88,7 +88,7 @@ export default function Header() {
             <button
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
-              className="text-gray-700"
+              className="text-gray-700 relative hidden lg:block ml-3"
             >
               {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
             </button>
@@ -152,12 +152,17 @@ export default function Header() {
                 </ul>
               )}
             </div>
+            <div className="flex justify-center">
+            <Link href="/">
+              <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain lg:hidden" />
+            </Link>
+          </div>
           </div>
 
           {/* Center: Logo */}
           <div className="flex justify-center">
             <Link href="/">
-              <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain" />
+              <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain hidden lg:block ml-3" />
             </Link>
           </div>
 
@@ -180,99 +185,17 @@ export default function Header() {
         </div>
       </header>
 
-      {/* ------------- MOBILE DRAWER (unchanged) ------------- */}
+      {/* -------------Menu DRAWER ------------- */}
       {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black/10 backdrop-blur-sm z-40"
-          onClick={() => setMenuOpen(false)}
-        >
-          <div
-            className="fixed top-20 left-2 w-60 rounded-xl shadow-2xl bg-white/50 backdrop-blur-md p-4 overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <nav className="space-y-4">
-              {categories.map(({ name, sub }, idx) => (
-                <div key={name}>
-                  <div
-                    className="flex items-center justify-between cursor-pointer"
-                    onClick={() => setOpenCategory(openCategory === idx ? null : idx)}
-                  >
-                    <Link
-                      href={`/category/${name.toLowerCase()}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setMenuOpen(false);
-                      }}
-                      className="bg-white/40 px-3 py-1.5 rounded shadow hover:bg-slate-50 transition"
-                    >
-                      {name}
-                    </Link>
-                    {sub && sub.length > 0 && (
-                      <ChevronDownIcon
-                        className={`w-4 h-4 transition-transform ${openCategory === idx ? 'rotate-180' : ''}`}
-                      />
-                    )}
-                  </div>
-                  {openCategory === idx && sub && sub.length > 0 && (
-                    <ul className="pl-4 mt-2 space-y-1">
-                      {sub.map((s) => (
-                        <li key={s}>
-                          <Link
-                            href={`/category/${s.toLowerCase()}`}
-                            onClick={() => setMenuOpen(false)}
-                            className="inline-block bg-white/70 px-3 py-1 rounded shadow text-xs hover:bg-slate-200 transition"
-                          >-&nbsp;
-                            {s}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              ))}
-            </nav>
-
-            {/* Useful Links */}
-            <div className="mt-6 pt-4 border-t border-slate-300">
-              <div
-                className="flex items-center justify-between font-semibold cursor-pointer"
-                onClick={() => setOpenUseful(!openUseful)}
-              >
-                Useful Links
-                <ChevronDownIcon
-                  className={`w-4 h-4 transition-transform ${openUseful ? 'rotate-180' : ''}`}
-                />
-              </div>
-              {openUseful && (
-                <ul className="pl-4 space-y-1 mt-2">
-                  {helpLinks.map(({ label, href }) => (
-                    <li key={label}>
-                      <Link
-                        href={href}
-                        onClick={() => setMenuOpen(false)}
-                        className="block text-sm text-sky-600 hover:text-black"
-                      >
-                        {label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-
-            <button
-              onClick={() => {
-                openWhatsApp();
-                setMenuOpen(false);
-              }}
-              className="w-full mt-4 h-8 flex items-center justify-center bg-green-500 text-white rounded-full text-xs font-semibold hover:bg-green-600 transition"
-            >
-              <img src="/whatsapp.png" alt="WhatsApp" className="w-4 h-4 mr-1.5" />
-              WhatsApp Us
-            </button>
-          </div>
-        </div>
-      )}
+  <div className="bg-black/10 relative hidden lg:block ml-3">
+  
+  <Menu
+    categories={categories}
+    helpLinks={helpLinks}
+    onClose={() => setMenuOpen(false)}
+  />
+  </div>
+)}
     </>
   );
 }

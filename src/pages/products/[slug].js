@@ -5,6 +5,7 @@ import TabsSection from '@/components/TabsSection';
 import RelatedProducts from '@/components/RelatedProducts';
 import products from '@/data/products';
 import { SITE_URL } from '@/data/constants';
+import { faqsByProduct } from '@/data/faq';
 
 
 export default function ProductPage({ product, related }) {
@@ -58,6 +59,22 @@ export default function ProductPage({ product, related }) {
       returnMethod: 'https://schema.org/ReturnByMail',
     },
   };
+
+   /* ---------- FAQ Schema ---------- */
+  const faqSchema = (faqsByProduct[product.id] || []).length
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: (faqsByProduct[product.id] || []).map((item) => ({
+          '@type': 'Question',
+          name: item.q?.trim(),
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.a?.trim(),
+          },
+        })),
+      }
+    : null;
   
   return (
     <>
@@ -68,15 +85,22 @@ export default function ProductPage({ product, related }) {
         <meta property="og:title" content={product.metaTitle} />
         <meta property="og:description" content={product.metaDescription} />
         <meta property="og:image" content={product.images[0]} />
-          <script
+        <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
+        {faqSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          />
+        )}
+
       </Head>
 
       <div className="container mx-auto px-4 py-8">
         <ProductDetail product={product} />
-        <TabsSection product={product} />
+        <TabsSection product={product} faqItems={faqsByProduct[product.id] || []} />
         <RelatedProducts products={related} />
       </div>
     </>
