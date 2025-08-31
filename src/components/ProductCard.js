@@ -1,6 +1,7 @@
 // src/components/ProductCard.jsx
 import Image from 'next/image';
 import Link from 'next/link';
+import { BeakerIcon } from '@heroicons/react/24/outline';
 
 export default function ProductCard({ product }) {
   if (!product.active) return null;
@@ -29,15 +30,25 @@ export default function ProductCard({ product }) {
         priority
         className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
       />
-       {product.brand && (
+      {product.brand && (
         <h3 className="underline decoration-2 decoration-red-300 mt-2 text-[10px] -ml-1">{product.brand}'s</h3>
-        )}
+      )}
       <h3 className=" text-sm font-semibold truncate">{product.name}</h3>
+      <span>
+        {product.ActiveSalt && (
+          <h4 className="text-xs mr-2 rounded flex items-center gap-1">
+            <BeakerIcon className="w-4 h-4" />
+            <span className="underline shadow decoration-blue-300">
+              {product.ActiveSalt}
+            </span>
+          </h4>
+        )}
+      </span>
       <p className="text-xs">
-        Formula: <span className="text-blue-600 shadow">{product.ActiveSalt}</span>
-      </p>
-      <p className="text-xs">
-        Rs: {product.price}</p><p className="text-xs">As Low As: <span className="shadow text-blue-700 font-semibold">Rs {lowestPrice.toLocaleString()}</span>
+        Rs: {product.price}</p>
+      <p className="text-xs">As low as &nbsp;
+        <span className="shadow text-blue-800 font-semibold">
+          Rs {lowestPrice.toLocaleString()}</span>
       </p>
     </Link>
   );

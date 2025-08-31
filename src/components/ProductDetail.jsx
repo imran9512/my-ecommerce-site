@@ -12,7 +12,6 @@ export default function ProductDetail({ product }) {
   const [qty, setQty] = useState(1);
   const [currentImg, setCurrentImg] = useState(0);
   const [adding, setAdding] = useState(false);
-
   const images = Array.isArray(product?.images) && product.images.length
     ? product.images
     : ['/placeholder.jpg'];
@@ -78,14 +77,15 @@ export default function ProductDetail({ product }) {
               <button
                 key={idx}
                 onClick={() => {
+                  setCurrentImg(idx);
                   document.getElementById(`slide-${idx}`).scrollIntoView({
                     behavior: 'smooth',
                     block: 'nearest',
                     inline: 'start',
                   });
                 }}
-                className={`w-16 h-16 shrink-0 border-2 rounded overflow-hidden transition
-          ${idx === currentImg ? 'border-blue-500' : 'border-transparent'}`}
+                className={`w-16 h-16 shrink-0 border-2 rounded-2xl overflow-hidden transition
+          ${idx === currentImg ? 'border-blue-200' : 'border-transparent'}`}
               >
                 <Image
                   src={`${img}?v=2`}
@@ -111,7 +111,7 @@ export default function ProductDetail({ product }) {
                 {product.brand}
               </Link>
               <span
-                className={`ml-auto  h-6 px-2 py-1 text-white text-xs rounded-full ${stockColor}`}
+                className={`ml-auto h-6 px-2 py-1 text-white text-xs rounded-full ${stockColor}`}
               >
                 {stockText}
               </span>
@@ -123,7 +123,7 @@ export default function ProductDetail({ product }) {
           <h1 className="text-3xl mt-4 font-bold">{product.name}</h1>
 
           <div className="flex mt-2 items-center">
-            {/* ActiveSalt (left) */}
+            {/* ActiveSalt */}
             <span>
               {product.ActiveSalt && (
                 <h2 className="text-xs mr-2 rounded flex items-center gap-1">
@@ -135,7 +135,7 @@ export default function ProductDetail({ product }) {
               )}
             </span>
 
-            {/* reviews + stars (right) */}
+            {/* reviews + stars */}
             <div className="ml-auto flex items-center">
               <span className="text-xs mr-2 text-gray-600">
                 ({product.reviewCount ?? 0} reviews)
