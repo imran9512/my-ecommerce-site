@@ -29,29 +29,28 @@ export default function TabsSection({ product, faqItems }) {
 
   const getProductName = (pid) => products.find((p) => p.id === pid)?.name || '';
 
-  
+
   return (
     <div className="mt-10">
       {/* Tab buttons */}
       <div className="flex border-b">
-        {['desc', 'reviews', 'uses', 'faq' ].map((tab) => (
+        {['desc', 'reviews', 'uses', 'faq'].map((tab) => (
           <button
             key={tab}
             onClick={() => setActive(tab)}
-            className={`px-4 py-2 font-semibold ${
-              active === tab
-                ? 'border-b-2 border-blue-500 text-blue-600'
-                : 'text-gray-600'
-            }`}
+            className={`px-4 py-2 font-semibold ${active === tab
+              ? 'border-b-2 border-blue-500 text-blue-600'
+              : 'text-gray-600'
+              }`}
           >
             {tab === 'desc'
               ? 'Description'
               : tab === 'reviews'
-              ? 'Reviews'
-              : tab === 'uses'
-              ? 'Uses'
-              : 'FAQs'
-              }
+                ? 'Reviews'
+                : tab === 'uses'
+                  ? 'Uses'
+                  : 'FAQs'
+            }
           </button>
         ))}
       </div>
@@ -64,6 +63,16 @@ export default function TabsSection({ product, faqItems }) {
               className="prose max-w-none mb-4"
               dangerouslySetInnerHTML={{ __html: product.longDesc || 'No details' }}
             />
+            {product.fullDesc && (
+              <div className="mb-4">
+                <a
+                  href={product.fullDesc}
+                  className="inline-flex items-center px-2 py-1 text-sm font-medium text-white bg-blue-400 rounded-md hover:bg-blue-700"
+                >
+                  Read Full Details
+                </a>
+              </div>
+            )}
 
             {/* Meta Info Dropdown */}
             <div className=" pt-4">
@@ -133,9 +142,8 @@ export default function TabsSection({ product, faqItems }) {
                         {[...Array(5)].map((_, i) => (
                           <StarIcon
                             key={i}
-                            className={`w-4 h-4 ${
-                              i < r.rating ? 'text-yellow-400' : 'text-gray-300'
-                            }`}
+                            className={`w-4 h-4 ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'
+                              }`}
                           />
                         ))}
                       </div>
@@ -172,9 +180,8 @@ export default function TabsSection({ product, faqItems }) {
                           {[...Array(5)].map((_, i) => (
                             <StarIcon
                               key={i}
-                              className={`w-4 h-4 ${
-                                i < r.rating ? 'text-yellow-400' : 'text-gray-300'
-                              }`}
+                              className={`w-4 h-4 ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'
+                                }`}
                             />
                           ))}
                         </div>
@@ -204,9 +211,9 @@ export default function TabsSection({ product, faqItems }) {
               }}
             />
           </div>
-          )}
+        )}
 
-                  {/* FAQs */}
+        {/* FAQs */}
         {active === 'faq' && (
           <div className="max-w-none">
             {faqItems && faqItems.length ? (
@@ -235,7 +242,7 @@ export default function TabsSection({ product, faqItems }) {
             )}
           </div>
         )}
-        </div>
+      </div>
     </div>
   );
 }
