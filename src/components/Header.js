@@ -22,7 +22,7 @@ export default function Header() {
   const [searchTerm, setSearchTerm] = useState('');
   const cartCount = useCartStore((s) => s.items.reduce((a, b) => a + b.quantity, 0));
 
-  
+
   /* live search logic */
   const [results, setResults] = useState([]);
   useEffect(() => {
@@ -141,9 +141,8 @@ export default function Header() {
                           setSearchTerm('');
                           setCursor(-1);
                         }}
-                        className={`block px-3 py-2 text-sm ${
-                          idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-100'
-                        }`}
+                        className={`block px-3 py-2 text-sm ${idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-100'
+                          }`}
                       >
                         {p.name}
                       </Link>
@@ -153,10 +152,10 @@ export default function Header() {
               )}
             </div>
             <div className="flex justify-center">
-            <Link href="/">
-              <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain lg:hidden" />
-            </Link>
-          </div>
+              <Link href="/">
+                <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain lg:hidden" />
+              </Link>
+            </div>
           </div>
 
           {/* Center: Logo */}
@@ -187,15 +186,15 @@ export default function Header() {
 
       {/* -------------Menu DRAWER ------------- */}
       {menuOpen && (
-  <div className="bg-black/10 relative hidden lg:block ml-3">
-  
-  <Menu
-    categories={categories}
-    helpLinks={helpLinks}
-    onClose={() => setMenuOpen(false)}
-  />
-  </div>
-)}
+        <div className="bg-black/10 relative hidden lg:block ml-3">
+
+          <Menu
+            categories={categories}
+            helpLinks={helpLinks}
+            onClose={() => setMenuOpen(false)}
+          />
+        </div>
+      )}
     </>
   );
 }

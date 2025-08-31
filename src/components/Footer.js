@@ -73,24 +73,24 @@ export default function Footer() {
 
       {/* Glassy drawer */}
       {isOpen && (
-  <div
-    className="fixed inset-0 z-40 flex items-end
+        <div
+          className="fixed inset-0 z-40 flex items-end
      justify-center sm:items-start sm:justify-end
      bg-white/20 backdrop-blur-xs"
-    onClick={() => setIsOpen(false)}
-  >
-    <div
-      className="fixed bottom-0 right-0 w-full 
+          onClick={() => setIsOpen(false)}
+        >
+          <div
+            className="fixed bottom-0 right-0 w-full 
       max-w-xs sm:w-80 h-2/3 sm:h-full 
        backdrop-blur-xs rounded-t-2xl 
        sm:rounded-t-none sm:rounded-l-2xl 
        overflow-y-auto p-4"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <Menu categories={categories} helpLinks={quickLinks} onClose={() => setIsOpen(false)} />
-    </div>
-  </div>
-)}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Menu categories={categories} helpLinks={quickLinks} onClose={() => setIsOpen(false)} />
+          </div>
+        </div>
+      )}
     </>
   );
 }

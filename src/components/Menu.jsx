@@ -38,9 +38,8 @@ export default function Menu({ categories, helpLinks, onClose }) {
                 </Link>
                 {sub && sub.length > 0 && (
                   <ChevronDownIcon
-                    className={`w-4 h-4 transition-transform ${
-                      openCategory === idx ? 'rotate-180' : ''
-                    }`}
+                    className={`w-4 h-4 transition-transform ${openCategory === idx ? 'rotate-180' : ''
+                      }`}
                   />
                 )}
               </div>
@@ -70,9 +69,8 @@ export default function Menu({ categories, helpLinks, onClose }) {
           >
             Useful Links
             <ChevronDownIcon
-              className={`w-4 h-4 transition-transform ${
-                openUseful ? 'rotate-180' : ''
-              }`}
+              className={`w-4 h-4 transition-transform ${openUseful ? 'rotate-180' : ''
+                }`}
             />
           </div>
           {openUseful && (
