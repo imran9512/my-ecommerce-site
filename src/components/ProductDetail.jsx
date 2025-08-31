@@ -111,7 +111,7 @@ export default function ProductDetail({ product }) {
                 {product.brand}
               </Link>
               <span
-                className={`ml-auto mr-4 h-6 px-2 py-1 text-white text-xs rounded-full ${stockColor}`}
+                className={`ml-auto  h-6 px-2 py-1 text-white text-xs rounded-full ${stockColor}`}
               >
                 {stockText}
               </span>
