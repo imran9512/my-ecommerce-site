@@ -78,5 +78,27 @@ export const faqsByProduct = {
       q: `Can I take SDF 100 mg with food?`,
       a: `Yes, but a high-fat meal may delay onset.`
     }
+  ],
+  '003': [
+    {
+      q: `What is Modafinil 100mg used for?`,
+      a: `Modafinil 100mg is commonly used to treat narcolepsy, sleep apnea, and shift work sleep disorder by promoting wakefulness and alertness.`
+    },
+    {
+      q: `How does Modafinil 100mg work?`,
+      a: `It works by affecting certain brain chemicals that control the sleep-wake cycle, helping to keep you awake and focused.`
+    },
+    {
+      q: `Can Modafinil 100mg be used for studying or concentration?`,
+      a: `While some people use it off-label for focus and productivity, it is not approved for these purposes and should only be taken under the supervision of a medical professional.`
+    },
+    {
+      q: `What are the common side effects of Modafinil 100mg?`,
+      a: `Common side effects include headache, nausea, nervousness, dizziness, and difficulty sleeping.`
+    },
+    {
+      q: `Is Modafinil 100mg addictive?`,
+      a: `Modafinil has a low potential for addiction, but it should be used only as prescribed to avoid dependence.`
+    }
   ]
 };
