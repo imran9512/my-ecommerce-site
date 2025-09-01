@@ -132,12 +132,11 @@ const products = [
   tags: [ "Modiwake 100 mg,
 Dowvigil pakistan,
 Dowvigil Tablet price in pakistan,
-MODALERT 100 price in
-pakistan,
+MODALERT 100 price in pakistan,
 Dowvigil 200mg price in pakistan,
 Modiwake 100 mg price in pakistan,
 Modafinil price in pakistan,
-Dowvigil Tablet Uses in urdu" ],
+Dowvigil Tablet Uses in urdu," ],
   uses: "Modafinil (modiwake) is used to keep narcolepsy patients awake during the day. It helps to improve wakefulness, reduce excessive daytime sleepiness, and restore a normal sleep-wake cycle. Modafinil 100 mg gently nudges the brain’s own sleep-wake “switch,” helping you stay naturally alert when you need to be awake, making it an effective treatment for narcolepsy patients and other sleep disorders patients.
 ",
   reviews: [{}],
