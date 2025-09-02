@@ -192,7 +192,7 @@ const products = [
 
 {
   id: "V30",
-  slug: "vyas-30mg-lisdexamfetamine-as-vyvanse-original-price-in-pakistan",
+  slug: "vyas-30mg-lisdexamfetamine-as-vyvanse-price-in-pakistan",
   name: "VYAS 30 mg",
   ActiveSalt: "Lisdexamfetamine",
   brand: "Tekaje",
@@ -282,7 +282,7 @@ const products = [
 
 {
   id: "V70",
-  slug: "vyas-70mg-lisdexamfetamine-as-vyvanse-original-buy-in-pakistan",
+  slug: "vyas-70mg-lisdexamfetamine-as-vyvanse-available-in-pakistan",
   name: "VYAS 70 mg",
   ActiveSalt: "Lisdexamfetamine",
   brand: "Tekaje",
