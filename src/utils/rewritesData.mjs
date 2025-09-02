@@ -1,5 +1,5 @@
 // rewritesData.mjs
-const rewrites = [
+const rewritesList = [
     {
         source: '/Prod-images/:slug*',
         destination: '/api/images/:slug*',
