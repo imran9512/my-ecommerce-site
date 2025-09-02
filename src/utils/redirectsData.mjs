@@ -10,7 +10,7 @@ const productRedirects = [
         destination: 'products/vyas-70mg-lisdexamfetamine-as-vyvanse-available-in-pakistan',
         permanent: true,
     }
-    // add new redirects here
+    // add new redirects here..
 ];
 
 export default productRedirects;
