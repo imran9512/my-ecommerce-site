@@ -50,4 +50,5 @@ export const WHATSAPP_NUMBER = '+923142831690';
 
 // Search COnsol Tag
 export const GOOGLE_SEARCH_CONSOLE_TAG =
+
   '<meta name="google-site-verification" content="sOnCpM6SQ-KSOKNcbOK-DdmuZzykafxV-YnlXvljEZU" />';
