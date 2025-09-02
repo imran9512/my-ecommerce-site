@@ -1,4 +1,4 @@
-// rewritesData.cjs
+// rewritesData.mjs
 const rewrites = [
     {
         source: '/Prod-images/:slug*',
@@ -11,4 +11,4 @@ const rewrites = [
 ];
 
 
-module.exports = rewritesList;
+export default rewritesList;
