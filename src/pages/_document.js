@@ -1,7 +1,6 @@
 // src/pages/_document.js
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { GOOGLE_SEARCH_CONSOLE_TAG } from '../data/constants.js';   // adjust path if needed
-import { SITE_URL } from '@/data/constants';
+import { GOOGLE_SEARCH_CONSOLE_TAG, SITE_URL } from '../data/constants.js';
 
 class MyDocument extends Document {
   render() {

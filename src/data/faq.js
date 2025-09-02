@@ -1,3 +1,4 @@
+// src/data/faq.js
 export const faqsByProduct = {
   'V30': [
     {

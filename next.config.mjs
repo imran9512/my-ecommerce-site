@@ -1,5 +1,8 @@
 // next.config.mjs
 /** @type {import('next').NextConfig} */
+import productRedirects from './src/utils/redirectsData.mjs';
+import rewritesList from './src/utils/rewritesData.mjs';
+
 const nextConfig = {
   reactStrictMode: true,
   env: {
@@ -7,25 +10,14 @@ const nextConfig = {
       process.env.VERCEL_ENV === 'production'
         ? 'https://www.aapkisehat.com' // ← your real domain
         : process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : 'http://localhost:3000',
+          ? `https://${process.env.VERCEL_URL}`
+          : 'http://localhost:3000',
   },
   async rewrites() {
-    return [
-      {
-        source: '/Prod-images/:path*',
-        destination: '/api/images/:path*',
-      },
-    ];
+    return [...rewritesList]; // external file se import
   },
-  async rewrites() {
-  return [
-    {
-      source: '/Prod-images/:slug*',
-      destination: '/api/images/:slug*',
-    },
-  ];
-}
+  async redirects() {
+    return [...productRedirects];
+  },
 };
-
 export default nextConfig;

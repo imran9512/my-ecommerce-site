@@ -8,8 +8,9 @@ const SHEET_ID = process.env.GOOGLE_SHEET_ID;
 const FILE_MAP = [
   { sheet: 'prod-code', range: 'B1', filePath: 'src/data/products.js' },
   { sheet: 'cons-code', range: 'B1', filePath: 'src/data/constants.js' },
-  { sheet: 'rev-code',  range: 'B1', filePath: 'src/data/reviews.js' },
-  { sheet: 'cat-code',  range: 'B1', filePath: 'src/data/categoryContent.js' }
+  { sheet: 'rev-code', range: 'B1', filePath: 'src/data/reviews.js' },
+  { sheet: 'cat-code', range: 'B1', filePath: 'src/data/categoryContent.js' },
+  { sheet: 'faq-code', range: 'B1', filePath: 'src/data/faq.js' }
 ];
 
 // ---- tiny JWT helper ----
