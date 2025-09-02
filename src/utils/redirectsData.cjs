@@ -1,4 +1,4 @@
-// redirectsData.js
+// redirectsData.cjs
 const productRedirects = [
     {
         source: '/products/vyas-30mg-lisdexamfetamine-as-vyvanse-original-price-in-pakistan',
@@ -13,4 +13,4 @@ const productRedirects = [
     // add new redirects here..
 ];
 
-export default productRedirects;
+module.exports = productRedirects;
