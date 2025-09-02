@@ -20,7 +20,7 @@ export const GOOGLE_FORM_FIELDS = {
 
 // categories
 export const categories = [
-  { name: 'Fitness', sub: ['Delay/Timing', 'Erection', 'Combo'] },
+  { name: 'Fitness', sub: ['Delay-Timing', 'Erection', 'Combo'] },
   { name: 'ADHD', sub: ['Ritalin (Methylphenidate)', 'Lisdexamfetamine', 'Modafinil', 'Atomoxetine', 'Clonidine'] },
   { name: 'For Men', sub: ['VIAGRA+', 'CIALIS+', 'Dapoxitine'] },
   { name: 'Others', sub: ['For women', 'Miscellaneous'] },
@@ -50,4 +50,5 @@ export const WHATSAPP_NUMBER = '+923142831690';
 
 // Search COnsol Tag
 export const GOOGLE_SEARCH_CONSOLE_TAG =
+
   '<meta name="google-site-verification" content="sOnCpM6SQ-KSOKNcbOK-DdmuZzykafxV-YnlXvljEZU" />';
