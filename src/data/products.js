@@ -9,7 +9,7 @@ const products = [
   active: "true",
   categories: [      "Fitness",
       "Dapoxitine",
-      'Delay/Timing',
+      'Delay-Timing',
       "For Men",
       "Others" ],
   sku: "Dapoxetine-01",
