@@ -1,13 +1,13 @@
 // redirectsData.js
 const productRedirects = [
     {
-        source: '/products/old-slug-1',
-        destination: '/products/new-slug-1',
+        source: 'products/vyas-30mg-lisdexamfetamine-as-vyvanse-original-price-in-pakistan',
+        destination: 'products/vyas-30mg-lisdexamfetamine-as-vyvanse-price-in-pakistan',
         permanent: true,
     },
     {
-        source: '/products/old-slug-2',
-        destination: '/products/new-slug-2',
+        source: 'products/vyas-70mg-lisdexamfetamine-as-vyvanse-original-price-in-pakistan',
+        destination: 'products/vyas-70mg-lisdexamfetamine-as-vyvanse-available-in-pakistan',
         permanent: true,
     }
     // add new redirects here
