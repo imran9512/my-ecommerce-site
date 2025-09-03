@@ -1,18 +1,53 @@
 // src/pages/404.js
+import { useEffect, useRef, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
 import products from '@/data/products';
 
-// خالی array → تمام active products
 const shownProducts = products.filter(p => p.active);
 
+
 export default function NotFound() {
+    const sliderRef = useRef(null);
+    const [isPaused, setIsPaused] = useState(false);
+
+    // Auto-scroll speed (pixels per frame)
+    const speed = 1;
+
+    useEffect(() => {
+        const slider = sliderRef.current;
+        if (!slider) return;
+
+        let offset = 0;
+        let animationId;
+
+        const scroll = () => {
+            if (!isPaused) {
+                offset -= speed;
+                // Reset offset when first copy scrolls completely
+                if (Math.abs(offset) >= slider.scrollWidth / 2) {
+                    offset = 0;
+                }
+                slider.style.transform = `translateX(${offset}px)`;
+            }
+            animationId = requestAnimationFrame(scroll);
+        };
+
+        animationId = requestAnimationFrame(scroll);
+
+        return () => cancelAnimationFrame(animationId);
+    }, [isPaused]);
+
+    // Touch & mouse events
+    const handleStart = () => setIsPaused(true);
+    const handleEnd = () => setIsPaused(false);
+
     return (
         <div className="max-w-7xl mx-auto px-4 py-10">
             {/* 404 Message */}
             <div className="text-center mb-10">
-                <h1 className="text-4xl font-bold text-red-600 mb-2">404 – Page Not Found</h1>
+                <h1 className="text-4xl font-bold text-red-600 mb-2">Page Not Found</h1>
                 <p className="text-gray-600 mb-4">
-                    Maaf kijiye, aap jo page dhoondh rahe hain wo mojood nahi.
+                    Sorry Your Required Page is not available.<br />You can chose any product from bottom list, Or
                 </p>
                 <a
                     href="/"
@@ -22,31 +57,26 @@ export default function NotFound() {
                 </a>
             </div>
 
-            {/* Infinite RTL slider */}
-            <div className="relative overflow-hidden">
-                <div className="flex animate-rtl group">
-                    {/* دو بار concat کر کے infinite loop */}
-                    {shownProducts.concat(shownProducts).map((p, i) => (
-                        <div key={i} className="flex-none w-60 px-2">
+            {/* Touch-friendly slider */}
+            <div
+                className="relative overflow-hidden cursor-grab active:cursor-grabbing"
+                onMouseDown={handleStart}
+                onMouseUp={handleEnd}
+                onTouchStart={handleStart}
+                onTouchEnd={handleEnd}
+            >
+                <div
+                    ref={sliderRef}
+                    className="flex transition-transform duration-100 ease-linear"
+                >
+                    {/* 2× repeat for infinite scroll */}
+                    {[...shownProducts, ...shownProducts].map((p, i) => (
+                        <div key={i} className="flex-none w-48 md:w-60 px-2">
                             <ProductCard product={p} />
                         </div>
                     ))}
                 </div>
             </div>
-
-            {/* Tailwind keyframes */}
-            <style jsx global>{`
-        @keyframes rtl {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-rtl {
-          animation: rtl 30s linear infinite;
-        }
-        .group:hover .animate-rtl {
-          animation-play-state: paused;
-        }
-      `}</style>
         </div>
     );
 }
