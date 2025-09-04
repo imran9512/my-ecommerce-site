@@ -2,12 +2,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { BeakerIcon } from '@heroicons/react/24/outline';
+import { getDiscountedPrice } from '@/utils/priceHelpers';
 
 export default function ProductCard({ product }) {
   if (!product.active) return null;
 
   const outOfStock = product.stock === 0;
-  const lowestPrice = Math.min(...Object.values(product.qtyDiscount || { 1: product.price }));
+  const prices = Object.keys(product.qtyDiscount || {})
+    .map(q => getDiscountedPrice(product.price, product.qtyDiscount, +q));
+  const lowestPrice = prices.length ? Math.min(...prices, product.price) : product.price;
 
   return (
     <Link
@@ -46,9 +49,8 @@ export default function ProductCard({ product }) {
       </span>
       <p className="text-xs">
         Rs: {product.price}</p>
-      <p className="text-xs">As low as &nbsp;
-        <span className="shadow text-blue-800 font-semibold">
-          Rs {lowestPrice.toLocaleString()}</span>
+      <p className="text-xs">As low as <span className="shadow text-blue-800 font-semibold">
+        Rs {lowestPrice.toLocaleString()}</span>
       </p>
     </Link>
   );
