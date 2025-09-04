@@ -54,12 +54,19 @@ export default function CheckoutPage() {
     COURIER_OPTIONS.find((c) => c.name === form.courier_option)?.charge || 0;
   const finalTotal = grandTotal + courierCharge;
 
-  /* ---------- daily counter ---------- */
-  const orderId = generateOrderId();
 
   /* ---------- handle submit ---------- */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // offline check
+    {/*if (!navigator.onLine) {
+      alert('Please check your internet connection to submit the order.');
+      return;
+    }*/}
+
+    /* ---------- daily counter ---------- */
+    const orderId = generateOrderId();
 
     /* short product line */
     const productLine = items
@@ -81,21 +88,31 @@ export default function CheckoutPage() {
     body.append(GOOGLE_FORM_FIELDS.delivery_charges, courierCharge.toFixed(2));
     body.append(GOOGLE_FORM_FIELDS.grand_total, finalTotal.toFixed(2));
 
-    fetch(GOOGLE_FORM_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body,
-    });
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 7000); // 7-sec timeout
 
-    useCartStore.getState().clearCart();
-    router.push(
-      `/success?order_id=${orderId}&grandTotal=${finalTotal}&payment_method=${form.payment_method}`
-    );
+      await fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body,
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      // success
+      useCartStore.getState().clearCart();
+      router.push(
+        `/success?order_id=${orderId}&grandTotal=${finalTotal}&payment_method=${form.payment_method}`
+      );
+    } catch (err) {
+      // network/offline/server error
+      alert('Please check your internet connection to submit the order.');
+    }
   };
 
   /* ---------- UI ---------- */
-
 
   return (
     <div className="mt-8 max-w-6xl mx-auto py-6 px-4">
