@@ -23,6 +23,17 @@ export default function CheckoutPage() {
     courier_option: 'Regular',
   });
 
+  const [currentPhone, setCurrentPhone] = useState(''); // current input value
+  const [phoneList, setPhoneList] = useState([]);
+  useEffect(() => {
+    const all = [...phoneList];
+    if (currentPhone.trim()) all.push(currentPhone.trim());
+    setForm(f => ({ ...f, phone: all.join(', ') }));
+  }, [currentPhone, phoneList]);
+
+
+
+
   const router = useRouter();
 
   /* ---------- load cart ---------- */
@@ -84,10 +95,10 @@ export default function CheckoutPage() {
   };
 
   /* ---------- UI ---------- */
-  
-  
+
+
   return (
-    <div className="max-w-6xl mx-auto py-6 px-4">
+    <div className="mt-8 max-w-6xl mx-auto py-6 px-4">
       <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
@@ -97,38 +108,76 @@ export default function CheckoutPage() {
             name="name"
             placeholder="Full Name"
             required
-            className="w-full px-3 py-2 bg-sky-100 shadow-lg focus:outline-none"
+            className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
             onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
           />
           <div className="flex space-x-4">
-            <input
-              name="phone"
-              placeholder="Phone"
-              required
-              className="w-1/2 px-3 py-2 bg-sky-100 shadow-lg focus:outline-none"
-              onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
-            />
+            <div className="relative w-1/2">
+              <input
+                type="text"
+                inputMode="numeric"
+                placeholder="Phone"
+                maxLength={11}
+                value={currentPhone}
+                onChange={e => {
+                  if (/^\d*$/.test(e.target.value)) setCurrentPhone(e.target.value);
+                }}
+                className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none pr-10"
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const val = currentPhone.trim();
+                  if (val && phoneList.length < 3 && !phoneList.includes(val)) {
+                    setPhoneList(prev => [...prev, val]);
+                    setCurrentPhone('');
+                  }
+                }}
+                className="absolute inset-y-0 right-0 px-3 flex items-center text-lg font-bold text-sky-700 hover:text-sky-900"
+              >
+                +
+              </button>
+            </div>
+
             <input
               name="city"
               placeholder="City"
               required
-              className="w-1/2 px-3 py-2 bg-sky-100 shadow-lg focus:outline-none"
-              onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
+              className="w-1/2 px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
+              onChange={e => setForm({ ...form, city: e.target.value })}
             />
           </div>
+
+          {/* 4) display chips */}
+          {phoneList.length > 0 && (
+            <div className="flex flex-wrap gap-2 text-sm mt-1">
+              {phoneList.map((p, i) => (
+                <span key={i} className="bg-sky-200 px-2 py-1 rounded">
+                  {p}
+                  <button
+                    type="button"
+                    className="ml-2 text-red-600"
+                    onClick={() => setPhoneList(prev => prev.filter((_, idx) => idx !== i))}
+                  >
+                    ×
+                  </button>
+                </span>
+              ))}
+            </div>
+          )}
           <textarea
             name="address"
             placeholder="Address"
             required
             rows={3}
-            className="w-full px-3 py-2 bg-sky-100 shadow-lg focus:outline-none"
+            className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
             onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
           />
           <textarea
             name="instructions"
             placeholder="Delivery Instructions (optional)"
             rows={2}
-            className="w-full px-3 py-2 bg-sky-100 shadow-lg focus:outline-none"
+            className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
             onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
           />
 
@@ -137,7 +186,7 @@ export default function CheckoutPage() {
             <label className="font-semibold">Payment Method</label>
             <select
               name="payment_method"
-              className="w-full px-3 py-2 bg-sky-100 shadow-lg focus:outline-none"
+              className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
               value={form.payment_method}
               onChange={(e) => setForm({ ...form, payment_method: e.target.value })}
             >
@@ -153,7 +202,7 @@ export default function CheckoutPage() {
             <label className="font-semibold">Courier Option</label>
             <select
               name="courier_option"
-              className="w-full px-3 py-2 bg-sky-100 shadow-lg focus:outline-none"
+              className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
               value={form.courier_option}
               onChange={(e) => setForm({ ...form, courier_option: e.target.value })}
             >
