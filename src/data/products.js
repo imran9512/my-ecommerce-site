@@ -290,7 +290,7 @@ const products = [
     categories: ["ADHD",
       "Lisdexamfetamine"],
     sku: "VS-70",
-    stock: 50,
+    stock: 0,
     rating: 4.9,
     reviewCount: 20,
     images: [
