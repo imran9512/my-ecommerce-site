@@ -166,13 +166,15 @@ export default function ProductDetail({ product }) {
           <QuantityPrice product={product} qty={qty} setQty={setQty} />
           <h3 className="flex mt-2 items-center w-full">
             {product.stock === 0 && (
-              <span className="text-red-600 bg-yellow-100 px-2 py-1 text-xs font-semibold rounded">
+              <span className="relative inline-flex items-center text-red-600 bg-yellow-100 px-2 py-1 text-xs font-semibold rounded animate-pulse">
                 Contact Us to Get Notified when Restocked
+                <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500 animate-ping"></span>
               </span>
             )}
             {product.stock < 5 && product.stock > 0 && (
-              <span className="text-blue-600 bg-yellow-100 px-2 py-1 text-xs font-semibold rounded">
+              <span className="relative inline-flex items-center text-blue-700 bg-yellow-100 px-2 py-1 text-xs font-semibold rounded animate-pulse">
                 Grab this item before stock ends again
+                <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500 animate-ping"></span>
               </span>
             )}
           </h3>
