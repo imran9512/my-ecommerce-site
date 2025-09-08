@@ -1,8 +1,8 @@
 // src/pages/checkout.js
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useCartStore } from '@/stores/cart';
+import { getDiscountedPrice } from '@/utils/priceHelpers';
 import {
   GOOGLE_FORM_URL,
   GOOGLE_FORM_FIELDS,
@@ -11,8 +11,53 @@ import {
 } from '@/data/constants';
 import { generateOrderId } from '@/components/orderId';
 
+/* --------------  NEW  -------------- */
+const STORAGE_KEY = 'offline_order';   // localStorage key
+
+function buildBody(orderId, form, items, subtotal, discount, courierCharge, finalTotal, isOffline = false) {
+  const productLine = items
+    .map(it => {
+      const p = getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+      return `${it.name} x ${it.quantity} rate: ${p}`;
+    })
+    .join(', ');
+
+  const body = new URLSearchParams();
+  body.append(GOOGLE_FORM_FIELDS.order_id, orderId);
+  body.append(GOOGLE_FORM_FIELDS.name, isOffline ? `Offline-${form.name}` : form.name);
+  body.append(GOOGLE_FORM_FIELDS.phone, form.phone);
+  body.append(GOOGLE_FORM_FIELDS.city, form.city);
+  body.append(GOOGLE_FORM_FIELDS.address, form.address);
+  body.append(GOOGLE_FORM_FIELDS.instructions, form.instructions);
+  body.append(GOOGLE_FORM_FIELDS.payment_method, form.payment_method);
+  body.append(GOOGLE_FORM_FIELDS.courier_option, form.courier_option);
+  body.append(GOOGLE_FORM_FIELDS.products_json, productLine);
+  body.append(GOOGLE_FORM_FIELDS.subtotal, subtotal.toFixed(2));
+  body.append(GOOGLE_FORM_FIELDS.discount, discount.toFixed(2));
+  body.append(GOOGLE_FORM_FIELDS.delivery_charges, courierCharge.toFixed(2));
+  body.append(GOOGLE_FORM_FIELDS.grand_total, finalTotal.toFixed(2));
+  return body;
+}
+
+async function postOrder(body) {
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), 7000);
+  await fetch(GOOGLE_FORM_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+    signal: controller.signal,
+  });
+  clearTimeout(t);
+}
+/* --------------  END NEW  -------------- */
+
 export default function CheckoutPage() {
   const [items, setItems] = useState([]);
+  const [online, setOnline] = useState(true);          // NEW
+  const router = useRouter();
+
   const [form, setForm] = useState({
     name: '',
     phone: '',
@@ -23,111 +68,89 @@ export default function CheckoutPage() {
     courier_option: 'Regular',
   });
 
-  const [currentPhone, setCurrentPhone] = useState(''); // current input value
+  const [currentPhone, setCurrentPhone] = useState('');
   const [phoneList, setPhoneList] = useState([]);
+
   useEffect(() => {
     const all = [...phoneList];
     if (currentPhone.trim()) all.push(currentPhone.trim());
     setForm(f => ({ ...f, phone: all.join(', ') }));
   }, [currentPhone, phoneList]);
 
-
-
-
-  const router = useRouter();
-
-  /* ---------- load cart ---------- */
+  /* ----------  cart load  ---------- */
   useEffect(() => {
     useCartStore.getState().load();
     setItems(useCartStore.getState().items);
   }, []);
 
-  /* ---------- totals ---------- */
-  const subtotal = items.reduce((s, it) => it.totalPrice * it.quantity + s, 0);
-  const discount =
-    form.payment_method === 'Online'
-      ? (subtotal * ONLINE_DISCOUNT_PERCENT) / 100
-      : 0;
-  const grandTotal = subtotal - discount;
+  /* ----------  network status  ---------- */
+  useEffect(() => {
+    const onStatus = () => setOnline(navigator.onLine);
+    window.addEventListener('online', onStatus);
+    window.addEventListener('offline', onStatus);
+    setOnline(navigator.onLine);
+    return () => {
+      window.removeEventListener('online', onStatus);
+      window.removeEventListener('offline', onStatus);
+    };
+  }, []);
 
+  /* ----------  totals  ---------- */
+  const subtotal = items.reduce((sum, it) => {
+    const p = getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+    return sum + p * it.quantity;
+  }, 0);
+
+  const discount =
+    form.payment_method === 'Online' ? (subtotal * ONLINE_DISCOUNT_PERCENT) / 100 : 0;
+  const grandTotal = subtotal - discount;
   const courierCharge =
-    COURIER_OPTIONS.find((c) => c.name === form.courier_option)?.charge || 0;
+    COURIER_OPTIONS.find(c => c.name === form.courier_option)?.charge || 0;
   const finalTotal = grandTotal + courierCharge;
 
-
-  /* ---------- handle submit ---------- */
-  const handleSubmit = async (e) => {
+  /* ----------  submit  ---------- */
+  const handleSubmit = async e => {
     e.preventDefault();
-
-    // offline check
-    {/*if (!navigator.onLine) {
-      alert('Please check your internet connection to submit the order.');
-      return;
-    }*/}
-
-    /* ---------- daily counter ---------- */
+    if (!online) return;                // should never fire, just guard
     const orderId = generateOrderId();
-
-    /* short product line */
-    const productLine = items
-      .map((it) => `${it.name} x ${it.quantity} rate: ${it.totalPrice}`)
-      .join(', ');
-
-    const body = new URLSearchParams();
-    body.append(GOOGLE_FORM_FIELDS.order_id, orderId);
-    body.append(GOOGLE_FORM_FIELDS.name, form.name);
-    body.append(GOOGLE_FORM_FIELDS.phone, form.phone);
-    body.append(GOOGLE_FORM_FIELDS.city, form.city);
-    body.append(GOOGLE_FORM_FIELDS.address, form.address);
-    body.append(GOOGLE_FORM_FIELDS.instructions, form.instructions);
-    body.append(GOOGLE_FORM_FIELDS.payment_method, form.payment_method);
-    body.append(GOOGLE_FORM_FIELDS.courier_option, form.courier_option);
-    body.append(GOOGLE_FORM_FIELDS.products_json, productLine);
-    body.append(GOOGLE_FORM_FIELDS.subtotal, subtotal.toFixed(2));
-    body.append(GOOGLE_FORM_FIELDS.discount, discount.toFixed(2));
-    body.append(GOOGLE_FORM_FIELDS.delivery_charges, courierCharge.toFixed(2));
-    body.append(GOOGLE_FORM_FIELDS.grand_total, finalTotal.toFixed(2));
-
+    const body = buildBody(orderId, form, items, subtotal, discount, courierCharge, finalTotal, false);
     try {
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 7000); // 7-sec timeout
-
-      await fetch(GOOGLE_FORM_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body,
-        signal: controller.signal,
-      });
-      clearTimeout(timeoutId);
-
-      // success
+      await postOrder(body);
       useCartStore.getState().clearCart();
       router.push(
         `/success?order_id=${orderId}&grandTotal=${finalTotal}&payment_method=${form.payment_method}`
       );
-    } catch (err) {
-      // network/offline/server error
+    } catch {
+      const orderId = generateOrderId();
+      localStorage.setItem('offline_order', JSON.stringify({
+        orderId, form, items, subtotal, discount, courierCharge, finalTotal,
+      }));
       alert('Please check your internet connection to submit the order.');
     }
   };
 
-  /* ---------- UI ---------- */
-
+  /* ----------  UI  ---------- */
   return (
     <div className="mt-8 max-w-6xl mx-auto py-6 px-4">
       <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
 
+      {!online && (
+        <div className="mb-4 p-3 rounded bg-red-100 text-red-800 text-center font-semibold">
+          You are not connected to the internet, please connect to place the order.
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-        {/* left form */}
+        {/*  LEFT FORM  */}
         <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-4">
           <input
             name="name"
             placeholder="Full Name"
             required
             className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
-            onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
+            onChange={e => setForm({ ...form, [e.target.name]: e.target.value })}
           />
+
           <div className="flex space-x-4">
             <div className="relative w-1/2">
               <input
@@ -165,7 +188,6 @@ export default function CheckoutPage() {
             />
           </div>
 
-          {/* 4) display chips */}
           {phoneList.length > 0 && (
             <div className="flex flex-wrap gap-2 text-sm mt-1">
               {phoneList.map((p, i) => (
@@ -182,48 +204,47 @@ export default function CheckoutPage() {
               ))}
             </div>
           )}
+
           <textarea
             name="address"
             placeholder="Address"
             required
             rows={3}
             className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
-            onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
+            onChange={e => setForm({ ...form, [e.target.name]: e.target.value })}
           />
           <textarea
             name="instructions"
             placeholder="Delivery Instructions (optional)"
             rows={2}
             className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
-            onChange={(e) => setForm({ ...form, [e.target.name]: e.target.value })}
+            onChange={e => setForm({ ...form, [e.target.name]: e.target.value })}
           />
 
-          {/* payment */}
           <div>
-            <label className="font-semibold">Payment Method</label>
+            <label className="font-semibold">Method (Get {ONLINE_DISCOUNT_PERCENT}% discount on Online Payment)</label>
             <select
               name="payment_method"
               className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
               value={form.payment_method}
-              onChange={(e) => setForm({ ...form, payment_method: e.target.value })}
+              onChange={e => setForm({ ...form, payment_method: e.target.value })}
             >
               <option value="COD">Cash on Delivery</option>
               <option value="Online">
-                Online (Bank Transfer) – {ONLINE_DISCOUNT_PERCENT}% discount
+                Online/Bank Transfer – {ONLINE_DISCOUNT_PERCENT}% discount
               </option>
             </select>
           </div>
 
-          {/* courier */}
           <div>
             <label className="font-semibold">Courier Option</label>
             <select
               name="courier_option"
               className="w-full px-3 py-2 bg-sky-100 rounded-md shadow-lg focus:outline-none"
               value={form.courier_option}
-              onChange={(e) => setForm({ ...form, courier_option: e.target.value })}
+              onChange={e => setForm({ ...form, courier_option: e.target.value })}
             >
-              {COURIER_OPTIONS.map((c) => (
+              {COURIER_OPTIONS.map(c => (
                 <option key={c.name} value={c.name}>
                   {c.name} {c.charge === 0 ? '(Free)' : `+ Rs ${c.charge}`}
                 </option>
@@ -231,7 +252,6 @@ export default function CheckoutPage() {
             </select>
           </div>
 
-          {/* totals */}
           <div className="border-t pt-4 text-sm">
             <p>Subtotal: Rs {subtotal.toFixed(2)}</p>
             {discount > 0 && (
@@ -245,39 +265,32 @@ export default function CheckoutPage() {
 
           <button
             type="submit"
-            className="w-full bg-sky-600 text-white py-2 rounded-md hover:bg-sky-700"
+            disabled={!online}              // NEW
+            className={`w-full py-2 rounded-md text-white ${online ? 'bg-sky-600 hover:bg-sky-700' : 'bg-gray-400 cursor-not-allowed'}`}
           >
             Submit Order
           </button>
         </form>
 
-        {/* right summary */}
+        {/*  RIGHT SUMMARY  */}
         <div className="lg:col-span-2">
           <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
           {items.length === 0 ? (
             <p>Cart is empty</p>
           ) : (
-            items.map((it) => (
-              <div
-                key={it.id}
-                className="flex items-center space-x-3 bg-sky-100 p-3 rounded mb-2"
-              >
-                <img
-                  src={it.images[0]}
-                  alt={it.name}
-                  className="w-14 h-14 rounded object-cover"
-                />
-                <div>
-                  <p className="font-semibold text-sm">{it.name}</p>
-                  <p className="text-xs">
-                    {it.quantity} × Rs {it.totalPrice.toFixed(2)}
-                  </p>
+            items.map(it => {
+              const p = getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+              return (
+                <div key={it.id} className="flex items-center space-x-3 bg-sky-100 p-3 rounded mb-2">
+                  <img src={it.images[0]} alt={it.name} className="w-14 h-14 rounded object-cover" />
+                  <div>
+                    <p className="font-semibold text-sm">{it.name}</p>
+                    <p className="text-xs">{it.quantity} × Rs {p.toFixed(2)}</p>
+                  </div>
+                  <p className="text-sm font-bold">Rs {(p * it.quantity).toFixed(2)}</p>
                 </div>
-                <p className="text-sm font-bold">
-                  Rs {(it.totalPrice * it.quantity).toFixed(2)}
-                </p>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </div>
