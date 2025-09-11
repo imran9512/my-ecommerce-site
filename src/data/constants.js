@@ -36,7 +36,7 @@ export const COURIER_OPTIONS = [
   { name: 'Leopard', charge: 200 },
   { name: 'TCS', charge: 299 },
 ];
-
+export const STRIP_DELIVERY_CHARGE = 250;
 // website URL
 export const SITE_URL = 'https://www.aapkisehat.com';
 

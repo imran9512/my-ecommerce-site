@@ -1,10 +1,10 @@
-// src/pages/cart.js
 import Head from 'next/head';
-import Image from 'next/link';   // agar Image nahi chahiye to Link hi rakho
 import Link from 'next/link';
 import { useEffect } from 'react';
 import { useCartStore } from '@/stores/cart';
-import { getDiscountedPrice } from '@/utils/priceHelpers';
+import { cartContainsOnlyStrips } from '@/utils/cartHelpers';
+import { STRIP_DELIVERY_CHARGE } from '@/data/constants';
+import { getDiscountedPrice, normalizeDiscount } from '@/utils/priceHelpers';
 
 export default function CartPage() {
   useEffect(() => { useCartStore.getState().load(); }, []);
@@ -13,9 +13,20 @@ export default function CartPage() {
   const update = useCartStore(s => s.updateQuantity);
   const remove = useCartStore(s => s.removeItem);
 
-  const grandTotal = items.reduce((sum, it) => getDiscountedPrice(it.price, it.qtyDiscount, it.quantity) * it.quantity + sum, 0);
+  const grandTotal = items.reduce((sum, it) => {
+    const unit = it.id.endsWith('-strip')
+      ? Math.round(it.price)
+      : getDiscountedPrice(it.price, normalizeDiscount(it), it.quantity);
+    return sum + unit * it.quantity;
+  }, 0);
+
   const regularTotal = items.reduce((sum, it) => Math.round(it.price) * it.quantity + sum, 0);
   const totalSaved = Math.round(regularTotal - grandTotal);
+
+  // Check if all items are strips
+  const allStrips = cartContainsOnlyStrips(items);
+  const courierCharge = allStrips ? STRIP_DELIVERY_CHARGE : 0;
+  const finalTotal = grandTotal + courierCharge;
 
   return (
     <>
@@ -31,7 +42,9 @@ export default function CartPage() {
         ) : (
           <>
             {items.map(item => {
-              const unit = getDiscountedPrice(item.price, item.qtyDiscount, item.quantity);
+              const unit = item.id.endsWith('-strip')
+                ? Math.round(item.price)
+                : getDiscountedPrice(item.price, normalizeDiscount(item), item.quantity);
               const line = unit * item.quantity;
               const saved = Math.round((item.price - unit) * item.quantity);
 
@@ -70,12 +83,26 @@ export default function CartPage() {
             <div className="mt-6 text-right border-t pt-4 space-y-2">
               {totalSaved > 0 && (
                 <>
-                  <p className="text-lg"><span className="text-gray-600">Regular Total:</span> <span className="text-red-500 line-through">Rs {regularTotal.toLocaleString()}</span></p>
-                  <span className="bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full">You Saved: Rs {totalSaved.toLocaleString()}</span>
+                  <p className="text-lg">
+                    <span className="text-gray-600">Regular Total:</span> <span className="text-red-500 line-through">Rs {regularTotal.toLocaleString()}</span>
+                  </p>
+                  <span className="bg-green-100 text-green-800 font-bold px-3 py-1 rounded-full">
+                    You Saved: Rs {totalSaved.toLocaleString()}
+                  </span>
                 </>
               )}
-              <p className="text-xl font-bold"><span className="text-gray-600">Grand Total:</span> Rs {grandTotal.toLocaleString()}</p>
-              <Link href="/checkout" className="inline-block bg-sky-600 text-white px-6 py-2 mt-4 rounded hover:bg-sky-700">Checkout</Link>
+
+              {allStrips && (
+                <p className="text-sm text-gray-600">Strip delivery charges: Rs {courierCharge.toLocaleString()}</p>
+              )}
+
+              <p className="text-xl font-bold">
+                <span className="text-gray-600">Grand Total:</span> Rs {finalTotal.toLocaleString()}
+              </p>
+
+              <Link href="/checkout" className="inline-block bg-sky-600 text-white px-6 py-2 mt-4 rounded hover:bg-sky-700">
+                Checkout
+              </Link>
             </div>
           </>
         )}

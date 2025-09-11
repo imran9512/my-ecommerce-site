@@ -2,14 +2,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useCartStore } from '@/stores/cart';
-import { getDiscountedPrice } from '@/utils/priceHelpers';
+import { getDiscountedPrice, normalizeDiscount } from '@/utils/priceHelpers';
 import {
   GOOGLE_FORM_URL,
   GOOGLE_FORM_FIELDS,
   COURIER_OPTIONS,
   ONLINE_DISCOUNT_PERCENT,
+  STRIP_DELIVERY_CHARGE,
 } from '@/data/constants';
+import { cartContainsOnlyStrips } from '@/utils/cartHelpers';
 import { generateOrderId } from '@/components/orderId';
+
 
 /* --------------  NEW  -------------- */
 const STORAGE_KEY = 'offline_order';   // localStorage key
@@ -17,8 +20,12 @@ const STORAGE_KEY = 'offline_order';   // localStorage key
 function buildBody(orderId, form, items, subtotal, discount, courierCharge, finalTotal, isOffline = false) {
   const productLine = items
     .map(it => {
-      const p = getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
-      return `${it.name} x ${it.quantity} rate: ${p}`;
+      const unit = it.id.endsWith('-strip')
+        ? Math.round(it.price)
+        : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+
+      const suffix = it.id.endsWith('-strip') ? '-strip' : '';
+      return `${it.sku}${suffix} x ${it.quantity}  (Rs ${(unit * it.quantity).toFixed(2)})`;
     })
     .join(', ');
 
@@ -55,7 +62,7 @@ async function postOrder(body) {
 
 export default function CheckoutPage() {
   const [items, setItems] = useState([]);
-  const [online, setOnline] = useState(true);          // NEW
+  const [online, setOnline] = useState(true);
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -97,16 +104,22 @@ export default function CheckoutPage() {
 
   /* ----------  totals  ---------- */
   const subtotal = items.reduce((sum, it) => {
-    const p = getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
-    return sum + p * it.quantity;
+    const unit = it.id.endsWith('-strip')
+      ? Math.round(it.price)               // strip → no qtyDiscount
+      : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+    return sum + unit * it.quantity;
   }, 0);
 
   const discount =
     form.payment_method === 'Online' ? (subtotal * ONLINE_DISCOUNT_PERCENT) / 100 : 0;
   const grandTotal = subtotal - discount;
+  const stripOnly = cartContainsOnlyStrips(items);
+  const courierChargeS = stripOnly ? STRIP_DELIVERY_CHARGE : 0;
   const courierCharge =
     COURIER_OPTIONS.find(c => c.name === form.courier_option)?.charge || 0;
-  const finalTotal = grandTotal + courierCharge;
+  const finalTotal = grandTotal + courierCharge + courierChargeS;
+
+
 
   /* ----------  submit  ---------- */
   const handleSubmit = async e => {
@@ -125,6 +138,10 @@ export default function CheckoutPage() {
       localStorage.setItem('offline_order', JSON.stringify({
         orderId, form, items, subtotal, discount, courierCharge, finalTotal,
       }));
+      // --- NEW ---
+      if ('serviceWorker' in navigator && 'SyncManager' in window) {
+        navigator.serviceWorker.ready.then(reg => reg.sync.register('offline-order'));
+      }
       alert('Please check your internet connection to submit the order.');
     }
   };
@@ -260,6 +277,9 @@ export default function CheckoutPage() {
               </p>
             )}
             <p>Courier: + Rs {courierCharge.toFixed(2)}</p>
+            {courierChargeS > 0 && (
+              <p>Strip delivery charges: Rs {courierChargeS}</p>
+            )}
             <p className="text-xl font-bold">Grand Total: Rs {finalTotal.toFixed(2)}</p>
           </div>
 
@@ -272,22 +292,27 @@ export default function CheckoutPage() {
           </button>
         </form>
 
-        {/*  RIGHT SUMMARY  */}
+        {/*  Order SUMMARY  */}
         <div className="lg:col-span-2">
           <h2 className="text-xl font-semibold mb-4">Order Summary</h2>
           {items.length === 0 ? (
             <p>Cart is empty</p>
           ) : (
             items.map(it => {
-              const p = getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+              const unit = it.id.endsWith('-strip')
+                ? Math.round(it.price)                               // fixed strip price
+                : getDiscountedPrice(it.price, normalizeDiscount(it), it.quantity);
+
+              const line = unit * it.quantity;
+
               return (
                 <div key={it.id} className="flex items-center space-x-3 bg-sky-100 p-3 rounded mb-2">
                   <img src={it.images[0]} alt={it.name} className="w-14 h-14 rounded object-cover" />
-                  <div>
+                  <div className="flex-1">
                     <p className="font-semibold text-sm">{it.name}</p>
-                    <p className="text-xs">{it.quantity} × Rs {p.toFixed(2)}</p>
+                    <p className="text-xs">{it.quantity} × Rs {unit.toLocaleString()}</p>
                   </div>
-                  <p className="text-sm font-bold">Rs {(p * it.quantity).toFixed(2)}</p>
+                  <p className="text-sm font-bold">Rs {line.toLocaleString()}</p>
                 </div>
               );
             })

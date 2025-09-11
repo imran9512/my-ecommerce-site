@@ -2,87 +2,66 @@
 import { useState, useEffect, useRef } from 'react';
 import { getDiscountedPrice } from '@/utils/priceHelpers';
 
-export default function QuantityPrice({
-    product,
-    qty,
-    setQty,
-    unitPrice                         // <<<< NEW prop (pack or strip price)
-}) {
-    /* ---------- 1. price basis ---------- */
-    const base = unitPrice ?? product.price;   // <<<< use strip/pack price
-    //const raw = product.qtyDiscount || {};
-    /* ---------- 1. convert segment → flat map ---------- */
-    let raw = product.qtyDiscount || {};
-    if (Array.isArray(raw)) {                       // new segment style
-        const flat = {};
-        raw.forEach(seg => {
-            const step = (seg.end - seg.start) / (seg.to - seg.from);
-            for (let q = seg.from; q <= seg.to; q++) {
-                flat[q] = seg.start + (q - seg.from) * step;
-            }
-        });
-        raw = flat;          // ab raw normal "2":9 wala object hai
-    }
-    /* ------ strip never gets discount ------ */
-    if (unitPrice !== product.price) {          // means we are on strip
-        raw = {};                                 // wipe discount table
-    }
+export default function QuantityPrice({ product, qty, setQty }) {
+    /* ---------- 1. Build full price map (percentage based) ---------- */
+    const raw = product.qtyDiscount || {};
     const tiers = Object.keys(raw).map(Number).sort((a, b) => a - b);
 
-    const priceForQty = (q) => getDiscountedPrice(base, raw, q);
+    // helper: actual discounted price for given Q (rounded)
+    const priceForQty = (q) => getDiscountedPrice(product.price, product.qtyDiscount, q);
 
+    // lowest price calculation (rounded)
     const lowestPrice = Math.min(
-        ...Object.values(raw).map(p => Math.round(base - base * p / 100)),
-        Math.round(base)
+        ...Object.values(raw).map(p => Math.round(product.price - (product.price * p / 100))),
+        Math.round(product.price)
     );
 
-    const currentUnit = priceForQty(qty);
-    const totalPrice = currentUnit * qty;
-    const saved = (Math.round(base) - currentUnit) * qty;
+    const unitPrice = priceForQty(qty);
+    const totalPrice = unitPrice * qty;
+    const saved = (Math.round(product.price) - unitPrice) * qty;
 
-    /* ---------- 2. dropdown state ---------- */
+    /* ---------- 2. Dropdown data (only tiers that exist) ---------- */
     const entries = Object.entries(raw).sort(([a], [b]) => +a - +b);
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef(null);
 
+    /* click-outside to close */
     useEffect(() => {
         const outside = (e) => {
-            if (wrapperRef.current && !wrapperRef.current.contains(e.target)) setOpen(false);
+            if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+                setOpen(false);
+            }
         };
         document.addEventListener('mousedown', outside);
         return () => document.removeEventListener('mousedown', outside);
     }, []);
 
-    /* ---------- 3. render ---------- */
     return (
         <div className="mt-1 space-y-3">
-            {/* price badge */}
+            {/* Price badge */}
             <div className="flex items-end space-x-2">
                 <span className="text-xl font-bold">
                     {qty === 1
-                        ? `Rs ${Math.round(base).toLocaleString()} – ${lowestPrice.toLocaleString()}`
-                        : `Rs ${currentUnit.toLocaleString()}`}
+                        ? `Rs ${Math.round(product.price).toLocaleString()} – Rs ${lowestPrice.toLocaleString()}`
+                        : `Rs ${unitPrice.toLocaleString()}`}
                 </span>
-                {Math.round(base) !== currentUnit && (
+                {Math.round(product.price) !== unitPrice && (
                     <>
-                        <span className="line-through text-gray-500">
-                            Rs {Math.round(base).toLocaleString()}
-                        </span>
+                        <span className="line-through text-gray-500">Rs {Math.round(product.price).toLocaleString()}</span>
                         <span className="text-green-600 text-sm">Saved Rs {saved}</span>
                     </>
                 )}
             </div>
 
-            {/* lowest note */}
-            <p
-                style={{ display: qty === 1 ? 'none' : 'inline-block' }}
-                className="text-sm shadow-lg font-semibold text-red-800"
-            >
+            {/* Lowest price note */}
+            <p style={{ display: qty === 1 ? 'none' : 'inline-block' }}
+                className="text-sm shadow-lg font-semibold text-red-800">
                 As low as Rs {lowestPrice.toLocaleString()}
             </p>
 
-            {/* ---------- qty selector ---------- */}
+            {/* ---------- Quantity Control ---------- */}
             <div className="mt-2 flex items-left space-x-3">
+                {/* minus */}
                 <button
                     onClick={() => setQty(Math.max(1, qty - 1))}
                     className="flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full shadow transition"
@@ -92,6 +71,7 @@ export default function QuantityPrice({
                     </svg>
                 </button>
 
+                {/* editable number */}
                 <input
                     type="number"
                     value={qty}
@@ -100,6 +80,7 @@ export default function QuantityPrice({
                     min="1"
                 />
 
+                {/* plus */}
                 <button
                     onClick={() => setQty(qty + 1)}
                     className="flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full shadow transition"
@@ -109,12 +90,10 @@ export default function QuantityPrice({
                     </svg>
                 </button>
 
-                <span className="ml-4 mt-2 text-lg font-bold text-gray-800">
-                    Total: {totalPrice.toLocaleString()}
-                </span>
+                <span className="ml-4 mt-2 text-lg font-bold text-gray-800">Total: {totalPrice.toLocaleString()}</span>
             </div>
 
-            {/* ---------- discount dropdown ---------- */}
+            {/* Dropdown for existing discount tiers only */}
             {entries.length > 0 && (
                 <div className="relative w-auto max-w-md" ref={wrapperRef}>
                     <button
@@ -122,9 +101,7 @@ export default function QuantityPrice({
                         className="w-full flex items-center justify-between px-4 py-1 text-sm font-semibold bg-red-200 rounded-md"
                     >
                         Get Discount on Quantity
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
                     </button>
 
                     {open && (
@@ -133,7 +110,7 @@ export default function QuantityPrice({
                                 <span>Qty</span><span>Per Unit</span><span>Total</span><span>Saving</span>
                             </div>
                             {entries.map(([q, percent]) => {
-                                const discPrice = Math.round(base - base * percent / 100);
+                                const discPrice = Math.round(product.price - (product.price * percent / 100));
                                 return (
                                     <div
                                         key={q}
@@ -143,9 +120,7 @@ export default function QuantityPrice({
                                         <span>{q}</span>
                                         <span>Rs {discPrice.toLocaleString()}</span>
                                         <span>Rs {(discPrice * +q).toLocaleString()}</span>
-                                        <span className="text-green-600">
-                                            Rs {((Math.round(base) - discPrice) * +q).toLocaleString()}
-                                        </span>
+                                        <span className="text-green-600">Rs {((Math.round(product.price) - discPrice) * +q).toLocaleString()}</span>
                                     </div>
                                 );
                             })}

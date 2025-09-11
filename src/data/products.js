@@ -21,12 +21,9 @@ const products = [
       "/api/images/coity60/2.webp"
     ],
     price: 2650,
-    qtyDiscount: {
-      "2": 9,
-      "3": 14.3,
-      "4": 18.1,
-      "5": 20
-    },
+    qtyDiscount: [
+      { from: 2, to: 5, start: 9, end: 22 },
+    ],
     tabsMg: "5 Tabs",
     origin: "Thailand",
     quality: "Original not Genric",
@@ -46,6 +43,9 @@ const products = [
     uses: "",
     reviews: [{}],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -69,22 +69,15 @@ const products = [
       "/api/images/tia/cialis-20-mg-alternativ-in-pakistan.webp"
     ],
     price: 4300,
-    qtyDiscount: {
-      "2": 7,
-      "3": 11.1,
-      "4": 14,
-      "5": 16.3,
-      "6": 18.2,
-      "7": 19.7,
-      "8": 20,
-      "10": 22
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 7, end: 22 },
+    ],
     tabsMg: "5 Tabs",
     origin: "Iran",
     quality: "100% Original",
     shortDesc: "Tiafil 20mg is a trusted alternative to Cialis, containing Tadalafil 20mg for effective treatment of erectile dysfunction. Affordable and reliable, it offers long-lasting results for improved sexual health.",
     longDesc: [
-      "<h2 class=\"text-1xl font-bold\">Tiafil 20mg: A Trusted Solution for Erectile Dysfunction</h2><br>As an online seller, I am proud to offer Tiafil 20mg, a high-quality Iranian pharmaceutical product containing Tadalafil, a trusted treatment for erectile dysfunction (ED). Available in 20mg and 10mg doses, Tiafil is an affordable and effective alternative to expensive brands like Lilly Cialis. There are a lot of customers who choose it because of its proven effectiveness and competitive pricing.<br><br><h3 class=\"text-xl font-bold\">What Is Tiafil 20mg?</h3><br>Tiafil 20mg contains Tadalafil, a PDE5 enhancer that improves blood flow to the required areas of the body, especially the penile region. hThis allows men to achieve and maintain an erection when sexually stimulated. Manufactured under strict quality standards, Tiafil ensures safety and effectiveness comparable to leading international brands.<br><br><h3 class=\"text-xl font-bold\">Tadalafil 20 mg Tablet Price in Pakistan</h3><br>For customers in Pakistan, Tiafil 20mg offers a cost-effective solution for managing ED. While prices may vary by pharmacy, Tiafil is generally more affordable than other options, making it an eexcellent choice for those seeking quality treatment at a reasonable price.<br><br>To ensure authenticity and effectiveness, always purchase Tiafil from a reputable seller.  Consult a Doctor before starting to take Tadalafil to determine the correct dosage and ensure suitability.<br><br><h3 class=\"text-xl font-bold\">Tadalafil 20 mg Tablet Uses</h3><br>Tiafil 20mg It's mainly used in male to treat erectile dysfunction, a condition that affects men's erections. Tadalafil relaxes blood vessels in your penis, allowing increased blood flow during intimacy. This results in stronger, longer-lasting erections, boosting confidence and improving sexual performance.<br><br><h3 class=\"text-xl font-bold\">In addition to ED, Tadalafil is also prescribed for:</h3><br> Benign Prostatic Hyperplasia (BPH): By relaxing the prostate and bladder muscles, tadalafil helps reduce symptoms of an enlarged prostate.<br> Pulmonary Arterial Hypertension (PAH): Tadalafil widens blood vessels in the lungs also, and reduces heart strain and enhancing exercise capacity in PAH patients.<br><br><h3 class=\"text-xl font-bold\">Benefits of Tiafil 20mg</h3><br>1. Affordability: Tiafil provides the same benefits as expensive branded medications but at a lower cost.<br>2. Effectiveness: Among men with erectile dysfunction, tadalafil has been shown to improve erections and overall satisfaction.<br>3. Long-Lasting Action: Tadalafil is often called the \"weekend pill\" because a single dose can remain effective for up to 36 hours normally, providing greater flexibility and spontaneity.<br>4. Safety: When taken as directed, Tiafil is well-tolerated, with mild and nominal side effects for most users.<br><br>Tiafil 20mg should be taken orally with water, ideally 30-45 minutes before sexual activity. Its effects can last up to 36 hours, so daily dosing is not needed unless prescribed for other conditions like BPH.<br><br>Please avoid exceeding the recommended dose and never combine Tiafil with nitrates or medications that lower blood pressure. Always follow your doctor's instructions for safe use.<br><br><h3 class=\"text-xl font-bold\">Precautions and Side Effects</h3><br>Tiafil is generally safe, but some people may experience very little side effects, such as headaches, dizziness, nasal congestion, or an upset stomach. As your body adjusts to the medication, these effects usually go away.<br><br>Individuals with heart disease, liver or kidney problems, or a history of stroke should consult their doctor before using Tiafil. Also, avoid alcohol and grapefruit juice, as they may interfere with the medication's effectiveness. Tiafil 20mg?<br><br>As an online seller, I completely understand the importance of providing products that are effective and affordable. Tiafil 20mg stands out as a reliable option for managing ED, Providing the same benefits as more expensive alternatives.<br><br>If you are considering Tiafil 20mg, Determine the right dosage with a healthcare professional and ensure it is safe for your needs. With its proven results and competitive pricing, The use of Tiafil is a popular method of improving sexual health in Pakistan and around the world."
+      "<h2 class=\"text-1xl font-bold\">Tiafil 20mg: A Trusted Solution for Erectile Dysfunction</h2><br>As an online seller, I am proud to offer Tiafil 20mg, a high-quality Iranian pharmaceutical product containing Tadalafil, a trusted treatment for erectile dysfunction (ED). Available in 20mg and 10mg doses, Tiafil is an affordable and effective alternative to expensive brands like Lilly Cialis. There are a lot of customers who choose it because of its proven effectiveness and competitive pricing.<br><br><h3 class=\"text-xl font-bold\">What Is Tiafil 20mg?</h3><br>Tiafil 20mg contains Tadalafil, a PDE5 enhancer that improves blood flow to the required areas of the body, especially the penile region. hThis allows men to achieve and maintain an erection when sexually stimulated. Manufactured under strict quality standards, Tiafil ensures safety and effectiveness comparable to leading international brands.<br><br><h3 class=\"text-xl font-bold\">Tadalafil 20 mg Tablet Price in Pakistan</h3><br>For customers in Pakistan, Tiafil 20mg offers a cost-effective solution for managing ED. While prices may vary by pharmacy, Tiafil is generally more affordable than other options, making it an eexcellent choice for those seeking quality treatment at a reasonable price.<br><br>To ensure authenticity and effectiveness, always purchase Tiafil from a reputable seller.  Consult a Doctor before starting to take Tadalafil to determine the correct dosage and ensure suitability.<br><br><h3 class=\"text-xl font-bold\">Tadalafil 20 mg Tablet Uses</h3><br>Tiafil 20mg It's mainly used in male to treat erectile dysfunction, a condition that affects men's erections. Tadalafil relaxes blood vessels in your penis, allowing increased blood flow during intimacy. This results in stronger, longer-lasting erections, boosting confidence and improving sexual performance.<br><br><h3 class=\"text-xl font-bold\">In addition to ED, Tadalafil is also prescribed for:</h3><br>  Benign Prostatic Hyperplasia (BPH): By relaxing the prostate and bladder muscles, tadalafil helps reduce symptoms of an enlarged prostate.<br>  Pulmonary Arterial Hypertension (PAH): Tadalafil widens blood vessels in the lungs also, and reduces heart strain and enhancing exercise capacity in PAH patients.<br><br><h3 class=\"text-xl font-bold\">Benefits of Tiafil 20mg</h3><br>1. Affordability: Tiafil provides the same benefits as expensive branded medications but at a lower cost.<br>2. Effectiveness: Among men with erectile dysfunction, tadalafil has been shown to improve erections and overall satisfaction.<br>3. Long-Lasting Action: Tadalafil is often called the \"weekend pill\" because a single dose can remain effective for up to 36 hours normally, providing greater flexibility and spontaneity.<br>4. Safety: When taken as directed, Tiafil is well-tolerated, with mild and nominal side effects for most users.<br><br>Tiafil 20mg should be taken orally with water, ideally 30-45 minutes before sexual activity. Its effects can last up to 36 hours, so daily dosing is not needed unless prescribed for other conditions like BPH.<br><br>Please avoid exceeding the recommended dose and never combine Tiafil with nitrates or medications that lower blood pressure. Always follow your doctor's instructions for safe use.<br><br><h3 class=\"text-xl font-bold\">Precautions and Side Effects</h3><br>Tiafil is generally safe, but some people may experience very little side effects, such as headaches, dizziness, nasal congestion, or an upset stomach. As your body adjusts to the medication, these effects usually go away.<br><br>Individuals with heart disease, liver or kidney problems, or a history of stroke should consult their doctor before using Tiafil. Also, avoid alcohol and grapefruit juice, as they may interfere with the medication's effectiveness. Tiafil 20mg?<br><br>As an online seller, I completely understand the importance of providing products that are effective and affordable. Tiafil 20mg stands out as a reliable option for managing ED, Providing the same benefits as more expensive alternatives.<br><br>If you are considering Tiafil 20mg, Determine the right dosage with a healthcare professional and ensure it is safe for your needs. With its proven results and competitive pricing, The use of Tiafil is a popular method of improving sexual health in Pakistan and around the world."
     ],
     specialNote: "",
     related: ["001",
@@ -98,6 +91,9 @@ const products = [
     uses: "",
     reviews: [{}],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -120,16 +116,9 @@ const products = [
       "/api/images/tia/irani-cialis-tadalafil-10-mg-pakistan.webp"
     ],
     price: 3550,
-    qtyDiscount: {
-      "2": 7,
-      "3": 11.1,
-      "4": 14,
-      "5": 16.3,
-      "6": 18.2,
-      "7": 19.7,
-      "8": 20,
-      "10": 22
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 7, end: 22 },
+    ],
     tabsMg: "5 Tabs",
     origin: "Iran",
     quality: "Original Tadlafil",
@@ -149,6 +138,9 @@ const products = [
     uses: "",
     reviews: [{}],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -171,13 +163,9 @@ const products = [
       "/api/images/modi/modi100/4.webp"
     ],
     price: 11000,
-    qtyDiscount: {
-      "2": 4,
-      "3": 6.4,
-      "4": 8,
-      "5": 9.3,
-      "6": 10
-    },
+    qtyDiscount: [
+      { from: 2, to: 6, start: 4, end: 10 },
+    ],
     tabsMg: "30 Tabs",
     origin: "Turkey",
     quality: "100% Original",
@@ -206,6 +194,9 @@ const products = [
     uses: "Modafinil (modiwake) is used to keep narcolepsy patients awake during the day. It helps to improve wakefulness, reduce excessive daytime sleepiness, and restore a normal sleep-wake cycle. Modafinil 100 mg gently nudges the brain’s own sleep-wake “switch,” helping you stay naturally alert when you need to be awake, making it an effective treatment for narcolepsy patients and other sleep disorders patients.",
     reviews: [{}],
     fullDesc: "",
+    stripPrice: "3950",
+    stripImage: "/api/images/modi/modi100/4.webp",
+    stripStock: true
   },
 
   {
@@ -228,16 +219,9 @@ const products = [
       "/api/images/SDF100/2.webp"
     ],
     price: 4300,
-    qtyDiscount: {
-      "2": 7,
-      "3": 11.1,
-      "4": 14,
-      "5": 16.3,
-      "6": 18.2,
-      "7": 19.7,
-      "8": 22.3,
-      "10": 25
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 7, end: 25 },
+    ],
     tabsMg: "8 Tabs",
     origin: "Iran",
     quality: "100% Original",
@@ -255,6 +239,9 @@ const products = [
     uses: "",
     reviews: [{}],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -277,14 +264,9 @@ const products = [
       "/api/images/vyas/vyvanse-30mg-in-pakistan.webp",
     ],
     price: 14990,
-    qtyDiscount: {
-      "2": 4,
-      "3": 6.4,
-      "4": 8,
-      "5": 9.3,
-      "6": 10,
-      "10": 10.4
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 4, end: 10.4 },
+    ],
     tabsMg: "30 capsule",
     origin: "Iran",
     quality: "100% Original",
@@ -310,6 +292,9 @@ const products = [
     uses: "Lisdexamfetamine is commonly used to treat the following conditions.<br /><br />• Attention deficit hyperactivity disorder (ADHD) is a condition that impairs concentration and self-control.<br /><br />• Binge eating is a disorder in which people eat more frequently than usual, even when they feel full.<br /><br />Lisdexamfetamine is different from other ADHD medications because it's a prodrug. Your body must process it before it becomes active, so it typically has milder, longer-lasting effects. Unlike immediate-release stimulants, it doesn't usually cause sudden changes in symptoms. Taking it once a day may be more convenient for people who don't want to take multiple doses throughout the day. Lisdexamfetamine may also be used to treat other conditions after consulting a doctor",
     reviews: [],
     fullDesc: "/products/vyas-50mg-lisdexamfetamine-as-vyvanse-original-rate-in-pakistan",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -332,14 +317,9 @@ const products = [
       "/api/images/vyas/vyvanse-50mg-in-pakistan.webp",
     ],
     price: 18990,
-    qtyDiscount: {
-      "2": 4,
-      "3": 6.4,
-      "4": 8,
-      "5": 9.3,
-      "6": 10,
-      "10": 10.4
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 4, end: 10.4 },
+    ],
     tabsMg: "30 capsule",
     origin: "Iran",
     quality: "100% Original",
@@ -365,6 +345,9 @@ const products = [
     uses: "Lisdexamfetamine is commonly used to treat the following conditions.<br /><br />• Attention deficit hyperactivity disorder (ADHD) is a condition that affects people's focus and self-control.<br />• The binge eating disorder is a condition where people cannot stop eating, even when they feel very full.<br /><br />Lisdexamfetamine is different from other ADHD medications because it is a prodrug. Your body needs to process it before it becomes active, which often leads to a smoother and longer-lasting effect. Unlike immediate-release stimulants, it usually does not cause sudden changes in symptoms. Taking it once a day can also be more convenient for people who do not want to take several doses throughout the day.<br /><br />Lisdexamfetamine may also be used for other conditions as determined by your healthcare provider.",
     reviews: [],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -387,14 +370,9 @@ const products = [
       "/api/images/vyas/vyvanse-70mg-in-pakistan.webp",
     ],
     price: 21990,
-    qtyDiscount: {
-      "2": 4,
-      "3": 6.4,
-      "4": 8,
-      "5": 9.3,
-      "6": 10,
-      "10": 10.4
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 4, end: 10.4 },
+    ],
     tabsMg: "30 capsule",
     origin: "Iran",
     quality: "100% Original",
@@ -420,6 +398,9 @@ const products = [
     uses: "Lisdexamfetamine is a common medication used for the treatment of the following diseases:<br /><br />• Attention deficit hyperactivity disorder, a disease in which an individual has problems with control over his or her behavior and attention.<br /><br />• Binge eating disorder, a condition where an individual eats more than normal at regular intervals even if he or she is already full.<br /><br />Lisdexamfetamine differs from most other medications used for treating ADHD as it is a prodrug; your body needs to convert it into its active form, hence presenting generally less intense but longlasting effects. It does not act like other immediate-release stimulants by causing abrupt changes in symptoms. Once-daily dosing may be preferable for those patients who do not wish to take several doses during the day.This medicine may also be prescribed for other medical conditions discussed with your doctor",
     reviews: [],
     fullDesc: "/products/vyas-50mg-lisdexamfetamine-as-vyvanse-original-rate-in-pakistan",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -440,14 +421,9 @@ const products = [
       "/api/images/ritalin/buy-ritalin-10-in-lahore.webp",
     ],
     price: 6500,
-    qtyDiscount: {
-      "2": 4,
-      "3": 6.4,
-      "4": 8,
-      "5": 9.3,
-      "6": 10,
-      "10": 10.4
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 4, end: 10.4 },
+    ],
     tabsMg: "30 Tabs",
     origin: "Spain",
     quality: "100% Original",
@@ -469,6 +445,9 @@ const products = [
     uses: "",
     reviews: [],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -490,14 +469,9 @@ const products = [
       "/api/images/ritalin/practisa/treatment-of-adhd-in-pakistan.webp",
     ],
     price: 14500,
-    qtyDiscount: {
-      "2": 4,
-      "3": 6.4,
-      "4": 8,
-      "5": 9.3,
-      "6": 10,
-      "10": 10.4
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 4, end: 10.4 },
+    ],
     tabsMg: "100 Tabs",
     origin: "Iran",
     quality: "100% Original",
@@ -522,6 +496,9 @@ const products = [
     uses: "",
     reviews: [],
     fullDesc: "",
+    stripPrice: "1550",
+    stripImage: "/api/images/ritalin/practisa/treatment-of-adhd-in-pakistan.webp",
+    stripStock: true
   },
 
   {
@@ -544,15 +521,9 @@ const products = [
       "/api/images/sprays/timing-spray-price-in-pakistan-maxman.webp"
     ],
     price: 2890,
-    qtyDiscount: {
-      "2": 7,
-      "3": 11,
-      "4": 14,
-      "5": 16,
-      "6": 18.2,
-      "8": 19.5,
-      "10": 21
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 7, end: 21 },
+    ],
     tabsMg: "45ml",
     origin: "Germany",
     quality: "100% Original",
@@ -572,6 +543,9 @@ const products = [
     uses: "Using a delay spray is very easy.<br /><br />Shake the bottle well before use. Spray a small quantity on the head and shaft of the penis.<br />Allow a few minutes for the spray to take effect.<br />Wash off any residue before engaging in intimacy.<br />It is important to read and follow all directions that come with the product for proper use.",
     reviews: [],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -592,9 +566,9 @@ const products = [
       "/api/images/sprays/timing-spray-price-in-pakistan-maxman.webp"
     ],
     price: 100,
-    qtyDiscount: {
-      "2": 4
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 7, end: 21 },
+    ],
     tabsMg: "30 capsule",
     origin: "Iran",
     quality: "100% Original",
@@ -616,6 +590,9 @@ const products = [
     uses: "",
     reviews: [],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 
   {
@@ -636,9 +613,9 @@ const products = [
       "/api/images/sprays/timing-spray-price-in-pakistan-maxman.webp"
     ],
     price: 100,
-    qtyDiscount: {
-      "2": 5
-    },
+    qtyDiscount: [
+      { from: 2, to: 10, start: 7, end: 21 },
+    ],
     tabsMg: "30 capsule",
     origin: "Iran",
     quality: "100% Original",
@@ -660,6 +637,9 @@ const products = [
     uses: "",
     reviews: [],
     fullDesc: "",
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false
   },
 ];
 export default products;

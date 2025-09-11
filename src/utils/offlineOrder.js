@@ -1,6 +1,6 @@
 // src/utils/offlineOrder.js
 import { GOOGLE_FORM_URL } from '@/data/constants';
-const GOOGLE_FORM_FIELDS = { /* same as before */ };
+const GOOGLE_FORM_FIELDS = {};
 
 function getDiscountedPrice(price, qtyDiscount, quantity) {
     if (!price || !qtyDiscount || typeof qtyDiscount !== 'object') return Math.round(price);
@@ -36,7 +36,6 @@ function buildBody(orderId, form, items, subtotal, discount, courierCharge, fina
 }
 
 async function postOrder(body) {
-    console.log('📡 POSTing to Google Form...');          // ✅ NEW
     const controller = new AbortController();
     const t = setTimeout(() => controller.abort(), 7000);
     await fetch(GOOGLE_FORM_URL, {
@@ -47,7 +46,6 @@ async function postOrder(body) {
         signal: controller.signal,
     });
     clearTimeout(t);
-    console.log('📬 fetch completed (no error thrown)');   // ✅ NEW
 }
 
 module.exports = { buildBody, postOrder };

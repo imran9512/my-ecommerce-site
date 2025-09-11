@@ -1,25 +1,25 @@
-// src/components.OfflineOrderHandler.js
+// src/components/OfflineOrderHandler.js
 import { useEffect } from 'react';
-import { buildBody, postOrder } from '@/utils/offlineOrder';
-
-const STORAGE_KEY = 'offline_order';
 
 export function OfflineOrderHandler() {
     useEffect(() => {
-        console.log('🚀 OfflineOrderHandler MOUNTED');
-        const onOnline = async () => {
-            console.log('🔥 ONLINE event fired');
-            const raw = localStorage.getItem(STORAGE_KEY);
-            console.log('📦 raw from LS:', raw);
+        if ('serviceWorker' in navigator && 'SyncManager' in window) {
+            navigator.serviceWorker
+                .register('/sw.js')
+                .then(reg => {
+                    // retry immediately after page loads (in case user came back online)
+                    reg.sync.getTags().then(tags => {
+                        if (tags.includes('offline-order')) reg.sync.register('offline-order');
+                    });
+                })
+                .catch(() => { });
+        }
+
+        // legacy fallback: online event (kept for old browsers)
+        const onOnline = () => {
+            const raw = localStorage.getItem('offline_order');
             if (!raw) return;
-            try {
-                const { orderId, form, items, subtotal, discount, courierCharge, finalTotal } =
-                    JSON.parse(raw);
-                const body = buildBody(orderId, form, items, subtotal, discount, courierCharge, finalTotal, true);
-                await postOrder(body);
-                console.log('✅ Google Form POST finished');
-                localStorage.removeItem(STORAGE_KEY);
-            } catch { }
+            navigator.serviceWorker.ready.then(reg => reg.sync.register('offline-order'));
         };
         window.addEventListener('online', onOnline);
         return () => window.removeEventListener('online', onOnline);
