@@ -79,7 +79,7 @@ export default function QuantityPrice({
 
             {/* “As low as …”  –  hidden for strip */}
             {!isStrip && qty !== 1 && (
-                <p className="text-sm shadow-lg font-semibold text-red-800">
+                <p className="text-sm inline-block shadow-lg font-semibold text-red-800">
                     As low as Rs {lowestPrice.toLocaleString()}
                 </p>
             )}
