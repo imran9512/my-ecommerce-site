@@ -25,7 +25,7 @@ function buildBody(orderId, form, items, subtotal, discount, courierCharge, fina
         : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
 
       const suffix = it.id.endsWith('-strip') ? '-strip' : '';
-      return `${it.sku}${suffix} x ${it.quantity}  (Rs ${(unit * it.quantity).toFixed(2)})`;
+      return `${it.sku}${suffix} x ${it.quantity}`;
     })
     .join(', ');
 

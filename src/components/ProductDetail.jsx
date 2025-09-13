@@ -24,9 +24,9 @@ export default function ProductDetail({ product }) {
         ? (product.stripQty ?? product.stock)   // fallback to main stock if stripQty missing
         : product.stock;
     const stockText =
-        stockCount === 0 ? '😞 Out of Stock'
-            : stockCount < 5 ? '😲 Low Stock'
-                : '😃 In Stock';
+        stockCount === 0 ? 'Out of Stock'
+            : stockCount < 5 ? 'Low Stock'
+                : 'In Stock';
     const stockColor =
         stockCount === 0 ? 'bg-red-500'
             : stockCount < 5 ? 'bg-yellow-500'
@@ -122,7 +122,7 @@ export default function ProductDetail({ product }) {
                             {/* ---- 1. brand (left) ---- */}
                             <div className="flex-1">
                                 <span className="text-sm text-gray-600">By: </span>
-                                <span className="font-semibold underline underline-offset-2 decoration-2 decoration-red-300">{product.brand}</span>
+                                <span className="font-semibold text-sm underline underline-offset-2 decoration-2 decoration-red-300">{product.brand}</span>
                             </div>
 
                             {/* ---- 2. slide toggle (centre) ---- */}
@@ -130,22 +130,22 @@ export default function ProductDetail({ product }) {
                                 <div className="flex-1 flex justify-center">
                                     <button
                                         onClick={() => setIsStrip(v => !v)}
-                                        className="relative overflow-hidden px-5 py-2.5 rounded-full border border-gray-300 bg-yellow-100 text-sm font-semibold text-gray-700 hover:bg-yellow-200 transition-colors duration-200 w-28 h-7"
+                                        className="relative overflow-hidden px-5 py-2.5 rounded-full border border-gray-300 bg-yellow-100 text-sm font-semibold text-gray-700 hover:bg-yellow-200 transition-colors duration-200 w-22 h-5"
                                     >
                                         {/* sliding text container */}
                                         <span
                                             className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-0' : '-translate-x-full'
                                                 }`}
                                         >
-                                            Buy Strip ≫ &nbsp; &nbsp;
+                                            Buy Strip&nbsp;<span className='text-red-700 animate-pulse text-xl mb-1'>≫</span>
                                         </span>
                                         <span
                                             className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-full' : 'translate-x-0'
                                                 }`}
                                         >
-                                            &nbsp; &nbsp; ≪ Buy Pack
+                                            <span className='text-green-700 animate-pulse text-xl mb-1'>≪</span>&nbsp;Buy Pack
                                         </span>
-                                        <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-red-500 animate-ping"></span>
+
                                     </button>
                                 </div>
                             )}
@@ -197,9 +197,15 @@ export default function ProductDetail({ product }) {
                         </div>
                     </div>
 
-                    {(product.tabsMg || product.origin || product.quality) && (
+                    {((isStrip ? product.stripTabs : product.tabsMg) || product.origin || product.quality) && (
                         <div className="mt-1 text-sm">
-                            {product.tabsMg && <>📦 <span className="underline shadow-lg text-xs italic">{product.tabsMg}</span> &nbsp;</>}
+                            {(isStrip ? product.stripTabs : product.tabsMg) && (
+                                <>📦 <span className="underline shadow-lg text-xs italic">
+                                    {isStrip
+                                        ? `${product.stripTabs} Tabs/Strip`
+                                        : product.tabsMg}
+                                </span> &nbsp;</>
+                            )}
                             {product.origin && <>🌍 <span className="underline shadow-lg text-xs italic">{product.origin}</span> &nbsp;</>}
                             {product.quality && <>🔖 <span className="underline shadow-lg text-xs italic">{product.quality}</span></>}
                         </div>

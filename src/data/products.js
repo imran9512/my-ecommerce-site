@@ -12,7 +12,7 @@ const products = [
       'Delay-Timing',
       "For Men",
       "Others"],
-    sku: "Dapoxetine-01",
+    sku: "City-60",
     stock: 50,
     rating: 4.8,
     reviewCount: 20,
@@ -45,7 +45,8 @@ const products = [
     fullDesc: "",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -59,7 +60,7 @@ const products = [
       "Erection",
       "CIALIS+",
       "For Men"],
-    sku: "tia-20",
+    sku: "tiafil-20",
     stock: 50,
     rating: 5,
     reviewCount: 20,
@@ -93,7 +94,8 @@ const products = [
     fullDesc: "",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -107,7 +109,7 @@ const products = [
       "Erection",
       "CIALIS+",
       "For Men"],
-    sku: "tia-10",
+    sku: "tiafil-10",
     stock: 50,
     rating: 4.7,
     reviewCount: 20,
@@ -140,7 +142,8 @@ const products = [
     fullDesc: "",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -196,7 +199,8 @@ const products = [
     fullDesc: "",
     stripPrice: "3950",
     stripImage: "/api/images/modi/modi100/4.webp",
-    stripStock: true
+    stripStock: true,
+    stripTabs: "10",
   },
 
   {
@@ -239,9 +243,10 @@ const products = [
     uses: "",
     reviews: [{}],
     fullDesc: "",
-    stripPrice: "",
-    stripImage: "",
-    stripStock: false
+    stripPrice: "2150",
+    stripImage: "/api/images/SDF100/2.webp",
+    stripStock: true,
+    stripTabs: "4",
   },
 
   {
@@ -253,7 +258,7 @@ const products = [
     active: "true",
     categories: ["ADHD",
       "Lisdexamfetamine"],
-    sku: "VS-30",
+    sku: "VYAS-30",
     stock: 14,
     rating: 4.8,
     reviewCount: 21,
@@ -294,7 +299,8 @@ const products = [
     fullDesc: "/products/vyas-50mg-lisdexamfetamine-as-vyvanse-original-rate-in-pakistan",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -306,7 +312,7 @@ const products = [
     active: "true",
     categories: ["ADHD",
       "Lisdexamfetamine"],
-    sku: "VS-50",
+    sku: "VYAS-50",
     stock: 14,
     rating: 5,
     reviewCount: 23,
@@ -347,7 +353,8 @@ const products = [
     fullDesc: "",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -359,7 +366,7 @@ const products = [
     active: "true",
     categories: ["ADHD",
       "Lisdexamfetamine"],
-    sku: "VS-70",
+    sku: "VYAS-70",
     stock: 50,
     rating: 4.9,
     reviewCount: 28,
@@ -400,7 +407,8 @@ const products = [
     fullDesc: "/products/vyas-50mg-lisdexamfetamine-as-vyvanse-original-rate-in-pakistan",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -412,7 +420,7 @@ const products = [
     active: "true",
     categories: ["ADHD",
       "Methylphenidate"],
-    sku: "RT-10",
+    sku: "Ritalin-10",
     stock: 1,
     rating: 4.9,
     reviewCount: 22,
@@ -447,7 +455,8 @@ const products = [
     fullDesc: "",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -459,7 +468,7 @@ const products = [
     active: "true",
     categories: ["ADHD",
       "Methylphenidate"],
-    sku: "",
+    sku: "Practisa-10",
     stock: 50,
     rating: 5,
     reviewCount: 24,
@@ -498,7 +507,8 @@ const products = [
     fullDesc: "",
     stripPrice: "1550",
     stripImage: "/api/images/ritalin/practisa/treatment-of-adhd-in-pakistan.webp",
-    stripStock: true
+    stripStock: true,
+    stripTabs: "10",
   },
 
   {
@@ -545,7 +555,8 @@ const products = [
     fullDesc: "",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -592,7 +603,8 @@ const products = [
     fullDesc: "",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 
   {
@@ -639,7 +651,8 @@ const products = [
     fullDesc: "",
     stripPrice: "",
     stripImage: "",
-    stripStock: false
+    stripStock: false,
+    stripTabs: "",
   },
 ];
 export default products;

@@ -6,14 +6,14 @@ export default function QuantityPrice({
     product,
     qty,
     setQty,
-    unitPrice                         // <<<< NEW prop (pack or strip price)
+    unitPrice                         // strip price (when selected)
 }) {
-    /* ---------- 1. price basis ---------- */
-    const base = unitPrice ?? product.price;   // <<<< use strip/pack price
-    //const raw = product.qtyDiscount || {};
-    /* ---------- 1. convert segment → flat map ---------- */
+    /* -------------------- 1.  base price -------------------- */
+    const base = unitPrice ?? product.price;
+
+    /* -------------------- 2.  discount table (only for non-strip) -------------------- */
     let raw = product.qtyDiscount || {};
-    if (Array.isArray(raw)) {                       // new segment style
+    if (Array.isArray(raw)) {                // segment → flat map
         const flat = {};
         raw.forEach(seg => {
             const step = (seg.end - seg.start) / (seg.to - seg.from);
@@ -21,26 +21,27 @@ export default function QuantityPrice({
                 flat[q] = seg.start + (q - seg.from) * step;
             }
         });
-        raw = flat;          // ab raw normal "2":9 wala object hai
+        raw = flat;
     }
-    /* ------ strip never gets discount ------ */
-    if (unitPrice !== product.price) {          // means we are on strip
-        raw = {};                                 // wipe discount table
-    }
-    const tiers = Object.keys(raw).map(Number).sort((a, b) => a - b);
 
+    const isStrip = unitPrice !== product.price;   // strip selected?
+    if (isStrip) raw = {};                         // strip → no discounts
+
+    const tiers = Object.keys(raw).map(Number).sort((a, b) => a - b);
     const priceForQty = (q) => getDiscountedPrice(base, raw, q);
 
-    const lowestPrice = Math.min(
-        ...Object.values(raw).map(p => Math.round(base - base * p / 100)),
-        Math.round(base)
-    );
+    const lowestPrice = isStrip
+        ? Math.round(base)
+        : Math.min(
+            ...Object.values(raw).map(p => Math.round(base - base * p / 100)),
+            Math.round(base)
+        );
 
     const currentUnit = priceForQty(qty);
     const totalPrice = currentUnit * qty;
     const saved = (Math.round(base) - currentUnit) * qty;
 
-    /* ---------- 2. dropdown state ---------- */
+    /* -------------------- 3.  dropdown state -------------------- */
     const entries = Object.entries(raw).sort(([a], [b]) => +a - +b);
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef(null);
@@ -53,17 +54,20 @@ export default function QuantityPrice({
         return () => document.removeEventListener('mousedown', outside);
     }, []);
 
-    /* ---------- 3. render ---------- */
+    /* -------------------- 4.  render -------------------- */
     return (
         <div className="mt-1 space-y-3">
             {/* price badge */}
             <div className="flex items-end space-x-2">
                 <span className="text-xl font-bold">
-                    {qty === 1
-                        ? `Rs ${Math.round(base).toLocaleString()} – ${lowestPrice.toLocaleString()}`
-                        : `Rs ${currentUnit.toLocaleString()}`}
+                    {isStrip
+                        ? `Rs ${Math.round(base).toLocaleString()}`
+                        : qty === 1
+                            ? `Rs ${Math.round(base).toLocaleString()} – ${lowestPrice.toLocaleString()}`
+                            : `Rs ${currentUnit.toLocaleString()}`}
                 </span>
-                {Math.round(base) !== currentUnit && (
+
+                {!isStrip && Math.round(base) !== currentUnit && (
                     <>
                         <span className="line-through text-gray-500">
                             Rs {Math.round(base).toLocaleString()}
@@ -73,15 +77,14 @@ export default function QuantityPrice({
                 )}
             </div>
 
-            {/* lowest note */}
-            <p
-                style={{ display: qty === 1 ? 'none' : 'inline-block' }}
-                className="text-sm shadow-lg font-semibold text-red-800"
-            >
-                As low as Rs {lowestPrice.toLocaleString()}
-            </p>
+            {/* “As low as …”  –  hidden for strip */}
+            {!isStrip && qty !== 1 && (
+                <p className="text-sm shadow-lg font-semibold text-red-800">
+                    As low as Rs {lowestPrice.toLocaleString()}
+                </p>
+            )}
 
-            {/* ---------- qty selector ---------- */}
+            {/* qty selector */}
             <div className="mt-2 flex items-left space-x-3">
                 <button
                     onClick={() => setQty(Math.max(1, qty - 1))}
@@ -114,8 +117,8 @@ export default function QuantityPrice({
                 </span>
             </div>
 
-            {/* ---------- discount dropdown ---------- */}
-            {entries.length > 0 && (
+            {/* discount dropdown – hidden for strip */}
+            {!isStrip && entries.length > 0 && (
                 <div className="relative w-auto max-w-md" ref={wrapperRef}>
                     <button
                         onClick={() => setOpen(!open)}
