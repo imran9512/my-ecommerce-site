@@ -9,8 +9,8 @@ import { faqsByProduct } from '@/data/faq';
 
 
 export default function ProductPage({ product, related }) {
-  
-    /* ---------- Product Schema ---------- */
+
+  /* ---------- Product Schema ---------- */
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -28,8 +28,8 @@ export default function ProductPage({ product, related }) {
         product.stock === 0
           ? 'https://schema.org/OutOfStock'
           : product.stock < 5
-          ? 'https://schema.org/LimitedAvailability'
-          : 'https://schema.org/InStock',
+            ? 'https://schema.org/LimitedAvailability'
+            : 'https://schema.org/InStock',
       priceValidUntil: '2035-12-31',
     },
 
@@ -60,28 +60,31 @@ export default function ProductPage({ product, related }) {
     },
   };
 
-   /* ---------- FAQ Schema ---------- */
+  /* ---------- FAQ Schema ---------- */
   const faqSchema = (faqsByProduct[product.id] || []).length
     ? {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: (faqsByProduct[product.id] || []).map((item) => ({
-          '@type': 'Question',
-          name: item.q?.trim(),
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.a?.trim(),
-          },
-        })),
-      }
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: (faqsByProduct[product.id] || []).map((item) => ({
+        '@type': 'Question',
+        name: item.q?.trim(),
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.a?.trim(),
+        },
+      })),
+    }
     : null;
-  
+
+  const canonical = `${SITE_URL}/products/${product.slug}`;
+
   return (
     <>
       {/* ---------- SEO Meta ---------- */}
       <Head>
         <title>{product.metaTitle}</title>
         <meta name="description" content={product.metaDescription} />
+        <link rel="canonical" href={canonical} />
         <meta property="og:title" content={product.metaTitle} />
         <meta property="og:description" content={product.metaDescription} />
         <meta property="og:image" content={product.images[0]} />
