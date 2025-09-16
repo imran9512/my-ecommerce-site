@@ -8,34 +8,37 @@ import { SITE_URL } from '@/data/constants';
 export default function CategoryPage({ products, slug }) {
   const content = categoryContent[slug] || {};
   const catSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',          // <- root type Google recognises
-  name: content.metaTitle,
-  itemListElement: products.map((p, idx) => ({
-    '@type': 'ListItem',
-    position: idx + 1,
-    url: `${SITE_URL}/products/${p.slug}`,
-    name: p.name,
-    image: `${SITE_URL}${p.images[0]}`,   // <- clean, no encodeURIComponent
-    offers: {
-      '@type': 'Offer',
-      price: p.price,
-      priceCurrency: 'PKR',
-    },
-  })),
-};
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',          // <- root type Google recognises
+    name: content.metaTitle,
+    itemListElement: products.map((p, idx) => ({
+      '@type': 'ListItem',
+      position: idx + 1,
+      url: `${SITE_URL}/products/${p.slug}`,
+      name: p.name,
+      image: `${SITE_URL}${p.images[0]}`,   // <- clean, no encodeURIComponent
+      offers: {
+        '@type': 'Offer',
+        price: p.price,
+        priceCurrency: 'PKR',
+      },
+    })),
+  };
 
-return (
-  <>
-    <Head>
-      <title>{content.metaTitle}</title>
-      <meta name="description" content={content.metaDesc} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(catSchema) }}
-      />
-    </Head>
-      
+  const canonical = `${SITE_URL}/products/category/${slug}`;
+
+  return (
+    <>
+      <Head>
+        <title>{content.metaTitle}</title>
+        <meta name="description" content={content.metaDesc} />
+        <link rel="canonical" href={canonical} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(catSchema) }}
+        />
+      </Head>
+
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-4 capitalize">
           {slug.replace('-', ' ')}
