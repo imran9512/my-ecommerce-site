@@ -4,7 +4,7 @@ import { WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function ContactPage() {
   const message = encodeURIComponent(
-    'Hi! I need help with:\n• Product information\n• Placing an order\n• Tracking my order\n• Payment methods\nPlease assist.'
+    'Hi! I need somne help Please assist.'
   );
 
   const openWhatsApp = () =>
@@ -16,7 +16,7 @@ export default function ContactPage() {
   return (
     <>
       <Head>
-        <title>Contact Us – WhatsApp</title>
+        <title>Contact AAPKISEHAT</title>
       </Head>
 
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
@@ -35,9 +35,10 @@ export default function ContactPage() {
 
         <button
           onClick={openWhatsApp}
-          className="bg-green-500 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-green-600 transition"
+          className="flex items-center m-auto space-x-1.5 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
         >
-          📲 Chat on WhatsApp
+          <img src="/whatsapp.png" alt="WhatsApp" className="w-6 h-6 mr-1.5" />
+          <span>WhatsApp</span>
         </button>
       </div>
     </>

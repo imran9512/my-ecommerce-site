@@ -22,7 +22,7 @@ export default function SearchPage() {
   }, [urlQuery]);
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
+    <div className="max-w-3xl mt-10 mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4 text-center">Search Products</h1>
 
       <input
@@ -46,7 +46,7 @@ export default function SearchPage() {
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
-      //) : hasTyped ? (
+        //) : hasTyped ? (
       ) : query ? (
         <p className="text-center text-gray-500">No products found.</p>
       ) : (
