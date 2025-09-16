@@ -23,8 +23,8 @@ export default function ReturnPolicy() {
                     Medicines are sensitive products that must stay in controlled temperatures
                     (15-25 °C) and sealed packaging. Once a parcel leaves our pharmacy it travels
                     through unknown storage conditions; if it comes back days later we can no
-                    longer guarantee its safety or efficacy. For this reason we <strong>do not
-                        accept returns</strong> on any opened or unopened medicinal items.
+                    longer guarantee its safety or efficacy. For this reason we <strong>
+                        accept returns in a different way</strong>
                 </p>
 
                 <p className="mb-4">
@@ -46,7 +46,7 @@ export default function ReturnPolicy() {
                         WhatsApp
                     </a>
                     {" "}with clear photos. After verification we will dispatch a replacement
-                    <strong> at no extra cost</strong>; no return necessary.
+                    <strong> at no extra cost</strong>; no return necessary.<strong>( so we Accept returns for defective/wrong products only)</strong>
                 </p>
 
                 <p className="mb-4">
