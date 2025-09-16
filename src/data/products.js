@@ -532,12 +532,7 @@ const products = [
     ],
     price: 4350,
     qtyDiscount: [
-      { from: 2, to: 10, start: 4, end: 13.3 },
-      { from: 11, to: 15, start: 13.3, end: 15.7 },
-      { from: 16, to: 20, start: 15.7, end: 17.3 },
-      { from: 21, to: 25, start: 17.3, end: 18.6 },
-      { from: 26, to: 30, start: 16.6, end: 19.7 },
-      { from: 31, to: 32, start: 19.7, end: 20 },
+      { from: 2, to: 30, start: 4, end: 20 },
     ],
     tabsMg: "30 Tabs",
     origin: "Pakistan",
