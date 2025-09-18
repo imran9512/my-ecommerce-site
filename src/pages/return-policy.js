@@ -1,5 +1,6 @@
-// src/pages/return-policy.js  (rename file if you keep it here)
+// src/pages/return-policy.js
 import Head from 'next/head';
+import { canonical } from '@/utils/seo';
 import { SITE_NAME, SITE_URL, WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function ReturnPolicy() {
@@ -13,7 +14,7 @@ export default function ReturnPolicy() {
                     name="description"
                     content="Because medicines need special storage, we cannot accept returns. Wrong/damaged items are replaced free—no return necessary."
                 />
-                <link rel="canonical" href={canonical} />
+                <link rel="canonical" href={canonical('/return-policy')} />
             </Head>
 
             <div className="max-w-3xl mx-auto px-4 py-10 text-gray-700 leading-relaxed">

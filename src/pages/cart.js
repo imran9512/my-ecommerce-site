@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import { canonical } from '@/utils/seo';
 import { useEffect } from 'react';
 import { useCartStore } from '@/stores/cart';
 import { cartContainsOnlyStrips } from '@/utils/cartHelpers';
@@ -30,7 +31,10 @@ export default function CartPage() {
 
   return (
     <>
-      <Head><title>Cart | Aap Ki Sehat</title></Head>
+      <Head>
+        <title>Cart | Aap Ki Sehat</title>
+        <link rel="canonical" href={canonical('/cart')} />
+      </Head>
       <div className="max-w-3xl mx-auto py-6 px-4">
         <h1 className="text-3xl font-bold mb-6 text-center">Shopping Cart</h1>
 

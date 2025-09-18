@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { StarIcon } from '@heroicons/react/24/solid';
 import { reviews } from '@/data/reviews';
 import products from '@/data/products';
+import { descById } from '@/data/productDesc';
 import { faqsByProduct } from '@/data/faq';
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
@@ -61,7 +62,7 @@ export default function TabsSection({ product, faqItems }) {
           <div>
             <div
               className="prose max-w-none mb-4"
-              dangerouslySetInnerHTML={{ __html: product.longDesc || 'No details' }}
+              dangerouslySetInnerHTML={{ __html: product.longDesc || 'No details available.' }}
             />
             {product.fullDesc && (
               <div className="mb-4">
@@ -81,8 +82,7 @@ export default function TabsSection({ product, faqItems }) {
                 className="flex items-center justify-between w-full text-left px-4 py-2  rounded-md"
               >
                 <span className="font-semibold text-gray-300">
-                  Meta Information
-                </span>
+                  Meta Information</span>
                 {showMeta ? (
                   <ChevronUpIcon className="w-5 h-5 text-gray-500" />
                 ) : (

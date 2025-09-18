@@ -2,6 +2,8 @@
 import { useEffect, useRef, useState } from 'react';
 import ProductCard from '@/components/ProductCard';
 import products from '@/data/products';
+import Head from 'next/head';
+import { canonical } from '@/utils/seo';
 
 const shownProducts = products.filter(p => p.active);
 
@@ -42,41 +44,48 @@ export default function NotFound() {
     const handleEnd = () => setIsPaused(false);
 
     return (
-        <div className="max-w-7xl mx-auto px-4 py-10">
-            {/* 404 Message */}
-            <div className="text-center mb-10">
-                <h1 className="text-4xl font-bold text-red-600 mb-2">Page Not Found</h1>
-                <p className="text-gray-600 mb-4">
-                    Sorry Your Required Page is not available.<br />You can chose any product from bottom list, Or
-                </p>
-                <a
-                    href="/"
-                    className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-                >
-                    Go Back to Home
-                </a>
-            </div>
+        <>
+            <Head>
+                <title>404 | Aap Ki Sehat</title>
+                <link rel="canonical" href={canonical('/404')} />   {/* ← 2.  self-canonical */}
+            </Head>
+            <div className="max-w-7xl mx-auto px-4 py-10">
+                {/* 404 Message */}
+                <div className="text-center mb-10">
+                    <h1 className="text-4xl font-bold text-red-600 mb-2">Page Not Found</h1>
+                    <p className="text-gray-600 mb-4">
+                        Sorry Your Required Page is not available.<br />You can chose any product from bottom list, Or
+                    </p>
+                    <a
+                        href="/"
+                        className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+                    >
+                        Go Back to Home
+                    </a>
+                </div>
 
-            {/* Touch-friendly slider */}
-            <div
-                className="relative overflow-hidden cursor-grab active:cursor-grabbing"
-                onMouseDown={handleStart}
-                onMouseUp={handleEnd}
-                onTouchStart={handleStart}
-                onTouchEnd={handleEnd}
-            >
+                {/* Touch-friendly slider */}
                 <div
-                    ref={sliderRef}
-                    className="flex transition-transform duration-100 ease-linear"
+                    className="relative overflow-hidden cursor-grab active:cursor-grabbing"
+                    onMouseDown={handleStart}
+                    onMouseUp={handleEnd}
+                    onTouchStart={handleStart}
+                    onTouchEnd={handleEnd}
                 >
-                    {/* 2× repeat for infinite scroll */}
-                    {[...shownProducts, ...shownProducts].map((p, i) => (
-                        <div key={i} className="flex-none w-48 md:w-60 px-2">
-                            <ProductCard product={p} />
-                        </div>
-                    ))}
+                    <div
+                        ref={sliderRef}
+                        className="flex transition-transform duration-100 ease-linear"
+                    >
+                        {/* 2× repeat for infinite scroll */}
+                        {[...shownProducts, ...shownProducts].map((p, i) => (
+                            <div key={i} className="flex-none w-48 md:w-60 px-2">
+                                <ProductCard product={p} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
+
+        </>
     );
 }

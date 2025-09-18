@@ -7,7 +7,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en" data-scroll-behavior="smooth">
         <Head>
-          <link rel="canonical" href={SITE_URL} />
           <meta name="robots" content="index,follow" />
           {/* Google Search Console */}
           <meta

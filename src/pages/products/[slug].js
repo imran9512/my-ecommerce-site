@@ -6,9 +6,10 @@ import RelatedProducts from '@/components/RelatedProducts';
 import products from '@/data/products';
 import { SITE_URL } from '@/data/constants';
 import { faqsByProduct } from '@/data/faq';
-
+import { productDesc } from '@/data/productDesc';
 
 export default function ProductPage({ product, related }) {
+  /* ---------- merged editorial data already in product prop ---------- */
 
   /* ---------- Product Schema ---------- */
   const schema = {
@@ -16,10 +17,9 @@ export default function ProductPage({ product, related }) {
     '@type': 'Product',
     name: product.name,
     sku: product.sku,
-    image: product.images.map(img => `${SITE_URL}${img}`),
-    description: product.metaDescription,
+    image: product.images.map((img) => `${SITE_URL}${img}`),
+    description: product.metaDescription,   // ← now comes from productDesc
     brand: { '@type': 'Brand', name: product.brand },
-
     offers: {
       '@type': 'Offer',
       price: product.price,
@@ -32,13 +32,11 @@ export default function ProductPage({ product, related }) {
             : 'https://schema.org/InStock',
       priceValidUntil: '2035-12-31',
     },
-
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: product.rating,
       reviewCount: product.reviewCount ?? 0,
     },
-
     shippingDetails: {
       '@type': 'OfferShippingDetails',
       shippingRate: {
@@ -51,7 +49,6 @@ export default function ProductPage({ product, related }) {
         addressCountry: 'PK',
       },
     },
-
     hasMerchantReturnPolicy: {
       '@type': 'MerchantReturnPolicy',
       returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
@@ -80,7 +77,6 @@ export default function ProductPage({ product, related }) {
 
   return (
     <>
-      {/* ---------- SEO Meta ---------- */}
       <Head>
         <title>{product.metaTitle}</title>
         <meta name="description" content={product.metaDescription} />
@@ -98,7 +94,6 @@ export default function ProductPage({ product, related }) {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
           />
         )}
-
       </Head>
 
       <div className="container mx-auto px-4 py-8">
@@ -116,12 +111,23 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-/* ---------- Fetch product via slug ---------- */
+/* ---------- Fetch product via slug + merge editorial ---------- */
 export async function getStaticProps({ params }) {
   const product = products.find((p) => p.slug === params.slug && p.active);
-  //const product = products.find((p) => p.slug === params.slug);
   if (!product) return { notFound: true };
 
+  // merge editorial content (fallback to empty object)
+  const content = productDesc[product.id] || {};
+
+  if (!productDesc[product.id]) {
+    console.warn('Missing editorial data for product.id:', product.id);
+  }
+
+  const mergedProduct = { ...product, ...content };
+
   const related = products.filter((p) => product.related?.includes(p.id));
-  return { props: { product, related }, revalidate: false };
+  return {
+    props: { product: mergedProduct, related },
+    revalidate: false,
+  };
 }

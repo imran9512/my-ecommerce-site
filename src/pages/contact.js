@@ -1,5 +1,6 @@
 // src/pages/contact.js
 import Head from 'next/head';
+import { canonical } from '@/utils/seo';
 import { WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function ContactPage() {
@@ -16,7 +17,8 @@ export default function ContactPage() {
   return (
     <>
       <Head>
-        <title>Contact AAPKISEHAT</title>
+        <title>Contact AAPKISEHAT | Aap Ki Sehat</title>
+        <link rel="canonical" href={canonical('/contact')} />
       </Head>
 
       <div className="max-w-2xl mx-auto px-4 py-20 text-center">
