@@ -22,6 +22,7 @@ export default function Footer() {
         { label: 'Privacy', href: '/privacy' },
         { label: 'Terms', href: '/terms-and-conditions' },
         { label: 'Contact', href: '/contact' },
+        { label: 'Return Policy', href: '/return-policy' },
     ];
 
     const openWhatsApp = () =>

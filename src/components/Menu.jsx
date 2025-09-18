@@ -30,7 +30,7 @@ export default function Menu({ categories, helpLinks, onClose }) {
                                     href={`/category/${name.toLowerCase()}`}
                                     onClick={(e) => {
                                         e.stopPropagation();
-                                        onClose(); // ← close menu
+                                        onClose();
                                     }}
                                     className="bg-white/40 px-3 py-1.5 rounded shadow hover:bg-slate-50 transition"
                                 >
@@ -49,7 +49,7 @@ export default function Menu({ categories, helpLinks, onClose }) {
                                         <li key={s}>
                                             <Link
                                                 href={`/category/${s.toLowerCase()}`}
-                                                onClick={() => onClose()} // ← close menu
+                                                onClick={() => onClose()}
                                                 className="inline-block bg-white/70 px-3 py-1 rounded shadow text-xs hover:bg-slate-200 transition"
                                             >
                                                 -&nbsp;{s}
@@ -80,7 +80,7 @@ export default function Menu({ categories, helpLinks, onClose }) {
                                 <li key={label}>
                                     <Link
                                         href={href}
-                                        onClick={() => onClose()} // ← close menu
+                                        onClick={() => onClose()}
                                         className="block text-sm text-sky-600 hover:text-black"
                                     >
                                         {label}
@@ -93,7 +93,7 @@ export default function Menu({ categories, helpLinks, onClose }) {
 
                 <button
                     onClick={() => {
-                        onClose(); // ← close menu
+                        onClose();
                         window.open(
                             `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                                 'Hi! I need help with products or my order.'

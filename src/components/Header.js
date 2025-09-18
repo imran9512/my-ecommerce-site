@@ -49,34 +49,14 @@ export default function Header() {
         return () => document.removeEventListener('mousedown', handleOutside);
     }, []);
 
-    {/*const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
-      router.push(`/search?q=${encodeURIComponent(searchTerm)}`);
-      setSearchTerm('');
-    }
-  };
-
-  const navLinks = categories.reduce((acc, { name, sub }) => {
-    acc.push({ label: name, href: `/category/${name.toLowerCase()}` });
-    sub.forEach((s) => acc.push({ label: s, href: `/category/${s.toLowerCase()}` }));
-    return acc;
-  }, []); */}
-
     /* Help drawer links */
     const helpLinks = [
         { label: 'About Us', href: '/about' },
         { label: 'Privacy', href: '/privacy' },
         { label: 'Terms', href: '/terms-and-conditions' },
         { label: 'Contact', href: '/contact' },
+        { label: 'Return Policy', href: '/return-policy' },
     ];
-
-    {/*const openWhatsApp = () =>
-    window.open(
-      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-        'Hi! I need help with products or my order.'
-      )}`,
-      '_blank'
-    );*/}
 
     return (
         <>
