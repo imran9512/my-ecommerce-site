@@ -4,8 +4,6 @@ import { canonical } from '@/utils/seo';
 import { SITE_NAME, SITE_URL, WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function ReturnPolicy() {
-    const canonical = `${SITE_URL}/return-policy`;
-
     return (
         <>
             <Head>
