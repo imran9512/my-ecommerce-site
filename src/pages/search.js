@@ -1,5 +1,6 @@
 // src/pages/search.js
 import Head from 'next/head';
+import { canonical } from '@/utils/seo';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ProductCard from '@/components/ProductCard';
