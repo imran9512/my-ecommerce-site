@@ -6,6 +6,12 @@ import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
 export default function Menu({ categories, helpLinks, onClose }) {
     const [openCategory, setOpenCategory] = useState(null);
+    /* ---- NEW: level-3 toggle per item ---- */
+    const [openChild, setOpenChild] = useState({}); // { "mainIdx-subIdx": boolean }
+
+    /* ---- tiny helpers ---- */
+    const toggleChild = (key) =>
+        setOpenChild((p) => ({ ...p, [key]: !p[key] }));
     const [openUseful, setOpenUseful] = useState(false);
 
     return (
@@ -19,61 +25,102 @@ export default function Menu({ categories, helpLinks, onClose }) {
                 className="fixed top-20 left-2 w-60 rounded-xl shadow-2xl bg-white/50 backdrop-blur-md p-4 overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
             >
+                {/* ==========  CATEGORIES  ========== */}
                 <nav className="space-y-4">
-                    {categories.map(({ name, sub }, idx) => (
-                        <div key={name}>
+                    {categories.map((cat, idx) => (
+                        <div key={cat.name}>
+                            {/* level-1 header */}
                             <div
                                 className="flex items-center justify-between cursor-pointer"
                                 onClick={() => setOpenCategory(openCategory === idx ? null : idx)}
                             >
                                 <Link
-                                    href={`/category/${name.toLowerCase()}`}
+                                    href={`/category/${cat.name.toLowerCase()}`}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         onClose();
                                     }}
                                     className="bg-white/40 px-3 py-1.5 rounded shadow hover:bg-slate-50 transition"
                                 >
-                                    {name}
+                                    {cat.name}
                                 </Link>
-                                {sub && sub.length > 0 && (
+                                {cat.sub && cat.sub.length > 0 && (
                                     <ChevronDownIcon
                                         className={`w-4 h-4 transition-transform ${openCategory === idx ? 'rotate-180' : ''
                                             }`}
                                     />
                                 )}
                             </div>
-                            {openCategory === idx && sub && sub.length > 0 && (
+
+                            {/* level-2 + level-3 */}
+                            {openCategory === idx && cat.sub && (
                                 <ul className="pl-4 mt-2 space-y-1">
-                                    {sub.map((s) => (
-                                        <li key={s}>
-                                            <Link
-                                                href={`/category/${s.toLowerCase()}`}
-                                                onClick={() => onClose()}
-                                                className="inline-block bg-white/70 px-3 py-1 rounded shadow text-xs hover:bg-slate-200 transition"
-                                            >
-                                                -&nbsp;{s}
-                                            </Link>
-                                        </li>
-                                    ))}
+                                    {cat.sub.map((item, subIdx) => {
+                                        const childKey = `${idx}-${subIdx}`;
+                                        const hasGrand = item.children && item.children.length > 0;
+                                        return (
+                                            <li key={item.title}>
+                                                <div className="flex items-center justify-between">
+                                                    {/* level-2 link */}
+                                                    <Link
+                                                        href={`/category/${item.title.toLowerCase()}`}
+                                                        onClick={() => onClose()}
+                                                        className="inline-block bg-white/70 px-3 py-1 rounded shadow text-xs hover:bg-slate-200 transition"
+                                                    >
+                                                        -&nbsp;{item.title}
+                                                    </Link>
+
+                                                    {/* ----  NEW : level-3 chevron + toggle  ---- */}
+                                                    {hasGrand && (
+                                                        <ChevronDownIcon
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                toggleChild(childKey);
+                                                            }}
+                                                            className={`w-3 h-3 cursor-pointer transition-transform ${openChild[childKey] ? 'rotate-180' : ''
+                                                                }`}
+                                                        />
+                                                    )}
+                                                </div>
+
+                                                {/* ----  NEW : dropdown list (pl-4)  ---- */}
+                                                {openChild[childKey] && (
+                                                    <ul className="pl-4 mt-1 space-y-1">
+                                                        {item.children.map((grand) => (
+                                                            <li key={grand}>
+                                                                <Link
+                                                                    href={`/category/${grand.toLowerCase()}`}
+                                                                    onClick={() => onClose()}
+                                                                    className="inline-block bg-yellow-100/80 px-2 py-0.5 rounded text-xs hover:bg-yellow-200 transition"
+                                                                >
+                                                                    --&nbsp;{grand}
+                                                                </Link>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                )}
+                                            </li>
+                                        );
+                                    })}
                                 </ul>
                             )}
                         </div>
                     ))}
                 </nav>
 
-                {/* Useful Links */}
+                {/* ==========  USEFUL LINKS  (click to open)  ========== */}
                 <div className="mt-6 pt-4 border-t border-slate-300">
                     <div
                         className="flex items-center justify-between font-semibold cursor-pointer"
-                        onClick={() => setOpenUseful(!openUseful)}
+                        onClick={() => setOpenUseful((p) => !p)}
                     >
-                        Useful Links
+                        <span>Useful Links</span>
                         <ChevronDownIcon
                             className={`w-4 h-4 transition-transform ${openUseful ? 'rotate-180' : ''
                                 }`}
                         />
                     </div>
+
                     {openUseful && (
                         <ul className="pl-4 space-y-1 mt-2">
                             {helpLinks.map(({ label, href }) => (
@@ -91,6 +138,7 @@ export default function Menu({ categories, helpLinks, onClose }) {
                     )}
                 </div>
 
+                {/* ==========  WHATSAPP  ========== */}
                 <button
                     onClick={() => {
                         onClose();

@@ -122,7 +122,12 @@ export default function ProductDetail({ product }) {
                             {/* ---- 1. brand (left) ---- */}
                             <div className="flex-1">
                                 <span className="text-sm text-gray-600">By: </span>
-                                <span className="font-semibold text-sm underline underline-offset-2 decoration-2 decoration-red-300">{product.brand}</span>
+                                <Link
+                                    href={`/search?q=${encodeURIComponent(product.brand)}`}
+                                    className="text-sm font-semibold underline underline-offset-2 decoration-2 decoration-red-300 cursor-pointer"
+                                >
+                                    {product.brand}
+                                </Link>
                             </div>
 
                             {/* ---- 2. slide toggle (centre) ---- */}

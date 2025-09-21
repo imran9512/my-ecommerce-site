@@ -12,10 +12,7 @@ export default function Menu({ categories, helpLinks, onClose }) {
     <div
       className="fixed inset-0 backdrop-blur-sm z-40"
       onClick={(e) => {
-        // close on backdrop click
-        if (e.target === e.currentTarget) onClose(); {
-          // caller must close itself
-        }
+        if (e.target === e.currentTarget) onClose();
       }}
     >
       <div
@@ -31,7 +28,10 @@ export default function Menu({ categories, helpLinks, onClose }) {
               >
                 <Link
                   href={`/category/${name.toLowerCase()}`}
-                  onClick={(e) => e.stopPropagation()}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClose();
+                  }}
                   className="bg-white/40 px-3 py-1.5 rounded shadow hover:bg-slate-50 transition"
                 >
                   {name}
@@ -43,16 +43,36 @@ export default function Menu({ categories, helpLinks, onClose }) {
                   />
                 )}
               </div>
+
               {openCategory === idx && sub && sub.length > 0 && (
                 <ul className="pl-4 mt-2 space-y-1">
-                  {sub.map((s) => (
-                    <li key={s}>
+                  {sub.map((item) => (
+                    <li key={item.title}>
+                      {/* level-2 link */}
                       <Link
-                        href={`/category/${s.toLowerCase()}`}
+                        href={`/category/${item.title.toLowerCase()}`}
+                        onClick={() => onClose()}
                         className="inline-block bg-white/70 px-3 py-1 rounded shadow text-xs hover:bg-slate-200 transition"
                       >
-                        -&nbsp;{s}
+                        -&nbsp;{item.title}
                       </Link>
+
+                      {/* level-3 grand-children */}
+                      {item.children && item.children.length > 0 && (
+                        <ul className="pl-4 mt-1 space-y-1">
+                          {item.children.map((grand) => (
+                            <li key={grand}>
+                              <Link
+                                href={`/category/${grand.toLowerCase()}`}
+                                onClick={() => onClose()}
+                                className="inline-block bg-white/70 px-3 py-1 rounded shadow text-xs hover:bg-slate-200 transition"
+                              >
+                                --&nbsp;{grand}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -79,6 +99,7 @@ export default function Menu({ categories, helpLinks, onClose }) {
                 <li key={label}>
                   <Link
                     href={href}
+                    onClick={() => onClose()}
                     className="block text-sm text-sky-600 hover:text-black"
                   >
                     {label}
@@ -91,20 +112,20 @@ export default function Menu({ categories, helpLinks, onClose }) {
 
         <button
           onClick={() => {
+            onClose();
             window.open(
               `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                 'Hi! I need help with products or my order.'
               )}`,
               '_blank'
             );
-            // caller must close itself
           }}
           className="w-full mt-4 h-8 flex items-center justify-center bg-green-500 text-white rounded-full text-xs font-semibold hover:bg-green-600 transition"
         >
           <img src="/whatsapp.png" alt="WhatsApp" className="w-4 h-4 mr-1.5" />
           WhatsApp Us
         </button>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }

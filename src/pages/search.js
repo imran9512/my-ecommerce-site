@@ -41,7 +41,7 @@ export default function SearchPage() {
             //if (!hasTyped) setHasTyped(true);
             router.replace(`/search?q=${encodeURIComponent(val)}`, undefined, { shallow: true });
           }}
-          placeholder="Type name, slug, salt or category…"
+          placeholder="Type Name, Salt, Brand or Category…"
           className="w-full border border-gray-300 rounded-md px-3 py-2 mb-4"
           autoFocus
         />

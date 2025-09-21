@@ -20,10 +20,39 @@ export const GOOGLE_FORM_FIELDS = {
 
 // categories
 export const categories = [
-  { name: 'Fitness', sub: ['Delay/Timing', 'Erection', 'Combo'] },
-  { name: 'ADHD', sub: ['Methylphenidate', 'Lisdexamfetamine', 'Modafinil', 'Atomoxetine', 'Clonidine'] },
-  { name: 'For Men', sub: ['VIAGRA+', 'CIALIS+', 'Dapoxitine'] },
-  { name: 'Others', sub: ['For women', 'Miscellaneous'] },
+  {
+    name: 'ADHD',
+    sub: [
+      { title: 'Methylphenidate', children: [] },
+      { title: 'Lisdexamfetamine', children: [] },
+      { title: 'Modafinil', children: [] },
+      { title: 'Atomoxetine', children: [] },
+      { title: 'Clonidine', children: [] }
+    ]
+  },
+  {
+    name: 'Fitness',
+    sub: [
+      { title: 'Delay/Timing', children: [] },
+      { title: 'Erection', children: [] },
+      { title: 'Combo', children: [] }
+    ]
+  },
+  {
+    name: 'For Men',
+    sub: [
+      { title: 'VIAGRA+', children: [] },
+      { title: 'CIALIS+', children: [] },
+      { title: 'Dapoxitine', children: [] }
+    ]
+  },
+  {
+    name: 'Others',
+    sub: [
+      { title: 'For women', children: [] },
+      { title: 'Miscellaneous', children: ['Cabergoline', 'Pfizer'] }
+    ]
+  }
 ];
 /* Fitness > Delay/Timing - Erection - Combo
 ADHD > Ritalin (Methylphenidate) - Lisdexamfetamine - Modafinil - Atomoxetine - Clonidine

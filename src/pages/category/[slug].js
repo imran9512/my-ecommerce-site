@@ -45,7 +45,7 @@ export default function CategoryPage({ products: categoryProducts, slug }) {
       </Head>
 
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-4 capitalize">
+        <h1 className="text-3xl font-bold mb-4 mt-4 text-center capitalize">
           {slug.replace(/-/g, ' ')}
         </h1>
 
@@ -56,7 +56,7 @@ export default function CategoryPage({ products: categoryProducts, slug }) {
 
         {/* --------  PRODUCTS  -------- */}
         {categoryProducts.length ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 my-6">
+          <div className="grid mb-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {categoryProducts.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
