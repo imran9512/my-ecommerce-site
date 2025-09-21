@@ -340,8 +340,8 @@ const products = [
     rating: 4.9,
     reviewCount: 22,
     images: [
-      "/api/images/ritalin/ritalin-10-price-in-pakistan.webp",
-      "/api/images/ritalin/buy-ritalin-10-in-lahore.webp",
+      "/img/ritalin/ritalin-10-price-in-pakistan.webp",
+      "/img/ritalin/buy-ritalin-10-in-lahore.webp",
     ],
     price: 6500,
     qtyDiscount: [
