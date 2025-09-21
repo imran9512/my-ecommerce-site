@@ -62,7 +62,11 @@ export default function TabsSection({ product, faqItems }) {
           <div>
             <div
               className="prose max-w-none mb-4"
-              dangerouslySetInnerHTML={{ __html: product.longDesc || 'No details available.' }}
+              dangerouslySetInnerHTML={{
+                __html: Array.isArray(product.longDesc)
+                  ? product.longDesc.join('')   // ← no separator
+                  : product.longDesc || 'No details available.'
+              }}
             />
             {product.fullDesc && (
               <div className="mb-4">

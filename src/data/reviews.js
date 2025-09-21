@@ -88,4 +88,36 @@ export const reviews = [
     rating: 4,
     comment: "Satisfied with results+"
   },
+  {
+    id: "d1",
+    productId: "DOST05",
+    name: "Assad",
+    date: "2023-05-08",
+    rating: 4.9,
+    comment: "Using it off-label for persistent galactorrhoea; milk discharge stopped after 3 doses. Great alternative to bromocriptine."
+  },
+  {
+    id: "d2",
+    productId: "DOST05",
+    name: "Sohail",
+    date: "2024-04-05",
+    rating: 5,
+    comment: "Finally found real Pfizer cabergoline. Half tablet twice a week and energy/libido sky-high. No nausea if taken with dinner."
+  },
+  {
+    id: "d3",
+    productId: "DOST05",
+    name: "Minahil",
+    date: "2025-01-22",
+    rating: 4.8,
+    comment: "Original pack reached chilled; prolactin dropped 90 ng→12 in 6 weeks. Periods back on track. Highly recommend this genuine Dostinex."
+  },
+  {
+    id: "d4",
+    productId: "DOST05",
+    name: "Waseem",
+    date: "2021-11-29",
+    rating: 5,
+    comment: "Ordered 9 pm, delivered 11 am next morning with ice-pack intact. WhatsApp video confirmation before dispatch—top service!"
+  },
 ];
