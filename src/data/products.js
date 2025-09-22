@@ -3,6 +3,7 @@ const products = [
   {
     id: "001",
     slug: "buy-Coity-Long-Dapoxetine-60mg",
+    canon: "",
     name: "Coity Long - Dapoxetine 60mg",
     ActiveSalt: "Dapoxetine",
     brand: "Advanz",
@@ -17,7 +18,7 @@ const products = [
     rating: 4.8,
     reviewCount: 20,
     images: [
-      "/api/images/coity60/1.webp",
+      "/api/images/coity60/coity-long.webp",
       "/api/images/coity60/2.webp"
     ],
     price: 2650,

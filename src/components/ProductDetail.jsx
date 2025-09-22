@@ -12,7 +12,7 @@ export default function ProductDetail({ product }) {
     const [qty, setQty] = useState(1);
     const [currentImg, setCurrentImg] = useState(0);
     const [adding, setAdding] = useState(false);
-    const [isStrip, setIsStrip] = useState(false);                 // NEW
+    const [isStrip, setIsStrip] = useState(false);
 
     const images = Array.isArray(product?.images) && product.images.length
         ? product.images

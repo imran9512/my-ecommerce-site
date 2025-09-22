@@ -73,8 +73,9 @@ export default function ProductPage({ product, related }) {
     }
     : null;
 
-  const canonical = `${SITE_URL}/products/${product.slug}`;
-
+  const canonical = product.canon
+    ? `${SITE_URL}/${product.canon}`
+    : `${SITE_URL}/products/${product.slug}`;
   return (
     <>
       <Head>
