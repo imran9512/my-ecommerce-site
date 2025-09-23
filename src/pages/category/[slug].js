@@ -29,7 +29,7 @@ export default function CategoryPage({ products: categoryProducts, slug }) {
         })),
     };
 
-    const canonical = `${SITE_URL}/products/category/${slug}`;
+    const canonical = `${SITE_URL}/category/${slug}`;
 
     return (
         <>
