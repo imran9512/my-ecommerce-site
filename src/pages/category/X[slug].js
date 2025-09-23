@@ -62,7 +62,7 @@ export default function CategoryPage({ products: categoryProducts, slug }) {
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">No products found in this category.</p>
+          <p className="text-gray-500">No products found in this category...</p>
         )}
 
         {/* --------  OUTRO  -------- */}
