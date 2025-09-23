@@ -17,7 +17,7 @@ export default function ShopPage() {
       </Head>
 
       <div className="max-w-7xl mx-auto p-4">
-        <h1 className="text-3xl font-bold text-center mb-8">Shop All</h1>
+        <h1 className="text-3xl mt-4 font-bold text-center mb-8">Shop All</h1>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {visibleProducts.map(p => (

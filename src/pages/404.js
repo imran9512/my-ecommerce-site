@@ -57,10 +57,10 @@ export default function NotFound() {
                         Sorry Your Required Page is not available.<br />You can chose any product from bottom list, Or
                     </p>
                     <a
-                        href="/"
+                        href="/shop"
                         className="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
                     >
-                        Go Back to Home
+                        Go Back to Shop
                     </a>
                 </div>
 

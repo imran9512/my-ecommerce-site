@@ -31,19 +31,19 @@ export const categories = [
     ]
   },
   {
-    name: 'Fitness',
+    name: 'For Men',
     sub: [
-      { title: 'Delay/Timing', children: [] },
-      { title: 'Erection', children: [] },
+      { title: 'VIAGRA', children: ["Viagra Alternatives"] },
+      { title: 'CIALIS', children: ["Cialis Alternatives"] },
+      { title: 'Dapoxitine', children: [] },
       { title: 'Combo', children: [] }
     ]
   },
   {
-    name: 'For Men',
+    name: 'Fitness',
     sub: [
-      { title: 'VIAGRA+', children: [] },
-      { title: 'CIALIS+', children: [] },
-      { title: 'Dapoxitine', children: [] }
+      { title: 'Delay/Timing', children: [] },
+      { title: 'Erection', children: [] }
     ]
   },
   {
@@ -54,18 +54,14 @@ export const categories = [
     ]
   }
 ];
-/* Fitness > Delay/Timing - Erection - Combo
-ADHD > Ritalin (Methylphenidate) - Lisdexamfetamine - Modafinil - Atomoxetine - Clonidine
-For Men > VIAGRA+ - CIALIS+ - Dapoxitine
-Others > For women - Miscellaneous */
 
 // courier
 export const COURIER_OPTIONS = [
   { name: 'Regular', charge: 0 },
-  { name: 'Leopard', charge: 200 },
+  { name: 'Leopard', charge: 199 },
   { name: 'TCS', charge: 299 },
 ];
-export const STRIP_DELIVERY_CHARGE = 250;
+export const STRIP_DELIVERY_CHARGE = 240;
 // website URL
 export const SITE_URL = 'https://www.aapkisehat.com';
 

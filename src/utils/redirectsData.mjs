@@ -6,8 +6,8 @@ const productRedirects = [
         permanent: true,
     },
     {
-        source: '/products/vyas-70mg-lisdexamfetamine-as-vyvanse-original-price-in-pakistan',
-        destination: '/products/vyas-70mg-lisdexamfetamine-as-vyvanse-available-in-pakistan',
+        source: '/products',
+        destination: '/shop',
         permanent: true,
     },
     {

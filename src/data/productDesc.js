@@ -236,4 +236,22 @@ export const productDesc = {
             "cabergoline brand names in pakistan"],
         fullDesc: "",
     },
+
+    "ANI1": {
+        shortDesc: "We are the only ones to import the original Animation delay spray, 10 %, from Sweden. One pump provides up to 30 minutes of extra stamina and zero numbness transfer. Sealed box – grab the real spray before clones ruin your night.",
+        longDesc: [
+            "<h3 class=\"text-1xl text-center font-bold\">Problem Solved: Lasting Longer in the Bedroom</h3><br><p class=\"ml-4\">Early finish is the single biggest mood-killer in Pakistani bedrooms. Animation delay spray, imported directly from Sweden, ends that worry in one quick pump. Each 15 ml bottle carries 10 % lidocaine HCI – the exact strength clinical trials in Stockholm used to extend performance by up to 10 minutes without killing pleasure. Unlike Chinese copies flooding Daraz, our spray is manufactured by KOSMOS AB under EU GMP guidelines, shipped in temperature-controlled cargo, and stored at 8 °C, ensuring the active ingredient remains fully potent even in Karachi\’s 45 °C summer.</p><br><br>",
+            "<h3 class=\"text-xl font-bold\">Quick & Easy Application</h3><br><p class=\"ml-4\">Application takes 10 seconds: press once on the head, wait 5 minutes, and wipe with a damp tissue; you are ready. The micro-droplet formula dries quickly with a matte finish, leaving no chalky marks or uncomfortable side effects. Each bottle delivers 120 consistent sprays, which usually last about four months for most users. Men in Lahore say it boosted their confidence from the very first night, while those in Islamabad appreciate the small bottle that’s easy to carry and never causes trouble at airport security.</p><br><br>",
+            "<h3 class=\"text-xl font-bold\">Guaranteed Authenticity & Fast Delivery</h3><br><p class=\"ml-4\">We are the only verified importer of Animation in Pakistan. Every box features a Swedish hologram, an EU batch number, and a QR code that verifies authenticity on the KOSMOS official website. Price includes ice-gel packaging, cash-on-delivery, and a 7-day no-questions return window. Order before 4 pm and receive same-day delivery in Lahore, or overnight delivery in Karachi, Faisalabad, and Peshawar via TCS. One click converts hesitation into hero-level stamina tonight.</p><br><br>",
+            "<h3 class=\"text-xl font-bold\">Act Now for Results You Can Trust</h3><br><p class=\"ml-4\">Stop risking fake sprays that burn skin or leave you completely numb. Click \“Add to Cart\”, pay cash on delivery, and join 3,200 Pakistani men who already trust the original Animation delay spray. Stock is limited because we import every month. Grab your bottle now and turn quick endings into long-lasting memories.</p>"
+        ],
+        metaTitle: "Animation Delay Spray Price in Pakistan – Original Sweden 10 % Lidocaine",
+        metaDescription: "Buy original Animation delay spray 10 % made in Sweden. Imported, sealed, cash on delivery in Lahore, Karachi, and Islamabad. Best original animation price in Pakistan, discreet packing.",
+        tags: ["origanl-animation-timing-spray",
+            "animation-kosmos-sweden-original",
+            "animation-spray-price-in-pakistan",
+            "animation-delay-spray",
+            "animation-10"],
+        fullDesc: "",
+    },
 };
