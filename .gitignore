@@ -44,3 +44,4 @@ next-env.d.ts
 /public/pix
 /src/pages/api/images2.js
 /src/pages/gallery.js
+/src/pages/category/[slug].js
