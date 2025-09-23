@@ -254,4 +254,34 @@ export const productDesc = {
             "animation-10"],
         fullDesc: "",
     },
+
+    "STR40": {
+        shortDesc: "Stramox 40mg stands out as a prominent atomoxetine-based medication in Pakistan, serving as a dependable substitute for Strattera and Attentra. Its reputation is built on its effectiveness in addressing symptoms of ADHD.",
+        longDesc: [
+            "Many people in Pakistan have found Stramox 40mg to be a helpful and reliable option for managing ADHD symptoms, especially when other medications like Strattera or Attentra aren\’t suitable. Because it contains atomoxetine—a selective norepinephrine reuptake inhibitor—Stramox 40mg can make it easier to stay focused and control impulsive behaviors. Because Stramox 40mg is known to be both safe and effective, many parents and young people feel confident choosing it to help with everyday challenges. Its affordable price means more families can get support without added financial stress. People who take Stramox 40mg often talk about how it helps them focus better, keep up with school or work, and enjoy a better quality of life.",
+        ],
+        metaTitle: "Stramox 40mg: The Authentic Atomoxetine Alternative in Pakistan",
+        metaDescription: "Discover Stramox 40mg, the trusted atomoxetine brand in Pakistan. A reliable alternative to Strattera and Attentra, Stramox 40mg offers effective ADHD management. Learn more about its benefits and pricing.",
+        tags: ["Attentra alternatives",
+            "Strattera alternatives",
+            "Atomoxetine brand name in Pakistan",
+            "Stramox 40mg price in Pakistan",],
+        fullDesc: "/category/atomoxetine",
+        uses: "Stramox 40 mg is prescribed to restore balance in brain chemistry for children, adolescents, and adults who struggle with attention-deficit hyperactivity disorder. By gently blocking the reuptake of norepinephrine, the medicine increases available levels of this natural messenger, sharpening the brain’s filter against distractions. Users often notice longer spans of quiet focus, smoother task completion, and less impulsive speech or movement within the first four to six weeks of use. Unlike stimulant options, Stramox 40 mg is non-habit forming and can be taken once daily in the morning, with or without food. Taking Stramox 40 mg at the same time each day, with the capsule swallowed whole, helps build a steady routine. Getting a reasonable amount of sleep and regularly eating balanced meals can make the treatment even more effective. By checking in with your doctor regularly, your dose can be adjusted gradually, allowing you to reap the most benefits with the least risk of side effects. For many Pakistani families, Stramox 40 mg has become a practical and affordable step toward calmer classrooms, steadier homework sessions, and more confident social interactions.",
+    },
+
+    "STR60": {
+        shortDesc: "Stramox 60mg is a powerful atomoxetine-based medication that serves as a dependable substitute for Strattera and Attentra. It is recognized for its effectiveness in treating symptoms of ADHD.",
+        longDesc: [
+            "For many individuals and families in Pakistan, Stramox 60mg has become a trusted option for managing ADHD, especially when other treatments like Strattera or Attentra aren\’t the right fit. Each capsule contains 60mg of atomoxetine, a medication that helps people concentrate better and feel less impulsive in daily life. People appreciate Stramox 60mg not only for its proven safety and results, but also for the real difference it makes in everyday routines. Stramox 60mg is priced to make it more accessible for people to receive the help they need. Many patients report feeling more focused and being able to handle daily tasks with greater ease after starting this medication. If you’d like to learn more about Stramox 60mg or obtain information on pricing, please contact us.",
+        ],
+        metaTitle: "Stramox 60mg: Effective Atomoxetine alternative in Pakistan",
+        metaDescription: "Explore Stramox 60mg, the authentic atomoxetine alternative in Pakistan. A powerful alternative to Strattera and Attentra, Stramox 60mg provides effective ADHD management. Discover its benefits and pricing.",
+        tags: ["Attentra alternatives in pakistan",
+            "Strattera price in pakista",
+            "Atomoxetine brand names in Pakistan",
+            "Stramox 60mg price in Pakistan",],
+        fullDesc: "/category/atomoxetine",
+        uses: "For many teens and adults in Pakistan, Stramox 60 mg has become a reliable way to manage ADHD when symptoms continue into later years. Instead of causing energy spikes or crashes, this non-stimulant medication helps provide steady focus throughout busy days at school, university, or work. People often notice it’s easier to stick with long tasks, have fewer emotional ups and downs, and feel more mentally calm during meetings or classes. Stramox 60 mg is simple to take—just one capsule with water in the morning—and doesn’t require any changes to your diet. Many doctors recommend increasing to this dose when smaller amounts aren’t quite enough, because it’s known to be both safe and effective based on real experiences from patients and families.",
+    },
 };

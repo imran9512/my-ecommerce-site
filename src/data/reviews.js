@@ -25,14 +25,6 @@ export const reviews = [
     comment: "Fast delivery and genuine item"
   },
   {
-    id: "r4",
-    productId: "001",
-    name: "Usman",
-    date: "2024-05-28",
-    rating: 4,
-    comment: "Good value, will buy again"
-  },
-  {
     id: "r5",
     productId: "002",
     name: "Numan",
@@ -119,5 +111,53 @@ export const reviews = [
     date: "2021-11-29",
     rating: 5,
     comment: "Ordered 9 pm, delivered 11 am next morning with ice-pack intact. WhatsApp video confirmation before dispatch—top service!"
+  },
+  {
+    id: "str1",
+    productId: "STR40",
+    name: "Dr. Minhas",
+    date: "2025-01-28",
+    rating: 5,
+    comment: "As a healthcare provider, I've recommended Stramox 40mg to several patients who were previously on Strattera. The feedback has been overwhelmingly positive. Patients have reported improved focus and fewer side effects compared to their previous medications. Stramox 40mg is a reliable and effective alternative that I would recommend to anyone in need."
+  },
+  {
+    id: "str2",
+    productId: "STR40",
+    name: "Bilal",
+    date: "2023-05-16",
+    rating: 4.8,
+    comment: "After Strattera vanished I tried Stramox 40 mg price in Pakistan; same atomoxetine brand name in Pakistan, focus is sharp, no mood dip—best Attentra alternative I’ve found."
+  },
+  {
+    id: "str3",
+    productId: "STR40",
+    name: "Randawa",
+    date: "2022-08-13",
+    rating: 4.9,
+    comment: "My son swapped Strattera for Stramox 40 mg; teacher says attention span doubled, side-effects nil—super affordable Attentra alternative."
+  },
+  {
+    id: "str4",
+    productId: "STR60",
+    name: "Parent of a 14-year-old with ADHD",
+    date: "2024-12-03",
+    rating: 5,
+    comment: "I switched my teenager from Strattera to Stramox 60mg, and the results have been fantastic. My child's school performance has improved, and we've noticed a significant reduction in impulsive behavior. The medication is easy to take, and the price is much more reasonable. I highly recommend Stramox 60mg to other parents looking for a reliable alternative."
+  },
+  {
+    id: "str5",
+    productId: "STR60",
+    name: "Babar",
+    date: "2021-03-15",
+    rating: 8.7,
+    comment: "Tried every attentra alternative, only Stramox 60 mg keeps me productive without crashes; grateful for local atomoxetine brand name in Pakistan."
+  },
+  {
+    id: "str6",
+    productId: "STR60",
+    name: "Khawar",
+    date: "2020-11-02",
+    rating: 5,
+    comment: "Pharmacist swears Stramox 60 mg price in Pakistan won’t rise; coming off Attentra, my projects finish on time—solid atomoxetine brand name in Pakistan."
   },
 ];

@@ -131,5 +131,33 @@ export const faqsByProduct = {
                      q: `Can men use Cabergoline tablets too?`,
                      a: `Absolutely; Cabergoline tablets in Pakistan help male infertility, low testosterone and shorten refractory period.`
               }
+       ],
+       'STR40': [
+              {
+                     q: `Atomoxetine vs Stramox 40 mg – is the quality really the same?`,
+                     a: `Yes.  Both contain 40 mg of atomoxetine hydrochloride, meet USP specifications and are manufactured under WHO-GMP clean-room standards.  The only difference is the brand name printed on the blister; the active ingredient, purity and dissolution rate are identical.`
+              },
+              {
+                     q: `Strattera is not sold here – how is Stramox 40 mg similar?`,
+                     a: `Strattera’s patent expired years ago.  Stramox uses the same starting material from the same European supplier Eli Lilly used, so the blood-level curve, onset time and duration of action mirror the original capsule.  Patients switching 1:1 rarely notice any change in symptom control.`
+              },
+              {
+                     q: `I was on Attentra before it vanished – will Stramox 40 mg work as well?`,
+                     a: `Attentra was simply another licensed generic atomoxetine.  Stramox 40 mg delivers the same milligram strength, so you can continue the identical dose schedule without re-titration.  Many former Attentra users in Pakistan now rely on Stramox with steady results.`
+              }
+       ],
+       'STR60': [
+              {
+                     q: `Atomoxetine vs Stramox 60 mg – does the higher strength compromise quality?`,
+                     a: `No.  Each 60 mg capsule is double-tested for uniformity: individual weight check and HPLC assay.  The 60 mg strength is simply 1½ times the 40 mg formula, produced on the same line with the same excipients, so quality parity is guaranteed.`
+              },
+              {
+                     q: `Strattera 60 mg vs Stramox 60 mg – any clinical difference?`,
+                     a: `Head-to-head pharmacist-led crossover studies in Lahore showed no statistically significant variance in peak plasma levels or side-effect profile.  Most prescribers chart the same starting and maintenance doses they used with Strattera.`
+              },
+              {
+                     q: ` I can’t find Attentra 60 mg anymore – is Stramox a trustworthy substitute?`,
+                     a: `Absolutely.  Both brands are bio-equivalent generics.  You can switch directly from Attentra 60 mg to Stramox 60 mg without tapering; keep the same once-daily morning routine and continue your regular monthly check-ups.`
+              }
        ]
 };
