@@ -54,6 +54,7 @@ export const productDesc = {
             "Modafinil price in pakistan",
             "Dowvigil Tablet Uses in urdu"],
         fullDesc: "",
+        uses: "Modafinil (modiwake) is used to keep narcolepsy patients awake during the day. It helps to improve wakefulness, reduce excessive daytime sleepiness, and restore a normal sleep-wake cycle. Modafinil 100 mg gently nudges the brain’s own sleep-wake “switch,” helping you stay naturally alert when you need to be awake, making it an effective treatment for narcolepsy patients and other sleep disorders patients.",
     },
 
     "004": {
@@ -80,6 +81,7 @@ export const productDesc = {
             "ritalin 10 price in pakistan",
             "ritalin 40"],
         fullDesc: "/products/vyas-50mg-lisdexamfetamine-as-vyvanse-original-rate-in-pakistan",
+        uses: "Lisdexamfetamine is commonly used to treat the following conditions.<br /><br />• Attention deficit hyperactivity disorder (ADHD) is a condition that impairs concentration and self-control.<br /><br />• Binge eating is a disorder in which people eat more frequently than usual, even when they feel full.<br /><br />Lisdexamfetamine is different from other ADHD medications because it's a prodrug. Your body must process it before it becomes active, so it typically has milder, longer-lasting effects. Unlike immediate-release stimulants, it doesn't usually cause sudden changes in symptoms. Taking it once a day may be more convenient for people who don't want to take multiple doses throughout the day. Lisdexamfetamine may also be used to treat other conditions after consulting a doctor",
     },
 
     "V50": {
@@ -95,6 +97,7 @@ export const productDesc = {
             "ritalin 10 price in pakistan",
             "ritalin 40"],
         fullDesc: "",
+        uses: "Lisdexamfetamine is commonly used to treat the following conditions.<br /><br />• Attention deficit hyperactivity disorder (ADHD) is a condition that affects people's focus and self-control.<br />• The binge eating disorder is a condition where people cannot stop eating, even when they feel very full.<br /><br />Lisdexamfetamine is different from other ADHD medications because it is a prodrug. Your body needs to process it before it becomes active, which often leads to a smoother and longer-lasting effect. Unlike immediate-release stimulants, it usually does not cause sudden changes in symptoms. Taking it once a day can also be more convenient for people who do not want to take several doses throughout the day.<br /><br />Lisdexamfetamine may also be used for other conditions as determined by your healthcare provider.",
     },
 
     "V70": {
@@ -110,6 +113,7 @@ export const productDesc = {
             "ritalin 10 price in pakistan",
             "ritalin 40"],
         fullDesc: "/products/vyas-50mg-lisdexamfetamine-as-vyvanse-original-rate-in-pakistan",
+        uses: "Lisdexamfetamine is a common medication used for the treatment of the following diseases:<br /><br />• Attention deficit hyperactivity disorder, a disease in which an individual has problems with control over his or her behavior and attention.<br /><br />• Binge eating disorder, a condition where an individual eats more than normal at regular intervals even if he or she is already full.<br /><br />Lisdexamfetamine differs from most other medications used for treating ADHD as it is a prodrug; your body needs to convert it into its active form, hence presenting generally less intense but longlasting effects. It does not act like other immediate-release stimulants by causing abrupt changes in symptoms. Once-daily dosing may be preferable for those patients who do not wish to take several doses during the day.This medicine may also be prescribed for other medical conditions discussed with your doctor",
     },
 
     "RT10": {
@@ -145,6 +149,7 @@ export const productDesc = {
             "Methylphenidate 10mg",
             "ADHD in Pakistan",],
         fullDesc: "",
+        uses: "Methylphenidate is a central nervous system stimulant that is primarily used for the treatment of (ADHD) Attention Deficit Hyperactivity Disorder  in both kids and adults. It helps increase attention & decrease hyperactivity & impulsiveness in ADHD patients.<br><br>Methylphenidate is also prescribed for managing narcolepsy, a sleep disorder marked by extreme daytime sleepiness and sudden episodes of falling asleep.<br><br>It's important to use this medication under the supervision of a Doctor, as it can have side effects and may be habit-forming. If you have any specific questions or need detailed information about its uses and effects, feel free to ask!",
     },
 
     "PR10": {
@@ -159,6 +164,7 @@ export const productDesc = {
             "treatment of ADHD in pakistan",
             "ADHD symptoms and test"],
         fullDesc: "",
+        uses: "",
     },
 
     "DS1": {
@@ -173,6 +179,7 @@ export const productDesc = {
             "delay spray price in pakistan",
             "timing spray price in pakistan"],
         fullDesc: "",
+        uses: "Using a delay spray is very easy.<br /><br />Shake the bottle well before use. Spray a small quantity on the head and shaft of the penis.<br />Allow a few minutes for the spray to take effect.<br />Wash off any residue before engaging in intimacy.<br />It is important to read and follow all directions that come with the product for proper use.",
     },
 
     "ATV70": {
@@ -208,6 +215,7 @@ export const productDesc = {
             "catapres in pakistan",
             "clonidine in pakistan"],
         fullDesc: "",
+        uses: "<h3>Medical Uses of Catapres: Conditions Treated<\/h3>\r\n\r\nDoctors often turn to Catapres when someone\u2019s blood pressure is stubbornly high, especially if other medications haven\u2019t worked. Sometimes, it\u2019s used alongside other treatments to help keep blood pressure under control and protect against serious problems like strokes or heart attacks.\r\nBesides blood pressure, Catapres is sometimes used to treat ADHD, especially when stimulant medicines aren\u2019t the best option. It can help with focus, hyperactivity, and impulse control.\r\nCatapres also helps ease withdrawal symptoms during opioid detox, such as anxiety or sweating. Its pain-relieving effects add to its usefulness in clinics.\r\n\r\n<h3>Benefits of Using Catapres: Why It\u2019s Prescribed<\/h3>\r\n\r\nThe primary benefit of Catapres is its ability to lower blood pressure, which helps protect against heart attacks, strokes, and kidney damage\u2014especially in individuals whose blood pressure is difficult to control.\r\nFor ADHD, Catapres is a non-stimulant option that works for both kids and adults. It lowers the risk of misuse seen with stimulant drugs.\r\nCatapres can also ease chronic nerve pain, helping people rely less on opioid painkillers, which can be addictive.",
     },
 
     "DOST05": {
@@ -235,6 +243,7 @@ export const productDesc = {
             "dostinex teblet uses and dosage",
             "cabergoline brand names in pakistan"],
         fullDesc: "",
+        uses: "• Hyper-prolactinaemia (high prolactin)<br>• Prolactin-secreting pituitary adenomas (prolactinomas)<br>• Amenorrhoea / oligomenorrhoea & galactorrhoea<br>• Female & male infertility linked to elevated prolactin<br>• Lactation suppression after delivery / abortion (where permitted)<br>• Adjunct therapy in Parkinson’s disease (higher doses)",
     },
 
     "ANI1": {
@@ -253,6 +262,7 @@ export const productDesc = {
             "animation-delay-spray",
             "animation-10"],
         fullDesc: "",
+        uses: "Delays ejaculation, extends stamina up to 30 minutes, prevents over-sensitivity, boosts sexual confidence<br><br>Travel-safe pocket size, no prescription needed, compatible with condoms, and zero partner numbness.",
     },
 
     "STR40": {
@@ -283,5 +293,22 @@ export const productDesc = {
             "Stramox 60mg price in Pakistan",],
         fullDesc: "/category/atomoxetine",
         uses: "For many teens and adults in Pakistan, Stramox 60 mg has become a reliable way to manage ADHD when symptoms continue into later years. Instead of causing energy spikes or crashes, this non-stimulant medication helps provide steady focus throughout busy days at school, university, or work. People often notice it’s easier to stick with long tasks, have fewer emotional ups and downs, and feel more mentally calm during meetings or classes. Stramox 60 mg is simple to take—just one capsule with water in the morning—and doesn’t require any changes to your diet. Many doctors recommend increasing to this dose when smaller amounts aren’t quite enough, because it’s known to be both safe and effective based on real experiences from patients and families.",
+    },
+    "033": {
+        shortDesc: "Modiwake 200mg in Pakistan contains pure Modafinil tablet 200 mg, a trusted for boosting alertness and staying focused. Buy from us online in Pakistan, read the uses of Modafinil pills below.",
+        longDesc: [
+            "<h2 class=\"text-1xl text-center font-bold\">Modiwake 200mg – The Smart Choice for Staying Active.<h2><br><p class=\"ml-4\">Modiwake 200 mg – the little white friend every tired Pakistani keeps in their wallet these days. Whether you\’re a Karachi student racing through past papers at 3 a.m. or an Islamabad call-centre agent juggling angry customers at dawn, one modafinil tablet chased with khatti chai is often all it takes to keep the eyelids from staging a protest. Folks Google \“modafinil Pakistan\” every night, hunting for something that won\’t leave them jittery like Nescafe number five; what they find is Modiwake—sealed, fresh, and cheaper than a large pizza. Pop it, wait forty-five minutes, and the brain fog lifts like winter smog over Lahore. No heart drums, no sweaty palms, just clean, steady focus that lets you finish the shift, the lecture, or the motorway drive without feeling like a zombie. In a country where load-shedding hits the body harder than the electricity grid, these modafinil pills are the unofficial UPS for your head—quiet, reliable, and ready whenever you need to stay switched on.</p><br><br><h3 class=\"text-xl font-bold\">What is Modiwake 200 mg?</h3><p class=\"ml-4\">Modiwake 200mg is a pharmaceutical tablet containing 200mg of Modafinil, a well-known wakefulness-promoting agent. Back in the late 90s, modafinil was just the little white pill doctors gave to the guy who\’d suddenly conk out on the bu narcolepsy, they called it. Fast-forward to now, and that same pill has slipped into every other backpack, purse, and office drawer in Pakistan. Students in a hostel use it during exam weeks, people who stream PUBG until dawn call it sasta brain-wifi. One Modafinil tablet, a glass of water, and the fog lifts, no heart racing, no ghost jitter, just the quiet feeling that your head\’s finally switched on. In Pakistan, Modiwake 200mg is readily available on our website to buy it online with COD, making it a practical and budget-friendly option for anyone seeking an extra edge in their day.</p><br><br><h3 class=\"text-xl font-bold\">How Modiwake 200mg Works</h3><p class=\"ml-4\">Imagine your brain is a sleepy and act like old generator that keeps coughing and cutting out right when you need it. Modiwake 200 mg strolls in like that one cousin who actually knows wires—no shouting, no fancy tools, just a calm twist here, a gentle nudge there. In plain terms, it blocks the little vacuum cleaners that suck up your \“stay-awake\” chemical, called dopamine, so the substance hangs around longer, keeping the bulbs bright. You don\’t feel high, wired, or like you could lift a bus; you just notice the fridge hum of fatigue fades, and suddenly you\’re finishing the slide deck you started three days ago. Heartbeat stays normal, hands don\’t shake, and when the city finally sleeps, you still can—no ghost jitters tapping your shoulder at 2 a.m.</p><br><br><h3 class=\"text-xl font-bold\">Who Can Benefit from Modiwake 200 mg ?</h3><p class=\"ml-4\">Maybe you\’re a student with final exams coming up or a professional buried under deadlines, or a shift worker trying to get through another shift. Modiwake 200mg can make a difference in your routines. Modafinil pills give you the boost to stay awake, focus on matters, and keep mental fatigue at bay when sleep isn\’t an option. Travellers can use it to overcome jet lag, and entrepreneurs rely on it to be at their best during important meetings, also.</p>",
+        ],
+        metaTitle: "Buy Modiwake 200mg Modafinil Tablets Online in Pakistan at Best Price",
+        metaDescription: "Order Modiwake 200mg (Modafinil Tablets) online in Pakistan. Genuine product, fast delivery, and affordable modafinil pills. Discover benefits, uses, FAQs",
+        tags: ["modiwake 200mg",
+            "modafinil tablet",
+            "modafinil pakistan",
+            "modafinil pills",],
+        fullDesc: ``,
+        uses: [
+            `<h2 class=\"text-xl text-center font-bold\">The Modiwake 200mg uses</h2><br><p class=\"ml-4\">Modiwake 200mg helps those people who facing problems with sleep order like narcolepsy, obstructive sleep the temporary cessation of breathing, and shift work sleep disorder stay awake during the day. A lot of students and workers in Pakistan take this pill to stay up later to study or work, especially when they have exams or project deadlines. Some people also take 200 mg of Modiwake to help them deal with being tired from travelling long distances or working night shifts. Keep in mind that Modiwake 200mg is not a replacement for sleep; it just helps you stay awake and alert when you need it most. Always use this product responsibly and talk to a doctor before you start using it, especially if you have any health problems or are taking other medicines. Too much use can cause side effects, so it's important to use it in moderation.</p><br>`,
+            `<h3 class=\"text-xl font-bold\">How to use Modiwake 200mg</h3><br><p class=\"ml-4\">Take Modiwake 200mg exactly as your doctor tells you or do proper research before placing order. You should take it in the morning most of the time. Don't take more than the recommended dose, and don't take it late in the day because it might make it hard to sleep at night. While using this product, drink a lot of water and don't mix it with other stimulants.</p>`
+        ],
     },
 };

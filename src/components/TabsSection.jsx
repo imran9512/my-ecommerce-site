@@ -64,7 +64,7 @@ export default function TabsSection({ product, faqItems }) {
               className="prose max-w-none mb-4"
               dangerouslySetInnerHTML={{
                 __html: Array.isArray(product.longDesc)
-                  ? product.longDesc.join('')   // ← no separator
+                  ? product.longDesc.join('')
                   : product.longDesc || 'No details available.'
               }}
             />
@@ -80,39 +80,59 @@ export default function TabsSection({ product, faqItems }) {
             )}
 
             {/* Meta Info Dropdown */}
-            <div className=" pt-4">
-              <button
-                onClick={() => setShowMeta(!showMeta)}
-                className="flex items-center justify-between w-full text-left px-4 py-2  rounded-md"
-              >
-                <span className="font-semibold text-gray-300">
-                  Meta Information</span>
-                {showMeta ? (
-                  <ChevronUpIcon className="w-5 h-5 text-gray-500" />
-                ) : (
-                  <ChevronDownIcon className="w-5 h-5 text-gray-500" />
-                )}
-              </button>
+            {/* Meta Info Dropdown */}
+            {(() => {
+              const hasTitle = product.metaTitle?.trim();
+              const hasDesc = product.metaDescription?.trim();
+              const hasTags = product.tags?.length > 0;
+              const hasAnyMeta = hasTitle || hasDesc || hasTags;
+              if (!hasAnyMeta) return null;
 
-              {showMeta && (
-                <div className="mt-2 text-sm text-gray-400 space-y-2 p-4  rounded-md">
-                  <p>
-                    <strong>Title:</strong> {product.metaTitle}
-                  </p>
-                  <p>
-                    <strong>Description:</strong> {product.metaDescription}
-                  </p>
-                  {product.tags && (
-                    <p>
-                      <strong>Tags:</strong>{' '}
-                      {Array.isArray(product.tags)
-                        ? product.tags.join(', ')
-                        : product.tags}
-                    </p>
+              return (
+                <div className="pt-4">
+                  <button
+                    onClick={() => setShowMeta(!showMeta)}
+                    className="flex items-center justify-between w-full text-left px-4 py-2 rounded-md"
+                  >
+                    <span className="font-semibold text-gray-300">Meta Information</span>
+                    {showMeta ? (
+                      <ChevronUpIcon className="w-5 h-5 text-gray-500" />
+                    ) : (
+                      <ChevronDownIcon className="w-5 h-5 text-gray-500" />
+                    )}
+                  </button>
+
+                  {showMeta && (
+                    <div className="mt-2 text-sm text-gray-400 space-y-2 p-4 rounded-md">
+                      {hasTitle && (
+                        <p>
+                          <strong>Title:</strong>{' '}
+                          {typeof product.metaTitle === 'string'
+                            ? product.metaTitle
+                            : JSON.stringify(product.metaTitle)}
+                        </p>
+                      )}
+                      {hasDesc && (
+                        <p>
+                          <strong>Description:</strong>{' '}
+                          {typeof product.metaDescription === 'string'
+                            ? product.metaDescription
+                            : JSON.stringify(product.metaDescription)}
+                        </p>
+                      )}
+                      {hasTags && (
+                        <p>
+                          <strong>Tags:</strong>{' '}
+                          {Array.isArray(product.tags)
+                            ? product.tags.join(', ')
+                            : product.tags}
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
-              )}
-            </div>
+              );
+            })()}
           </div>
         )}
 
@@ -211,7 +231,7 @@ export default function TabsSection({ product, faqItems }) {
           <div className="prose max-w-none">
             <div
               dangerouslySetInnerHTML={{
-                __html: product.uses || 'No usage information available',
+                __html: Array.isArray(product.uses) ? product.uses.join('') : product.uses || 'No usage information available'
               }}
             />
           </div>
