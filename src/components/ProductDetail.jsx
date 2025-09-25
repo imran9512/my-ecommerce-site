@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { BeakerIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/24/solid';
 import QuantityPrice from './QuantityPrice';
+import ImageGallery from './ImageGallery';
 import { WHATSAPP_NUMBER } from '@/data/constants';
 import { useCartStore } from '@/stores/cart';
 import Link from 'next/link';
@@ -21,7 +22,7 @@ export default function ProductDetail({ product }) {
 
     /* --- stock & image basis --- */
     const stockCount = isStrip
-        ? (product.stripQty ?? product.stock)   // fallback to main stock if stripQty missing
+        ? (product.stripQty ?? product.stock)
         : product.stock;
     const stockText =
         stockCount === 0 ? 'Out of Stock'
@@ -64,55 +65,7 @@ export default function ProductDetail({ product }) {
             <div className="grid mt-8 md:grid-cols-2 gap-4 md:gap-8 p-0 md:p-2 max-w-none md:max-w-6xl mx-auto">
                 {/* ----------- IMAGE GALLERY ----------- */}
                 <div className="relative w-full">
-                    <div
-                        id="gallery-scroll"
-                        className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth
-             scrollbar-thin scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-500
-             scrollbar-track-transparent"
-                    >
-                        {images.map((img, idx) => (
-                            <div key={idx} id={`slide-${idx}`} className="w-full shrink-0 snap-center">
-                                <Image
-                                    src={`${isStrip ? product.stripImage : img}?v=2`}
-                                    alt={
-                                        product.images[idx]?.split('/')?.pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') ||
-                                        product.name
-                                    }
-                                    width={600}
-                                    height={400}
-                                    className="w-full h-auto object-cover cursor-pointer"
-                                    priority={idx === 0}
-                                />
-                            </div>
-                        ))}
-                    </div>
-
-                    {/* thumbnails */}
-                    <div className="flex justify-center gap-2 mt-3 overflow-x-auto">
-                        {images.map((img, idx) => (
-                            <button
-                                key={idx}
-                                onClick={() => {
-                                    setCurrentImg(idx);
-                                    document.getElementById(`slide-${idx}`).scrollIntoView({
-                                        behavior: 'smooth',
-                                        block: 'nearest',
-                                        inline: 'start',
-                                    });
-                                }}
-                                className={`w-16 h-16 shrink-0 border-2 rounded-2xl overflow-hidden transition
-                ${idx === currentImg ? 'border-blue-200' : 'border-transparent'}`}
-                            >
-                                <Image
-                                    src={`${img}?v=2`}
-                                    alt={`thumb-${idx}`}
-                                    width={72}
-                                    height={72}
-                                    className="object-cover"
-                                />
-                            </button>
-                        ))}
-                    </div>
+                    <ImageGallery product={product} isStrip={isStrip} />
                 </div>
 
                 {/* ---------- Details ---------- */}
@@ -240,7 +193,7 @@ export default function ProductDetail({ product }) {
 
                     <div className="mt-2 flex items-center space-x-3">
                         <button
-                            disabled={stockCount === 0 || adding}
+                            disabled={stockCount === 0 || adding || !product.price}
                             onClick={handleAddToCart}
                             className={`relative px-6 py-2 rounded text-white transition-all duration-300 ease-in-out
                 ${adding ? 'bg-green-500 scale-105' : 'bg-blue-600 hover:bg-blue-700'}

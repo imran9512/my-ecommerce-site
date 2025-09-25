@@ -1,4 +1,4 @@
-// src/components/ProductCard.jsx
+// src/components/ProductCard.jsx  (sirf price wala hissa change hua hai)
 import Image from 'next/image';
 import Link from 'next/link';
 import { BeakerIcon } from '@heroicons/react/24/outline';
@@ -8,17 +8,61 @@ export default function ProductCard({ product }) {
   if (!product.active) return null;
 
   const outOfStock = product.stock === 0;
-  const prices = Object.keys(product.qtyDiscount || {})
-    .map(q => getDiscountedPrice(product.price, product.qtyDiscount, +q));
-  const lowestPrice = prices.length ? Math.min(...prices, product.price) : product.price;
+
+  /* ---------- 1.  discount table exist ? ---------- */
+  const hasDiscount = Array.isArray(product.qtyDiscount)
+    ? product.qtyDiscount.length > 0
+    : Object.keys(product.qtyDiscount || {}).length > 0;
+
+  /* ---------- 2.  lowest discounted price ---------- */
+  let lowestPrice = product.price;
+  if (hasDiscount && product.price) {
+    const tiers = Array.isArray(product.qtyDiscount)
+      ? product.qtyDiscount.flatMap((seg) => {
+        const step = (seg.end - seg.start) / (seg.to - seg.from);
+        const arr = [];
+        for (let q = seg.from; q <= seg.to; q++) {
+          arr.push(seg.start + (q - seg.from) * step);
+        }
+        return arr;
+      })
+      : Object.values(product.qtyDiscount);
+
+    const discountedPrices = tiers.map((p) =>
+      Math.round(product.price - product.price * (p / 100))
+    );
+    lowestPrice = Math.min(...discountedPrices, product.price);
+  }
+
+  /* ---------- 3.  price row renderer ---------- */
+  const PriceRow = () => {
+    if (!product.price)
+      return (
+        <p className="motion-safe:animate-bounce text-sm text-center mx-auto mt-2 w-max px-3 py-1 rounded-full bg-yellow-300 font-semibold text-gray-800">
+          Contact Us to buy
+        </p>
+      );
+
+    return (
+      <>
+        <p className="text-xs">Rs: {product.price.toLocaleString()}</p>
+        {hasDiscount && (
+          <p className="text-xs">
+            As low as{' '}
+            <span className="shadow text-blue-800 font-semibold">
+              Rs {lowestPrice.toLocaleString()}
+            </span>
+          </p>
+        )}
+      </>
+    );
+  };
 
   return (
     <Link
       href={`/products/${product.slug}`}
       className="relative block border border-gray-200 rounded-lg p-3 bg-white hover:shadow-lg transition-shadow"
     >
-
-
       {outOfStock && (
         <div className="absolute inset-0 flex items-center justify-center bg-black/10 pointer-events-none z-10">
           <span className="bg-red-600 text-white text-xs px-2 py-1 rounded text-center">
@@ -35,6 +79,7 @@ export default function ProductCard({ product }) {
         priority
         className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
       />
+
       {/* brand + strip badge row */}
       <div className="flex items-center justify-between mt-2">
         {product.brand && (
@@ -44,28 +89,24 @@ export default function ProductCard({ product }) {
         )}
         {product.stripStock && (
           <span className="bg-yellow-300 text-xs rounded">
-            <span className='animate-pulse'>✔ </span>Strip
+            <span className="animate-pulse">✔ </span>Strip
           </span>
         )}
       </div>
+
       <h3 className="text-sm font-semibold truncate">{product.name}</h3>
-      <span>
-        {product.ActiveSalt && (
-          <h4 className="text-xs mr-2 rounded flex items-center gap-1">
-            <BeakerIcon className="w-4 h-4" />
-            <span className="underline shadow decoration-blue-300">
-              {product.ActiveSalt}
-            </span>
-          </h4>
-        )}
-      </span>
-      <p className="text-xs">Rs: {product.price}</p>
-      <p className="text-xs">
-        As low as{' '}
-        <span className="shadow text-blue-800 font-semibold">
-          Rs {lowestPrice.toLocaleString()}
-        </span>
-      </p>
+
+      {product.ActiveSalt && (
+        <h4 className="text-xs mr-2 rounded flex items-center gap-1">
+          <BeakerIcon className="w-4 h-4" />
+          <span className="underline shadow decoration-blue-300">
+            {product.ActiveSalt}
+          </span>
+        </h4>
+      )}
+
+      {/* price / contact row – neechy wali jagah pe */}
+      <PriceRow />
     </Link>
   );
 }

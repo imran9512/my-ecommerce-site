@@ -53,7 +53,7 @@ export default function CategoryPage({ products: categoryProducts, slug }) {
                 )}
 
                 {categoryProducts.length ? (
-                    <div className="grid mb-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div className="grid mb-4 mt-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {categoryProducts.map((p) => (
                             <ProductCard key={p.id} product={p} />
                         ))}
@@ -61,10 +61,11 @@ export default function CategoryPage({ products: categoryProducts, slug }) {
                 ) : (
                     <p className="text-gray-500">No products found in this category...</p>
                 )}
-
-                {content.outro && (
-                    <div dangerouslySetInnerHTML={{ __html: toHtml(content.outro) }} />
-                )}
+                <div className="">
+                    {content.outro && (
+                        <div dangerouslySetInnerHTML={{ __html: toHtml(content.outro) }} />
+                    )}
+                </div>
             </div>
         </>
     );

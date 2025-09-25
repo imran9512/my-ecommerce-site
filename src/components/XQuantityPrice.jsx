@@ -3,24 +3,13 @@ import { useState, useEffect, useRef } from 'react';
 import { getDiscountedPrice } from '@/utils/priceHelpers';
 
 export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
-    /* -------------------- 1.  price missing ? -------------------- */
-    const base = unitPrice ?? product?.price;
-    if (!base) {
-        return (
-            <div className="motion-safe:animate-bounce text-sm text-center mx-auto mt-4 w-max px-3 py-1 rounded-full bg-yellow-300 font-semibold text-gray-800">
-                Contact  us to buy this product
-            </div>
-        );
-    }
+    const base = unitPrice ?? product.price;
 
-    /* -------------------- 2.  discount table exist ? -------------------- */
+    /* ---------- discount table (only for non-strip) ---------- */
     let raw = product.qtyDiscount || {};
-    const hasDiscount = Array.isArray(raw) ? raw.length > 0 : Object.keys(raw).length > 0;
-
-    if (hasDiscount && Array.isArray(raw)) {
-        // segment → flat (same old logic)
+    if (Array.isArray(raw)) {                // segment → flat map
         const flat = {};
-        raw.forEach((seg) => {
+        raw.forEach(seg => {
             const step = (seg.end - seg.start) / (seg.to - seg.from);
             for (let q = seg.from; q <= seg.to; q++) flat[q] = seg.start + (q - seg.from) * step;
         });
@@ -28,18 +17,18 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
     }
 
     const isStrip = unitPrice !== product.price;
-    if (isStrip) raw = {};                      // strip → no discount anyway
+    if (isStrip) raw = {};                   // strip → no discounts
 
     const priceForQty = (q) => getDiscountedPrice(base, raw, q);
-    const lowestPrice = hasDiscount && !isStrip
-        ? Math.min(...Object.values(raw).map((p) => Math.round(base - base * p / 100)), Math.round(base))
-        : Math.round(base);
+    const lowestPrice = isStrip
+        ? Math.round(base)
+        : Math.min(...Object.values(raw).map(p => Math.round(base - base * p / 100)), Math.round(base));
 
     const currentUnit = priceForQty(qty);
     const totalPrice = currentUnit * qty;
     const saved = (Math.round(base) - currentUnit) * qty;
 
-    /* -------------------- dropdown helpers (same as before) -------------------- */
+    /* ---------- dropdown state ---------- */
     const entries = Object.entries(raw).sort(([a], [b]) => +a - +b);
     const [open, setOpen] = useState(false);
     const wrapperRef = useRef(null);
@@ -52,18 +41,20 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
         return () => document.removeEventListener('mousedown', outside);
     }, []);
 
+    /* ---------- visible rows for dropdown ---------- */
     const visibleRows = (() => {
         if (entries.length === 0) return [];
         const allQty = entries.map(([q]) => +q);
         const maxQty = allQty[allQty.length - 1];
         if (maxQty <= 10) return entries;
+
         const set = new Set([2, 3, 4, 5, 6, 7, 8, 9, 10]);
         for (let q = 15; q <= maxQty; q += 5) set.add(q);
         set.add(maxQty);
         return entries.filter(([q]) => set.has(+q));
     })();
 
-    /* -------------------- render -------------------- */
+    /* ---------- render ---------- */
     return (
         <div className="mt-1 space-y-3">
             {/* price badge */}
@@ -71,28 +62,26 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
                 <span className="text-xl font-bold">
                     {isStrip
                         ? `Rs ${Math.round(base).toLocaleString()}`
-                        : qty === 1 && hasDiscount
+                        : qty === 1
                             ? `Rs ${Math.round(base).toLocaleString()} – ${lowestPrice.toLocaleString()}`
                             : `Rs ${currentUnit.toLocaleString()}`}
                 </span>
 
-                {/* discount visuals only if discount exists AND actually saving */}
-                {hasDiscount && !isStrip && Math.round(base) !== currentUnit && (
+                {!isStrip && Math.round(base) !== currentUnit && (
                     <>
                         <span className="line-through text-gray-500">Rs {Math.round(base).toLocaleString()}</span>
-                        <span className="text-green-600 text-sm">Saved Rs {saved.toLocaleString()}</span>
+                        <span className="text-green-600 text-sm">Saved Rs {saved}</span>
                     </>
                 )}
             </div>
 
-            {/* “As low as” only when discount present */}
-            {hasDiscount && !isStrip && qty !== 1 && (
+            {!isStrip && qty !== 1 && (
                 <p className="text-sm inline-block shadow-lg font-semibold text-red-800">
                     As low as Rs {lowestPrice.toLocaleString()}
                 </p>
             )}
 
-            {/* quantity controls */}
+            {/* qty selector */}
             <div className="mt-2 flex items-left space-x-3">
                 <button
                     onClick={() => setQty(Math.max(1, qty - 1))}
@@ -123,35 +112,23 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
                 <span className="ml-4 mt-2 text-lg font-bold text-gray-800">Total: {totalPrice.toLocaleString()}</span>
             </div>
 
-            {/* discount dropdown ONLY if discounts exist */}
-            {hasDiscount && !isStrip && visibleRows.length > 0 && (
+            {/* discount dropdown */}
+            {!isStrip && visibleRows.length > 0 && (
                 <div className="relative w-auto max-w-md" ref={wrapperRef}>
                     <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between px-4 py-1 text-sm font-semibold bg-red-200 rounded-md">
                         Get Discount on Quantity
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
                     </button>
 
                     {open && (
                         <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg">
                             <div className="grid grid-cols-4 gap-2 px-3 py-1 sticky top-0 bg-gray-100 text-xs font-mono tabular-nums font-semibold">
-                                <span>Qty</span>
-                                <span>Per Unit</span>
-                                <span>Total</span>
-                                <span>Saving</span>
+                                <span>Qty</span><span>Per Unit</span><span>Total</span><span>Saving</span>
                             </div>
                             {visibleRows.map(([q, percent]) => {
                                 const discPrice = Math.round(base - base * percent / 100);
                                 return (
-                                    <div
-                                        key={q}
-                                        className="grid grid-cols-4 gap-2 px-3 py-2 text-xs cursor-pointer hover:bg-blue-50"
-                                        onClick={() => {
-                                            setQty(+q);
-                                            setOpen(false);
-                                        }}
-                                    >
+                                    <div key={q} className="grid grid-cols-4 gap-2 px-3 py-2 text-xs cursor-pointer hover:bg-blue-50" onClick={() => { setQty(+q); setOpen(false); }}>
                                         <span>{q}</span>
                                         <span>Rs {discPrice.toLocaleString()}</span>
                                         <span>Rs {(discPrice * +q).toLocaleString()}</span>
