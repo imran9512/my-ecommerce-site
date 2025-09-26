@@ -42,5 +42,3 @@ next-env.d.ts
 
 # image converter function
 /public/pix
-/src/pages/api/images2.js
-/src/pages/gallery.js

@@ -34,6 +34,7 @@ export default function CartPage() {
       <Head>
         <title>Cart | Aap Ki Sehat</title>
         <link rel="canonical" href={canonical('/cart')} />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <div className="max-w-3xl mx-auto py-6 px-4">
         <h1 className="text-3xl font-bold mb-6 text-center">Shopping Cart</h1>

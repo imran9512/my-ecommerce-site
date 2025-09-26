@@ -154,6 +154,7 @@ export default function CheckoutPage() {
       <Head>
         <title>Checkout | Aap Ki Sehat</title>
         <link rel="canonical" href={canonical('/checkout')} />
+        <meta name="robots" content="noindex,nofollow" />
       </Head>
       <div className="mt-8 max-w-6xl mx-auto py-6 px-4">
         <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>

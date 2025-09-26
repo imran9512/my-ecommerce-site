@@ -1,12 +1,19 @@
 # robots.txt for aapkisehat.com
 User-agent: *
-Allow: /
 
-# Allow images route, block other API
+# 1. images API explicitly allowed
 Allow: /api/images/
+
+# 2. rest API blocked
 Disallow: /api/
 
-# Block admin
+# 3. private / low-value sections
 Disallow: /admin/
+Disallow: /gallery/
+Disallow: /api/images2/
 
+# 4. everything else open
+Allow: /
+
+# Sitemap
 Sitemap: https://www.aapkisehat.com/sitemap.xml
