@@ -8,29 +8,22 @@ import { searchProducts } from '@/utils/searchProducts';
 
 export default function SearchPage() {
   const router = useRouter();
+  const urlQuery = (router.query.q || '').toString();
 
-  // --- lowercase for canonical & filtering ---
-  const cleanQ = (router.query.q || '').toString().trim().toLowerCase();
-  const pageCanonical = canonical('/search', { q: cleanQ });
+  const [query, setQuery] = useState(urlQuery);
 
-  // --- state: keep original case for input box ---
-  const [query, setQuery] = useState((router.query.q || '').toString());
-
-  // --- filter results via lowercase ---
-  const results = searchProducts(cleanQ);
+  const results = searchProducts(query);
 
   useEffect(() => {
-    setQuery((router.query.q || '').toString());
-  }, [router.query.q]);
+    setQuery(urlQuery);
+  }, [urlQuery]);
 
-  /* ------------------  RETURN  ------------------ */
   return (
     <>
       <Head>
-        <title>{cleanQ ? `${cleanQ} - Search` : 'Search'} | Aap Ki Sehat</title>
-        <link rel="canonical" href={pageCanonical} />
+        <title>Search | Aap Ki Sehat</title>
+        <link rel="canonical" href={canonical('/search')} />
       </Head>
-
       <div className="max-w-3xl mt-10 mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4 text-center">Search Products</h1>
 
@@ -40,11 +33,7 @@ export default function SearchPage() {
           onChange={(e) => {
             const val = e.target.value;
             setQuery(val);
-            router.replace(
-              `/search?q=${encodeURIComponent(val)}`,
-              undefined,
-              { shallow: true }
-            );
+            router.replace(`/search?q=${encodeURIComponent(val)}`, undefined, { shallow: true });
           }}
           placeholder="Type Name, Salt, Brand or Category…"
           className="w-full border border-gray-300 rounded-md px-3 py-2 mb-4"
@@ -57,7 +46,8 @@ export default function SearchPage() {
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
-        ) : cleanQ ? (
+          //) : hasTyped ? (
+        ) : query ? (
           <p className="text-center text-gray-500">No products found.</p>
         ) : (
           <p className="text-center text-gray-500">Type something to search…</p>

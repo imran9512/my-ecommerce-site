@@ -17,7 +17,7 @@ export default function ProductDetail({ product }) {
 
     const images = Array.isArray(product?.images) && product.images.length
         ? product.images
-        : ['/placeholder.jpg'];
+        : ['/placeholder.png'];
     if (!images.length) return <p className="p-4 text-center">Product images missing</p>;
 
     /* --- stock & image basis --- */
