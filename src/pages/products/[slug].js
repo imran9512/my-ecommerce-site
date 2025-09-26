@@ -17,8 +17,11 @@ export default function ProductPage({ product, related }) {
     '@type': 'Product',
     name: product.name,
     sku: product.sku,
-    image: product.images.map((img) => `${SITE_URL}${img}`),
-    description: product.metaDescription,   // ← now comes from productDesc
+    image: [
+      `${SITE_URL}/og/${product.ogImg}`,
+      ...product.images.map((img) => `${SITE_URL}${img}`) // flatten
+    ],
+    description: product.metaDescription,
     brand: { '@type': 'Brand', name: product.brand },
     offers: {
       '@type': 'Offer',
@@ -31,30 +34,49 @@ export default function ProductPage({ product, related }) {
             ? 'https://schema.org/LimitedAvailability'
             : 'https://schema.org/InStock',
       priceValidUntil: '2035-12-31',
+
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 3,
+            unitCode: 'DAY'
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 3,
+            unitCode: 'DAY'
+          }
+        },
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: 150,
+          currency: 'PKR',
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'PK',
+        }
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        returnPolicyCategory:
+          'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 7,
+        returnMethod: 'https://schema.org/ReturnByMail',
+        returnFees: 'https://schema.org/FreeReturn',
+        applicableCountry: "PK",
+      }
     },
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: product.rating,
       reviewCount: product.reviewCount ?? 0,
-    },
-    shippingDetails: {
-      '@type': 'OfferShippingDetails',
-      shippingRate: {
-        '@type': 'MonetaryAmount',
-        value: 150,
-        currency: 'PKR',
-      },
-      shippingDestination: {
-        '@type': 'DefinedRegion',
-        addressCountry: 'PK',
-      },
-    },
-    hasMerchantReturnPolicy: {
-      '@type': 'MerchantReturnPolicy',
-      returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-      merchantReturnDays: 7,
-      returnMethod: 'https://schema.org/ReturnByMail',
-    },
+    }
   };
 
   /* ---------- FAQ Schema ---------- */
@@ -84,7 +106,11 @@ export default function ProductPage({ product, related }) {
         <link rel="canonical" href={canonical} />
         <meta property="og:title" content={product.metaTitle} />
         <meta property="og:description" content={product.metaDescription} />
-        <meta property="og:image" content={product.images[0]} />
+        <meta property="og:image" content={`${SITE_URL}/og/${product.ogImg}`} />
+        <meta property="og:url" content={`${SITE_URL}/products/${product.slug}`} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`${SITE_URL}/og/${product.ogImg}`} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

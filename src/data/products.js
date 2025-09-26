@@ -21,6 +21,7 @@ const products = [
       "/api/images/coity60/1.webp",
       "/api/images/coity60/2.webp"
     ],
+    ogImg: "coity-long-60mg.jpg",
     price: 2650,
     qtyDiscount: [
       { from: 2, to: 5, start: 9, end: 22 },
@@ -34,7 +35,6 @@ const products = [
       "004",
       "DS1",
       "022"],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -62,6 +62,7 @@ const products = [
       "/api/images/tia/irani-cialis-tadalafil-20-mg-pakistan.webp",
       "/api/images/tia/cialis-20-mg-alternativ-in-pakistan.webp"
     ],
+    ogImg: "tiafil-20.jpg",
     price: 4300,
     qtyDiscount: [
       { from: 2, to: 10, start: 7, end: 22 },
@@ -74,7 +75,6 @@ const products = [
       "DOST05",
       "022",
       "004"],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -101,6 +101,7 @@ const products = [
       "/api/images/tia/tiafil-10-mg-price-in-pakistan.webp",
       "/api/images/tia/irani-cialis-tadalafil-10-mg-pakistan.webp"
     ],
+    ogImg: "tiafil-10.jpg",
     price: 3550,
     qtyDiscount: [
       { from: 2, to: 10, start: 7, end: 22 },
@@ -112,7 +113,6 @@ const products = [
     related: ["001",
       "002",
       "004"],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -139,6 +139,7 @@ const products = [
       "/api/images/modi/modi100/3.webp",
       "/api/images/modi/modi100/4.webp"
     ],
+    ogImg: "modiwake-100-mg.jpg",
     price: 11000,
     qtyDiscount: [
       { from: 2, to: 6, start: 4, end: 10 },
@@ -158,7 +159,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "Modafinil (modiwake) is used to keep narcolepsy patients awake during the day. It helps to improve wakefulness, reduce excessive daytime sleepiness, and restore a normal sleep-wake cycle. Modafinil 100 mg gently nudges the brain’s own sleep-wake “switch,” helping you stay naturally alert when you need to be awake, making it an effective treatment for narcolepsy patients and other sleep disorders patients.",
     stripPrice: "3950",
     stripImage: "/api/images/modi/modi100/4.webp",
     stripStock: true,
@@ -183,6 +183,7 @@ const products = [
       "/img/modi200/modiwake-200mg-online-in-pakistan.webp",
       "/img/modi200/modafinil-200mg-price-in-pakistan.webp"
     ],
+    ogImg: "modafinil-200mg.jpg",
     price: 17950,
     qtyDiscount: [
       { from: 2, to: 6, start: 4, end: 10 },
@@ -202,7 +203,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "Modafinil (modiwake) is used to keep narcolepsy patients awake during the day. It helps to improve wakefulness, reduce excessive daytime sleepiness, and restore a normal sleep-wake cycle. Modafinil 100 mg gently nudges the brain’s own sleep-wake “switch,” helping you stay naturally alert when you need to be awake, making it an effective treatment for narcolepsy patients and other sleep disorders patients.",
     stripPrice: "5980",
     stripImage: "/img/modi200/modafinil-200mg-price-in-pakistan.webp",
     stripStock: true,
@@ -229,6 +229,7 @@ const products = [
       "/api/images/SDF100/1.webp",
       "/api/images/SDF100/2.webp"
     ],
+    ogImg: "SDF-100mg.jpg",
     price: 4300,
     qtyDiscount: [
       { from: 2, to: 10, start: 7, end: 25 },
@@ -241,7 +242,6 @@ const products = [
       "DOST05",
       "002",
       "DS1"],
-    uses: "",
     stripPrice: "2150",
     stripImage: "/api/images/SDF100/2.webp",
     stripStock: true,
@@ -268,6 +268,7 @@ const products = [
       "/api/images/vyas/elvanse-30mg-price-in-pakistan.webp",
       "/api/images/vyas/vyvanse-30mg-in-pakistan.webp",
     ],
+    ogImg: "vyas-30.jpg",
     price: 14990,
     qtyDiscount: [
       { from: 2, to: 10, start: 4, end: 10.4 },
@@ -287,7 +288,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "Lisdexamfetamine is commonly used to treat the following conditions.<br /><br />• Attention deficit hyperactivity disorder (ADHD) is a condition that impairs concentration and self-control.<br /><br />• Binge eating is a disorder in which people eat more frequently than usual, even when they feel full.<br /><br />Lisdexamfetamine is different from other ADHD medications because it's a prodrug. Your body must process it before it becomes active, so it typically has milder, longer-lasting effects. Unlike immediate-release stimulants, it doesn't usually cause sudden changes in symptoms. Taking it once a day may be more convenient for people who don't want to take multiple doses throughout the day. Lisdexamfetamine may also be used to treat other conditions after consulting a doctor",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -314,6 +314,7 @@ const products = [
       "/api/images/vyas/elvanse-50mg-price-in-pakistan.webp",
       "/api/images/vyas/vyvanse-50mg-in-pakistan.webp",
     ],
+    ogImg: "vyas-50.jpg",
     price: 18990,
     qtyDiscount: [
       { from: 2, to: 10, start: 4, end: 10.4 },
@@ -333,7 +334,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "Lisdexamfetamine is commonly used to treat the following conditions.<br /><br />• Attention deficit hyperactivity disorder (ADHD) is a condition that affects people's focus and self-control.<br />• The binge eating disorder is a condition where people cannot stop eating, even when they feel very full.<br /><br />Lisdexamfetamine is different from other ADHD medications because it is a prodrug. Your body needs to process it before it becomes active, which often leads to a smoother and longer-lasting effect. Unlike immediate-release stimulants, it usually does not cause sudden changes in symptoms. Taking it once a day can also be more convenient for people who do not want to take several doses throughout the day.<br /><br />Lisdexamfetamine may also be used for other conditions as determined by your healthcare provider.",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -360,6 +360,7 @@ const products = [
       "/api/images/vyas/elvanse-70mg-price-in-pakistan.webp",
       "/api/images/vyas/vyvanse-70mg-in-pakistan.webp",
     ],
+    ogImg: "vyas-50.jpg",
     price: 21990,
     qtyDiscount: [
       { from: 2, to: 10, start: 4, end: 10.4 },
@@ -379,7 +380,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "Lisdexamfetamine is a common medication used for the treatment of the following diseases:<br /><br />• Attention deficit hyperactivity disorder, a disease in which an individual has problems with control over his or her behavior and attention.<br /><br />• Binge eating disorder, a condition where an individual eats more than normal at regular intervals even if he or she is already full.<br /><br />Lisdexamfetamine differs from most other medications used for treating ADHD as it is a prodrug; your body needs to convert it into its active form, hence presenting generally less intense but longlasting effects. It does not act like other immediate-release stimulants by causing abrupt changes in symptoms. Once-daily dosing may be preferable for those patients who do not wish to take several doses during the day.This medicine may also be prescribed for other medical conditions discussed with your doctor",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -404,6 +404,7 @@ const products = [
       "/img/ritalin/ritalin-10-price-in-pakistan.webp",
       "/img/ritalin/buy-ritalin-10-in-lahore.webp",
     ],
+    ogImg: "ritalin-10.jpg",
     price: 6500,
     qtyDiscount: [
       { from: 2, to: 10, start: 4, end: 10.4 },
@@ -423,7 +424,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -447,6 +447,7 @@ const products = [
     images: [
 
     ],
+    ogImg: "rital.jpg",
     price: 1,
     qtyDiscount: [
       { from: 2, to: 10, start: 4, end: 10.4 },
@@ -466,7 +467,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -492,6 +492,7 @@ const products = [
       "/api/images/ritalin/addranil/original-Methylphenidate-10-mg-in-pakistan.webp",
       "/api/images/ritalin/addranil/ritalin-alternatives-in-pakistan.webp",
     ],
+    ogImg: "addranill-10.jpg",
     price: 4350,
     qtyDiscount: [
       { from: 2, to: 30, start: 4, end: 20 },
@@ -510,7 +511,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "Methylphenidate is a central nervous system stimulant that is primarily used for the treatment of (ADHD) Attention Deficit Hyperactivity Disorder  in both kids and adults. It helps increase attention & decrease hyperactivity & impulsiveness in ADHD patients.<br><br>Methylphenidate is also prescribed for managing narcolepsy, a sleep disorder marked by extreme daytime sleepiness and sudden episodes of falling asleep.<br><br>It's important to use this medication under the supervision of a Doctor, as it can have side effects and may be habit-forming. If you have any specific questions or need detailed information about its uses and effects, feel free to ask!",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -536,6 +536,7 @@ const products = [
       "/api/images/ritalin/practisa/adhd-symptoms-test.webp",
       "/api/images/ritalin/practisa/treatment-of-adhd-in-pakistan.webp",
     ],
+    ogImg: "practisa.jpg",
     price: 14500,
     qtyDiscount: [
       { from: 2, to: 6, start: 4, end: 10.4 },
@@ -555,7 +556,6 @@ const products = [
       "CAT100",
       "STR60",
       "STR40"],
-    uses: "",
     stripPrice: "1550",
     stripImage: "/api/images/ritalin/practisa/treatment-of-adhd-in-pakistan.webp",
     stripStock: true,
@@ -582,6 +582,7 @@ const products = [
       "/api/images/sprays/pro/delay-spray-price-in-pakistan-procomil.webp",
       "/api/images/sprays/pro/timing-spray-price-in-pakistan-maxman.webp"
     ],
+    ogImg: "procomil.jpg",
     price: 2890,
     qtyDiscount: [
       { from: 2, to: 10, start: 7, end: 21 },
@@ -594,7 +595,6 @@ const products = [
       "004",
       "ER1",
       "ANI1"],
-    uses: "Using a delay spray is very easy.<br /><br />Shake the bottle well before use. Spray a small quantity on the head and shaft of the penis.<br />Allow a few minutes for the spray to take effect.<br />Wash off any residue before engaging in intimacy.<br />It is important to read and follow all directions that come with the product for proper use.",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -624,6 +624,7 @@ const products = [
       "/api/images/sprays/ani/animation-kosmos-sweden-original.webp",
       "/api/images/sprays/ani/animation-spray-price-in-pakistan.webp"
     ],
+    ogImg: "animation.jpg",
     price: 2650,
     qtyDiscount: [
       { from: 2, to: 10, start: 7, end: 21 },
@@ -636,7 +637,6 @@ const products = [
       "004",
       "ER1",
       "DS1"],
-    uses: "Delays ejaculation, extends stamina up to 30 minutes, prevents over-sensitivity, boosts sexual confidence<br><br>Travel-safe pocket size, no prescription needed, compatible with condoms, and zero partner numbness.",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -663,6 +663,7 @@ const products = [
       "/api/images/sprays/delay-spray-price-in-pakistan-procomil.webp",
       "/api/images/sprays/timing-spray-price-in-pakistan-maxman.webp"
     ],
+    ogImg: "Using a delay spray is very easy.<br /><br />Shake the bottle well before use. Spray a small quantity on the head and shaft of the penis.<br />Allow a few minutes for the spray to take effect.<br />Wash off any residue before engaging in intimacy.<br />It is important to read and follow all directions that come with the product for proper use.",
     price: 2890,
     qtyDiscount: [
       { from: 2, to: 10, start: 7, end: 21 },
@@ -674,7 +675,6 @@ const products = [
     related: ["001",
       "004",
       "DS1"],
-    uses: "Using a delay spray is very easy.<br /><br />Shake the bottle well before use. Spray a small quantity on the head and shaft of the penis.<br />Allow a few minutes for the spray to take effect.<br />Wash off any residue before engaging in intimacy.<br />It is important to read and follow all directions that come with the product for proper use.",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -699,6 +699,7 @@ const products = [
       "/api/images/sprays/delay-spray-price-in-pakistan-procomil.webp",
       "/api/images/sprays/timing-spray-price-in-pakistan-maxman.webp"
     ],
+    ogImg: "",
     price: 100,
     qtyDiscount: [
       { from: 2, to: 10, start: 7, end: 21 },
@@ -708,7 +709,6 @@ const products = [
     quality: "100% Original",
     specialNote: "",
     related: [],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -733,6 +733,7 @@ const products = [
       "/api/images/sprays/delay-spray-price-in-pakistan-procomil.webp",
       "/api/images/sprays/timing-spray-price-in-pakistan-maxman.webp"
     ],
+    ogImg: "",
     price: 100,
     qtyDiscount: [
       { from: 2, to: 10, start: 7, end: 21 },
@@ -742,7 +743,6 @@ const products = [
     quality: "100% Original",
     specialNote: "",
     related: [],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -769,6 +769,7 @@ const products = [
       "/api/images/ritalin/catapres/clonidine-100-mcg-in-pakistan.webp",
       "/api/images/ritalin/catapres/original-catapres-100-mcg.webp",
     ],
+    ogImg: "catapres.jpg",
     price: 16990,
     qtyDiscount: [
       { from: 2, to: 10, start: 3, end: 10 },
@@ -788,7 +789,6 @@ const products = [
       "PR10",
       "STR60",
       "STR40"],
-    uses: "<h3>Medical Uses of Catapres: Conditions Treated<\/h3>\r\n\r\nDoctors often turn to Catapres when someone\u2019s blood pressure is stubbornly high, especially if other medications haven\u2019t worked. Sometimes, it\u2019s used alongside other treatments to help keep blood pressure under control and protect against serious problems like strokes or heart attacks.\r\nBesides blood pressure, Catapres is sometimes used to treat ADHD, especially when stimulant medicines aren\u2019t the best option. It can help with focus, hyperactivity, and impulse control.\r\nCatapres also helps ease withdrawal symptoms during opioid detox, such as anxiety or sweating. Its pain-relieving effects add to its usefulness in clinics.\r\n\r\n<h3>Benefits of Using Catapres: Why It\u2019s Prescribed<\/h3>\r\n\r\nThe primary benefit of Catapres is its ability to lower blood pressure, which helps protect against heart attacks, strokes, and kidney damage\u2014especially in individuals whose blood pressure is difficult to control.\r\nFor ADHD, Catapres is a non-stimulant option that works for both kids and adults. It lowers the risk of misuse seen with stimulant drugs.\r\nCatapres can also ease chronic nerve pain, helping people rely less on opioid painkillers, which can be addictive.",
     stripPrice: "1750",
     stripImage: "/api/images/ritalin/catapres/original-catapres-100-mcg.webp",
     stripStock: true,
@@ -813,6 +813,7 @@ const products = [
       "/api/images/ritalin/stramox/attentra-alternative-in-pakistan.webp",
       "/api/images/ritalin/stramox/strattera-alternative-in-pakistan.webp",
     ],
+    ogImg: "stramox-60.jpg",
     price: 9250,
     qtyDiscount: [
       { from: 2, to: 6, start: 4, end: 10 },
@@ -831,7 +832,6 @@ const products = [
       "ADNL10",
       "PR10",
       "STR40"],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -856,6 +856,7 @@ const products = [
       "/api/images/ritalin/stramox/atomoxetine-strattera-price-in-pakistan.webp",
       "/api/images/ritalin/stramox/Stramox-40mg-price-in-pakistan.webp",
     ],
+    ogImg: "stramox-40.jpg",
     price: 8250,
     qtyDiscount: [
       { from: 2, to: 6, start: 4, end: 10 },
@@ -874,7 +875,6 @@ const products = [
       "ADNL10",
       "PR10",
       "STR60"],
-    uses: "",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
@@ -905,6 +905,7 @@ const products = [
       "/api/images/others/dostinex/cabergoline-brand-names-in-pakistan.webp",
       "/api/images/others/dostinex/dostinex-0.5-mg-price-in-pakistan.webp",
     ],
+    ogImg: "dostinex.jpg",
     price: 9250,
     qtyDiscount: [
       { from: 2, to: 6, start: 4, end: 10 },
@@ -915,7 +916,6 @@ const products = [
     specialNote: "Do proper research or Dr's prescription recommended before ordering",
     related: ["002",
       "004"],
-    uses: "• Hyper-prolactinaemia (high prolactin)<br>• Prolactin-secreting pituitary adenomas (prolactinomas)<br>• Amenorrhoea / oligomenorrhoea & galactorrhoea<br>• Female & male infertility linked to elevated prolactin<br>• Lactation suppression after delivery / abortion (where permitted)<br>• Adjunct therapy in Parkinson’s disease (higher doses)",
     stripPrice: "",
     stripImage: "",
     stripStock: false,
