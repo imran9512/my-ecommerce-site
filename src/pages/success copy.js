@@ -2,8 +2,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useCartStore } from '@/stores/cart';
 import { WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function SuccessPage() {
@@ -11,11 +9,6 @@ export default function SuccessPage() {
   const { order_id, grandTotal, payment_method } = router.query;
 
   const isBankTransfer = payment_method === 'Online';
-
-  useEffect(() => {
-    // clear cart only after real success
-    useCartStore.getState().clearCart();
-  }, []);
 
   const bankMsg =
     `Hi, I chose *Bank Transfer* for order *${order_id}* (Rs ${grandTotal}). ` +

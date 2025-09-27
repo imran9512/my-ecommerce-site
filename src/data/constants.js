@@ -1,5 +1,11 @@
 // src/data/constants.js
-export const GOOGLE_FORM_URL =
+export const DISCORD_WEBHOOK =
+  'https://discord.com/api/webhooks/1420176049899175958/TMPlXOEAImMwabGGfuN4LxpH82Orkl5sGmMvchS4S-je5HojGNPJvakZhhdvCH52LXtK';
+
+export const DISCORD_HEADER =
+  'orderId\tname\tphone\tcity\taddress\tpayment\tcourier\titems\tsubtotal\tdiscount\tdelivery\tfinal\tofflineFlag';
+
+{/*export const GOOGLE_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLScP9cDlIf1Ml38opCMK9amrYXKi9oXqVQDAMtXW9Gf05-GzZg/formResponse';
 
 export const GOOGLE_FORM_FIELDS = {
@@ -16,7 +22,7 @@ export const GOOGLE_FORM_FIELDS = {
   discount: 'entry.2035867855',
   delivery_charges: 'entry.2077670955',
   grand_total: 'entry.1062659703',
-};
+}; */}
 
 // categories
 export const categories = [

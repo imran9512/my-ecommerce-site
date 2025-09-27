@@ -1,65 +1,70 @@
-// src/pages/checkout.js  –  slim + slide banner
+// src/pages/checkout.js
 import Head from 'next/head';
 import { canonical } from '@/utils/seo';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useCartStore } from '@/stores/cart';
-import { getDiscountedPrice } from '@/utils/priceHelpers';
-import { COURIER_OPTIONS, ONLINE_DISCOUNT_PERCENT, STRIP_DELIVERY_CHARGE } from '@/data/constants';
+import { getDiscountedPrice, normalizeDiscount } from '@/utils/priceHelpers';
+import {
+  GOOGLE_FORM_URL,
+  GOOGLE_FORM_FIELDS,
+  COURIER_OPTIONS,
+  ONLINE_DISCOUNT_PERCENT,
+  STRIP_DELIVERY_CHARGE,
+} from '@/data/constants';
 import { cartContainsOnlyStrips } from '@/utils/cartHelpers';
 import { generateOrderId } from '@/components/orderId';
-import { enqueueOrder } from '@/utils/queue';
 
-/* ----------  helpers  ---------- */
-function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal, offline = false) {
-  const products = items
+
+/* --------------  NEW  -------------- */
+const STORAGE_KEY = 'offline_order';   // localStorage key
+
+function buildBody(orderId, form, items, subtotal, discount, courierCharge, finalTotal, isOffline = false) {
+  const productLine = items
     .map(it => {
+      const unit = it.id.endsWith('-strip')
+        ? Math.round(it.price)
+        : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+
       const suffix = it.id.endsWith('-strip') ? '-strip' : '';
-      return `${it.sku}${suffix}×${it.quantity}`;
+      return `${it.sku}${suffix} x ${it.quantity}`;
     })
     .join(', ');
-  return [
-    orderId,
-    form.name,
-    form.phone,
-    form.city,
-    form.address,
-    form.payment_method,
-    form.courier_option,
-    products,
-    subtotal.toFixed(2),
-    discount.toFixed(2),
-    courierCharge.toFixed(2),
-    finalTotal.toFixed(2),
-    offline ? 'Offline' : '',
-  ].join('\t');
+
+  const body = new URLSearchParams();
+  body.append(GOOGLE_FORM_FIELDS.order_id, orderId);
+  body.append(GOOGLE_FORM_FIELDS.name, isOffline ? `Offline-${form.name}` : form.name);
+  body.append(GOOGLE_FORM_FIELDS.phone, form.phone);
+  body.append(GOOGLE_FORM_FIELDS.city, form.city);
+  body.append(GOOGLE_FORM_FIELDS.address, form.address);
+  body.append(GOOGLE_FORM_FIELDS.instructions, form.instructions);
+  body.append(GOOGLE_FORM_FIELDS.payment_method, form.payment_method);
+  body.append(GOOGLE_FORM_FIELDS.courier_option, form.courier_option);
+  body.append(GOOGLE_FORM_FIELDS.products_json, productLine);
+  body.append(GOOGLE_FORM_FIELDS.subtotal, subtotal.toFixed(2));
+  body.append(GOOGLE_FORM_FIELDS.discount, discount.toFixed(2));
+  body.append(GOOGLE_FORM_FIELDS.delivery_charges, courierCharge.toFixed(2));
+  body.append(GOOGLE_FORM_FIELDS.grand_total, finalTotal.toFixed(2));
+  return body;
 }
 
-async function postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal, offline = false) {
-  const res = await fetch('/api/sendOrder', {
+async function postOrder(body) {
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), 7000);
+  await fetch(GOOGLE_FORM_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      orderId,
-      form,
-      items,
-      subtotal,
-      discount,
-      courierCharge,
-      finalTotal,
-      offline,
-    }),
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body,
+    signal: controller.signal,
   });
-  if (!res.ok) throw new Error('Network error');
-  return res.json();
+  clearTimeout(t);
 }
+/* --------------  END NEW  -------------- */
 
-/* ----------  component  ---------- */
 export default function CheckoutPage() {
-  const [statusMsg, setStatusMsg] = useState('');
   const [items, setItems] = useState([]);
   const [online, setOnline] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
   const [form, setForm] = useState({
@@ -87,7 +92,7 @@ export default function CheckoutPage() {
     setItems(useCartStore.getState().items);
   }, []);
 
-  /* ----------  network  ---------- */
+  /* ----------  network status  ---------- */
   useEffect(() => {
     const onStatus = () => setOnline(navigator.onLine);
     window.addEventListener('online', onStatus);
@@ -101,58 +106,45 @@ export default function CheckoutPage() {
 
   /* ----------  totals  ---------- */
   const subtotal = items.reduce((sum, it) => {
-    const unit = it.id.endsWith('-strip') ? Math.round(it.price) : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+    const unit = it.id.endsWith('-strip')
+      ? Math.round(it.price)               // strip → no qtyDiscount
+      : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
     return sum + unit * it.quantity;
   }, 0);
 
-  const discount = form.payment_method === 'Online' ? (subtotal * ONLINE_DISCOUNT_PERCENT) / 100 : 0;
+  const discount =
+    form.payment_method === 'Online' ? (subtotal * ONLINE_DISCOUNT_PERCENT) / 100 : 0;
   const grandTotal = subtotal - discount;
   const stripOnly = cartContainsOnlyStrips(items);
   const courierChargeS = stripOnly ? STRIP_DELIVERY_CHARGE : 0;
-  const courierCharge = COURIER_OPTIONS.find(c => c.name === form.courier_option)?.charge || 0;
+  const courierCharge =
+    COURIER_OPTIONS.find(c => c.name === form.courier_option)?.charge || 0;
   const finalTotal = grandTotal + courierCharge + courierChargeS;
+
+
 
   /* ----------  submit  ---------- */
   const handleSubmit = async e => {
     e.preventDefault();
-    if (submitting) return;
-    setSubmitting(true);
-
+    if (!online) return;                // should never fire, just guard
     const orderId = generateOrderId();
-    const offline = !navigator.onLine;
-
+    const body = buildBody(orderId, form, items, subtotal, discount, courierCharge, finalTotal, false);
     try {
-      await postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal, offline);
-      // success → clear cart + redirect
+      await postOrder(body);
       useCartStore.getState().clearCart();
       router.push(
         `/success?order_id=${orderId}&grandTotal=${finalTotal}&payment_method=${form.payment_method}`
       );
-    } catch (err) {
-      // network fail → queue
-      await enqueueOrder({
-        orderId,
-        form,
-        items,
-        subtotal,
-        discount,
-        courierCharge,
-        finalTotal,
-        offline,
-      }).then(() =>
-        navigator.serviceWorker.ready.then(reg =>
-          reg.sync.register('offline-order').catch(() => { })
-        )
-      );
-
-      // user feedback (banner)
-      setStatusMsg(
-        offline
-          ? 'Order saved offline. It will be sent automatically when you reconnect.'
-          : 'Order queued. Please check your internet connection.'
-      );
-    } finally {
-      setSubmitting(false);
+    } catch {
+      const orderId = generateOrderId();
+      localStorage.setItem('offline_order', JSON.stringify({
+        orderId, form, items, subtotal, discount, courierCharge, finalTotal,
+      }));
+      // --- NEW ---
+      if ('serviceWorker' in navigator && 'SyncManager' in window) {
+        navigator.serviceWorker.ready.then(reg => reg.sync.register('offline-order'));
+      }
+      alert('Please check your internet connection to submit the order.');
     }
   };
 
@@ -167,14 +159,9 @@ export default function CheckoutPage() {
       <div className="mt-8 max-w-6xl mx-auto py-6 px-4">
         <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
 
-        {/*  OFFLINE banner – slide-up  */}
-        <div className={`mb-4 p-3 rounded bg-red-100 text-red-800 text-center font-semibold transition-all duration-300 ${!online ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0 h-0'}`}>
-          You are offline – order will be sent automatically when connection returns.
-        </div>
-
-        {statusMsg && (
-          <div className="mb-4 p-3 rounded bg-amber-100 text-amber-800 text-center">
-            {statusMsg}
+        {!online && (
+          <div className="mb-4 p-3 rounded bg-red-100 text-red-800 text-center font-semibold">
+            You are not connected to the internet, please connect to place the order.
           </div>
         )}
 
@@ -306,11 +293,10 @@ export default function CheckoutPage() {
 
             <button
               type="submit"
-              disabled={submitting}
-              className={`w-full py-2 rounded-md text-white ${submitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-sky-600 hover:bg-sky-700'
-                }`}
+              disabled={!online}              // NEW
+              className={`w-full py-2 rounded-md text-white ${online ? 'bg-sky-600 hover:bg-sky-700' : 'bg-gray-400 cursor-not-allowed'}`}
             >
-              {submitting ? 'Sending…' : 'Submit Order'}
+              Submit Order
             </button>
           </form>
 
@@ -322,8 +308,9 @@ export default function CheckoutPage() {
             ) : (
               items.map(it => {
                 const unit = it.id.endsWith('-strip')
-                  ? Math.round(it.price)
-                  : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+                  ? Math.round(it.price)                               // fixed strip price
+                  : getDiscountedPrice(it.price, normalizeDiscount(it), it.quantity);
+
                 const line = unit * it.quantity;
 
                 return (

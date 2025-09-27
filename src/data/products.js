@@ -18,7 +18,7 @@ const products = [
     rating: 4.8,
     reviewCount: 20,
     images: [
-      "/api/images/coity60/1.webp",
+      "/api/images/coity60/coity-long-depoxitine-60-mg-in-pakistan.webp",
       "/api/images/coity60/2.webp"
     ],
     ogImg: "coity-long-60mg.jpg",
