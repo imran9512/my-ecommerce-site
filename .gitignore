@@ -42,3 +42,4 @@ next-env.d.ts
 
 # image converter function
 /public/pix
+/src/pages/Xcheckout.js
