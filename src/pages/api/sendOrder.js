@@ -1,12 +1,13 @@
 // src/pages/api/sendOrder.js  –  Edge Function
 import { DISCORD_HEADER } from '../../data/constants';
 
+//const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1420176049899175958/TMPlXOEAImMwabGGfuN4LxpH82Orkl5sGmMvchS4S-je5HojGNPJvakZhhdvCH52LXtK';
 const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK || 'https://discord.com/api/webhooks/1420176049899175958/TMPlXOEAImMwabGGfuN4LxpH82Orkl5sGmMvchS4S-je5HojGNPJvakZhhdvCH52LXtK';
 
 export const config = { runtime: 'edge' };
 
 /* --------------  NEW  –  slim format  -------------- */
-function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal, offline = false) {
+function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal) {
     const products = items
         .map(it => {
             const suffix = it.id.endsWith('-strip') ? '-strip' : '';
@@ -14,10 +15,9 @@ function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, f
         })
         .join(', ');
 
-    // single-space values | order: timestamp, id, name, number, city, address, instructions, items, sub, discount, delivery, grand, pay-method, courier, offline-flag
-    const ts = new Date().toLocaleString('en-PK'); // Pakistan time
+    // Pakistan time + values only (no headers)
+    const ts = new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
     return [
-        ts,
         orderId,
         form.name,
         form.phone,
@@ -31,8 +31,8 @@ function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, f
         finalTotal.toFixed(2),
         form.payment_method,
         form.courier_option,
-        offline ? 'Offline' : '',
-    ].join(' ');
+        ts,
+    ].join(' - ');
 }
 
 export default async function handler(req) {

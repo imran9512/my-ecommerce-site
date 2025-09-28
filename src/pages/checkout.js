@@ -1,41 +1,49 @@
-// src/pages/checkout.js  –  slim + slide banner
+// src/pages/checkout.js  –  clean online-only + slim Discord format
 import Head from 'next/head';
 import { canonical } from '@/utils/seo';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useCartStore } from '@/stores/cart';
 import { getDiscountedPrice } from '@/utils/priceHelpers';
-import { COURIER_OPTIONS, ONLINE_DISCOUNT_PERCENT, STRIP_DELIVERY_CHARGE } from '@/data/constants';
+import {
+  COURIER_OPTIONS,
+  ONLINE_DISCOUNT_PERCENT,
+  STRIP_DELIVERY_CHARGE,
+} from '@/data/constants';
 import { cartContainsOnlyStrips } from '@/utils/cartHelpers';
 import { generateOrderId } from '@/components/orderId';
-import { enqueueOrder } from '@/utils/queue';
 
 /* ----------  helpers  ---------- */
-function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal, offline = false) {
+function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal) {
   const products = items
     .map(it => {
       const suffix = it.id.endsWith('-strip') ? '-strip' : '';
       return `${it.sku}${suffix}×${it.quantity}`;
     })
     .join(', ');
+
+  // Pakistan time + single-space values
+  const ts = new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
   return [
     orderId,
     form.name,
     form.phone,
     form.city,
     form.address,
-    form.payment_method,
-    form.courier_option,
+    form.instructions,
     products,
     subtotal.toFixed(2),
     discount.toFixed(2),
     courierCharge.toFixed(2),
     finalTotal.toFixed(2),
-    offline ? 'Offline' : '',
-  ].join('\t');
+    form.payment_method,
+    form.courier_option,
+    ts,
+  ].join(' - ');
 }
 
-async function postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal, offline = false) {
+async function postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal) {
+  const body = buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal);
   const res = await fetch('/api/sendOrder', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -47,7 +55,7 @@ async function postOrder(orderId, form, items, subtotal, discount, courierCharge
       discount,
       courierCharge,
       finalTotal,
-      offline,
+      offline: false,
     }),
   });
   if (!res.ok) throw new Error('Network error');
@@ -58,7 +66,6 @@ async function postOrder(orderId, form, items, subtotal, discount, courierCharge
 export default function CheckoutPage() {
   const [statusMsg, setStatusMsg] = useState('');
   const [items, setItems] = useState([]);
-  const [online, setOnline] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
 
@@ -87,18 +94,6 @@ export default function CheckoutPage() {
     setItems(useCartStore.getState().items);
   }, []);
 
-  /* ----------  network  ---------- */
-  useEffect(() => {
-    const onStatus = () => setOnline(navigator.onLine);
-    window.addEventListener('online', onStatus);
-    window.addEventListener('offline', onStatus);
-    setOnline(navigator.onLine);
-    return () => {
-      window.removeEventListener('online', onStatus);
-      window.removeEventListener('offline', onStatus);
-    };
-  }, []);
-
   /* ----------  totals  ---------- */
   const subtotal = items.reduce((sum, it) => {
     const unit = it.id.endsWith('-strip') ? Math.round(it.price) : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
@@ -119,39 +114,17 @@ export default function CheckoutPage() {
     setSubmitting(true);
 
     const orderId = generateOrderId();
-    const offline = !navigator.onLine;
 
     try {
-      await postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal, offline);
+      await postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal);
       // success → clear cart + redirect
       useCartStore.getState().clearCart();
       router.push(
         `/success?order_id=${orderId}&grandTotal=${finalTotal}&payment_method=${form.payment_method}`
       );
     } catch (err) {
-      // network fail → queue
-      await enqueueOrder({
-        orderId,
-        form,
-        items,
-        subtotal,
-        discount,
-        courierCharge,
-        finalTotal,
-        offline,
-      }).then(() =>
-        navigator.serviceWorker.ready.then(reg =>
-          reg.sync.register('offline-order').catch(() => { })
-        )
-      );
-
-      // user feedback (banner)
-      setStatusMsg(
-        offline
-          ? 'Order saved offline. It will be sent automatically when you reconnect.'
-          : 'Order queued. Please check your internet connection.'
-      );
-    } finally {
+      // network fail → simple pop-up
+      alert('Please check your internet connection to place the order.');
       setSubmitting(false);
     }
   };
@@ -166,11 +139,6 @@ export default function CheckoutPage() {
       </Head>
       <div className="mt-8 max-w-6xl mx-auto py-6 px-4">
         <h1 className="text-3xl font-bold mb-6 text-center">Checkout</h1>
-
-        {/*  OFFLINE banner – slide-up  */}
-        <div className={`mb-4 p-3 rounded bg-red-100 text-red-800 text-center font-semibold transition-all duration-300 ${!online ? 'translate-y-0 opacity-100' : '-translate-y-2 opacity-0 h-0'}`}>
-          You are offline – order will be sent automatically when connection returns.
-        </div>
 
         {statusMsg && (
           <div className="mb-4 p-3 rounded bg-amber-100 text-amber-800 text-center">
