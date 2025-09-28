@@ -1,4 +1,4 @@
-// src/pages/checkout.js  –  clean online-only + slim Discord format
+// src/pages/checkout.js
 import Head from 'next/head';
 import { canonical } from '@/utils/seo';
 import { useEffect, useState } from 'react';
@@ -42,7 +42,7 @@ function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, f
   ].join(' - ');
 }
 
-async function postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal) {
+async function postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal, stripDelivery) {
   const body = buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal);
   const res = await fetch('/api/sendOrder', {
     method: 'POST',
@@ -55,6 +55,7 @@ async function postOrder(orderId, form, items, subtotal, discount, courierCharge
       discount,
       courierCharge,
       finalTotal,
+      stripDelivery,
       offline: false,
     }),
   });
@@ -104,6 +105,7 @@ export default function CheckoutPage() {
   const grandTotal = subtotal - discount;
   const stripOnly = cartContainsOnlyStrips(items);
   const courierChargeS = stripOnly ? STRIP_DELIVERY_CHARGE : 0;
+  const stripDelivery = courierChargeS;
   const courierCharge = COURIER_OPTIONS.find(c => c.name === form.courier_option)?.charge || 0;
   const finalTotal = grandTotal + courierCharge + courierChargeS;
 
@@ -116,7 +118,7 @@ export default function CheckoutPage() {
     const orderId = generateOrderId();
 
     try {
-      await postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal);
+      await postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal, stripDelivery);
       // success → clear cart + redirect
       useCartStore.getState().clearCart();
       router.push(
@@ -124,6 +126,7 @@ export default function CheckoutPage() {
       );
     } catch (err) {
       // network fail → simple pop-up
+      console.error('❌ real error:', err);
       alert('Please check your internet connection to place the order.');
       setSubmitting(false);
     }

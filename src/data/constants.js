@@ -1,9 +1,4 @@
 // src/data/constants.js
-export const DISCORD_WEBHOOK =
-  'https://discord.com/api/webhooks/1420176049899175958/TMPlXOEAImMwabGGfuN4LxpH82Orkl5sGmMvchS4S-je5HojGNPJvakZhhdvCH52LXtK';
-
-export const DISCORD_HEADER =
-  'orderId\tname\tphone\tcity\taddress\tpayment\tcourier\titems\tsubtotal\tdiscount\tdelivery\tfinal\tofflineFlag';
 
 {/*export const GOOGLE_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLScP9cDlIf1Ml38opCMK9amrYXKi9oXqVQDAMtXW9Gf05-GzZg/formResponse';

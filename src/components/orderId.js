@@ -1,4 +1,4 @@
-// helper – generate order id
+// src/components/orderId.js
 export const generateOrderId = () => {
   const d = new Date();
   const y = d.getFullYear().toString().slice(-2);

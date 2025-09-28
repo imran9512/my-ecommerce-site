@@ -1,56 +1,14 @@
-// src/pages/api/sendOrder.js  –  Edge Function
-import { DISCORD_HEADER } from '../../data/constants';
+// src/pages/api/sendOrder.js
+import { generateOrderId } from '../../components/orderId';
 
-//const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1420176049899175958/TMPlXOEAImMwabGGfuN4LxpH82Orkl5sGmMvchS4S-je5HojGNPJvakZhhdvCH52LXtK';
-const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK || 'https://discord.com/api/webhooks/1420176049899175958/TMPlXOEAImMwabGGfuN4LxpH82Orkl5sGmMvchS4S-je5HojGNPJvakZhhdvCH52LXtK';
-
-export const config = { runtime: 'edge' };
-
-/* --------------  NEW  –  slim format  -------------- */
-function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal) {
-    const products = items
-        .map(it => {
-            const suffix = it.id.endsWith('-strip') ? '-strip' : '';
-            return `${it.sku}${suffix}×${it.quantity}`;
-        })
-        .join(', ');
-
-    // Pakistan time + values only (no headers)
-    const ts = new Date().toLocaleString('en-PK', { timeZone: 'Asia/Karachi' });
-    return [
-        orderId,
-        form.name,
-        form.phone,
-        form.city,
-        form.address,
-        form.instructions,
-        products,
-        subtotal.toFixed(2),
-        discount.toFixed(2),
-        courierCharge.toFixed(2),
-        finalTotal.toFixed(2),
-        form.payment_method,
-        form.courier_option,
-        ts,
-    ].join(' - ');
-}
-
-export default async function handler(req) {
-    if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
-
-    const body = await req.json();
-    const { orderId, form, items, subtotal, discount, courierCharge, finalTotal, offline } = body;
-
-    // =====  LOCAL: skip Discord (Edge blocks external fetch) =====
-    if (process.env.NODE_ENV === 'development' || offline) {
-        return new Response(JSON.stringify({ ok: true, queued: offline }), {
-            headers: { 'Content-Type': 'application/json' },
-        });
+export default async function handler(req, res) {
+    if (req.method !== 'POST') {
+        return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    // =====  PRODUCTION: Discord post =====
-    const discordPayload = {
-        content: `\`\`\`${DISCORD_HEADER}\n${buildTabLine(
+    try {
+        console.log('📦 body received:', req.body);
+        const {
             orderId,
             form,
             items,
@@ -58,23 +16,67 @@ export default async function handler(req) {
             discount,
             courierCharge,
             finalTotal,
-            offline
-        )}\`\`\``,
-    };
+            stripDelivery,
+        } = req.body;
 
-    try {
-        const discordRes = await fetch(DISCORD_WEBHOOK, {
+        const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+        if (!webhookUrl) {
+            return res.status(500).json({ message: 'Webhook not configured' });
+        }
+
+        // Pakistani time
+        const pkrTime = new Date().toLocaleString('en-PK', {
+            timeZone: 'Asia/Karachi',
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            //second: '2-digit',
+            hour12: true,
+        });
+
+        // Products line
+        const products = items
+            .map(it => {
+                const suffix = it.id.endsWith('-strip') ? '-strip' : '';
+                return `${it.sku}${suffix}×${it.quantity}`;
+            })
+            .join(', ');
+
+        // Combine courier + strip charges with comma
+        const safeCourierCharge = Number(courierCharge || 0);
+        const safeStripDelivery = Number(stripDelivery || 0);
+        const deliveryCharges = [safeCourierCharge, safeStripDelivery]
+            .map(v => ` ${Math.round(v)}`)
+            .join(', ');
+
+        // Complete Discord message
+        const message =
+            `${orderId} - ` +
+            `${form.name} - ` +
+            `${form.phone} - ` +
+            `${form.city} - ` +
+            `${form.address} - ` +
+            `${form.instructions || 'none'} - ` +
+            `${products} - ` +
+            `${Math.round(subtotal)} - ` +
+            `${Math.round(discount)} - ` +
+            `${deliveryCharges} - ` +
+            `${Math.round(finalTotal)} - ` +
+            `${form.payment_method} - ` +
+            `${form.courier_option} - ` +
+            `${pkrTime}`;
+
+        await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(discordPayload),
+            body: JSON.stringify({ content: message }),
         });
-        if (!discordRes.ok) throw new Error('Discord error');
-    } catch (e) {
-        console.error('[sendOrder] Discord fail', e);
-        return new Response('Discord error', { status: 500 });
-    }
 
-    return new Response(JSON.stringify({ ok: true }), {
-        headers: { 'Content-Type': 'application/json' },
-    });
+        res.status(200).json({ message: 'Order sent' });
+    } catch (err) {
+        console.error('🔥 sendOrder crash:', err);
+        res.status(500).json({ message: err.message });
+    }
 }
