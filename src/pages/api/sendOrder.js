@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     }
 
     try {
-        console.log('🧪 body / env:', req.body, process.env.DISCORD_WEBHOOK?.slice(-8));
         const {
             orderId,
             form,
