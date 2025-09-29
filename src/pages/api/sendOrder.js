@@ -1,5 +1,5 @@
 // src/pages/api/sendOrder.js
-//import { generateOrderId } from '../../components/orderId';
+import { generateOrderId } from '../../components/orderId';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -81,7 +81,7 @@ export default async function handler(req, res) {
 
         res.status(200).json({ message: 'Order sent' });
     } catch (err) {
-        console.log('⑥ before res.json');
+        console.log('🩸 sendOrder crash:', err.message, err.stack);
         res.status(500).json({ message: err.message });
         console.log('⑦ after res.json');
     }
