@@ -1,6 +1,5 @@
 // src/pages/api/sendOrder.js
 //import { generateOrderId } from '../../components/orderId';
-console.log('📦 sendOrder module loaded');
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -8,6 +7,8 @@ export default async function handler(req, res) {
     }
 
     try {
+        console.log('📦 sendOrder module loaded');
+
         const {
             orderId,
             form,
