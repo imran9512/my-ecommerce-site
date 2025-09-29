@@ -7,6 +7,7 @@ export default async function handler(req, res) {
     }
 
     try {
+        console.log('🩸 ERROR:', err.message, err.stack);
         const {
             orderId,
             form,
