@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     }
 
     try {
-        console.log('① body:', req.body);
         const {
             orderId,
             form,
@@ -18,14 +17,16 @@ export default async function handler(req, res) {
             finalTotal,
             stripDelivery,
         } = req.body;
-        console.log('② destructured', { orderId, stripDelivery });
 
-        const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-        if (!webhookUrl) {
-            return res.status(500).json({ message: 'Webhook not configured' });
-        }
+        const safeCourierCharge = Number(courierCharge || 0);
+        const safeStripDelivery = Number(stripDelivery || 0);
+        const deliveryCharges = [safeCourierCharge, safeStripDelivery]
+            .map(v => ` ${Math.round(v)}`)
+            .join(', ');
 
-        // Pakistani time
+        const webhookUrl = process.env.DISCORD_WEBHOOK;
+        if (!webhookUrl) throw new Error('Webhook not configured');
+
         const pkrTime = new Date().toLocaleString('en-PK', {
             timeZone: 'Asia/Karachi',
             day: '2-digit',
@@ -33,11 +34,10 @@ export default async function handler(req, res) {
             year: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
-            //second: '2-digit',
+            second: '2-digit',
             hour12: true,
         });
 
-        // Products line
         const products = items
             .map(it => {
                 const suffix = it.id.endsWith('-strip') ? '-strip' : '';
@@ -45,14 +45,6 @@ export default async function handler(req, res) {
             })
             .join(', ');
 
-        // Combine courier + strip charges with comma
-        const safeCourierCharge = Number(courierCharge || 0);
-        const safeStripDelivery = Number(stripDelivery || 0);
-        const deliveryCharges = [safeCourierCharge, safeStripDelivery]
-            .map(v => ` ${Math.round(v)}`)
-            .join(', ');
-
-        // Complete Discord message
         const message =
             `${orderId} - ` +
             `${form.name} - ` +
@@ -69,20 +61,15 @@ export default async function handler(req, res) {
             `${form.courier_option} - ` +
             `${pkrTime}`;
 
-        console.log('③ webhook:', process.env.DISCORD_WEBHOOK?.slice(-8));
-        console.log('④ fetch start');
-
         await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: message }),
         });
-        console.log('⑤ fetch done');
 
         res.status(200).json({ message: 'Order sent' });
     } catch (err) {
         console.log('🩸 sendOrder crash:', err.message, err.stack);
         res.status(500).json({ message: err.message });
-        console.log('⑦ after res.json');
     }
 }
