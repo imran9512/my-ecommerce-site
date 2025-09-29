@@ -57,7 +57,11 @@ export default function CartPage() {
                 <div key={item.id} className="flex flex-col sm:flex-row sm:items-center justify-between bg-sky-100 p-4 mb-4 rounded-lg shadow">
                   <div className="flex items-center space-x-4 mb-3 sm:mb-0">
                     <Link href={`/products/${item.slug}`}>
-                      <img src={item.images[0]} alt={item.name} className="w-20 h-20 rounded object-cover" />
+                      <img
+                        src={item.id.endsWith('-strip') ? (item.image || item.images[0]) : item.images[0]}
+                        alt={item.name}
+                        className="w-20 h-20 rounded object-cover"
+                      />
                     </Link>
                     <div>
                       <Link href={`/products/${item.slug}`}>

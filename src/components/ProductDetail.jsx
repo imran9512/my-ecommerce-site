@@ -36,12 +36,20 @@ export default function ProductDetail({ product }) {
     /* --- Cart --- */
     const handleAddToCart = () => {
         setAdding(true);
+        // light object → drop bloat
         const cartItem = {
-            ...product,
             id: isStrip ? `${product.id}-strip` : product.id,
+            slug: product.slug,
             name: isStrip ? `Strip – ${product.name}` : product.name,
+            sku: product.sku,
+            images: [product.images?.[0] || '/placeholder.png'],
             price: isStrip ? product.stripPrice : product.price,
-            image: isStrip ? product.stripImage : product.image,
+            image: isStrip ? product.stripImage : product.images?.[0],
+            qtyDiscount: product.qtyDiscount || [],
+            stripPrice: product.stripPrice || '',
+            quantity: qty,
+            totalPrice: isStrip ? product.stripPrice : product.price,
+            // ❌ drop: stock, rating, reviewCount, longDesc, meta, tags, fullDesc …
         };
         useCartStore.getState().addItem(cartItem, qty);
         setTimeout(() => setAdding(false), 1200);
