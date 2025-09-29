@@ -14,7 +14,7 @@ import { cartContainsOnlyStrips } from '@/utils/cartHelpers';
 import { generateOrderId } from '@/components/orderId';
 
 /* ----------  helpers  ---------- */
-function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal) {
+{/*function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal) {
   const products = items
     .map(it => {
       const suffix = it.id.endsWith('-strip') ? '-strip' : '';
@@ -40,10 +40,10 @@ function buildTabLine(orderId, form, items, subtotal, discount, courierCharge, f
     form.courier_option,
     ts,
   ].join(' - ');
-}
+}*/}
 
 async function postOrder(orderId, form, items, subtotal, discount, courierCharge, finalTotal, stripDelivery) {
-  const body = buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal);
+  //const body = buildTabLine(orderId, form, items, subtotal, discount, courierCharge, finalTotal);
   const res = await fetch('/api/sendOrder', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

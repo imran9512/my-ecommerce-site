@@ -4,18 +4,18 @@ import '../styles/globals.css';
 import { useEffect } from 'react';
 import { useCartStore } from '@/stores/cart';
 import Head from 'next/head';
-import { OfflineOrderHandler } from '@/components/OfflineOrderHandler';
+//import { OfflineOrderHandler } from '@/components/OfflineOrderHandler';
 
 function MyApp({ Component, pageProps }) {
   /* load cart on first mount */
   useEffect(() => {
     useCartStore.getState().load?.();
 
-    if ('serviceWorker' in navigator) {
+    {/*if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then((regs) => {
         regs.forEach((reg) => reg.unregister());
       });
-    }
+    }*/}
   }, []);
 
   return (
@@ -26,7 +26,6 @@ function MyApp({ Component, pageProps }) {
       </Head>
 
       <Layout>
-        <OfflineOrderHandler />
         <Component {...pageProps} />
       </Layout>
     </>

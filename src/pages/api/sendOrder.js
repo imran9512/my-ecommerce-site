@@ -1,5 +1,5 @@
 // src/pages/api/sendOrder.js
-import { generateOrderId } from '../../components/orderId';
+//import { generateOrderId } from '../../components/orderId';
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') {
@@ -34,7 +34,7 @@ export default async function handler(req, res) {
             year: 'numeric',
             hour: '2-digit',
             minute: '2-digit',
-            second: '2-digit',
+            //second: '2-digit',
             hour12: true,
         });
 
