@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     }
 
     try {
-        console.log('🩸 ERROR:', err.message, err.stack);
         const {
             orderId,
             form,
@@ -76,7 +75,7 @@ export default async function handler(req, res) {
 
         res.status(200).json({ message: 'Order sent' });
     } catch (err) {
-        console.error('🔥 sendOrder crash:', err);
+        console.log('🩸 sendOrder crash:', error.message, error.stack);
         res.status(500).json({ message: err.message });
     }
 }
