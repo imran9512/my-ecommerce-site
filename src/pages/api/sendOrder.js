@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     }
 
     try {
-        console.log('① body:', req.body);
         const {
             orderId,
             form,
@@ -18,7 +17,7 @@ export default async function handler(req, res) {
             finalTotal,
             stripDelivery,
         } = req.body;
-        console.log('② destructured', { orderId, stripDelivery });
+
 
         const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
         if (!webhookUrl) {
@@ -69,11 +68,15 @@ export default async function handler(req, res) {
             `${form.courier_option} - ` +
             `${pkrTime}`;
 
+        console.log('③ webhook:', process.env.DISCORD_WEBHOOK?.slice(-8));
+        console.log('④ fetch start');
+
         await fetch(webhookUrl, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content: message }),
         });
+        console.log('⑤ fetch done');
 
         res.status(200).json({ message: 'Order sent' });
     } catch (err) {
