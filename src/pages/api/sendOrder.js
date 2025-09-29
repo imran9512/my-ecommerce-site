@@ -7,8 +7,7 @@ export default async function handler(req, res) {
     }
 
     try {
-        console.log('📦 sendOrder module loaded');
-
+        console.log('① body:', req.body);
         const {
             orderId,
             form,
@@ -19,6 +18,7 @@ export default async function handler(req, res) {
             finalTotal,
             stripDelivery,
         } = req.body;
+        console.log('② destructured', { orderId, stripDelivery });
 
         const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
         if (!webhookUrl) {
@@ -77,7 +77,7 @@ export default async function handler(req, res) {
 
         res.status(200).json({ message: 'Order sent' });
     } catch (err) {
-
+        console.log('③ catch:', err.message, err.stack);
         res.status(500).json({ message: err.message });
     }
 }
