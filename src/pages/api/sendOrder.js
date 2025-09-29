@@ -75,7 +75,7 @@ export default async function handler(req, res) {
 
         res.status(200).json({ message: 'Order sent' });
     } catch (err) {
-        console.log('🩸 sendOrder crash:', error.message, error.stack);
+        console.log('🩸 sendOrder crash:', err.message, err.stack);
         res.status(500).json({ message: err.message });
     }
 }
