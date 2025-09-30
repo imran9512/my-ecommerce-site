@@ -16,11 +16,6 @@ const productRedirects = [
         permanent: true,
     },
     {
-        source: '/category/cialis+',
-        destination: '/category/cialis',
-        permanent: true,
-    },
-    {
         source: '/category/delay/timing',
         destination: '/category/delay-timing',
         permanent: true,
@@ -28,11 +23,6 @@ const productRedirects = [
     {
         source: '/help',
         destination: '/contact',
-        permanent: true,
-    },
-    {
-        source: '/search?q={search_term_string}',
-        destination: '/search',
         permanent: true,
     },
     {
