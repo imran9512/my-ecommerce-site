@@ -32,10 +32,10 @@ export const categories = [
     ]
   },
   {
-    name: 'For Men',
+    name: 'For-Men',
     sub: [
-      { title: 'VIAGRA', children: ["Viagra Alternatives"] },
-      { title: 'CIALIS', children: ["Cialis Alternatives"] },
+      { title: 'VIAGRA', children: ["Viagra-Alternatives"] },
+      { title: 'CIALIS', children: ["Cialis-Alternatives"] },
       { title: 'Dapoxitine', children: [] },
       { title: 'Combo', children: [] }
     ]
@@ -43,14 +43,14 @@ export const categories = [
   {
     name: 'Fitness',
     sub: [
-      { title: 'Delay/Timing', children: [] },
+      { title: 'Delay-Timing', children: [] },
       { title: 'Erection', children: [] }
     ]
   },
   {
     name: 'Others',
     sub: [
-      { title: 'For women', children: [] },
+      { title: 'For-women', children: [] },
       { title: 'Miscellaneous', children: ['Cabergoline', 'Pfizer'] }
     ]
   }
