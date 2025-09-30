@@ -44,21 +44,22 @@ export default async function handler(req, res) {
                 return `${it.sku}${suffix}×${it.quantity}`;
             })
             .join(', ');
+        const totalQty = items.reduce((sum, it) => sum + it.quantity, 0);
 
         const message =
-            `${orderId} - ` +
-            `${form.name} - ` +
-            `${form.phone} - ` +
-            `${form.city} - ` +
-            `${form.address} - ` +
-            `${form.instructions || 'none'} - ` +
-            `${products} - ` +
-            `${Math.round(subtotal)} - ` +
-            `${Math.round(discount)} - ` +
-            `${deliveryCharges} - ` +
-            `${Math.round(finalTotal)} - ` +
-            `${form.payment_method} - ` +
-            `${form.courier_option} - ` +
+            `${orderId} | ` +
+            `${form.name} | ` +
+            `${form.phone} | ` +
+            `${form.city} | ` +
+            `${form.address} | ` +
+            `${form.instructions || 'none'} | ` +
+            `${totalQty} | ${products} | ` +
+            `${Math.round(subtotal)} | ` +
+            `${Math.round(discount)} | ` +
+            `${deliveryCharges} | ` +
+            `${Math.round(finalTotal)} | ` +
+            `${form.payment_method} | ` +
+            `${form.courier_option} | ` +
             `${pkrTime}`;
 
         await fetch(webhookUrl, {
