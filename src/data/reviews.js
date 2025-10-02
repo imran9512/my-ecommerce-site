@@ -149,7 +149,7 @@ export const reviews = [
     productId: "STR60",
     name: "Babar",
     date: "2021-03-15",
-    rating: 8.7,
+    rating: 4.7,
     comment: "Tried every attentra alternative, only Stramox 60 mg keeps me productive without crashes; grateful for local atomoxetine brand name in Pakistan."
   },
   {
@@ -160,4 +160,36 @@ export const reviews = [
     rating: 5,
     comment: "Pharmacist swears Stramox 60 mg price in Pakistan won’t rise; coming off Attentra, my projects finish on time—solid atomoxetine brand name in Pakistan."
   },
+  {
+    id: "rita1",
+    productId: "RIT10",
+    name: "Dr. Hassan M",
+    date: "2022-05-16",
+    rating: 4.9,
+    comment: "Professionally, I've seen excellent results with Rital 10 mg for adult patients exhibiting ADHD symptoms adults. As a reliable alternative to pricier brands, it effectively curbs disorganization and boosts productivity. Patients report fewer side effects and steady progress in managing their ADHD disorder."
+  },
+  {
+    id: "rita2",
+    productId: "RIT10",
+    name: "Aisha Khan",
+    date: "2024-03-27",
+    rating: 5,
+    comment: "As a mother of a 9-year-old with ADHD symptoms in kids, finding Rital 10 mg Tablet has been a game-changer. It mirrors the effects of Ritalin 10 mg but is easier on the budget. My son's focus in school has improved dramatically, and the impulsivity has lessened. Highly recommend for families dealing with the ADHD disease."
+  },
+  {
+    id: "rita3",
+    productId: "RIT10",
+    name: "Sara Ali",
+    date: "2024-01-21",
+    rating: 4.5,
+    comment: "Struggling with ADHD signs like constant procrastination, I turned to Rital 10 mg after reading about ADHD definition and testing positive via an online tool. It's helped me stay on task at work without the jitters. A solid, affordable option in Pakistan for anyone exploring ADHD treatments."
+  },
+  {
+    id: "rita4",
+    productId: "RIT10",
+    name: "Amber",
+    date: "2023-08-20",
+    rating: 4.8,
+    comment: "For my teenage son, the ADHD disease symptoms were overwhelming until we started Rital 10 mg. It acts just like Ritalin 10 mg in enhancing his attention during studies. The online purchase was seamless, and seeing him more confident has been priceless."
+  }
 ];

@@ -1,11 +1,11 @@
 // src/components/TabsSection.jsx
 import { useState } from 'react';
-import { StarIcon } from '@heroicons/react/24/solid';
+//import { StarIcon } from '@heroicons/react/24/solid';
 import { reviews } from '@/data/reviews';
 import products from '@/data/products';
-import { descById } from '@/data/productDesc';
-import { faqsByProduct } from '@/data/faq';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+//import { descById } from '@/data/productDesc';
+//import { faqsByProduct } from '@/data/faq';
+import { StarIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
 export default function TabsSection({ product, faqItems }) {
   const [active, setActive] = useState('desc');
@@ -18,17 +18,17 @@ export default function TabsSection({ product, faqItems }) {
   const productReviews = reviews.filter((r) => r.productId === product.id);
 
   // 3 preview
-  const preview = productReviews.slice(0, 3);
+  //const preview = productReviews.slice(0, 3);
 
-  const renderStars = (rating) =>
+  /*const renderStars = (rating) =>
     [...Array(5)].map((_, i) => (
       <StarIcon
         key={i}
         className={`w-5 h-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
       />
-    ));
+    ));*/
 
-  const getProductName = (pid) => products.find((p) => p.id === pid)?.name || '';
+  //const getProductName = (pid) => products.find((p) => p.id === pid)?.name || '';
 
 
   return (
@@ -79,7 +79,6 @@ export default function TabsSection({ product, faqItems }) {
               </div>
             )}
 
-            {/* Meta Info Dropdown */}
             {/* Meta Info Dropdown */}
             {(() => {
               const hasTitle = product.metaTitle?.trim();

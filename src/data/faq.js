@@ -159,5 +159,31 @@ export const faqsByProduct = {
                      q: ` I can’t find Attentra 60 mg anymore – is Stramox a trustworthy substitute?`,
                      a: `Absolutely.  Both brands are bio-equivalent generics.  You can switch directly from Attentra 60 mg to Stramox 60 mg without tapering; keep the same once-daily morning routine and continue your regular monthly check-ups.`
               }
+       ],
+       'RIT10': [
+              {
+                     q: `What does ADHD stand for, and how does it affect daily life?`,
+                     a: `ADHD stands for Attention Deficit Hyperactivity Disorder, a neurodevelopmental condition characterized by challenges in maintaining focus, controlling impulses, and regulating activity levels. It impacts daily life by complicating tasks like studying, working, or maintaining relationships, but with proper management, individuals can lead productive lives.`
+              },
+              {
+                     q: `What are the common ADHD disease symptoms in kids?`,
+                     a: `Common ADHD disease symptoms in kids include difficulty paying attention to details, frequent daydreaming, fidgeting or squirming in seats, interrupting others, and struggling to follow instructions. These often lead to challenges in school and home environments, prompting the need for early intervention.`
+              },
+              {
+                     q: `How can adults identify ADHD symptoms adults?`,
+                     a: `Adults may experience ADHD symptoms adults such as chronic disorganization, time management issues, forgetfulness in routine tasks, emotional hypersensitivity, and difficulty completing projects. These signs can mimic stress but are persistent and benefit from targeted assessments and treatments.`
+              },
+              {
+                     q: `Is there a reliable ADHD test available in Pakistan?`,
+                     a: `Yes, ADHD tests in Pakistan typically involve clinical evaluations by psychiatrists or psychologists, using standardized tools like rating scales and interviews. While online quizzes provide initial insights, a professional ADHD test is essential for accurate diagnosis and guiding treatments like Rital 10 mg Tablet.`
+              },
+              {
+                     q: `What are the key ADHD signs that warrant medical consultation?`,
+                     a: `Key ADHD signs include persistent inattention, hyperactivity beyond age-appropriate levels, and impulsivity affecting safety or relationships. If these interfere with functioning, consulting a healthcare provider for an ADHD definition-aligned evaluation is recommended.`
+              },
+              {
+                     q: `How does Rital 10 mg Tablet serve as an alternative to Ritalin 10 mg?`,
+                     a: `Rital 10 mg Tablet contains the same active ingredient, Methylphenidate Hydrochloride, at an equivalent 10 mg dose, offering similar efficacy for ADHD management at a more accessible price point for Pakistani consumers, with comparable safety when used as prescribed.`
+              }
        ]
 };

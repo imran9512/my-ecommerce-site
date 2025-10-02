@@ -7,14 +7,13 @@ import products from '@/data/products';
 import { SITE_URL } from '@/data/constants';
 import { faqsByProduct } from '@/data/faq';
 import { productDesc } from '@/data/productDesc';
+import { reviews as allReviews } from '@/data/reviews';
 
 export default function ProductPage({ product, related }) {
-  /* ---------- merged editorial data already in product prop ---------- */
-
   /* ---------- Product Schema ---------- */
-  const schema = {
+  const baseSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Product',
+    '@type': ['Product', 'Drug'],
     name: product.name,
     sku: product.sku,
     image: [
@@ -23,6 +22,13 @@ export default function ProductPage({ product, related }) {
     ],
     description: product.metaDescription,
     brand: { '@type': 'Brand', name: product.brand },
+    manufacturer: { '@type': 'Organization', name: product.brand },
+    proprietaryName: product.name,
+    activeIngredient: product.ActiveSalt,
+    warning: 'Consult a healthcare professional before use. Not for use without prescription.',
+    prescriptionStatus: 'https://schema.org/PrescriptionOnly',
+    isAvailableGenerically: true,
+    legalStatus: 'https://schema.org/DrugLegalStatus.PrescriptionDrug', // For controlled substances like this
     offers: {
       '@type': 'Offer',
       price: product.price,
@@ -34,7 +40,6 @@ export default function ProductPage({ product, related }) {
             ? 'https://schema.org/LimitedAvailability'
             : 'https://schema.org/InStock',
       priceValidUntil: '2035-12-31',
-
       shippingDetails: {
         '@type': 'OfferShippingDetails',
         deliveryTime: {
@@ -76,7 +81,112 @@ export default function ProductPage({ product, related }) {
       '@type': 'AggregateRating',
       ratingValue: product.rating,
       reviewCount: product.reviewCount ?? 0,
-    }
+    },
+    review: product.reviews?.length
+      ? product.reviews
+        .filter((review) => review.body && review.rating)  // Ensure valid reviews only
+        .map((review) => ({
+          '@type': 'Review',
+          reviewRating: {
+            '@type': 'Rating',
+            ratingValue: review.rating,
+            bestRating: 5
+          },
+          author: { '@type': 'Person', name: review.author },
+          reviewBody: review.body,
+          datePublished: review.date ? new Date(review.date).toISOString() : undefined  // Optional ISO date
+        }))
+        .filter((rev) => rev.datePublished || true)  // Exclude if date is invalid, but keep otherwise
+      : []
+  };
+
+  let schema = { ...baseSchema };
+
+  // medicalIndication: Include only if product provides the data
+  if (product.medicalIndication && product.medicalIndication.name && product.medicalIndication.code) {
+    schema = {
+      ...schema,
+      medicalIndication: {
+        '@type': 'MedicalCondition',
+        name: product.medicalIndication.name,
+        code: {
+          '@type': 'MedicalCode',
+          codeValue: product.medicalIndication.code.codeValue,
+          codingSystem: product.medicalIndication.code.codingSystem
+        }
+      }
+    };
+  }
+
+  // nonProprietaryName: Include if provided or universal default
+  const nonPropName = product.nonProprietaryName || 'Methylphenidate Hydrochloride';
+  if (nonPropName) {
+    schema = {
+      ...schema,
+      nonProprietaryName: nonPropName
+    };
+  }
+
+  // dosageForm: Include if provided or universal default
+  const dosageForm = product.dosageForm || 'Tablet';
+  if (dosageForm) {
+    schema = {
+      ...schema,
+      dosageForm: dosageForm
+    };
+  }
+
+  // administrationRoute: Include if provided or universal default
+  const adminRoute = product.administrationRoute || 'Oral';
+  if (adminRoute) {
+    schema = {
+      ...schema,
+      administrationRoute: adminRoute
+    };
+  }
+
+  // drugClass: Include if provided or universal default
+  const drugClass = product.drugClass || 'Central Nervous System Stimulant';
+  if (drugClass) {
+    schema = {
+      ...schema,
+      drugClass: drugClass
+    };
+  }
+
+  // pregnancyCategory: Include if provided or universal default
+  const pregnancyCat = product.pregnancyCategory || 'https://schema.org/DrugPregnancyCategory.C';
+  if (pregnancyCat) {
+    schema = {
+      ...schema,
+      pregnancyCategory: pregnancyCat
+    };
+  }
+
+  /* Breadcrumb Schema for Better Navigation SEO ---------- */
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: `${SITE_URL}/`
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: product.categories?.[0] || 'Products', // Dynamic first category
+        item: `${SITE_URL}/category/${encodeURIComponent((product.categories?.[0] || 'products').toLowerCase().replace(/\s+/g, '-'))}`
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: product.name,
+        item: `${SITE_URL}/products/${product.slug}`
+      }
+    ]
   };
 
   /* ---------- FAQ Schema ---------- */
@@ -115,6 +225,10 @@ export default function ProductPage({ product, related }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
         {faqSchema && (
           <script
             type="application/ld+json"
@@ -132,13 +246,7 @@ export default function ProductPage({ product, related }) {
   );
 }
 
-/* ---------- Build paths via slugs ---------- */
-export async function getStaticPaths() {
-  const paths = products.map((p) => ({ params: { slug: p.slug } }));
-  return { paths, fallback: false };
-}
-
-/* ---------- Fetch product via slug + merge editorial ---------- */
+/* ---------- Reviews pulling ---------- */
 export async function getStaticProps({ params }) {
   const product = products.find((p) => p.slug === params.slug && p.active);
   if (!product) return { notFound: true };
@@ -152,9 +260,28 @@ export async function getStaticProps({ params }) {
 
   const mergedProduct = { ...product, ...content };
 
+  // Filter and transform reviews for this product
+  const productReviews = allReviews
+    .filter((r) => r.productId === mergedProduct.id)
+    .map((r) => ({
+      author: r.name,
+      body: r.comment,
+      rating: r.rating,
+      date: r.date  // Optional: for datePublished in schema
+    }));
+
+  // Attach to merged product
+  mergedProduct.reviews = productReviews;
+
   const related = products.filter((p) => product.related?.includes(p.id));
   return {
     props: { product: mergedProduct, related },
     revalidate: false,
   };
+}
+
+/* ---------- Build paths via slugs ---------- */
+export async function getStaticPaths() {
+  const paths = products.map((p) => ({ params: { slug: p.slug } }));
+  return { paths, fallback: false };
 }

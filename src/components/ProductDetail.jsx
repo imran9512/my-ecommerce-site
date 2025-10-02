@@ -70,7 +70,46 @@ export default function ProductDetail({ product }) {
 
     return (
         <>
-            <div className="grid mt-8 md:grid-cols-2 gap-4 md:gap-8 p-0 md:p-2 max-w-none md:max-w-6xl mx-auto">
+            {/* ----------- BREADCRUMB ----------- */}
+            <div className="flex items-center justify-between mb-4">
+                <nav className="mb-2 mt-4 text-xs text-gray-500" aria-label="Breadcrumb">
+                    <ol className="flex items-center space-x-2">
+                        <li>
+                            <Link href="/" className="hover:text-blue-600">
+                                Home
+                            </Link>
+                        </li>
+                        <li className="flex items-center">
+                            <span className="mx-2">/</span>
+                            {product.categories && product.categories.length > 0 ? (
+                                <Link
+                                    href={`/category/${encodeURIComponent(product.categories[0].toLowerCase().replace(/\s+/g, '-'))}`} // Adjust slug logic as needed
+                                    className="hover:text-blue-600 capitalize"
+                                >
+                                    {product.categories[0]}
+                                </Link>
+                            ) : (
+                                <span className="capitalize">Uncategorized</span>
+                            )}
+                        </li>
+                        <li className="flex items-center">
+                            <span className="mx-2">/</span>
+                            <span className="font-medium text-gray-900 truncate max-w-xs" title={product.name}>
+                                {product.name}
+                            </span>
+                        </li>
+                    </ol>
+                </nav>
+                {/* Prescription Label - Separate div, aligned to the far right */}
+                <div className="flex-shrink-0 ml-4">
+                    <div className="text-center">
+                        <span className="text-[10px] text-red-300 font-medium block">Prescription</span>
+                        <span className="text-[10px] text-red-300 block leading-none">required</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="grid mt-2 md:grid-cols-2 gap-4 md:gap-8 p-0 md:p-2 max-w-none md:max-w-6xl mx-auto">
                 {/* ----------- IMAGE GALLERY ----------- */}
                 <div className="relative w-full">
                     <ImageGallery product={product} isStrip={isStrip} />
