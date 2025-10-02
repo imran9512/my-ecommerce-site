@@ -79,30 +79,88 @@ export default function TabsSection({ product, faqItems }) {
               </div>
             )}
 
-            {/* Meta Info Dropdown */}
+            {/* Medical Information Dropdown */}
             {(() => {
+              const hasNonPropName = product.nonProprietaryName?.trim();
+              const hasDosageForm = product.dosageForm?.trim();
+              const hasAdminRoute = product.administrationRoute?.trim();
+              const hasDrugClass = product.drugClass?.trim();
+              const hasPregnancyCat = product.pregnancyCategory?.trim();
               const hasTitle = product.metaTitle?.trim();
               const hasDesc = product.metaDescription?.trim();
               const hasTags = product.tags?.length > 0;
-              const hasAnyMeta = hasTitle || hasDesc || hasTags;
+              const hasAnyMeta = hasNonPropName || hasDosageForm || hasAdminRoute || hasDrugClass || hasPregnancyCat || hasTitle || hasDesc || hasTags;
               if (!hasAnyMeta) return null;
+
+              const panelId = 'medical-info-panel';
+              const buttonId = 'medical-info-toggle';
 
               return (
                 <div className="pt-4">
                   <button
+                    id={buttonId}
                     onClick={() => setShowMeta(!showMeta)}
+                    aria-expanded={showMeta ? 'true' : 'false'}
+                    aria-controls={panelId}
+                    aria-label="Toggle Medical Information"
                     className="flex items-center justify-between w-full text-left px-4 py-2 rounded-md"
+                    role="button"
                   >
-                    <span className="font-semibold text-gray-300">Meta Information</span>
+                    <span className="font-semibold text-gray-500">Medical Information</span>
                     {showMeta ? (
-                      <ChevronUpIcon className="w-5 h-5 text-gray-500" />
+                      <ChevronUpIcon className="w-5 h-5 text-gray-500" aria-hidden="true" />
                     ) : (
-                      <ChevronDownIcon className="w-5 h-5 text-gray-500" />
+                      <ChevronDownIcon className="w-5 h-5 text-gray-500" aria-hidden="true" />
                     )}
                   </button>
 
                   {showMeta && (
-                    <div className="mt-2 text-sm text-gray-400 space-y-2 p-4 rounded-md">
+                    <div
+                      id={panelId}
+                      role="region"
+                      aria-labelledby={buttonId}
+                      className="mt-2 text-sm text-gray-600 space-y-2 p-4 rounded-md"
+                    >
+                      {hasNonPropName && (
+                        <p>
+                          <strong>Non-Proprietary Name:</strong>{' '}
+                          {typeof product.nonProprietaryName === 'string'
+                            ? product.nonProprietaryName
+                            : JSON.stringify(product.nonProprietaryName)}
+                        </p>
+                      )}
+                      {hasDosageForm && (
+                        <p>
+                          <strong>Dosage Form:</strong>{' '}
+                          {typeof product.dosageForm === 'string'
+                            ? product.dosageForm
+                            : JSON.stringify(product.dosageForm)}
+                        </p>
+                      )}
+                      {hasAdminRoute && (
+                        <p>
+                          <strong>Administration Route:</strong>{' '}
+                          {typeof product.administrationRoute === 'string'
+                            ? product.administrationRoute
+                            : JSON.stringify(product.administrationRoute)}
+                        </p>
+                      )}
+                      {hasDrugClass && (
+                        <p>
+                          <strong>Drug Class:</strong>{' '}
+                          {typeof product.drugClass === 'string'
+                            ? product.drugClass
+                            : JSON.stringify(product.drugClass)}
+                        </p>
+                      )}
+                      {hasPregnancyCat && (
+                        <p>
+                          <strong>Pregnancy Category:</strong>{' '}
+                          {typeof product.pregnancyCategory === 'string'
+                            ? product.pregnancyCategory
+                            : JSON.stringify(product.pregnancyCategory)}
+                        </p>
+                      )}
                       {hasTitle && (
                         <p>
                           <strong>Title:</strong>{' '}
