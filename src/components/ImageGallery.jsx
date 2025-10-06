@@ -50,8 +50,8 @@ export default function ImageGallery({ product, isStrip }) {
                 ))}
             </div>
 
-            {/* thumbnails */}
-            <div className="flex justify-center gap-2 mt-3 overflow-x-auto">
+            {/* thumbnails - smaller size for up to 8 visible, swipe if more */}
+            <div className="flex justify-center gap-1 mt-3 overflow-x-auto scrollbar-thin scrollbar-thumb-slate-300 hover:scrollbar-thumb-slate-500 scrollbar-track-transparent snap-x snap-mandatory">
                 {images.map((img, idx) => (
                     <button
                         key={idx}
@@ -63,10 +63,10 @@ export default function ImageGallery({ product, isStrip }) {
                                 inline: 'start',
                             });
                         }}
-                        className={`w-16 h-16 shrink-0 border-2 rounded-2xl overflow-hidden transition
+                        className={`w-12 h-12 shrink-0 border-2 rounded-xl overflow-hidden transition-all duration-200
             ${idx === currentImg ? 'border-blue-200' : 'border-transparent'}`}
                     >
-                        <Image src={`${img}?v=2`} alt={`thumb-${idx}`} width={72} height={72} className="object-cover" />
+                        <Image src={`${img}?v=2`} alt={`thumb-${idx}`} width={48} height={48} className="object-cover w-full h-full" />
                     </button>
                 ))}
             </div>

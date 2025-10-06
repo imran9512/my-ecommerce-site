@@ -6,3 +6,20 @@
 html {
   scroll-behavior: smooth;
 }
+
+.link-blue a {
+  color: blue;
+}
+
+.link-blue a:hover {
+  color: darkblue;
+}
+
+.description-wrapper .prose {
+  line-height: 1.6;
+  /* Ensure consistent line height for word estimation */
+}
+
+.description-wrapper:not(.max-h-full) {
+  /* Extra fade if needed */
+}

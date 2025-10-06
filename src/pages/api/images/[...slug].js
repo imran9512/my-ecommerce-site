@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const { slug } = req.query;
 
   const imagePath = path.join(process.cwd(), 'public', 'Prod-images', ...slug);
-  const watermarkPath = path.join(process.cwd(), 'public', 'watermark2.png');
+  const watermarkPath = path.join(process.cwd(), 'public', 'watermark2.2.png');
 
   if (!fs.existsSync(imagePath)) {
     return res.status(404).json({ error: 'Image not found' });

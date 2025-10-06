@@ -185,5 +185,31 @@ export const faqsByProduct = {
                      q: `How does Rital 10 mg Tablet serve as an alternative to Ritalin 10 mg?`,
                      a: `Rital 10 mg Tablet contains the same active ingredient, Methylphenidate Hydrochloride, at an equivalent 10 mg dose, offering similar efficacy for ADHD management at a more accessible price point for Pakistani consumers, with comparable safety when used as prescribed.`
               }
+       ],
+       'ATTV70': [
+              {
+                     q: `What is lisdexamfetamine used for?`,
+                     a: `Lisdexamfetamine is mainly prescribed for ADHD to enhance focus and reduce restlessness. It's also approved for binge eating disorder and sometimes used off-label to help with depression symptoms like low energy.`
+              },
+              {
+                     q: `Is lisdexamfetamine for ADHD effective long-term?`,
+                     a: `Yes, many users see sustained benefits with consistent use, but regular check-ins with your doctor help adjust dosage and monitor progress for optimal results.`
+              },
+              {
+                     q: `Why is lisdexamfetamine Vyvanse's best alternative?`,
+                     a: `It shares the exact active ingredient, offering comparable smooth-release effects at a more affordable price, especially for lisdexamfetamine brands in Pakistan like Attvanse.`
+              },
+              {
+                     q: `What are the lisdexamfetamine benefits beyond ADHD?`,
+                     a: `It can improve overall executive function, like better planning and emotional control, and may ease depressive fog by lifting motivation without harsh side effects.`
+              },
+              {
+                     q: `How does lisdexamfetamine price compare in Pakistan?`,
+                     a: `A 70mg pack of 30 capsules like Attvanse runs (price mention under product name)—much more budget-friendly than imports, making quality care accessible without breaking the bank.`
+              },
+              {
+                     q: `Can lisdexamfetamine for depression be safe?`,
+                     a: `When prescribed appropriately, yes, but it's not first-line—always discuss with a specialist to weigh benefits against potential interactions.`
+              }
        ]
 };

@@ -1,5 +1,5 @@
 // src/components/TabsSection.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 //import { StarIcon } from '@heroicons/react/24/solid';
 import { reviews } from '@/data/reviews';
 import products from '@/data/products';
@@ -13,6 +13,8 @@ export default function TabsSection({ product, faqItems }) {
   const [openFaq, setOpenFaq] = useState(null);
   const toggleFaq = (idx) =>
     setOpenFaq(openFaq === idx ? null : idx);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [previewText, setPreviewText] = useState(''); // State for preview text
 
   // reviews jo is product k hain
   const productReviews = reviews.filter((r) => r.productId === product.id);
@@ -30,6 +32,20 @@ export default function TabsSection({ product, faqItems }) {
 
   //const getProductName = (pid) => products.find((p) => p.id === pid)?.name || '';
 
+  const fullHtml = Array.isArray(product.longDesc)
+    ? product.longDesc.join('')
+    : product.longDesc || 'No details available.';
+
+  // Compute preview text only on client-side (after SSR)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = fullHtml;
+      const text = tempDiv.textContent || tempDiv.innerText || '';
+      const words = text.trim().split(/\s+/);
+      setPreviewText(words.slice(0, 50).join(' ')); //number of word to show
+    }
+  }, [fullHtml]);
 
   return (
     <div className="mt-10">
@@ -59,27 +75,49 @@ export default function TabsSection({ product, faqItems }) {
       <div className="mt-4">
         {/* DESCRIPTION */}
         {active === 'desc' && (
-          <div>
-            <div
-              className="prose max-w-none mb-4"
-              dangerouslySetInnerHTML={{
-                __html: Array.isArray(product.longDesc)
-                  ? product.longDesc.join('')
-                  : product.longDesc || 'No details available.'
-              }}
-            />
-            {product.fullDesc && (
-              <div className="mb-4">
-                <a
-                  href={product.fullDesc}
-                  className="inline-flex items-center px-2 py-1 text-sm font-medium text-white bg-blue-400 rounded-md hover:bg-blue-700"
-                >
-                  Read Full Details
-                </a>
-              </div>
-            )}
+          <div className="description-wrapper">
+            {/* Single wrapper div for entire description with conditional content */}
+            <div className={`prose max-w-none mb-4 transition-all duration-300 ease-in-out overflow-hidden`}>
+              {isExpanded ? (
+                // Full HTML when expanded
+                <div
+                  dangerouslySetInnerHTML={{ __html: fullHtml }}
+                />
+              ) : (
+                // Preview: First 200 words as text, with fade if needed
+                <div className="relative">
+                  <p className="text-gray-800 leading-relaxed">
+                    {previewText ? `${previewText}...` : 'Loading description...'}
+                  </p>
+                  {/* Fade overlay for preview */}
+                  {previewText && (
+                    <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent pointer-events-none" />
+                  )}
+                </div>
+              )}
+              {product.fullDesc && (
+                <div className="mb-4 mt-4">
+                  <a
+                    href={product.fullDesc}
+                    className="inline-flex items-center px-2 py-1 text-sm font-medium bg-yellow-100 rounded-md hover:bg-blue-700"
+                  >
+                    Read Full Article
+                  </a>
+                </div>
+              )}
+            </div>
 
-            {/* Medical Information Dropdown */}
+            {/* Read More / Show Less Button - always visible */}
+            <div className="mt-4 flex justify-center">
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-300 rounded-md hover:bg-blue-700 transition-colors duration-200"
+              >
+                {isExpanded ? 'Show Less' : 'Read More'}
+              </button>
+            </div>
+
+            {/* Medical Information Dropdown - moved outside for consistency */}
             {(() => {
               const hasNonPropName = product.nonProprietaryName?.trim();
               const hasDosageForm = product.dosageForm?.trim();
@@ -190,6 +228,8 @@ export default function TabsSection({ product, faqItems }) {
                 </div>
               );
             })()}
+
+
           </div>
         )}
 

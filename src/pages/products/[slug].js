@@ -213,6 +213,7 @@ export default function ProductPage({ product, related }) {
       <Head>
         <title>{product.metaTitle}</title>
         <meta name="description" content={product.metaDescription} />
+        <meta name="keywords" content={product.tags?.join(', ')} />
         <link rel="canonical" href={canonical} />
         <meta property="og:title" content={product.metaTitle} />
         <meta property="og:description" content={product.metaDescription} />

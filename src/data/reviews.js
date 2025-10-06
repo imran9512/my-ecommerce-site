@@ -1,84 +1,20 @@
 // src/data/reviews.js
 export const reviews = [
   {
-    id: "r1",
-    productId: "001",
-    name: "Zafar Ali Khan",
-    date: "2024-05-15",
-    rating: 4.8,
-    comment: "Great product, I use it every time for my best moments"
-  },
-  {
-    id: "r2",
-    productId: "001",
-    name: "Ali Shan",
-    date: "2024-05-20",
-    rating: 4,
-    comment: "Effective and value for money"
-  },
-  {
-    id: "r3",
-    productId: "001",
-    name: "Sana Ibrar",
-    date: "2024-05-25",
-    rating: 5,
-    comment: "Fast delivery and genuine item"
-  },
-  {
-    id: "r5",
+    id: "r15",
     productId: "002",
-    name: "Numan",
-    date: "2024-02-01",
+    name: "Ibrar",
+    date: "2023-06-13",
     rating: 5,
-    comment: "I recommend this to everyone"
+    comment: "boht behtreen product quality hai"
   },
   {
-    id: "r6",
+    id: "r16",
     productId: "004",
-    name: "Saad",
-    date: "2024-02-05",
-    rating: 4,
-    comment: "Works as expected"
-  },
-  {
-    id: "r7",
-    productId: "004",
-    name: "Ayesha",
-    date: "2024-02-10",
-    rating: 5,
-    comment: "Original and fresh stock"
-  },
-  {
-    id: "r8",
-    productId: "004",
-    name: "Ibrahim",
-    date: "2024-05-15",
-    rating: 5,
-    comment: "Great product, daily use"
-  },
-  {
-    id: "r9",
-    productId: "004",
-    name: "Ijaz Khan",
-    date: "2022-08-19",
-    rating: 5,
-    comment: "Best alternative of Viagra"
-  },
-  {
-    id: "r10",
-    productId: "004",
-    name: "Sara",
-    date: "2022-08-25",
-    rating: 4,
-    comment: "Satisfied with results"
-  },
-  {
-    id: "r11",
-    productId: "004",
-    name: "Sara G",
-    date: "2024-08-25",
-    rating: 4,
-    comment: "Satisfied with results+"
+    name: "akmal",
+    date: "2024-07-05",
+    rating: 4.8,
+    comment: "best services"
   },
   {
     id: "d1",
@@ -191,5 +127,45 @@ export const reviews = [
     date: "2023-08-20",
     rating: 4.8,
     comment: "For my teenage son, the ADHD disease symptoms were overwhelming until we started Rital 10 mg. It acts just like Ritalin 10 mg in enhancing his attention during studies. The online purchase was seamless, and seeing him more confident has been priceless."
+  },
+  {
+    id: "at701",
+    productId: "ATTV70",
+    name: "Ibrahim",
+    date: "2025-01-23",
+    rating: 5,
+    comment: "Switched to Attvanse after Vyvanse prices skyrocketed. Same focus boost for my ADHD, no crashes. Finally, an affordable lisdexamfetamine brand in Pakistan that works"
+  },
+  {
+    id: "at702",
+    productId: "ATTV70",
+    name: "Salman",
+    date: "2021-11-19",
+    rating: 4.9,
+    comment: "Helped my teen with schoolwork like a charm. Lisdexamfetamine benefits are real—less fidgeting, more reading. Worth every rupee on the price."
+  },
+  {
+    id: "at703",
+    productId: "ATTV70",
+    name: "Sameer",
+    date: "2025-01-27",
+    rating: 5,
+    comment: "As Vyvanse's best alternative, this has been a lifesaver for my mild depression alongside therapy. Steady energy without the jitters. Love it!"
+  },
+  {
+    id: "at704",
+    productId: "ATTV70",
+    name: "Kamran",
+    date: "2023-05-06",
+    rating: 4.5,
+    comment: "Solid for ADHD management. The 70mg dose hits just right for my busy days. Lisdexamfetamine for depression? It's helping my mood too—bonus!"
+  },
+  {
+    id: "at705",
+    productId: "ATTV70",
+    name: "Ashhad",
+    date: "2022-08-30",
+    rating: 4.8,
+    comment: "Best decision ordering Attvanse. Quick delivery, fair lisdexamfetamine price, and actual results. My concentration is back—highly recommend for anyone struggling"
   }
 ];
