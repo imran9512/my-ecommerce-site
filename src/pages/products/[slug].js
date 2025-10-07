@@ -283,6 +283,11 @@ export async function getStaticProps({ params }) {
 
 /* ---------- Build paths via slugs ---------- */
 export async function getStaticPaths() {
-  const paths = products.map((p) => ({ params: { slug: p.slug } }));
-  return { paths, fallback: false };
+  const paths = products
+    .filter((p) => p.slug && p.slug.trim() !== '') // Filter out empty/invalid slugs
+    .map((p) => ({ params: { slug: p.slug } }));
+  return {
+    paths,
+    fallback: 'blocking' // Changed to 'blocking' for dynamic handling without build fails
+  };
 }
