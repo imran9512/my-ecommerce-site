@@ -167,5 +167,45 @@ export const reviews = [
     date: "2022-08-30",
     rating: 4.8,
     comment: "Best decision ordering Attvanse. Quick delivery, fair lisdexamfetamine price, and actual results. My concentration is back—highly recommend for anyone struggling"
+  },
+  {
+    id: "lv101",
+    productId: "LV10",
+    name: "Ahmed Khan",
+    date: "2024-12-03",
+    rating: 5,
+    comment: "Switched to generic Levitra 20mg after Cialis felt too drawn out. Vardenafil 20mg hits fast, lasts just right—no headaches like before. Great vardenafil tablet price in Pakistan; feels 100% original!"
+  },
+  {
+    id: "lv102",
+    productId: "LV10",
+    name: "Bilal",
+    date: "2021-03-15",
+    rating: 4.9,
+    comment: "ED gone in weeks with vardenafil 20mg. No crashes like other pills. Levitra 20mg vs Cialis? Shorter window but perfect for us. Super vardenafil tablet price in Pakistan—feels premium!"
+  },
+  {
+    id: "lv103",
+    productId: "LV10",
+    name: "Munawar",
+    date: "2020-11-02",
+    rating: 4.8,
+    comment: "Mild side effects at first (slight flush), but nothing major. Levitra 20mg vs Cialis? This wins for spontaneity. Affordable and made in Turkey—quality shines through. Boosted our weekends big time."
+  },
+  {
+    id: "lv104",
+    productId: "LV10",
+    name: "Zain Mian",
+    date: "2022-05-16",
+    rating: 4.9,
+    comment: "Started with half dose to check vardenafil tablet side effects—smooth sailing. Generic Levitra 20mg outperforms Cialis for quick results. Turkish quality means no doubts; worth every rupee."
+  },
+  {
+    id: "lv41",
+    productId: "LV4",
+    name: "Rana Rizwan",
+    date: "2024-03-27",
+    rating: 4.6,
+    comment: "Vardenafil tablet side effects? Barely any for me—just better focus downstairs. The levitra 20mg price in Pakistan is unbeatable; same kick as brand without the markup. Highly recommend!"
   }
 ];

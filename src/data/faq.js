@@ -211,5 +211,65 @@ export const faqsByProduct = {
                      q: `Can lisdexamfetamine for depression be safe?`,
                      a: `When prescribed appropriately, yes, but it's not first-line—always discuss with a specialist to weigh benefits against potential interactions.`
               }
+       ],
+       'LV10': [
+              {
+                     q: `What is Levitra 20mg used for?`,
+                     a: `Levitra 20mg (vardenafil 20mg) treats erectile dysfunction by enhancing blood flow for stronger erections. It's also for pulmonary hypertension, but ED's the main gig—quick and effective.`
+              },
+              {
+                     q: `How does Levitra 20mg price in Pakistan compare to the brand?`,
+                     a: `Our generic Levitra 20mg offers the same 100% original formulation made in Turkey—up to 70% cheaper than imports, without quality dips.`
+              },
+              {
+                     q: `What are common vardenafil tablet side effects?`,
+                     a: `Mild ones like headaches, flushing, or nasal stuffiness top the list—usually fade fast. Rare issues? Vision changes; always consult your doc to minimize vardenafil tablet side effects.`
+              },
+              {
+                     q: `Levitra 20mg vs Cialis 20mg—which is better?`,
+                     a: `Levitra 20mg edges out for faster kick-in (30 mins) and food tolerance, while Cialis lasts longer. For spontaneity, go Levitra—both solid, but pick based on your rhythm.`
+              },
+              {
+                     q: `Is generic vardenafil 20mg as good as the brand?`,
+                     a: `Absolutely—Turkish manufacturing ensures 100% original formulation, bioequivalent efficacy. Same vardenafil 20mg power at a fraction of the vardenafil tablet price in Pakistan.`
+              },
+              {
+                     q: `How to take vardenafil 20mg safely?`,
+                     a: `Swallow one 60 minutes before activity; avoid nitrates or heavy booze. Start low if new—vardenafil tablet side effects are minimal, but doc approval keeps it smooth.`
+              }
+       ],
+       'LV4': [
+              {
+                     q: `Is vardenafil stronger than Viagra?`,
+                     a: `Vardenafil is generally considered more potent and selective than sildenafil (Viagra) at inhibiting PDE5, potentially offering stronger effects at lower doses, though both are similarly effective for ED treatment.`
+              },
+              {
+                     q: `Which is better tadalafil or vardenafil?`,
+                     a: `Tadalafil (Cialis) is often preferred for its longer duration (up to 36 hours) for flexibility, while vardenafil (Levitra) excels in faster onset (15-30 minutes) and food tolerance; the "better" choice depends on your needs for spontaneity vs. extended window.`
+              },
+              {
+                     q: `What does vardenafil do for a man?`,
+                     a: `Vardenafil treats erectile dysfunction in men by relaxing blood vessels to increase penile blood flow, enabling firmer erections during sexual stimulation.`
+              },
+              {
+                     q: `How long does vardenafil last?`,
+                     a: `Vardenafil typically lasts 5-7 hours, with effects starting in 10-60 minutes and potential efficacy up to 8-10 hours in some cases.`
+              },
+              {
+                     q: `What is the success rate of vardenafil?`,
+                     a: `Vardenafil shows high efficacy for ED, with success rates of 70-85% for intercourse attempts in clinical trials.`
+              },
+              {
+                     q: `Can I take 40 mg of vardenafil?`,
+                     a: `No, the maximum recommended dose is 20 mg once daily; exceeding it increases risks of side effects without added benefits—always consult a doctor.`
+              },
+              {
+                     q: `Does vardenafil increase testosterone?`,
+                     a: `Vardenafil does not directly increase testosterone levels, but some studies show it may indirectly raise them in men with low baseline levels during ED treatment.`
+              },
+              {
+                     q: `Which is better, Cialis or Levitra?`,
+                     a: `Cialis (tadalafil) is better for longer-lasting effects (up to 36 hours) and daily use, while Levitra (vardenafil) is superior for quicker action (under 1 hour) and fewer food interactions; choose based on lifestyle.`
+              }
        ]
 };

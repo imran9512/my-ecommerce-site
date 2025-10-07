@@ -16,6 +16,11 @@ export default function TabsSection({ product, faqItems }) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [previewText, setPreviewText] = useState(''); // State for preview text
 
+  // Reset isExpanded to false on product change (new product or refresh)
+  useEffect(() => {
+    setIsExpanded(false);
+  }, [product.id]);
+
   // reviews jo is product k hain
   const productReviews = reviews.filter((r) => r.productId === product.id);
 
@@ -38,14 +43,18 @@ export default function TabsSection({ product, faqItems }) {
 
   // Compute preview text only on client-side (after SSR)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && fullHtml) { // Added check for fullHtml to avoid unnecessary runs
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = fullHtml;
       const text = tempDiv.textContent || tempDiv.innerText || '';
-      const words = text.trim().split(/\s+/);
-      setPreviewText(words.slice(0, 50).join(' ')); //number of word to show
+      if (text.trim()) { // Only process if text exists
+        const words = text.trim().split(/\s+/);
+        setPreviewText(words.slice(0, 50).join(' ')); // Keep 50 words, or change to your desired number
+      } else {
+        setPreviewText('No description available.'); // Fallback for empty content
+      }
     }
-  }, [fullHtml]);
+  }, [fullHtml]); // Dependency remains the same
 
   return (
     <div className="mt-10">
@@ -99,7 +108,7 @@ export default function TabsSection({ product, faqItems }) {
                 <div className="mb-4 mt-4">
                   <a
                     href={product.fullDesc}
-                    className="inline-flex items-center px-2 py-1 text-sm font-medium bg-yellow-100 rounded-md hover:bg-blue-700"
+                    className="inline-flex items-center px-2 py-1 text-sm font-medium bg-yellow-100 rounded-md hover:bg-yellow-200"
                   >
                     Read Full Article
                   </a>
@@ -111,7 +120,7 @@ export default function TabsSection({ product, faqItems }) {
             <div className="mt-4 flex justify-center">
               <button
                 onClick={() => setIsExpanded(!isExpanded)}
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-300 rounded-md hover:bg-blue-700 transition-colors duration-200"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-400 rounded-md hover:bg-blue-700 transition-colors duration-200"
               >
                 {isExpanded ? 'Show Less' : 'Read More'}
               </button>
