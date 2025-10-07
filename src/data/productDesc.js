@@ -394,6 +394,25 @@ export const productDesc = {
         administrationRoute: "Oral",
         drugClass: "Selective Norepinephrine Reuptake Inhibitor",
         pregnancyCategory: "C"
+    },
+    "METH10": {
+        shortDesc: "Struggling with ADHD's daily chaos? M-Methylphen tablets, powered by methylphenidate HCl, offer a steady hand—sharpening focus and easing hyperactivity without the jitters. As one of the top methylphenidate brands in Pakistan, it's a reliable pick for kids and adults alike. Check the affordable methylphenidate price and reclaim your rhythm today.",
+        longDesc: ["Ever catch yourself midway through a task, only to realize your mind\'s already three steps ahead—or worse, stuck in neutral? That\'s the sneaky side of ADHD, turning simple days into a whirlwind. But here\'s where M-Methylphen steps up as a quiet hero. This methylphenidate HCl-based tablet, one of the go-to methylphenidate brands in Pakistan, works by gently nudging your brain\'s dopamine and norepinephrine levels, helping dial down the distractions and amp up the drive. No wild rushes, just that smooth lift to power through schoolwork, meetings, or even a quiet evening read without the fidget parade.<br><br>From what folks around Lahore and Karachi share in hushed clinic chats, the real methylphenidate benefits shine in the everyday grind. Kids who once bounced off walls find themselves settling into homework, while adults rediscover the joy of a project that actually gets finished. It\'s not a cure-all—therapy and routines still play their part—but as a methylphenidate for ADHD staple, it bridges the gap beautifully. And let\'s talk practicality: the 10mg dose kicks in reliably, lasting through the day with minimal tweaks, always under a doc\'s nod, of course. Side notes? A touch of appetite dip or mild headache for some, but hydration and timing smooth those out.<br><br>In Pakistan\'s bustling scene, where imported options can sting the budget, M-Methylphen keeps things grounded with a fair methylphenidate price—think packs that fit monthly plans without the drama. It\'s locally crafted for our heat and hustle, ensuring steady supply minus the border waits. Parents often mention how it opens doors for their little ones, turning \"can\'t sit still\" into \"let\'s try that puzzle.\" For grown-ups, it\'s the nudge to chase promotions or hobbies shelved too long. Remember, it\'s prescription-only, so loop in your specialist to tailor it right—maybe starting low at 5mg if you\'re easing in.<br><br>Beyond the basics, methylphenidate is used for narcolepsy too, fighting those sudden sleep pulls that derail drives or desk time. Off-label whispers touch on fatigue in chronic spots, but ADHD remains its sweet spot. Wrapping it up, M-Methylphen isn\'t flashy—it\'s the dependable sidekick for clearer heads and fuller lives. If restless thoughts have you scrolling endlessly, why not give it a thoughtful shot? Your steadier tomorrow might just be one consult away."],
+        metaTitle: "M-Methylphen Tablets: Methylphenidate Brands in Pakistan | ADHD Treatment",
+        metaDescription: "Discover M-Methylphen, a trusted methylphenidate brand in Pakistan for managing ADHD symptoms. Explore methylphenidate benefits like better focus and calm, competitive methylphenidate price",
+        tags: ["ritalin-alternatives-in-pakistan",
+            "m-methylphen-availability",
+            "original-methylphenidate -pakistan",
+            "Methylphenidate-10-mg-tablets",
+            "M-Methylphen-10-mg-price-pakistan",
+            "Methylphenidate-HCl-brands-in-pakistan",],
+        fullDesc: "",
+        uses: [],
+        nonProprietaryName: "Methylphenidate hydrochloride",
+        dosageForm: "Tablets",
+        administrationRoute: "Oral",
+        drugClass: "Central nervous system stimulant",
+        pregnancyCategory: "C"
     }
 
 }

@@ -547,6 +547,7 @@ const products = [
       "/api/images/ritalin/rital/rital-10-treats-adhd-disease-pakistan.webp",
       "/api/images/ritalin/rital/cure-adhd-disease-symptoms-with-rital-10-mg.webp",
       "/api/images/ritalin/rital/top-alternative-of-ritaline-10.webp",
+      "/api/images/ritalin/rital/imported-rital-10-fresh-stock.webp",
     ],
     ogImg: "rital.jpg",
     price: 4290,
@@ -595,6 +596,55 @@ const products = [
       "/api/images/ritalin/addranil/ritalin-alternatives-in-pakistan.webp",
     ],
     ogImg: "addranill-10.jpg",
+    price: 4290,
+    qtyDiscount: [
+      { from: 2, to: 30, start: 4, end: 20 },
+    ],
+    tabsMg: "30 Tabs",
+    origin: "Pakistan",
+    quality: "100% Original",
+    specialNote: "",
+    related: ["003",
+      "V50",
+      "V30",
+      "V70",
+      "ATV70",
+      "ATV30",
+      "PR10",
+      "CAT100",
+      "STR60",
+      "STR40",
+      "RIT10",
+      "ATTV70"],
+    stripPrice: "",
+    stripImage: "",
+    stripStock: false,
+    stripTabs: "",
+  },
+
+  {
+    id: "METH-10",
+    slug: "Methylphenidate-brand-m-methylphen-price-in-pakistan",
+    name: "M-Methylphen 10 mg",
+    canon: "category/methylphenidate",
+    ActiveSalt: "Methylphenidate HCl",
+    brand: "Medimarkers",
+    active: "true",
+    categories: ["Methylphenidate",
+      "ADHD",],
+    sku: "M-Methylphen-10",
+    stock: 40,
+    rating: 4.9,
+    reviewCount: 14,
+    images: [
+      "/api/images/methy/Methylphenidate-HCl-brands-in-pakistan.webp",
+      "/api/images/methy/M-Methylphen-10-mg-price-pakistan.webp",
+      "/api/images/methy/Methylphenidate-10-mg-tablets.webp",
+      "/api/images/methy/original-methylphenidate -pakistan.webp",
+      "/api/images/methy/m-methylphen-availability.webp",
+      "/api/images/methy/ritalin-alternatives-in-pakistan.webp",
+    ],
+    ogImg: "m-methylphen.webp",
     price: 4290,
     qtyDiscount: [
       { from: 2, to: 30, start: 4, end: 20 },
@@ -835,6 +885,7 @@ const products = [
     stripStock: true,
     stripTabs: "10",
   },
+
   {
     id: "STR60",
     slug: "buy-atomoxetine-strattera-alternative-as-stramox-60-mg-in-pakistan",
@@ -878,6 +929,7 @@ const products = [
     stripStock: false,
     stripTabs: "",
   },
+
   {
     id: "STR40",
     slug: "atomoxetine-attentra-alternative-as-stramox-40-mg-available-in-pakistan",
@@ -921,6 +973,7 @@ const products = [
     stripStock: false,
     stripTabs: "",
   },
+
   {
     id: "DOST05",
     slug: "original-pfizer-dostinex-0.5mg-cabergoline-tablets-price-in-pakistan",
@@ -961,6 +1014,7 @@ const products = [
     stripStock: false,
     stripTabs: "",
   },
+
   {
     id: "VLTR",
     slug: "buy-valaciclovir-valtrex-500-mg-price-pakistan",
