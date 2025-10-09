@@ -1183,7 +1183,7 @@ const products = [
       "/api/images/pemla/lidocaine-prilocaine-cream-pakistan.webp",
     ],
     ogImg: "pemla.webp",
-    price: 2580,
+    price: 5280,
     qtyDiscount: [
       { from: 2, to: 6, start: 4, end: 10 },
     ],
