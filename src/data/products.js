@@ -10,7 +10,7 @@ const products = [
     active: "true",
     categories: ["Fitness",
       "Dapoxitine",
-      'Delay-Timing',
+      "Delay-Timing",
       "For-Men",
       "Others"],
     sku: "Coity-60",
@@ -61,9 +61,9 @@ const products = [
     rating: 5,
     reviewCount: 20,
     images: [
-      "/api/images/tia/tiafil-20-mg-price-in-pakistan.webp",
-      "/api/images/tia/irani-cialis-tadalafil-20-mg-pakistan.webp",
-      "/api/images/tia/cialis-20-mg-alternativ-in-pakistan.webp"
+      "/api/images/tadalafil/tia/tiafil-20-mg-price-in-pakistan.webp",
+      "/api/images/tadalafil/tia/irani-cialis-tadalafil-20-mg-pakistan.webp",
+      "/api/images/tadalafil/tia/cialis-20-mg-alternativ-in-pakistan.webp"
     ],
     ogImg: "tiafil-20.jpg",
     price: 4300,
@@ -105,8 +105,8 @@ const products = [
     rating: 4.7,
     reviewCount: 20,
     images: [
-      "/api/images/tia/tiafil-10-mg-price-in-pakistan.webp",
-      "/api/images/tia/irani-cialis-tadalafil-10-mg-pakistan.webp"
+      "/api/images/tadalafil/tia/tiafil-10-mg-price-in-pakistan.webp",
+      "/api/images/tadalafil/tia/irani-cialis-tadalafil-10-mg-pakistan.webp"
     ],
     ogImg: "tiafil-10.jpg",
     price: 3550,
@@ -1182,7 +1182,7 @@ const products = [
       "/api/images/pemla/pemla-lidocaine-gel-uses.webp",
       "/api/images/pemla/lidocaine-prilocaine-cream-pakistan.webp",
     ],
-    ogImg: "pemla.webp",
+    ogImg: "pemla.jpg",
     price: 5280,
     qtyDiscount: [
       { from: 2, to: 6, start: 4, end: 10 },
@@ -1201,6 +1201,41 @@ const products = [
     stripImage: "",
     stripStock: false,
     stripTabs: "",
+  },
+  {
+    id: "C20-O",
+    slug: "original-lilly-cialis-20mg-tablet-price-in-pakistan",
+    name: "Cilais 20 mg (Original)",
+    canon: "",
+    ActiveSalt: "Tadalafil",
+    brand: "Lilly",
+    active: "true",
+    categories: ["CIALIS",
+      "Erection",
+      "for-men"],
+    sku: "Cilais-20-(O)",
+    stock: 50,
+    rating: 5,
+    reviewCount: 7,
+    images: [
+      "/api/images/tadalafil/cialis-original/cialis-20mg-original-in-pakistan.webp",
+      "/api/images/tadalafil/cialis-original/tadalafil-in-pakistan.webp",
+      "/api/images/tadalafil/cialis-original/cialis-tablet-uses.webp"
+    ],
+    ogImg: "cialis-20mg.jpg",
+    price: 11450,
+    qtyDiscount: [
+      { from: 2, to: 6, start: 4, end: 10 },
+    ],
+    tabsMg: "4 Tabs",
+    origin: "Saudia",
+    quality: "Guaranteed 100% Original",
+    specialNote: "",
+    related: [],
+    stripPrice: "5790",
+    stripImage: "/api/images/tadalafil/cialis-original/cialis-tablet-uses.webp",
+    stripStock: true,
+    stripTabs: "2",
   },
 ];
 export default products;

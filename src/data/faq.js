@@ -297,5 +297,35 @@ export const faqsByProduct = {
                      q: `What are common lidocaine prilocaine cream uses beyond medical settings?`,
                      a: `It's great for tattoos, waxing, or minor injuries, extending its utility in daily life across urban and rural Pakistan.`
               }
+       ],
+       'C20-O': [
+              {
+                     q: `What is the primary use of Cialis tablet?`,
+                     a: `Cialis tablet is mainly used to treat erectile dysfunction by increasing blood flow to the penis, helping men achieve and maintain an erection when sexually aroused.`
+              },
+              {
+                     q: `How does Cialis 20mg differ from other ED medications?`,
+                     a: `Cialis 20mg contains tadalafil, which provides effects for up to 36 hours, offering greater flexibility compared to shorter-acting options like sildenafil.`
+              },
+              {
+                     q: `What is the Cialis 20mg price in Pakistan?`,
+                     a: `The price typically changes depends on USD exchange rate and taxation.`
+              },
+              {
+                     q: `Are there any common Cialis side effects?`,
+                     a: `Yes, mild side effects may include headache, flushing, indigestion, or back pain; consult a doctor if they persist or worsen.`
+              },
+              {
+                     q: `Can I buy Cialis tablets in Pakistan without a prescription?`,
+                     a: `A prescription is required by law, but many online platforms facilitate consultations for discreet ordering.`
+              },
+              {
+                     q: `What are the impotence symptoms that Cialis can help with?`,
+                     a: `It addresses symptoms like difficulty achieving erections, reduced firmness, or inconsistent performance linked to vascular or psychological factors.`
+              },
+              {
+                     q: `Is tadalafil tablet uses similar to Cialis?`,
+                     a: `Yes, tadalafil is the active ingredient in Cialis, so uses overlap, including ED and BPH treatment, though branded versions ensure quality consistency.`
+              }
        ]
 };

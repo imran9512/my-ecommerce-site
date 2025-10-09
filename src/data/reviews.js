@@ -255,5 +255,61 @@ export const reviews = [
     date: "2022-05-17",
     rating: 5,
     comment: "Getting Best results in case of PE it provides good delay period while meating with my partner."
+  },
+  {
+    id: "c20o1",
+    productId: "C20-O",
+    name: "Farhan",
+    date: "2021-11-19",
+    rating: 5,
+    comment: "After struggling with ED for months, Cialis 20mg changed everything. The effects lasted through the weekend, and the price in Pakistan is reasonable. Highly recommend the original Lilly's for peace of mind"
+  },
+  {
+    id: "c20o2",
+    productId: "C20-O",
+    name: "Imran",
+    date: "2025-01-27",
+    rating: 4.7,
+    comment: "Cialis tablet uses were explained clearly by my doctor. No major side effects, just a slight headache once. Delivery was quick and discreet—perfect for privacy."
+  },
+  {
+    id: "c20o3",
+    productId: "C20-O",
+    name: "Rashid",
+    date: "2023-05-06",
+    rating: 4.9,
+    comment: "Finally found a reliable source for Cialis in Pakistan. The 20mg dose works wonders for my confidence. Worth every penny compared to generics."
+  },
+  {
+    id: "c20o4",
+    productId: "C20-O",
+    name: "Khawar",
+    date: "2022-08-30",
+    rating: 5,
+    comment: "Impotence symptoms were embarrassing, but Cialis helped immensely. Effects are natural, not forced. Packaging was secure, and support was responsive."
+  },
+  {
+    id: "c20o5",
+    productId: "C20-O",
+    name: "Ammar",
+    date: "2024-12-03",
+    rating: 4.8,
+    comment: "Searched for Cialis tablet price and got a great deal online. Tadalafil's long duration means no planning stress. Feels like a game-changer."
+  },
+  {
+    id: "c20o6",
+    productId: "C20-O",
+    name: "Khalid Shah",
+    date: "2021-03-15",
+    rating: 4.5,
+    comment: "Started with Cialis 20 mg tablet for BPH symptoms alongside ED. Dual benefits without issues. Authentic product—avoid fakes!"
+  },
+  {
+    id: "c20o7",
+    productId: "C20-O",
+    name: "Badar",
+    date: "2020-11-02",
+    rating: 5,
+    comment: "Cialis side effects were minimal for me. Boosted my relationship significantly. Easy to order in Pakistan with COD option."
   }
 ];
