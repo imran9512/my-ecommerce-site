@@ -271,5 +271,31 @@ export const faqsByProduct = {
                      q: `Which is better, Cialis or Levitra?`,
                      a: `Cialis (tadalafil) is better for longer-lasting effects (up to 36 hours) and daily use, while Levitra (vardenafil) is superior for quicker action (under 1 hour) and fewer food interactions; choose based on lifestyle.`
               }
+       ],
+       'PML': [
+              {
+                     q: `What is Pemla / Emla Cream, and how does it differ from lidocaine gel?`,
+                     a: `Pemla , Emla is a lidocaine prilocaine cream designed for occlusive use, offering longer-lasting numbing than water-based lidocaine gels, which suit quick applications. It's ideal for Pakistan's humid climate.`
+              },
+              {
+                     q: `Are there any lidocaine side effects I should watch for with Pemla?`,
+                     a: `Mild redness or itching may occur, but serious effects like dizziness are rare with proper dosing. Always patch test and avoid broken skin to stay safe.`
+              },
+              {
+                     q: `How long does it take for Pemla to work, and how is it applied?`,
+                     a: `Numbing starts in 30-60 minutes under a dressing. Apply a thin layer, cover, and remove after 1-2 hours for best results in procedures.`
+              },
+              {
+                     q: `Can I buy Pemla online, and is it authentic?`,
+                     a: `Absolutely—our site offers genuine Pemla with nationwide delivery. Look for batch numbers to ensure quality, matching pharmacy standards.`
+              },
+              {
+                     q: `Is Pemla suitable for children in Pakistan?`,
+                     a: `Yes, for ages 1+, but consult a pediatrician. It's widely used for vaccinations, providing gentle relief without needles.`
+              },
+              {
+                     q: `What are common lidocaine prilocaine cream uses beyond medical settings?`,
+                     a: `It's great for tattoos, waxing, or minor injuries, extending its utility in daily life across urban and rural Pakistan.`
+              }
        ]
 };

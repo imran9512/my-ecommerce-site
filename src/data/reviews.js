@@ -207,5 +207,53 @@ export const reviews = [
     date: "2024-03-27",
     rating: 4.6,
     comment: "Vardenafil tablet side effects? Barely any for me—just better focus downstairs. The levitra 20mg price in Pakistan is unbeatable; same kick as brand without the markup. Highly recommend!"
+  },
+  {
+    id: "Pml1",
+    productId: "PML",
+    name: "Minhas Shah",
+    date: "2023-04-15",
+    rating: 5,
+    comment: "I've tried various lidocaine creams, but Pemla is a game-changer for my tattoo touch-ups. No sting, just smooth sessions. Fast delivery too—highly recommend for anyone in Pakistan!"
+  },
+  {
+    id: "Pml2",
+    productId: "PML",
+    name: "Dr. Tanveer",
+    date: "2022-07-13",
+    rating: 4.8,
+    comment: "As a dentist, I prescribe Pemla for anxious patients before injections. The lidocaine prilocaine mix works reliably, with zero complaints on side effects. Excellent for clinic use."
+  },
+  {
+    id: "Pml3",
+    productId: "PML",
+    name: "Sara",
+    date: "2024-11-03",
+    rating: 5,
+    comment: "Perfect for my laser hair removal! The numbing lasted through the whole appointment. Way better than gels that wear off quickly. Affordable and effective—five stars."
+  },
+  {
+    id: "Pml4",
+    productId: "PML",
+    name: "Khuram",
+    date: "2021-03-15",
+    rating: 4.5,
+    comment: "Used it on my kid for his vaccine; he didn't even flinch. Lidocaine gel uses are handy, but Pemla's cream form sticks better. Safe and parent-approved."
+  },
+  {
+    id: "Pml5",
+    productId: "PML",
+    name: "Bilal Khan",
+    date: "2020-06-02",
+    rating: 4.6,
+    comment: "Relieved my sunburn itch overnight. Minimal side effects, and it arrived promptly online. A must-have for summer woes in Pakistan—natural relief without hassle."
+  },
+  {
+    id: "Pml6",
+    productId: "PML",
+    name: "M Saeed",
+    date: "2022-05-17",
+    rating: 5,
+    comment: "Getting Best results in case of PE it provides good delay period while meating with my partner."
   }
 ];
