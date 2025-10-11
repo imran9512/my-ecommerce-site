@@ -1,5 +1,5 @@
 // src/components/ImageGallery.jsx
-'use client'; // ← Next-13 app dir ke liye
+'use client';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
@@ -39,7 +39,7 @@ export default function ImageGallery({ product, isStrip }) {
                 {images.map((img, idx) => (
                     <div key={idx} id={`slide-${idx}`} className="w-full shrink-0 snap-center">
                         <Image
-                            src={`${img}?v=2`}
+                            src={`${img}`}
                             alt={img.split('/')?.pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') || product.name}
                             width={600}
                             height={400}

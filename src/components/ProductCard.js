@@ -1,4 +1,4 @@
-// src/components/ProductCard.jsx  (sirf price wala hissa change hua hai)
+// src/components/ProductCard.jsx
 import Image from 'next/image';
 import Link from 'next/link';
 import { BeakerIcon } from '@heroicons/react/24/outline';
@@ -17,6 +17,19 @@ export default function ProductCard({ product }) {
   /* ---------- 2.  lowest discounted price ---------- */
   let lowestPrice = product.price;
   if (hasDiscount && product.price) {
+    let maxDiscountPct;
+    if (Array.isArray(product.qtyDiscount)) {
+      maxDiscountPct = Math.max(
+        ...product.qtyDiscount.map(seg => Math.max(seg.start, seg.end))
+      );
+    } else {
+      maxDiscountPct = Math.max(...Object.values(product.qtyDiscount || {}));
+    }
+    lowestPrice = Math.round(product.price * (1 - maxDiscountPct / 100));
+  }
+
+  /*let lowestPrice = product.price;
+  if (hasDiscount && product.price) {
     const tiers = Array.isArray(product.qtyDiscount)
       ? product.qtyDiscount.flatMap((seg) => {
         const step = (seg.end - seg.start) / (seg.to - seg.from);
@@ -32,7 +45,8 @@ export default function ProductCard({ product }) {
       Math.round(product.price - product.price * (p / 100))
     );
     lowestPrice = Math.min(...discountedPrices, product.price);
-  }
+  }*/
+
 
   /* ---------- 3.  price row renderer ---------- */
   const PriceRow = () => {
@@ -72,7 +86,7 @@ export default function ProductCard({ product }) {
       )}
 
       <Image
-        src={`${product.images[0]}?v=2`}
+        src={`${product.images[0]}`}
         alt={product.name}
         width={200}
         height={200}
@@ -81,15 +95,15 @@ export default function ProductCard({ product }) {
       />
 
       {/* brand + strip badge row */}
-      <div className="flex items-center justify-between mt-2">
+      <div className="flex items-center justify-between mt-1">
         {product.brand && (
           <h3 className="-ml-1 underline decoration-2 decoration-red-300 text-[10px]">
             {product.brand}&apos;s
           </h3>
         )}
         {product.stripStock && (
-          <span className="bg-yellow-300 text-xs rounded">
-            <span className="animate-pulse">✔ </span>Strip
+          <span className="bg-yellow-200 text-[10px] rounded">
+            <span className='mr-0.5 ml-0.5'>✔ Strip</span>
           </span>
         )}
       </div>
@@ -97,9 +111,9 @@ export default function ProductCard({ product }) {
       <h3 className="text-sm font-semibold truncate">{product.name}</h3>
 
       {product.ActiveSalt && (
-        <h4 className="text-xs mr-2 rounded flex items-center gap-1">
-          <BeakerIcon className="w-4 h-4" />
-          <span className="underline shadow decoration-blue-300">
+        <h4 className="text-[10px] mr-2 rounded flex items-center gap-1">
+          <BeakerIcon className="w-3 h-3" />
+          <span className="underline decoration-blue-300">
             {product.ActiveSalt}
           </span>
         </h4>
