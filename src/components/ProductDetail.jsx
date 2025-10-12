@@ -175,7 +175,7 @@ export default function ProductDetail({ product }) {
                                     <BeakerIcon className="w-4 h-4" />
                                     <Link
                                         href={`/search?q=${encodeURIComponent(product.ActiveSalt)}`}
-                                        className="text-sm bg-yellow-100 shadow-lg font-semibold underline underline-offset-1 cursor-pointer"
+                                        className="text-[10px] bg-yellow-100 shadow-lg font-semibold underline underline-offset-1 cursor-pointer"
                                     >
                                         {product.ActiveSalt}
                                     </Link>
@@ -184,8 +184,8 @@ export default function ProductDetail({ product }) {
                         </span>
 
                         <div className="ml-auto flex items-center">
-                            <span className="text-xs mr-2 text-gray-600">
-                                ({product.reviewCount ?? 0} reviews)
+                            <span className="text-[10px] mr-2 text-gray-600">
+                                {product.reviewCount ?? 0} reviews
                             </span>
 
                             {[...Array(5)].map((_, i) => (
