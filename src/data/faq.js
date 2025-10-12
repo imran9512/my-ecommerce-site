@@ -375,5 +375,31 @@ export const faqsByProduct = {
                      q: `Where to find original 50mg Viagra in Pakistan?`,
                      a: `Original 50mg Viagra in Pakistan is available on our online store. We have fresh stock. Ensure Viagra 50mg tablets have proper markings for genuine sildenafil 50mg.`
               }
+       ],
+       'VLTR': [
+              {
+                     q: `What is the VALTREX 500 mg price in Pakistan?`,
+                     a: `The VALTREX 500 mg price in Pakistan not fixed becouse on dollar rate and import duties but we make sure u get it in very reasonable price and in best quality always.`
+              },
+              {
+                     q: `What are valtrex tablet uses in urdu?`,
+                     a: `والٹریکس ٹیبلٹ کا استعمال ہرپس انفیکشنز جیسے شنگلز، جنسی ہرپس، اور کولڈ سورز کے علاج کے لیے ہے۔ یہ وائرس کی نشوونما روکتا ہے اور علامات کم کرتا ہے۔`
+              },
+              {
+                     q: `Is VALTREX 500mg an alternative to Acyclovir?`,
+                     a: `Yes, VALTREX 500mg contains Valaciclovir 500mg, which converts to acyclovir in the body, offering similar benefits to Acyclovir 400/800mg but with fewer doses.`
+              },
+              {
+                     q: `What are common Valaciclovir brand names?`,
+                     a: `Popular Valaciclovir brand names include VALTREX, Valcivir, and Cyclovir. VALTREX 500 mg in Pakistan is a top choice for quality.`
+              },
+              {
+                     q: `How to buy VALTREX 500 mg in Pakistan?`,
+                     a: `Buy VALTREX 500 mg in Pakistan online from trusted pharmacies for discreet delivery. Ensure it's genuine Valaciclovir 500mg to avoid counterfeits.`
+              },
+              {
+                     q: `Are there side effects of VALTREX 500mg?`,
+                     a: `Common side effects of VALTREX 500mg include headache or nausea. Consult a doctor for Valaciclovir 500mg use, especially if you have kidney issues.`
+              }
        ]
 };

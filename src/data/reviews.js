@@ -407,5 +407,53 @@ export const reviews = [
     date: "2021-03-15",
     rating: 5,
     comment: "Switched to Viagra 50mg tablets and love the milder effects. Sildenafil 50mg works great without issues. Affordable 50mg Viagra in Pakistan—quick online delivery!"
+  },
+  {
+    id: "vltr1",
+    productId: "VLTR",
+    name: "Mohsina",
+    date: "2024-12-03",
+    rating: 5,
+    comment: "VALTREX 500mg worked wonders for my shingles. As an alternative to Acyclovir 800mg, it's easier with fewer pills. VALTREX 500 mg price in Pakistan is worth it—quick relief!"
+  },
+  {
+    id: "vltr2",
+    productId: "VLTR",
+    name: "Amina",
+    date: "2021-03-15",
+    rating: 4.9,
+    comment: "Used VALTREX 500 mg in Pakistan for cold sores. Valaciclovir 500mg cleared it fast. Love the valtrex tablet uses in urdu explanations online. Genuine product."
+  },
+  {
+    id: "vltr3",
+    productId: "VLTR",
+    name: "Minahil",
+    date: "2020-11-02",
+    rating: 4.5,
+    comment: "Switched from Acyclovir to VALTREX 500mg—better results! Valaciclovir brand names like this are reliable. Affordable VALTREX 500 mg price in Pakistan."
+  },
+  {
+    id: "vltr4",
+    productId: "VLTR",
+    name: "Aashi",
+    date: "2022-05-16",
+    rating: 4.8,
+    comment: "VALTREX 500mg helped with genital herpes outbreaks. Valaciclovir 500mg is effective and the same active as Acyclovir but simpler. Highly recommend VALTREX 500 mg in Pakistan."
+  },
+  {
+    id: "vltr5",
+    productId: "VLTR",
+    name: "Kinza",
+    date: "2024-03-27",
+    rating: 5,
+    comment: "Great for suppressing herpes. VALTREX 500mg with Valaciclovir 500mg beats Acyclovir 400mg in convenience. VALTREX 500 mg price in Pakistan fits my budget."
+  },
+  {
+    id: "vltr6",
+    productId: "VLTR",
+    name: "Kiran",
+    date: "2024-01-21",
+    rating: 5,
+    comment: "First time using VALTREX 500 mg in Pakistan—impressed! Valaciclovir brand names don't get better. Valtrex tablet uses in urdu made it easy to understand."
   }
 ];
