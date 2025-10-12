@@ -311,5 +311,101 @@ export const reviews = [
     date: "2020-11-02",
     rating: 5,
     comment: "Cialis side effects were minimal for me. Boosted my relationship significantly. Easy to order in Pakistan with COD option."
+  },
+  {
+    id: "vg100o1",
+    productId: "VG100-O",
+    name: "Imtiaz",
+    date: "2022-01-27",
+    rating: 5,
+    comment: "Tried generics before, but switched to original. Perfect viagra tablet timing and results. Best place for viagra tablet online in Pakistan—reliable and quick."
+  },
+  {
+    id: "vg100o2",
+    productId: "VG100-O",
+    name: "Hammad",
+    date: "2024-05-06",
+    rating: 4.9,
+    comment: "Checked the viagra tablet price in Pakistan and found it affordable here. Viagra tablet uses helped with my ED issues without side effects. Fast delivery for viagra tablet online."
+  },
+  {
+    id: "vg100o3",
+    productId: "VG100-O",
+    name: "Mahran Khan",
+    date: "2025-08-30",
+    rating: 4.8,
+    comment: "As a couple, this viagra tablet changed our life. Great viagra tablet timing—works just when needed. The viagra tablet in Pakistan from this pharmacy is genuine, no fakes."
+  },
+  {
+    id: "vg100o4",
+    productId: "VG100-O",
+    name: "Sultan",
+    date: "2023-12-03",
+    rating: 4.5,
+    comment: "I've been using original Viagra 100mg for a few months, and the viagra tablet uses for male are spot on. The viagra tablet price in Pakistan is reasonable, and buying viagra tablet online from here is super easy. Highly recommend!"
+  },
+  {
+    id: "vg100o5",
+    productId: "VG100-O",
+    name: "Akbar",
+    date: "2020-03-15",
+    rating: 4.7,
+    comment: "Original quality at a fair viagra tablet price. The viagra tablet uses for male boosted my confidence big time. Easy to purchase here the viagra tablet in Pakistan discreetly."
+  },
+  {
+    id: "vg100o6",
+    productId: "VG100-O",
+    name: "Baig ",
+    date: "2022-11-02",
+    rating: 4.9,
+    comment: "No complaints! Viagra tablet price in Pakistan matches the value. Effective viagra tablet uses, and the online process for viagra tablet in Pakistan was hassle-free."
+  },
+  {
+    id: "vg50o1",
+    productId: "VG50-O",
+    name: "Yaseen",
+    date: "2021-11-19",
+    rating: 5,
+    comment: "No side effects with these Viagra 50mg tablets. Sildenafil 50mg is spot on for mild needs. Best source for 50mg Viagra in Pakistan."
+  },
+  {
+    id: "vg50o2",
+    productId: "VG50-O",
+    name: "Malik G",
+    date: "2025-01-27",
+    rating: 4.9,
+    comment: "Great value on Viagra 50mg tablets. Sildenafil 50mg helps just right. Found authentic 50mg Viagra in Pakistan online—discreet and effective."
+  },
+  {
+    id: "vg50o3",
+    productId: "VG50-O",
+    name: "Bakhtyar",
+    date: "2023-05-06",
+    rating: 4.5,
+    comment: "Viagra 50mg tablets deliver consistent results with sildenafil 50mg. Ideal for 50mg Viagra in Pakistan users wanting less intensity. Highly satisfied!"
+  },
+  {
+    id: "vg50o4",
+    productId: "VG50-O",
+    name: "Bilawal",
+    date: "2022-08-30",
+    rating: 4.8,
+    comment: "Tried sildenafil 50mg first—perfect start. Viagra 50mg tablets are reliable and the price for 50mg Viagra in Pakistan is fair. Easy to order."
+  },
+  {
+    id: "vg50o5",
+    productId: "VG50-O",
+    name: "Mubarak Shah",
+    date: "2024-12-03",
+    rating: 5,
+    comment: "These Viagra 50mg tablets with sildenafil 50mg revived our spark. Best 50mg Viagra in Pakistan for subtle help. Genuine product, no regrets."
+  },
+  {
+    id: "vg50o6",
+    productId: "VG50-O",
+    name: "Raheel",
+    date: "2021-03-15",
+    rating: 5,
+    comment: "Switched to Viagra 50mg tablets and love the milder effects. Sildenafil 50mg works great without issues. Affordable 50mg Viagra in Pakistan—quick online delivery!"
   }
 ];

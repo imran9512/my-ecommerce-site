@@ -327,5 +327,53 @@ export const faqsByProduct = {
                      q: `Is tadalafil tablet uses similar to Cialis?`,
                      a: `Yes, tadalafil is the active ingredient in Cialis, so uses overlap, including ED and BPH treatment, though branded versions ensure quality consistency.`
               }
+       ],
+       'VG100-O': [
+              {
+                     q: `What is viagra tablet price in Pakistan?`,
+                     a: `The viagra tablet price in Pakistan for original Viagra 100mg varies depending on importing sources, but our priority is to make sure to provide the best quality to our customers. Supply chains and storage temperature are important to maintain the quality and effectiveness of the original Sildanafil`
+              },
+              {
+                     q: `What are the main viagra tablet uses for male?`,
+                     a: `The primary use of Viagra tablets for men is to treat erectile dysfunction (ED) though increasing blood flow, helping to get and sustain an erection. It's effective with sexual stimulation and not an aphrodisiac.`
+              },
+              {
+                     q: `How does viagra tablet timing work?`,
+                     a: `For optimal viagra tablet timing, take it 30-60 minutes before activity. Effects last up to 4 hours, but avoid heavy meals to prevent delays in onset.`
+              },
+              {
+                     q: `Can I buy viagra tablet online in Pakistan?`,
+                     a: `Yes, you can easily buy viagra tablet online from reputable pharmacies in Pakistan. Look for sites offering discreet delivery and authentic products to ensure safety.`
+              },
+              {
+                     q: `Is viagra tablet safe for everyone?`,
+                     a: `While the viagra tablet is safe for most men, consult a heart specialist if you have heart issues or use other medications. Side effects like headaches are common but usually mild.`
+              },
+              {
+                     q: `Where can I find original viagra tablet in Pakistan?`,
+                     a: `Original viagra tablet in Pakistan is available on our online stores. Verify authenticity through Pfizer markings to avoid counterfeits.`
+              }
+       ],
+       'VG50-O': [
+              {
+                     q: `What is sildenafil 50mg in Viagra 50mg tablets?`,
+                     a: `Sildenafil 50mg is the active ingredient in Viagra 50mg tablets, aiding blood flow for erectile dysfunction treatment. It's a lower dose for milder cases or beginners.`
+              },
+              {
+                     q: `Can I buy Viagra 50mg tablets online?`,
+                     a: `Yes, you can purchase original Viagra 50mg tablets online from us in Pakistan. We offer discreet shipping for 50mg Viagra in Pakistan with verified sildenafil 50mg.`
+              },
+              {
+                     q: `What’s the best timing for sildenafil 50mg?`,
+                     a: `Take sildenafil 50mg in Viagra 50mg tablets 30-60 minutes before intimacy. The effects of 50mg of Viagra last around 4 hours.`
+              },
+              {
+                     q: `Is sildenafil 50mg safe for daily use?`,
+                     a: `Sildenafil 50mg in Viagra 50mg tablets is safe when used as directed, but consult a doctor for daily needs, especially with 50mg Viagra in Pakistan.`
+              },
+              {
+                     q: `Where to find original 50mg Viagra in Pakistan?`,
+                     a: `Original 50mg Viagra in Pakistan is available on our online store. We have fresh stock. Ensure Viagra 50mg tablets have proper markings for genuine sildenafil 50mg.`
+              }
        ]
 };
