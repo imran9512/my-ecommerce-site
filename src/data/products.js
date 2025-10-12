@@ -1105,9 +1105,9 @@ const products = [
       "/api/images/others/valtrex/valtrex-500-mg-tablet.webp"
     ],
     ogImg: "valtrex-500-mg-price-in-pakistan.webp",
-    price: 14950,
+    price: 11250,
     qtyDiscount: [
-      { from: 2, to: 6, start: 4, end: 10 },
+      { from: 2, to: 6, start: 4, end: 5 },
     ],
     tabsMg: "42 Tabs",
     origin: "Turky",
@@ -1115,7 +1115,7 @@ const products = [
     specialNote: "",
     related: ["VG100-O",
     ],
-    stripPrice: "4980",
+    stripPrice: "3980",
     stripImage: "/api/images/others/valtrex/valtrex-500-mg-tablet.webp",
     stripStock: true,
     stripTabs: "14",
