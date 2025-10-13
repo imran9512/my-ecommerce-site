@@ -123,7 +123,9 @@ export default function ProductDetail({ product }) {
                             <div className="flex-1">
                                 <span className="text-sm text-gray-600">By: </span>
                                 <Link
-                                    href={`/search?q=${encodeURIComponent(product.brand)}`}
+                                    href={`/brand/${encodeURIComponent(
+                                        product.brand.trim().toLowerCase().replace(/\s+/g, '-')
+                                    )}`}
                                     className="text-sm font-semibold underline underline-offset-2 decoration-2 decoration-red-300 cursor-pointer"
                                 >
                                     {product.brand}
@@ -174,7 +176,9 @@ export default function ProductDetail({ product }) {
                                 <h2 className="text-xs mr-2 rounded flex items-center gap-1">
                                     <BeakerIcon className="w-4 h-4" />
                                     <Link
-                                        href={`/search?q=${encodeURIComponent(product.ActiveSalt)}`}
+                                        href={`/active-pharmaceutical-ingredients/${encodeURIComponent(
+                                            product.ActiveSalt.trim().toLowerCase().replace(/\s+/g, '-')
+                                        )}`}
                                         className="text-[10px] bg-yellow-100 shadow-lg font-semibold underline underline-offset-1 cursor-pointer"
                                     >
                                         {product.ActiveSalt}
