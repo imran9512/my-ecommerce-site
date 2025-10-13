@@ -455,5 +455,165 @@ export const reviews = [
     date: "2024-01-21",
     rating: 5,
     comment: "First time using VALTREX 500 mg in Pakistan—impressed! Valaciclovir brand names don't get better. Valtrex tablet uses in urdu made it easy to understand."
+  },
+  {
+    id: "fem1",
+    productId: "femara",
+    name: "Nida",
+    date: "2021-06-15",
+    rating: 5,
+    comment: "Letrozole 2.5mg helped me conceive after PCOS struggles. Letrozole tablet uses for pregnancy worked wonders—baby on the way! Affordable letrozole price in Pakistan too"
+  },
+  {
+    id: "fem2",
+    productId: "femara",
+    name: "Hina",
+    date: "2022-10-02",
+    rating: 4.9,
+    comment: "Switched to Femara 2.5 for breast cancer treatment. Femara and letrozole are reliable; managed letrozole side effects with diet. Femara tablet price in Pakistan is justified."
+  },
+  {
+    id: "fem3",
+    productId: "femara",
+    name: "Maria",
+    date: "2024-03-27",
+    rating: 4.5,
+    comment: "Used letrozole for infertility—ovulated on first try! Letrozole tablet uses in urdu explanations helped understand. Great letrozole 2.5 mg price in Pakistan online."
+  },
+  {
+    id: "fem4",
+    productId: "femara",
+    name: "Zara",
+    date: "2022-02-16",
+    rating: 4.8,
+    comment: "Femara tablet uses matched my needs for hormone therapy. Fewer letrozole side effects than expected. Femara 2.5 mg price in Pakistan worth every penny for quality."
+  },
+  {
+    id: "fem5",
+    productId: "femara",
+    name: "Ashi",
+    date: "2025-05-31",
+    rating: 4.7,
+    comment: "Letrozole tablet boosted my fertility journey. Letrozole uses for pregnancy are spot-on. Easy to find letrozole tablet price in Pakistan—effective and budget-friendly."
+  },
+  {
+    id: "fem6",
+    productId: "femara",
+    name: "Sadia",
+    date: "2023-11-13",
+    rating: 5,
+    comment: "Femara tablet side effects were mild; helped with endometriosis. Femara and letrozole combo knowledge from doctor was key. Recommend for letrozole for infertility."
+  },
+  {
+    id: "fem7",
+    productId: "femaraB",
+    name: "Dr. Sara Malik, Gynecologist",
+    date: "2020-11-21",
+    rating: 5,
+    comment: "As a fertility specialist, I bulk-purchased Femara from here—genuine product arrived on time without issues. My clinic's success rates improved, and I'm very happy. Excellent feedback on authenticity and promptness!"
+  },
+  {
+    id: "fem8",
+    productId: "femaraB",
+    name: "Dr. Ahmed Khan, Oncologist",
+    date: "2022-01-12",
+    rating: 5,
+    comment: "I ordered Femara 2.5mg in bulk from this supplier and received original, high-quality tablets with timely delivery. My patients have benefited greatly, and I'm thrilled with the service. Highly recommend for reliable sourcing!"
+  },
+  {
+    id: "cyto1",
+    productId: "cyto",
+    name: "Moona",
+    date: "2022-01-27",
+    rating: 5,
+    comment: "Cytotec 200mcg helped manage my situation discreetly. As an abortion pill, it worked as expected with manageable misoprostol side effects. Reliable abortion tablets in Pakistan."
+  },
+  {
+    id: "cyto2",
+    productId: "cyto",
+    name: "Faryal",
+    date: "2024-05-06",
+    rating: 4.5,
+    comment: "Used cytotec pills for medical abortion—effective and private. Misoprostol in Pakistan is a good option for termination of pregnancy. Cytotec side effects were temporary."
+  },
+  {
+    id: "cyto3",
+    productId: "cyto",
+    name: "Maryam",
+    date: "2025-08-30",
+    rating: 4.2,
+    comment: "This miscarriage tablet eased the process. Cytotec tablet is among the best abortion pills in Pakistan. Followed how to take misoprostol by mouth instructions carefully."
+  },
+  {
+    id: "cyto4",
+    productId: "cyto",
+    name: "Sana",
+    date: "2023-12-03",
+    rating: 5,
+    comment: "Cytotec 200mcg as abortion medicine name in Pakistan delivered results. Misoprostol abortion method was straightforward, though cramping from cytotec uses was intense but worth it."
+  },
+  {
+    id: "cyto5",
+    productId: "cyto",
+    name: "Rimsha",
+    date: "2020-03-15",
+    rating: 4.8,
+    comment: "Best medicine for abortion in Pakistan for home use. Abortion pills name in Pakistan like cytotec helped with how to abort pregnancy safely. Minimal issues."
+  },
+  {
+    id: "cyto6",
+    productId: "cytoB",
+    name: "Dr. Rehana",
+    date: "2022-08-02",
+    rating: 5,
+    comment: "As a wholesaler, cytotec price in Pakistan is reasonable for bulk. Misoprostol price in Pakistan helped keep abortion pills price low for my stock—reliable supplier!"
+  },
+  {
+    id: "cyto7",
+    productId: "cytoB",
+    name: "Dr. Aiman",
+    date: "2021-02-14",
+    rating: 5,
+    comment: "Great deals on cytotec tablet price in Pakistan. Cytotec pills price and misoprostol tablet price make abortion cost manageable for bulk orders—fast and authentic."
+  },
+  {
+    id: "CF1",
+    productId: "cyto+fem",
+    name: "Amina",
+    date: "2024-07-05",
+    rating: 5,
+    comment: "Used Cytotec and Femara under doctor's advice for early termination—worked effectively with manageable cramps. Grateful for the guidance; felt safer than other options."
+  },
+  {
+    id: "CF2",
+    productId: "cyto+fem",
+    name: "Hina",
+    date: "2023-05-08",
+    rating: 5,
+    comment: "This combo helped resolve my situation privately. Side effects like nausea passed quickly, and the process was complete in a day. Highly recommend professional monitoring."
+  },
+  {
+    id: "CF3",
+    productId: "cyto+fem",
+    name: "Saira",
+    date: "2024-04-05",
+    rating: 4.8,
+    comment: "After research, chose Cytotec with Femara for medical abortion. Better results than expected; minimal chills and bleeding. Doctor's follow-up made all the difference."
+  },
+  {
+    id: "CF4",
+    productId: "cyto+fem",
+    name: "Zunaira",
+    date: "2025-01-22",
+    rating: 4.5,
+    comment: "Effective for miscarriage management using this pair. Cramping was intense but short-lived. Appreciate the higher success rate—worth discussing with your healthcare provider."
+  },
+  {
+    id: "CF5",
+    productId: "cyto+fem",
+    name: "Shaheen",
+    date: "2021-11-29",
+    rating: 4.9,
+    comment: "Combined Cytotec and Femara for termination; process was smooth with doctor's input. Side effects were tolerable, and I'm relieved it worked without complications."
   }
 ];

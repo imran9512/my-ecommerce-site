@@ -401,5 +401,87 @@ export const faqsByProduct = {
                      q: `Are there side effects of VALTREX 500mg?`,
                      a: `Common side effects of VALTREX 500mg include headache or nausea. Consult a doctor for Valaciclovir 500mg use, especially if you have kidney issues.`
               }
+       ],
+       'femara': [
+              {
+                     q: `What are letrozole tablet uses for pregnancy?`,
+                     a: `Letrozole tablet uses for pregnancy focus on inducing ovulation in infertile women, especially with PCOS. It boosts FSH levels for better egg release, increasing conception chances.`
+              },
+              {
+                     q: `What are common letrozole side effects?`,
+                     a: `Letrozole side effects include hot flashes, fatigue, joint pain, and nausea. Femara tablet side effects are similar; consult a doctor for management tips.`
+              },
+              {
+                     q: `What are letrozole tablet uses in urdu?`,
+                     a: `لیٹروزول ٹیبلٹ کا استعمال بریسٹ کینسر کے علاج اور بانجھ پن کے لیے ہے۔ یہ ovulation کو induce کرکے حمل کی چانسز بڑھاتی ہے۔`
+              },
+              {
+                     q: `How does letrozole for infertility work?`,
+                     a: `Letrozole for infertility lowers estrogen to trigger more FSH, promoting ovulation. It's often preferred over Clomid for fewer multiples, with Femara 2.5 as a branded option.`
+              }
+       ],
+       'cyto': [
+              {
+                     q: `What is misoprostol uses in medical abortion?`,
+                     a: `Misoprostol uses include inducing uterine contractions for termination of pregnancy. As an abortion pill, cytotec uses help in the abortion procedure, often combined for effective misoprostol abortion at home.`
+              },
+              {
+                     q: `What are cytotec side effects?`,
+                     a: `Cytotec side effects, like misoprostol side effects, may include cramping, bleeding, nausea, and diarrhea. These are common in the abortion procedure but consult a doctor for severe cytotec tablet issues.`
+              },
+              {
+                     q: `How to use misoprostol vaginally for abortion?`,
+                     a: `For how to use misoprostol vaginally, insert moistened tablets deep into the vagina and rest. This method aids how to abort pregnancy, but follow medical advice for safe abortion at home in Pakistan.`
+              },
+              {
+                     q: `What is tab misoprostol 200 mg uses?`,
+                     a: `Tab misoprostol 200 mg uses cover medical abortion and as medicine for miscarriage. Cytotec 200mcg is a key abortion tablet name for how to remove pregnancy under supervision.`
+              },
+              {
+                     q: `Are there home remedies for abortion using misoprostol?`,
+                     a: `While misoprostol is used for how to get rid of pregnancy, it's not a simple home remedy for abortion. Professional guidance is essential for safe how is abortion done with cytotec pills.`
+              }
+       ],
+       'cytoB': [
+              {
+                     q: `What is the cytotec price in Pakistan for bulk buyers?`,
+                     a: `Cytotec price in Pakistan for bulk varies by quantity; contact for wholesale quotes on cytotec tablet price in Pakistan and cytotec pills price.`
+              },
+              {
+                     q: `How does misoprostol price in Pakistan affect abortion pills price?`,
+                     a: `Misoprostol price in Pakistan directly influences abortion pills price and misoprostol tablet price, offering better rates for bulk to lower overall abortion cost.`
+              },
+              {
+                     q: `What factors impact abortion pill cost in bulk?`,
+                     a: `Abortion pill cost depends on cytotec tablet price, abortion cost elements, and volume, making cytotec price in Pakistan competitive for large purchases.`
+              }
+       ],
+       'femaraB': [
+              {
+                     q: `How does femara 2.5mg for pregnancy work?`,
+                     a: `Femara 2.5mg for pregnancy boosts FSH to promote ovulation, ideal for PCOS; letrozole tablet price in Pakistan offers cost-effective fertility support.`
+              },
+              {
+                     q: `Where to femara 2.5mg buy online?`,
+                     a: `Femara 2.5mg buy online from us 100% authentic; check femara 2.5mg price in Pakistan alongside letrozole tablet price in Pakistan for deals.`
+              }
+       ],
+       'cyto+fem': [
+              {
+                     q: `What is the effectiveness of Cytotec and Femara for medical abortion?`,
+                     a: `Studies show combining misoprostol (Cytotec) with letrozole (Femara) achieves higher complete abortion rates (around 76-80%) than misoprostol alone, especially in early pregnancy, by enhancing uterine response.`
+              },
+              {
+                     q: `What are common side effects of using Cytotec and Femara together?`,
+                     a: `Side effects include cramping, heavy bleeding, nausea, diarrhea, chills, and fatigue. Letrozole may add hot flashes or joint pain, but these are usually temporary; seek medical help for severe symptoms.`
+              },
+              {
+                     q: `Is this combination safe for abortion at home?`,
+                     a: `While researched for medical abortion, it's not recommended for home use without supervision. Risks like infection or incomplete termination require doctor oversight for safe termination of pregnancy.`
+              },
+              {
+                     q: `How does letrozole enhance misoprostol in abortion?`,
+                     a: `Letrozole (Femara) lowers estrogen to weaken pregnancy support, making misoprostol (Cytotec) more effective at causing contractions and expulsion, potentially shortening the process in clinical settings.`
+              }
        ]
 };
