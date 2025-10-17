@@ -10,31 +10,49 @@ export default function BrandPage({ products: brandProducts, slug }) {
     const toHtml = (field) =>
         Array.isArray(field) ? field.join('') : (field || '');
 
+    const canonical = `${SITE_URL}/brand/${slug}`;
+
     const brandSchema = {
         '@context': 'https://schema.org',
-        '@type': 'ItemList',
-        name: content.metaTitle || slug,
-        itemListElement: brandProducts.map((p, idx) => ({
-            '@type': 'ListItem',
-            position: idx + 1,
-            url: `${SITE_URL}/products/${p.slug}`,
-            name: p.name,
-            image: `${SITE_URL}${p.images[0]}`,
-            offers: {
-                '@type': 'Offer',
-                price: p.price,
-                priceCurrency: 'PKR',
-            },
-        })),
+        '@type': 'Brand',
+        name: content.metaTitle || slug.replace(/-/g, ' '),
+        description: content.metaDesc || `${slug.replace(/-/g, ' ')}'s range of medicines with different active ingredients. Buy genuine products online.`,
+        url: canonical,
+        hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: `${slug.replace(/-/g, ' ')} Medicines`,
+            itemListElement: brandProducts.map((p, idx) => ({
+                '@type': 'ListItem',
+                position: idx + 1,
+                item: {
+                    '@type': 'Drug',
+                    name: p.name,
+                    url: `${SITE_URL}/products/${p.slug}`,
+                    image: `${SITE_URL}${p.images[0]}`,
+                    brand: {
+                        '@type': 'Brand',
+                        name: p.brand
+                    },
+                    activeIngredient: p.ActiveSalt || 'Generic',
+                    dosageForm: p.dosageForm || 'Tablet',
+                    drugUnit: p.tabsMg || 'N/A',
+                    offers: {
+                        '@type': 'Offer',
+                        price: p.price || 0,
+                        priceCurrency: 'PKR',
+                        availability: p.stock > 0 ? 'InStock' : 'OutOfStock',
+                        priceValidUntil: '2030-12-31'
+                    }
+                }
+            }))
+        }
     };
-
-    const canonical = `${SITE_URL}/brand/${slug}`;
 
     return (
         <>
             <Head>
                 <title>{content.metaTitle || slug}</title>
-                <meta name="description" content={content.metaDesc || ''} />
+                <meta name="description" content={content.metaDesc || `${slug.replace(/-/g, ' ')}'s range of medicines with different active ingredients. Buy genuine products online.`} />
                 <link rel="canonical" href={canonical} />
                 <script
                     type="application/ld+json"

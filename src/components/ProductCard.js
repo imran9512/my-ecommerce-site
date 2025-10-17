@@ -119,7 +119,7 @@ export default function ProductCard({ product }) {
         </h4>
       )}
 
-      {/* price / contact row – neechy wali jagah pe */}
+      {/* price row */}
       <PriceRow />
     </Link>
   );
