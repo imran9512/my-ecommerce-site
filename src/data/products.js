@@ -487,7 +487,7 @@ const products = [
     qtyDiscount: [
       { from: 2, to: 6, start: 2, end: 5 },
     ],
-    tabsMg: "31 capsule",
+    tabsMg: "30 capsule",
     origin: "Iran",
     quality: "100% Original",
     specialNote: "Exp: 04/26",
