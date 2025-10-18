@@ -9,12 +9,12 @@ const Home = () => {
   const uniqueSalts = [...new Set(products
     .filter(p => p.ActiveSalt)
     .map(p => p.ActiveSalt.trim().toLowerCase().replace(/\s+/g, '-'))
-  )].slice(0, 9);
+  )].slice(0, 40);
 
   const uniqueBrands = [...new Set(products
     .filter(p => p.brand)
     .map(p => p.brand.trim().toLowerCase().replace(/\s+/g, '-'))
-  )].slice(0, 9);
+  )].slice(0, 40);
 
   // Schema: BreadcrumbList for detection (full list, separate for salts/brands)
   const homeSchema = {
