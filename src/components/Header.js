@@ -8,10 +8,11 @@ import {
     XMarkIcon,
     ShoppingCartIcon,
     ChevronDownIcon,
+    MagnifyingGlassIcon, // NEW: For potential mobile search if needed
 } from '@heroicons/react/24/outline';
 import { useCartStore } from '@/stores/cart';
 import products from '@/data/products';
-import { categories, WHATSAPP_NUMBER } from '@/data/constants'; // FIXED: Added categories & WHATSAPP_NUMBER here
+import { categories, WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function Header() {
     const [cursor, setCursor] = useState(-1);
@@ -59,7 +60,7 @@ export default function Header() {
         { label: 'Return Policy', href: '/return-policy' },
     ];
 
-    /* INLINE: Menu States & Logic from Menu.jsx (Desktop Variant) */
+    /* INLINE: Menu States & Logic (Desktop Variant - Thumb Tweaks Applied) */
     const [openCategory, setOpenCategory] = useState(null);
     const [openChild, setOpenChild] = useState({});
     const [openUseful, setOpenUseful] = useState(false);
@@ -81,21 +82,21 @@ export default function Header() {
 
     return (
         <>
-            {/* ------------- FLOATING PILL ------------- */}
-            <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl bg-white/20 backdrop-blur-md shadow-xl rounded-full px-3 md:px-5 h-14 flex items-center">
+            {/* ------------- FLOATING PILL - Thumb Tweaks: Bigger Padding, Scale Effects ------------- */}
+            <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl bg-white/20 backdrop-blur-md shadow-xl rounded-full px-4 md:px-6 h-16 flex items-center" role="banner"> {/* FIXED: h-14 -> h-16 for bigger touch, px-3 -> px-4 */}
                 <div className="w-full grid grid-cols-3 items-center">
-                    {/* Left: Hamburger + Search */}
-                    <div className="flex items-center justify-start space-x-2">
+                    {/* Left: Hamburger + Search (Desktop Only) */}
+                    <div className="flex items-center justify-start space-x-3"> {/* FIXED: space-x-2 -> space-x-3 */}
                         <button
                             onClick={() => setMenuOpen(!menuOpen)}
                             aria-label="Toggle menu"
-                            className="text-gray-700 relative hidden lg:block" // FIXED: lg only, no medium overlap
+                            className="text-gray-700 relative hidden lg:block transition-transform active:scale-95" // NEW: Scale effect
                         >
-                            {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
+                            {menuOpen ? <XMarkIcon className="w-7 h-7" /> : <Bars3Icon className="w-7 h-7" />} {/* NEW: w-6 -> w-7 */}
                         </button>
 
-                        {/* Search: md+ */}
-                        <div className="relative hidden md:block" ref={searchWrapperRef}>
+                        {/* Search: lg+ only (mobile pe bottom icon se) */}
+                        <div className="relative hidden lg:block" ref={searchWrapperRef}>
                             <input
                                 type="text"
                                 placeholder="Search…"
@@ -128,7 +129,7 @@ export default function Header() {
                                         }
                                     }
                                 }}
-                                className="focus:outline-none bg-gray-100/70 w-32 md:w-40 xl:w-56 border border-gray-300 rounded-full px-4 shadow-inner py-1.5 text-sm"
+                                className="focus:outline-none bg-gray-100/70 w-40 lg:w-56 border border-gray-300 rounded-full px-4 py-3 shadow-inner text-sm transition active:scale-95" // FIXED: py-1.5 -> py-3, w-32 -> w-40, scale
                             />
 
                             {searchTerm && results.length > 0 && (
@@ -141,7 +142,7 @@ export default function Header() {
                                                     setSearchTerm('');
                                                     setCursor(-1);
                                                 }}
-                                                className={`block px-3 py-2 text-sm ${idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-100'}`}
+                                                className={`block px-4 py-3 text-sm transition active:scale-95 ${idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-100'}`} // NEW: py-2 -> py-3, scale
                                             >
                                                 {p.name}
                                             </Link>
@@ -154,36 +155,36 @@ export default function Header() {
 
                     {/* Center: Logo - md+ */}
                     <div className="flex justify-center">
-                        <Link href="/">
+                        <Link href="/" className="transition active:scale-95"> {/* NEW: Scale */}
                             <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain hidden md:block" />
                         </Link>
                     </div>
 
                     {/* Right: Links & Cart */}
-                    <div className="flex items-center justify-end space-x-2 md:space-x-3 text-sm text-gray-700">
+                    <div className="flex items-center justify-end space-x-3 text-sm text-gray-700"> {/* FIXED: space-x-2 -> space-x-3 */}
                         <div className="hidden md:flex items-center space-x-2">
-                            <Link href="/contact">Contact Us📞</Link>
+                            <Link href="/contact" className="px-4 py-3 transition active:scale-95">Contact Us📞</Link> {/* NEW: Padding + scale */}
                             <span className="text-gray-400">|</span>
                         </div>
-                        <Link href="/faq" className="hidden md:inline">FAQ❓</Link>
-                        <Link href="/cart" className="flex items-center">
-                            <ShoppingCartIcon className="w-5 h-5" />
+                        <Link href="/faq" className="hidden md:inline px-4 py-3 transition active:scale-95">FAQ❓</Link> {/* NEW: Padding + scale */}
+                        <Link href="/cart" className="flex items-center relative transition-transform active:scale-95"> {/* NEW: Scale */}
+                            <ShoppingCartIcon className="w-7 h-7" /> {/* NEW: w-5 -> w-7 */}
                             {cartCount > 0 && (
-                                <span className="text-xs bg-red-500 text-white rounded-full px-1.5 ml-0.5">
+                                <span className="absolute -top-1 right-0 bg-red-500 text-white text-[10px] rounded-full px-1.5 min-w-[18px] h-[18px] flex items-center justify-center animate-pulse"> {/* NEW: Bigger badge, animate */}
                                     {cartCount}
                                 </span>
                             )}
                         </Link>
                     </div>
 
-                    {/* Mobile Logo: Left, below md */}
-                    <Link href="/" className="absolute left-4 md:hidden">
+                    {/* Mobile Logo: Left, absolute for clean left align */}
+                    <Link href="/" className="absolute left-4 md:hidden transition active:scale-95"> {/* NEW: Scale */}
                         <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain" />
                     </Link>
                 </div>
             </header>
 
-            {/* ------------- INLINE DESKTOP MENU DRAWER ------------- */}
+            {/* ------------- INLINE DESKTOP MENU DRAWER (Thumb Tweaks) ------------- */}
             {menuOpen && (
                 <div
                     className="fixed inset-0 backdrop-blur-sm z-40"
@@ -192,11 +193,13 @@ export default function Header() {
                     }}
                 >
                     <div
-                        className="fixed top-20 left-2 w-60 rounded-xl shadow-2xl bg-white/50 backdrop-blur-md p-4 overflow-y-auto" // Desktop styling
+                        className="fixed top-20 left-2 w-60 rounded-xl shadow-2xl bg-white/50 backdrop-blur-md p-4 overflow-y-auto max-h-[80vh]"
                         onClick={(e) => e.stopPropagation()}
+                        role="menu"
+                        aria-label="Main menu"
                     >
                         {/* ========== CATEGORIES ========== */}
-                        <nav className="space-y-4">
+                        <nav className="space-y-4" role="navigation">
                             {categories.map((cat, idx) => (
                                 <div key={cat.name}>
                                     <div
@@ -209,7 +212,7 @@ export default function Header() {
                                                 e.stopPropagation();
                                                 closeMenu();
                                             }}
-                                            className="bg-white/40 px-3 py-1.5 rounded shadow hover:bg-slate-50 transition"
+                                            className="bg-white/40 px-4 py-3 rounded shadow hover:bg-slate-50 transition active:scale-95" // FIXED: py-1.5 -> py-3, scale
                                         >
                                             {cat.name}
                                         </Link>
@@ -231,7 +234,7 @@ export default function Header() {
                                                             <Link
                                                                 href={`/category/${item.title.toLowerCase()}`}
                                                                 onClick={closeMenu}
-                                                                className="inline-block bg-white/70 px-3 py-1 rounded shadow text-xs hover:bg-slate-200 transition"
+                                                                className="inline-block bg-white/70 px-4 py-3 rounded shadow text-sm hover:bg-slate-200 transition active:scale-95" // FIXED: text-xs, py-1 -> py-3, scale
                                                             >
                                                                 -&nbsp;{item.title}
                                                             </Link>
@@ -253,7 +256,7 @@ export default function Header() {
                                                                         <Link
                                                                             href={`/category/${grand.toLowerCase()}`}
                                                                             onClick={closeMenu}
-                                                                            className="inline-block bg-yellow-100/80 px-2 py-0.5 rounded text-xs hover:bg-yellow-200 transition"
+                                                                            className="inline-block bg-yellow-100/80 px-4 py-3 rounded text-sm hover:bg-yellow-200 transition active:scale-95" // FIXED: text-xs, py-0.5 -> py-3, scale
                                                                         >
                                                                             --&nbsp;{grand}
                                                                         </Link>
@@ -289,7 +292,7 @@ export default function Header() {
                                             <Link
                                                 href={href}
                                                 onClick={closeMenu}
-                                                className="block text-sm text-sky-600 hover:text-black"
+                                                className="block px-4 py-3 text-sm text-sky-600 hover:text-black transition active:scale-95" // NEW: Padding + scale
                                             >
                                                 {label}
                                             </Link>
@@ -302,9 +305,9 @@ export default function Header() {
                         {/* ========== WHATSAPP ========== */}
                         <button
                             onClick={openWhatsApp}
-                            className="w-full mt-4 h-8 flex items-center justify-center bg-green-500 text-white rounded-full text-xs font-semibold hover:bg-green-600 transition"
+                            className="w-full mt-4 h-10 flex items-center justify-center bg-green-500 text-white rounded-full text-sm font-semibold hover:bg-green-600 transition active:scale-95" // FIXED: h-8 -> h-10, text-xs -> text-sm, scale
                         >
-                            <img src="/whatsapp.png" alt="WhatsApp" className="w-4 h-4 mr-1.5" />
+                            <img src="/whatsapp.png" alt="WhatsApp" className="w-5 h-5 mr-2" /> {/* FIXED: w-4 -> w-5 */}
                             WhatsApp Us
                         </button>
                     </div>
