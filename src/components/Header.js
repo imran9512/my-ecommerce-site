@@ -25,16 +25,20 @@ export default function Header() {
 
     /* live search logic */
     const [results, setResults] = useState([]);
+    // helper: string OR array -> lowercase string
+    const flatText = (v) =>
+        (Array.isArray(v) ? v.join(' ') : String(v || '')).toLowerCase();
+
     useEffect(() => {
         const q = searchTerm.trim().toLowerCase();
-        if (!q) return setResults([]);
-        const filtered = products.filter(
-            (p) =>
-                p.name.toLowerCase().includes(q) ||
-                p.slug.toLowerCase().includes(q) ||
-                p.brand.toLowerCase().includes(q) ||
-                (p.ActiveSalt || '').toLowerCase().includes(q) ||
-                p.categories.some((c) => c.toLowerCase().includes(q))
+        if (q.length < 2) return setResults([]);   // <— اہم شرط
+
+        const filtered = products.filter((p) =>
+            flatText(p.name).includes(q) ||
+            flatText(p.slug).includes(q) ||
+            flatText(p.brand).includes(q) ||
+            flatText(p.ActiveSalt).includes(q) ||
+            p.categories.some((c) => c.toLowerCase().includes(q))
         );
         setResults(filtered);
     }, [searchTerm]);
@@ -79,9 +83,18 @@ export default function Header() {
                                 type="text"
                                 placeholder="Search…"
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={(e) => {
+                                    const val = e.target.value;
+                                    setSearchTerm(val);
+                                    // اگر 2 حروف سے کم ہوں تو فوراً خالی کر دو
+                                    if (val.trim().length < 2) {
+                                        setResults([]);
+                                        setCursor(-1);
+                                    }
+                                }}
                                 onKeyDown={(e) => {
-                                    const visible = results.slice(0, 6);
+                                    // Arrow / Enter منطق وہی رہے گی
+                                    const visible = results;
                                     if (e.key === 'ArrowDown') {
                                         e.preventDefault();
                                         setCursor((c) => (c + 1) % visible.length);
@@ -94,7 +107,7 @@ export default function Header() {
                                             router.push(`/products/${visible[cursor].slug}`);
                                             setSearchTerm('');
                                             setCursor(-1);
-                                        } else {
+                                        } else if (searchTerm.trim().length >= 2) {
                                             router.push(`/search?q=${encodeURIComponent(searchTerm)}`);
                                             setSearchTerm('');
                                         }
@@ -104,16 +117,8 @@ export default function Header() {
                             />
 
                             {searchTerm && results.length > 0 && (
-                                <ul
-                                    ref={(ul) => {
-                                        if (ul && cursor >= 0) {
-                                            const li = ul.children[cursor];
-                                            li?.scrollIntoView({ block: 'nearest' });
-                                        }
-                                    }}
-                                    className="absolute top-full left-0 mt-2 w-full max-h-48 bg-white border rounded-xl shadow-lg overflow-y-auto z-30"
-                                >
-                                    {results.slice(0, 6).map((p, idx) => (
+                                <ul className="absolute top-full left-0 mt-2 w-full bg-white border rounded-xl shadow-lg z-30">
+                                    {results.map((p, idx) => (
                                         <li key={p.id}>
                                             <Link
                                                 href={`/products/${p.slug}`}

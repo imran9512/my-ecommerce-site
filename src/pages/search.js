@@ -31,7 +31,7 @@ export default function SearchPage() {
         <link rel="canonical" href={pageCanonical} />
       </Head>
 
-      <div className="max-w-3xl mt-10 mx-auto p-4">
+      <div className="max-w-3xl mt-12 mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4 text-center">Search Products</h1>
 
         <input

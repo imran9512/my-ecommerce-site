@@ -10,8 +10,8 @@ export default function TermsPage() {
         <title>Terms and Conditions | Aap Ki Sehat</title>
         <link rel="canonical" href={canonical('/terms-and-conditions')} />   {/* ← 2.  self-canonical */}
       </Head>
-      <div className="max-w-4xl mx-auto px-4 py-10 text-gray-800 leading-relaxed">
-        <h1 className="text-3xl font-bold text-sky-600 mb-6">Terms & Conditions 🌐</h1>
+      <div className="max-w-4xl mx-auto px-4 mt-16 text-gray-800 leading-relaxed">
+        <h1 className="text-3xl text-center font-bold text-sky-600 mb-6">Terms & Conditions 🌐</h1>
 
         <p className="mb-4">
           Welcome to <strong>{SITE_NAME}</strong>! 🛍️ By using our site or placing an order, you agree to the following guidelines designed to keep your shopping smooth and secure.

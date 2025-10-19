@@ -209,18 +209,25 @@ export default function SaltPage({ products: saltProducts, slug }) {
 /* ---------------------------------------------------------- */
 export async function getStaticPaths() {
     const saltSlugs = new Set();
+
     products.forEach((p) => {
-        if (p.ActiveSalt) {
-            // normalize: lowercase + dash
+        if (!p.ActiveSalt) return;          // null / undefined skip
+
+        // handle both  string  and  array
+        const salts = Array.isArray(p.ActiveSalt) ? p.ActiveSalt : [p.ActiveSalt];
+
+        salts.forEach((s) => {
             saltSlugs.add(
-                p.ActiveSalt.trim().toLowerCase().replace(/\s+/g, '-')
+                s.trim().toLowerCase().replace(/\s+/g, '-')
             );
-        }
+        });
     });
-    // content file k keys bhi same tarike se normalize karain
+
+    // content file keys
     Object.keys(saltContent).forEach((k) =>
         saltSlugs.add(k.trim().toLowerCase().replace(/\s+/g, '-'))
     );
+
     return {
         paths: Array.from(saltSlugs).map((slug) => ({ params: { slug } })),
         fallback: false,
@@ -228,16 +235,24 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    // jo bhi URL se aaya hai use bhi normalize karain
     const requested = params.slug.toLowerCase().replace(/\s+/g, '-');
-    const filtered = products.filter(
-        (p) =>
-            p.ActiveSalt &&
-            p.ActiveSalt.toLowerCase().replace(/\s+/g, '-') === requested
-    );
+
+    const filtered = products.filter((p) => {
+        if (!p.ActiveSalt) return false;
+
+        // accept string or array
+        const salts = Array.isArray(p.ActiveSalt) ? p.ActiveSalt : [p.ActiveSalt];
+
+        // true if ANY salt matches the requested slug
+        return salts.some((s) =>
+            s.trim().toLowerCase().replace(/\s+/g, '-') === requested
+        );
+    });
+
     const hasContent = !!saltContent[requested];
     if (filtered.length === 0 && !hasContent) {
         return { notFound: true };
     }
+
     return { props: { products: filtered, slug: requested } };
 }

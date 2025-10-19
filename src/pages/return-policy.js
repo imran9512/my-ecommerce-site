@@ -15,8 +15,8 @@ export default function ReturnPolicy() {
                 <link rel="canonical" href={canonical('/return-policy')} />
             </Head>
 
-            <div className="max-w-3xl mx-auto px-4 py-10 text-gray-700 leading-relaxed">
-                <h1 className="text-3xl font-bold mb-6">Return & Refund Policy</h1>
+            <div className="max-w-3xl mx-auto px-4 mt-16 text-gray-700 leading-relaxed">
+                <h1 className="text-2xl font-bold text-center mb-4">Return & Refund Policy</h1>
 
                 <p className="mb-4">
                     Medicines are sensitive products that must stay in controlled temperatures

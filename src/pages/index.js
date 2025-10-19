@@ -5,16 +5,27 @@ import { SITE_NAME, SITE_URL } from '@/data/constants';
 import products from '@/data/products';
 
 const Home = () => {
-  // Compute unique salts and brands
-  const uniqueSalts = [...new Set(products
-    .filter(p => p.ActiveSalt)
-    .map(p => p.ActiveSalt.trim().toLowerCase().replace(/\s+/g, '-'))
-  )].slice(0, 40);
+  // ----------  Active Salts  ----------
+  const uniqueSalts = [
+    ...new Set(
+      products.flatMap((p) => {
+        if (!p.ActiveSalt) return [];
+        const salts = Array.isArray(p.ActiveSalt) ? p.ActiveSalt : [p.ActiveSalt];
+        return salts.map((s) => s.trim().toLowerCase().replace(/\s+/g, '-'));
+      })
+    )
+  ];
 
-  const uniqueBrands = [...new Set(products
-    .filter(p => p.brand)
-    .map(p => p.brand.trim().toLowerCase().replace(/\s+/g, '-'))
-  )].slice(0, 40);
+  // ----------  Brands  ----------
+  const uniqueBrands = [
+    ...new Set(
+      products.flatMap((p) => {
+        if (!p.brand) return [];
+        const brands = Array.isArray(p.brand) ? p.brand : [p.brand];
+        return brands.map((b) => b.trim().toLowerCase().replace(/\s+/g, '-'));
+      })
+    )
+  ];
 
   // Schema: BreadcrumbList for detection (full list, separate for salts/brands)
   const homeSchema = {
@@ -91,7 +102,7 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="max-w-3xl mx-auto px-4 py-12 text-center">
+      <div className="max-w-3xl mx-auto px-4 py-8 text-center">
         <h1 className="text-4xl font-bold text-sky-700 mb-4">
           Empowering Wellbeing for Men and Women
         </h1>
@@ -108,7 +119,7 @@ const Home = () => {
           We prioritise discretion. Your privacy is our priority. Shop at your own pace, pay without worry, and receive every order in plain, unmarked packaging that keeps your choices between you and your doorstep. At <strong>{SITE_NAME}</strong> we’re here to give you the straightforward information and practical tools you need to feel steady, strong, and in charge of your * wellbeing.
         </p>
 
-        <Link href="/shop" className="mt-8 inline-block bg-sky-600 text-white px-6 py-3 rounded-md hover:bg-sky-700">
+        <Link href="/shop" className="mt-8 inline-block bg-sky-500 text-white px-6 py-2 rounded-md hover:bg-sky-700">
           Shop Now
         </Link>
       </div>

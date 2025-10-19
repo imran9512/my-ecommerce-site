@@ -28,25 +28,6 @@ export default function ProductCard({ product }) {
     lowestPrice = Math.round(product.price * (1 - maxDiscountPct / 100));
   }
 
-  /*let lowestPrice = product.price;
-  if (hasDiscount && product.price) {
-    const tiers = Array.isArray(product.qtyDiscount)
-      ? product.qtyDiscount.flatMap((seg) => {
-        const step = (seg.end - seg.start) / (seg.to - seg.from);
-        const arr = [];
-        for (let q = seg.from; q <= seg.to; q++) {
-          arr.push(seg.start + (q - seg.from) * step);
-        }
-        return arr;
-      })
-      : Object.values(product.qtyDiscount);
-
-    const discountedPrices = tiers.map((p) =>
-      Math.round(product.price - product.price * (p / 100))
-    );
-    lowestPrice = Math.min(...discountedPrices, product.price);
-  }*/
-
 
   /* ---------- 3.  price row renderer ---------- */
   const PriceRow = () => {
@@ -85,6 +66,13 @@ export default function ProductCard({ product }) {
         </div>
       )}
 
+      {/* ---------------- Strip badge → top-right ---------------- */}
+      {product.stripStock && (
+        <span className="absolute -top-1 -right-1 bg-yellow-200 text-[10px] rounded px-1.5 py-0.5 z-20">
+          Strip Available
+        </span>
+      )}
+
       <Image
         src={`${product.images[0]}`}
         alt={product.name}
@@ -94,32 +82,32 @@ export default function ProductCard({ product }) {
         className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
       />
 
-      {/* brand + strip badge row */}
+      {/* brand row – multiple names, space-separated */}
       <div className="flex items-center justify-between mt-1">
         {product.brand && (
           <h3 className="-ml-1 underline decoration-2 decoration-red-300 text-[10px]">
-            {product.brand}&apos;s
+            {(Array.isArray(product.brand) ? product.brand : [product.brand])
+              .map((b) => b.trim())
+              .join(' / ')}
+            &apos;s
           </h3>
-        )}
-        {product.stripStock && (
-          <span className="bg-yellow-200 text-[10px] rounded">
-            <span className='mr-0.5 ml-0.5'>✔ Strip</span>
-          </span>
         )}
       </div>
 
       <h3 className="text-sm font-semibold truncate">{product.name}</h3>
 
+      {/* salt row – multiple names, space-separated */}
       {product.ActiveSalt && (
         <h4 className="text-[10px] mr-2 rounded flex items-center gap-1">
           <BeakerIcon className="w-3 h-3" />
           <span className="underline decoration-blue-300">
-            {product.ActiveSalt}
+            {(Array.isArray(product.ActiveSalt) ? product.ActiveSalt : [product.ActiveSalt])
+              .map((s) => s.trim())
+              .join(' + ')}
           </span>
         </h4>
       )}
 
-      {/* price row */}
       <PriceRow />
     </Link>
   );

@@ -1,15 +1,20 @@
 // src/utils/searchProducts.js
-import products from '@/data/products'; // default export
+import products from '@/data/products';
 
-export function searchProducts(query) {
-  if (!query) return products;
+function toSearchString(val) {
+  if (Array.isArray(val)) return val.join(' ').toLowerCase();
+  return String(val || '').toLowerCase();
+}
 
+export function searchProducts(query = '') {
   const q = query.trim().toLowerCase();
-  return products.filter(p =>
-    p.name.toLowerCase().includes(q) ||
-    p.slug.toLowerCase().includes(q) ||
-    p.brand.toLowerCase().includes(q) ||
-    (p.ActiveSalt || '').toLowerCase().includes(q) ||
-    p.categories.some(c => c.toLowerCase().includes(q))
+  if (!q) return products;
+
+  return products.filter((p) =>
+    toSearchString(p.name).includes(q) ||
+    toSearchString(p.slug).includes(q) ||
+    toSearchString(p.brand).includes(q) ||
+    toSearchString(p.ActiveSalt).includes(q) ||
+    p.categories.some((c) => c.toLowerCase().includes(q))
   );
 }

@@ -71,8 +71,8 @@ export default function ProductDetail({ product }) {
     return (
         <>
             {/* ----------- BREADCRUMB ----------- */}
-            <div className="flex items-center justify-between mb-4">
-                <nav className="mb-2 mt-4 text-xs text-gray-500" aria-label="Breadcrumb">
+            <div className="flex items-center justify-between mb-2">
+                <nav className="mb-2 text-xs text-gray-500" aria-label="Breadcrumb">
                     <ol className="flex items-center space-x-2">
                         <li>
                             <Link href="/" className="hover:text-blue-600">
@@ -122,14 +122,20 @@ export default function ProductDetail({ product }) {
                             {/* ---- 1. brand (left) ---- */}
                             <div className="flex-1">
                                 <span className="text-sm text-gray-600">By: </span>
-                                <Link
-                                    href={`/brand/${encodeURIComponent(
-                                        product.brand.trim().toLowerCase().replace(/\s+/g, '-')
-                                    )}`}
-                                    className="text-sm font-semibold underline underline-offset-2 decoration-2 decoration-red-300 cursor-pointer"
-                                >
-                                    {product.brand}
-                                </Link>
+
+                                {(Array.isArray(product.brand) ? product.brand : [product.brand]).map((b, i) => (
+                                    <span key={b}>
+                                        <Link
+                                            href={`/brand/${encodeURIComponent(
+                                                b.trim().toLowerCase().replace(/\s+/g, '-')
+                                            )}`}
+                                            className="text-sm font-semibold underline underline-offset-2 decoration-2 decoration-red-300 cursor-pointer"
+                                        >
+                                            {b.trim()}
+                                        </Link>
+                                        {i < (Array.isArray(product.brand) ? product.brand : [product.brand]).length - 1 && ' '}
+                                    </span>
+                                ))}
                             </div>
 
                             {/* ---- 2. slide toggle (centre) ---- */}
@@ -175,14 +181,19 @@ export default function ProductDetail({ product }) {
                             {product.ActiveSalt && (
                                 <h2 className="text-xs mr-2 rounded flex items-center gap-1">
                                     <BeakerIcon className="w-4 h-4" />
-                                    <Link
-                                        href={`/active-pharmaceutical-ingredients/${encodeURIComponent(
-                                            product.ActiveSalt.trim().toLowerCase().replace(/\s+/g, '-')
-                                        )}`}
-                                        className="text-[10px] bg-yellow-100 shadow-lg font-semibold underline underline-offset-1 cursor-pointer"
-                                    >
-                                        {product.ActiveSalt}
-                                    </Link>
+                                    {(Array.isArray(product.ActiveSalt) ? product.ActiveSalt : [product.ActiveSalt]).map((s, i) => (
+                                        <span key={s}>
+                                            <Link
+                                                href={`/active-pharmaceutical-ingredients/${encodeURIComponent(
+                                                    s.trim().toLowerCase().replace(/\s+/g, '-')
+                                                )}`}
+                                                className="text-[10px] bg-yellow-100 shadow-lg font-semibold underline underline-offset-1 cursor-pointer"
+                                            >
+                                                {s.trim()}
+                                            </Link>
+                                            {i < (Array.isArray(product.ActiveSalt) ? product.ActiveSalt : [product.ActiveSalt]).length - 1 && ' '}
+                                        </span>
+                                    ))}
                                 </h2>
                             )}
                         </span>

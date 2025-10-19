@@ -94,10 +94,16 @@ export default function BrandPage({ products: brandProducts, slug }) {
 /* ---------------------------------------------------------- */
 export async function getStaticPaths() {
     const brandSlugs = new Set();
+
     products.forEach((p) => {
-        if (p.brand) {
-            brandSlugs.add(p.brand.trim().toLowerCase().replace(/\s+/g, '-'));
-        }
+        if (!p.brand) return;
+
+        // string OR array → array
+        const brands = Array.isArray(p.brand) ? p.brand : [p.brand];
+
+        brands.forEach((b) =>
+            brandSlugs.add(b.trim().toLowerCase().replace(/\s+/g, '-'))
+        );
     });
 
     Object.keys(brandContent).forEach((k) =>
@@ -112,16 +118,19 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
     const requested = params.slug.toLowerCase().replace(/\s+/g, '-');
-    const filtered = products.filter(
-        (p) =>
-            p.brand &&
-            p.brand.toLowerCase().replace(/\s+/g, '-') === requested
-    );
+
+    const filtered = products.filter((p) => {
+        if (!p.brand) return false;
+
+        const brands = Array.isArray(p.brand) ? p.brand : [p.brand];
+
+        return brands.some((b) =>
+            b.trim().toLowerCase().replace(/\s+/g, '-') === requested
+        );
+    });
 
     const hasContent = !!brandContent[requested];
-    if (filtered.length === 0 && !hasContent) {
-        return { notFound: true };
-    }
+    if (filtered.length === 0 && !hasContent) return { notFound: true };
 
     return { props: { products: filtered, slug: requested } };
 }

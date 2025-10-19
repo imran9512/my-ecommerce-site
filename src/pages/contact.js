@@ -21,7 +21,7 @@ export default function ContactPage() {
         <link rel="canonical" href={canonical('/contact')} />
       </Head>
 
-      <div className="max-w-2xl mx-auto px-4 py-20 text-center">
+      <div className="max-w-2xl mx-auto px-4 mt-20 mb-4 text-center">
         <h1 className="text-3xl font-bold text-sky-600 mb-6">Contact Us 📱</h1>
 
         <p className="text-lg text-gray-700 mb-8">

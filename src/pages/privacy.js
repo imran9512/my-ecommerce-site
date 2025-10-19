@@ -10,8 +10,8 @@ export default function PrivacyPage() {
         <title>Privacy Policy | Aap Ki Sehat</title>
         <link rel="canonical" href={canonical('/privacy')} />
       </Head>
-      <div className="max-w-4xl mx-auto px-4 py-10 text-gray-800 leading-relaxed">
-        <h1 className="text-3xl font-bold text-sky-600 mb-6">
+      <div className="max-w-4xl mx-auto px-4 mt-16 text-gray-800 leading-relaxed">
+        <h1 className="text-3xl font-bold text-center text-sky-600 mb-6">
           Privacy Policy 🔒
         </h1>
         <p className="mb-4">
