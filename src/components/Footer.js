@@ -7,14 +7,17 @@ import {
     BuildingStorefrontIcon,
     Bars3Icon,
     ShoppingCartIcon,
+    ChevronDownIcon,
+    MoonIcon,
+    SunIcon,
 } from '@heroicons/react/24/solid';
-import Menu from '@/components/Menu';
 import { useCartStore } from '@/stores/cart';
 import { WHATSAPP_NUMBER, categories } from '@/data/constants';
 
 export default function Footer() {
     const [isOpen, setIsOpen] = useState(false);
     const [active, setActive] = useState(null);
+    const [isDark, setIsDark] = useState(false); // NEW: Dark mode state (local for demo)
     const cartCount = useCartStore(s => s.items.reduce((a, b) => a + b.quantity, 0));
 
     const quickLinks = [
@@ -25,18 +28,54 @@ export default function Footer() {
         { label: 'Return Policy', href: '/return-policy' },
     ];
 
-    const openWhatsApp = () =>
+    /* INLINE: Menu States & Logic from Menu.jsx (Mobile/Medium Variant) */
+    const [openCategory, setOpenCategory] = useState(null);
+    const [openChild, setOpenChild] = useState({});
+    const [openUseful, setOpenUseful] = useState(false);
+
+    const toggleChild = (key) =>
+        setOpenChild((p) => ({ ...p, [key]: !p[key] }));
+
+    const openWhatsApp = () => {
+        setIsOpen(false);
         window.open(
             `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
                 'Hi! I need help with products or my order.'
             )}`,
             '_blank'
         );
+    };
+
+    const closeMenu = () => setIsOpen(false);
+
+    // NEW: Basic Swipe-Left to Close (Native Touch Events - No Lib Needed)
+    const handleTouchStart = (e) => {
+        const touch = e.touches[0];
+        window.startX = touch.clientX;
+    };
+
+    const handleTouchMove = (e) => {
+        if (!window.startX) return;
+        const touch = e.touches[0];
+        const deltaX = touch.clientX - window.startX;
+        if (deltaX < -50) { // Swipe left >50px
+            closeMenu();
+            window.startX = null;
+        }
+    };
+
+    const handleTouchEnd = () => {
+        window.startX = null;
+    };
 
     return (
         <>
-            {/* Bottom nav */}
-            <nav className="fixed bottom-0 left-0 right-0 bg-white/70 backdrop-blur-md border-t border-gray-200 z-30 grid grid-cols-5 items-center lg:hidden">
+            {/* Bottom nav - lg:hidden (mobile + medium) - NEW: role="navigation" + Bigger Icons + Animations */}
+            <nav
+                role="navigation"
+                aria-label="Main navigation"
+                className="fixed -mb-0.5 bottom-0 left-0 right-0 bg-white/70 backdrop-blur-md border-t border-gray-200 z-30 grid grid-cols-5 items-center lg:hidden"
+            >
                 {[
                     { key: 'home', label: 'Home', icon: HomeIcon, href: '/' },
                     { key: 'shop', label: 'Shop', icon: BuildingStorefrontIcon, href: '/shop' },
@@ -49,11 +88,11 @@ export default function Footer() {
                             key={key}
                             href={href}
                             onClick={() => setActive(key)}
-                            className={`flex flex-col items-center ${active === key ? 'text-green-500' : 'text-sky-500'}`}
+                            className={`flex flex-col items-center relative transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-500'}`} // NEW: Scale animations + active scale-105
                         >
-                            <Icon className="w-6 h-6" />
+                            <Icon className="w-7 h-7" /> {/* FIXED: w-6 h-6 -> w-7 h-7 for bigger touch target */}
                             {key === 'cart' && cartCount > 0 && (
-                                <span className="absolute -top-1 right-8 bg-red-500 text-white text-[10px] rounded-full px-1.5">
+                                <span className="absolute -top-2 right-0 bg-red-500 text-white text-[10px] rounded-full px-1.5 animate-pulse"> {/* NEW: animate-pulse for visual feedback */}
                                     {cartCount}
                                 </span>
                             )}
@@ -63,32 +102,156 @@ export default function Footer() {
                         <button
                             key={key}
                             onClick={action}
-                            className={`flex flex-col items-center ${active === key ? 'text-green-500' : 'text-sky-500'}`}
+                            className={`flex flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-500'}`} // NEW: Same animations
                         >
-                            <Icon className="w-6 h-6" />
+                            <Icon className="w-7 h-7" /> {/* FIXED: Bigger icon */}
                             <span className="text-xs mt-1">{label}</span>
                         </button>
                     )
                 )}
             </nav>
 
-            {/* Glassy drawer */}
+            {/* ------------- INLINE MOBILE/MEDIUM MENU DRAWER (Compact Bottom-Right) ------------- */}
             {isOpen && (
                 <div
-                    className="fixed inset-0 z-40 flex items-end
-     justify-center sm:items-start sm:justify-end
-     bg-white/20 backdrop-blur-xs"
-                    onClick={() => setIsOpen(false)}
+                    className="fixed inset-0 backdrop-blur-sm z-40"
+                    onClick={closeMenu}
+                    onTouchStart={handleTouchStart} // NEW: Swipe support
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
                 >
                     <div
-                        className="fixed bottom-0 right-0 w-full 
-      max-w-xs sm:w-80 h-2/3 sm:h-full 
-       backdrop-blur-xs rounded-t-2xl 
-       sm:rounded-t-none sm:rounded-l-2xl 
-       overflow-y-auto p-4"
+                        className="fixed bottom-20 right-2 w-60 rounded-t-xl shadow-2xl bg-white/50 backdrop-blur-md p-4 overflow-y-auto max-h-96"
                         onClick={(e) => e.stopPropagation()}
+                        role="menu" // NEW: ARIA for accessibility
+                        aria-label="Main menu"
                     >
-                        <Menu categories={categories} helpLinks={quickLinks} onClose={() => setIsOpen(false)} />
+                        {/* ========== CATEGORIES ========== */}
+                        <nav className="space-y-4" role="navigation">
+                            {categories.map((cat, idx) => (
+                                <div key={cat.name}>
+                                    <div
+                                        className="flex items-center justify-between cursor-pointer"
+                                        onClick={() => setOpenCategory(openCategory === idx ? null : idx)}
+                                    >
+                                        <Link
+                                            href={`/category/${cat.name.toLowerCase()}`}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                closeMenu();
+                                            }}
+                                            className="bg-white/40 px-4 py-3 rounded shadow hover:bg-slate-50 transition active:scale-95" // FIXED: px-3 py-1.5 -> px-4 py-3 + scale
+                                        >
+                                            {cat.name}
+                                        </Link>
+                                        {cat.sub && cat.sub.length > 0 && (
+                                            <ChevronDownIcon
+                                                className={`w-4 h-4 transition-transform ${openCategory === idx ? 'rotate-180' : ''}`}
+                                            />
+                                        )}
+                                    </div>
+
+                                    {openCategory === idx && cat.sub && (
+                                        <ul className="pl-4 mt-2 space-y-1">
+                                            {cat.sub.map((item, subIdx) => {
+                                                const childKey = `${idx}-${subIdx}`;
+                                                const hasGrand = item.children && item.children.length > 0;
+                                                return (
+                                                    <li key={item.title}>
+                                                        <div className="flex items-center justify-between">
+                                                            <Link
+                                                                href={`/category/${item.title.toLowerCase()}`}
+                                                                onClick={closeMenu}
+                                                                className="inline-block bg-white/70 px-4 py-3 rounded shadow text-xs hover:bg-slate-200 transition active:scale-95" // FIXED: px-3 py-1 -> px-4 py-3 + scale
+                                                            >
+                                                                -&nbsp;{item.title}
+                                                            </Link>
+                                                            {hasGrand && (
+                                                                <ChevronDownIcon
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        toggleChild(childKey);
+                                                                    }}
+                                                                    className={`w-3 h-3 cursor-pointer transition-transform ${openChild[childKey] ? 'rotate-180' : ''}`}
+                                                                />
+                                                            )}
+                                                        </div>
+
+                                                        {openChild[childKey] && (
+                                                            <ul className="pl-4 mt-1 space-y-1">
+                                                                {item.children.map((grand) => (
+                                                                    <li key={grand}>
+                                                                        <Link
+                                                                            href={`/category/${grand.toLowerCase()}`}
+                                                                            onClick={closeMenu}
+                                                                            className="inline-block bg-yellow-100/80 px-4 py-3 rounded text-xs hover:bg-yellow-200 transition active:scale-95" // FIXED: px-2 py-0.5 -> px-4 py-3 + scale
+                                                                        >
+                                                                            --&nbsp;{grand}
+                                                                        </Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        )}
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    )}
+                                </div>
+                            ))}
+                        </nav>
+
+                        {/* ========== USEFUL LINKS + DARK MODE TOGGLE ========== */}
+                        <div className="mt-6 pt-4 border-t border-slate-300">
+                            <div
+                                className="flex items-center justify-between font-semibold cursor-pointer"
+                                onClick={() => setOpenUseful((p) => !p)}
+                            >
+                                <span>Useful Links</span>
+                                <ChevronDownIcon
+                                    className={`w-4 h-4 transition-transform ${openUseful ? 'rotate-180' : ''}`}
+                                />
+                            </div>
+
+                            {openUseful && (
+                                <ul className="pl-4 space-y-1 mt-2">
+                                    {quickLinks.map(({ label, href }) => (
+                                        <li key={label}>
+                                            <Link
+                                                href={href}
+                                                onClick={closeMenu}
+                                                className="block px-4 py-3 text-sm text-sky-600 hover:text-black transition active:scale-95" // NEW: Padding + scale
+                                            >
+                                                {label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                    {/* NEW: Dark Mode Toggle
+                                    <li className="pt-2">
+                                        <button
+                                            onClick={() => {
+                                                setIsDark(!isDark);
+                                                // TODO: Integrate with next-themes or localStorage for persistence
+                                            }}
+                                            className="flex items-center px-4 py-3 w-full text-sm text-gray-700 hover:bg-gray-100 rounded transition active:scale-95"
+                                            aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
+                                        >
+                                            {isDark ? <SunIcon className="w-4 h-4 mr-2" /> : <MoonIcon className="w-4 h-4 mr-2" />}
+                                            {isDark ? 'Light Mode' : 'Dark Mode'}
+                                        </button>
+                                    </li>*/}
+                                </ul>
+                            )}
+                        </div>
+
+                        {/* ========== WHATSAPP ========== */}
+                        <button
+                            onClick={openWhatsApp}
+                            className="w-full mt-4 h-8 flex items-center justify-center bg-green-500 text-white rounded-full text-xs font-semibold hover:bg-green-600 transition active:scale-95" // NEW: Scale effect
+                        >
+                            <img src="/whatsapp.png" alt="WhatsApp" className="w-4 h-4 mr-1.5" />
+                            WhatsApp Us
+                        </button>
                     </div>
                 </div>
             )}

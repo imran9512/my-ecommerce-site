@@ -3,16 +3,15 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Menu from '@/components/Menu';
 import {
     Bars3Icon,
     XMarkIcon,
     ShoppingCartIcon,
+    ChevronDownIcon,
 } from '@heroicons/react/24/outline';
-//import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { useCartStore } from '@/stores/cart';
 import products from '@/data/products';
-import { categories } from '@/data/constants';
+import { categories, WHATSAPP_NUMBER } from '@/data/constants'; // FIXED: Added categories & WHATSAPP_NUMBER here
 
 export default function Header() {
     const [cursor, setCursor] = useState(-1);
@@ -22,16 +21,14 @@ export default function Header() {
     const [searchTerm, setSearchTerm] = useState('');
     const cartCount = useCartStore((s) => s.items.reduce((a, b) => a + b.quantity, 0));
 
-
     /* live search logic */
     const [results, setResults] = useState([]);
-    // helper: string OR array -> lowercase string
     const flatText = (v) =>
         (Array.isArray(v) ? v.join(' ') : String(v || '')).toLowerCase();
 
     useEffect(() => {
         const q = searchTerm.trim().toLowerCase();
-        if (q.length < 2) return setResults([]);   // <— اہم شرط
+        if (q.length < 2) return setResults([]);
 
         const filtered = products.filter((p) =>
             flatText(p.name).includes(q) ||
@@ -62,23 +59,43 @@ export default function Header() {
         { label: 'Return Policy', href: '/return-policy' },
     ];
 
+    /* INLINE: Menu States & Logic from Menu.jsx (Desktop Variant) */
+    const [openCategory, setOpenCategory] = useState(null);
+    const [openChild, setOpenChild] = useState({});
+    const [openUseful, setOpenUseful] = useState(false);
+
+    const toggleChild = (key) =>
+        setOpenChild((p) => ({ ...p, [key]: !p[key] }));
+
+    const openWhatsApp = () => {
+        setMenuOpen(false);
+        window.open(
+            `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+                'Hi! I need help with products or my order.'
+            )}`,
+            '_blank'
+        );
+    };
+
+    const closeMenu = () => setMenuOpen(false);
+
     return (
         <>
             {/* ------------- FLOATING PILL ------------- */}
             <header className="fixed top-0 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-6xl bg-white/20 backdrop-blur-md shadow-xl rounded-full px-3 md:px-5 h-14 flex items-center">
                 <div className="w-full grid grid-cols-3 items-center">
-                    {/* Left: Hamburger */}
-                    <div className="flex items-center">
+                    {/* Left: Hamburger + Search */}
+                    <div className="flex items-center justify-start space-x-2">
                         <button
                             onClick={() => setMenuOpen(!menuOpen)}
                             aria-label="Toggle menu"
-                            className="text-gray-700 relative hidden lg:block ml-3"
+                            className="text-gray-700 relative hidden lg:block" // FIXED: lg only, no medium overlap
                         >
                             {menuOpen ? <XMarkIcon className="w-6 h-6" /> : <Bars3Icon className="w-6 h-6" />}
                         </button>
 
-                        {/* Desktop search (hidden on very small screens) */}
-                        <div className="relative hidden lg:block ml-3" ref={searchWrapperRef}>
+                        {/* Search: md+ */}
+                        <div className="relative hidden md:block" ref={searchWrapperRef}>
                             <input
                                 type="text"
                                 placeholder="Search…"
@@ -86,14 +103,12 @@ export default function Header() {
                                 onChange={(e) => {
                                     const val = e.target.value;
                                     setSearchTerm(val);
-                                    // اگر 2 حروف سے کم ہوں تو فوراً خالی کر دو
                                     if (val.trim().length < 2) {
                                         setResults([]);
                                         setCursor(-1);
                                     }
                                 }}
                                 onKeyDown={(e) => {
-                                    // Arrow / Enter منطق وہی رہے گی
                                     const visible = results;
                                     if (e.key === 'ArrowDown') {
                                         e.preventDefault();
@@ -113,7 +128,7 @@ export default function Header() {
                                         }
                                     }
                                 }}
-                                className="focus:outline-none bg-gray-100/70 w-40 xl:w-56 border border-gray-300 rounded-full px-4 shadow-inner py-1.5 text-sm"
+                                className="focus:outline-none bg-gray-100/70 w-32 md:w-40 xl:w-56 border border-gray-300 rounded-full px-4 shadow-inner py-1.5 text-sm"
                             />
 
                             {searchTerm && results.length > 0 && (
@@ -126,8 +141,7 @@ export default function Header() {
                                                     setSearchTerm('');
                                                     setCursor(-1);
                                                 }}
-                                                className={`block px-3 py-2 text-sm ${idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-100'
-                                                    }`}
+                                                className={`block px-3 py-2 text-sm ${idx === cursor ? 'bg-blue-100' : 'hover:bg-gray-100'}`}
                                             >
                                                 {p.name}
                                             </Link>
@@ -136,21 +150,16 @@ export default function Header() {
                                 </ul>
                             )}
                         </div>
-                        <div className="flex justify-center">
-                            <Link href="/">
-                                <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain lg:hidden" />
-                            </Link>
-                        </div>
                     </div>
 
-                    {/* Center: Logo */}
+                    {/* Center: Logo - md+ */}
                     <div className="flex justify-center">
                         <Link href="/">
-                            <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain hidden lg:block ml-3" />
+                            <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain hidden md:block" />
                         </Link>
                     </div>
 
-                    {/* Right */}
+                    {/* Right: Links & Cart */}
                     <div className="flex items-center justify-end space-x-2 md:space-x-3 text-sm text-gray-700">
                         <div className="hidden md:flex items-center space-x-2">
                             <Link href="/contact">Contact Us📞</Link>
@@ -166,18 +175,139 @@ export default function Header() {
                             )}
                         </Link>
                     </div>
+
+                    {/* Mobile Logo: Left, below md */}
+                    <Link href="/" className="absolute left-4 md:hidden">
+                        <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain" />
+                    </Link>
                 </div>
             </header>
 
-            {/* -------------Menu DRAWER ------------- */}
+            {/* ------------- INLINE DESKTOP MENU DRAWER ------------- */}
             {menuOpen && (
-                <div className="bg-black/10 relative hidden lg:block ml-3">
+                <div
+                    className="fixed inset-0 backdrop-blur-sm z-40"
+                    onClick={(e) => {
+                        if (e.target === e.currentTarget) closeMenu();
+                    }}
+                >
+                    <div
+                        className="fixed top-20 left-2 w-60 rounded-xl shadow-2xl bg-white/50 backdrop-blur-md p-4 overflow-y-auto" // Desktop styling
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* ========== CATEGORIES ========== */}
+                        <nav className="space-y-4">
+                            {categories.map((cat, idx) => (
+                                <div key={cat.name}>
+                                    <div
+                                        className="flex items-center justify-between cursor-pointer"
+                                        onClick={() => setOpenCategory(openCategory === idx ? null : idx)}
+                                    >
+                                        <Link
+                                            href={`/category/${cat.name.toLowerCase()}`}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                closeMenu();
+                                            }}
+                                            className="bg-white/40 px-3 py-1.5 rounded shadow hover:bg-slate-50 transition"
+                                        >
+                                            {cat.name}
+                                        </Link>
+                                        {cat.sub && cat.sub.length > 0 && (
+                                            <ChevronDownIcon
+                                                className={`w-4 h-4 transition-transform ${openCategory === idx ? 'rotate-180' : ''}`}
+                                            />
+                                        )}
+                                    </div>
 
-                    <Menu
-                        categories={categories}
-                        helpLinks={helpLinks}
-                        onClose={() => setMenuOpen(false)}
-                    />
+                                    {openCategory === idx && cat.sub && (
+                                        <ul className="pl-4 mt-2 space-y-1">
+                                            {cat.sub.map((item, subIdx) => {
+                                                const childKey = `${idx}-${subIdx}`;
+                                                const hasGrand = item.children && item.children.length > 0;
+                                                return (
+                                                    <li key={item.title}>
+                                                        <div className="flex items-center justify-between">
+                                                            <Link
+                                                                href={`/category/${item.title.toLowerCase()}`}
+                                                                onClick={closeMenu}
+                                                                className="inline-block bg-white/70 px-3 py-1 rounded shadow text-xs hover:bg-slate-200 transition"
+                                                            >
+                                                                -&nbsp;{item.title}
+                                                            </Link>
+                                                            {hasGrand && (
+                                                                <ChevronDownIcon
+                                                                    onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        toggleChild(childKey);
+                                                                    }}
+                                                                    className={`w-3 h-3 cursor-pointer transition-transform ${openChild[childKey] ? 'rotate-180' : ''}`}
+                                                                />
+                                                            )}
+                                                        </div>
+
+                                                        {openChild[childKey] && (
+                                                            <ul className="pl-4 mt-1 space-y-1">
+                                                                {item.children.map((grand) => (
+                                                                    <li key={grand}>
+                                                                        <Link
+                                                                            href={`/category/${grand.toLowerCase()}`}
+                                                                            onClick={closeMenu}
+                                                                            className="inline-block bg-yellow-100/80 px-2 py-0.5 rounded text-xs hover:bg-yellow-200 transition"
+                                                                        >
+                                                                            --&nbsp;{grand}
+                                                                        </Link>
+                                                                    </li>
+                                                                ))}
+                                                            </ul>
+                                                        )}
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    )}
+                                </div>
+                            ))}
+                        </nav>
+
+                        {/* ========== USEFUL LINKS ========== */}
+                        <div className="mt-6 pt-4 border-t border-slate-300">
+                            <div
+                                className="flex items-center justify-between font-semibold cursor-pointer"
+                                onClick={() => setOpenUseful((p) => !p)}
+                            >
+                                <span>Useful Links</span>
+                                <ChevronDownIcon
+                                    className={`w-4 h-4 transition-transform ${openUseful ? 'rotate-180' : ''}`}
+                                />
+                            </div>
+
+                            {openUseful && (
+                                <ul className="pl-4 space-y-1 mt-2">
+                                    {helpLinks.map(({ label, href }) => (
+                                        <li key={label}>
+                                            <Link
+                                                href={href}
+                                                onClick={closeMenu}
+                                                className="block text-sm text-sky-600 hover:text-black"
+                                            >
+                                                {label}
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </div>
+
+                        {/* ========== WHATSAPP ========== */}
+                        <button
+                            onClick={openWhatsApp}
+                            className="w-full mt-4 h-8 flex items-center justify-center bg-green-500 text-white rounded-full text-xs font-semibold hover:bg-green-600 transition"
+                        >
+                            <img src="/whatsapp.png" alt="WhatsApp" className="w-4 h-4 mr-1.5" />
+                            WhatsApp Us
+                        </button>
+                    </div>
                 </div>
             )}
         </>
