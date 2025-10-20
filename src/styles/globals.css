@@ -23,3 +23,14 @@ html {
 .description-wrapper:not(.max-h-full) {
   /* Extra fade if needed */
 }
+
+* {
+  touch-action: manipulation;
+  /* Prevent double-tap zoom */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .transition {
+    transition: all 0.2s ease;
+  }
+}

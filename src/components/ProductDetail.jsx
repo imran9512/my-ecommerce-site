@@ -72,39 +72,39 @@ export default function ProductDetail({ product }) {
         <>
             {/* ----------- BREADCRUMB ----------- */}
             <div className="flex items-center justify-between mb-2">
-                <nav className="mb-2 text-xs text-gray-500" aria-label="Breadcrumb">
-                    <ol className="flex items-center space-x-2">
+                <nav className="text-xs text-gray-500 flex-1 pr-2" aria-label="Breadcrumb">
+                    <ol className="flex items-center space-x-0.5">
                         <li>
-                            <Link href="/" className="hover:text-blue-600">
+                            <Link href="/" className="hover:text-blue-600 inline-block px-1">
                                 Home
                             </Link>
                         </li>
                         <li className="flex items-center">
-                            <span className="mx-2">/</span>
+                            <span className="mx-0.5">/</span>
                             {product.categories && product.categories.length > 0 ? (
                                 <Link
-                                    href={`/category/${encodeURIComponent(product.categories[0].toLowerCase().replace(/\s+/g, '-'))}`} // Adjust slug logic as needed
-                                    className="hover:text-blue-600 capitalize"
+                                    href={`/category/${encodeURIComponent(product.categories[0].toLowerCase().replace(/\s+/g, '-'))}`}
+                                    className="hover:text-blue-600 capitalize inline-block px-1"
                                 >
                                     {product.categories[0]}
                                 </Link>
                             ) : (
-                                <span className="capitalize">Uncategorized</span>
+                                <span className="capitalize inline-block px-1">Uncategorized</span>
                             )}
                         </li>
                         <li className="flex items-center">
-                            <span className="mx-2">/</span>
-                            <span className="font-medium text-gray-900 truncate max-w-xs" title={product.name}>
+                            <span className="mx-0.5">/</span>
+                            <span className="font-medium ml-1 text-gray-900 truncate max-w-[150px] md:max-w-xs" title={product.name}>
                                 {product.name}
                             </span>
                         </li>
                     </ol>
                 </nav>
-                {/* Prescription Label - Separate div, aligned to the far right */}
+
+                {/* Prescription Label */}
                 <div className="flex-shrink-0 ml-4">
                     <div className="text-center">
-                        <span className="text-[10px] text-red-300 font-medium block">Prescription</span>
-                        <span className="text-[10px] text-red-300 block leading-none">required</span>
+                        <span className="text-[10px] text-red-300 font-medium block">Prescription<br />required</span>
                     </div>
                 </div>
             </div>
