@@ -8,8 +8,6 @@ import {
     Bars3Icon,
     ShoppingCartIcon,
     ChevronDownIcon,
-    MoonIcon,
-    SunIcon,
 } from '@heroicons/react/24/solid';
 import { useCartStore } from '@/stores/cart';
 import { WHATSAPP_NUMBER, categories } from '@/data/constants';
@@ -17,7 +15,6 @@ import { WHATSAPP_NUMBER, categories } from '@/data/constants';
 export default function Footer() {
     const [isOpen, setIsOpen] = useState(false);
     const [active, setActive] = useState(null);
-    const [isDark, setIsDark] = useState(false); // NEW: Dark mode state (local for demo)
     const cartCount = useCartStore(s => s.items.reduce((a, b) => a + b.quantity, 0));
 
     const quickLinks = [
@@ -70,7 +67,7 @@ export default function Footer() {
 
     return (
         <>
-            {/* Bottom nav - lg:hidden (mobile + medium) - NEW: role="navigation" + Bigger Icons + Animations */}
+            {/* Bottom nav - lg:hidden (mobile + medium) */}
             <nav
                 role="navigation"
                 aria-label="Main navigation"
@@ -88,23 +85,25 @@ export default function Footer() {
                             key={key}
                             href={href}
                             onClick={() => setActive(key)}
-                            className={`flex flex-col items-center relative transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-500'}`} // NEW: Scale animations + active scale-105
+                            className={`flex flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-500'}`}
                         >
-                            <Icon className="w-7 h-7" /> {/* FIXED: w-6 h-6 -> w-7 h-7 for bigger touch target */}
-                            {key === 'cart' && cartCount > 0 && (
-                                <span className="absolute -top-2 right-0 bg-red-500 text-white text-[10px] rounded-full px-1.5 animate-pulse"> {/* NEW: animate-pulse for visual feedback */}
-                                    {cartCount}
-                                </span>
-                            )}
+                            <div className="relative"> {/* NEW: Wrapper for precise icon positioning */}
+                                <Icon className="w-7 h-7" />
+                                {key === 'cart' && cartCount > 0 && (
+                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] rounded-full px-1 min-w-[18px] h-[18px] flex items-center justify-center animate-pulse"> {/* FIXED: -right-1 for tight overlap on icon edge */}
+                                        {cartCount}
+                                    </span>
+                                )}
+                            </div>
                             <span className="text-xs mt-1">{label}</span>
                         </Link>
                     ) : (
                         <button
                             key={key}
                             onClick={action}
-                            className={`flex flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-500'}`} // NEW: Same animations
+                            className={`flex mb-1 mt-0.5 flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-500'}`}
                         >
-                            <Icon className="w-7 h-7" /> {/* FIXED: Bigger icon */}
+                            <Icon className="w-7 h-7" />
                             <span className="text-xs mt-1">{label}</span>
                         </button>
                     )
@@ -116,14 +115,14 @@ export default function Footer() {
                 <div
                     className="fixed inset-0 backdrop-blur-sm z-40"
                     onClick={closeMenu}
-                    onTouchStart={handleTouchStart} // NEW: Swipe support
+                    onTouchStart={handleTouchStart}
                     onTouchMove={handleTouchMove}
                     onTouchEnd={handleTouchEnd}
                 >
                     <div
                         className="fixed bottom-20 right-2 w-60 rounded-t-xl shadow-2xl bg-white/50 backdrop-blur-md p-4 overflow-y-auto max-h-96"
                         onClick={(e) => e.stopPropagation()}
-                        role="menu" // NEW: ARIA for accessibility
+                        role="menu"
                         aria-label="Main menu"
                     >
                         {/* ========== CATEGORIES ========== */}
@@ -220,26 +219,12 @@ export default function Footer() {
                                             <Link
                                                 href={href}
                                                 onClick={closeMenu}
-                                                className="block px-4 py-3 text-sm text-sky-600 hover:text-black transition active:scale-95" // NEW: Padding + scale
+                                                className="block px-4 py-3 text-sm text-sky-600 hover:text-black transition active:scale-95"
                                             >
                                                 {label}
                                             </Link>
                                         </li>
                                     ))}
-                                    {/* NEW: Dark Mode Toggle
-                                    <li className="pt-2">
-                                        <button
-                                            onClick={() => {
-                                                setIsDark(!isDark);
-                                                // TODO: Integrate with next-themes or localStorage for persistence
-                                            }}
-                                            className="flex items-center px-4 py-3 w-full text-sm text-gray-700 hover:bg-gray-100 rounded transition active:scale-95"
-                                            aria-label={`Switch to ${isDark ? 'light' : 'dark'} mode`}
-                                        >
-                                            {isDark ? <SunIcon className="w-4 h-4 mr-2" /> : <MoonIcon className="w-4 h-4 mr-2" />}
-                                            {isDark ? 'Light Mode' : 'Dark Mode'}
-                                        </button>
-                                    </li>*/}
                                 </ul>
                             )}
                         </div>

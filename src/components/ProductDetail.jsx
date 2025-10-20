@@ -102,7 +102,7 @@ export default function ProductDetail({ product }) {
                 </nav>
 
                 {/* Prescription Label */}
-                <div className="flex-shrink-0 ml-4">
+                <div className="flex-shrink-0 ml-2">
                     <div className="text-center">
                         <span className="text-[10px] text-red-300 font-medium block">Prescription<br />required</span>
                     </div>
