@@ -222,6 +222,12 @@ export default function ProductPage({ product, related }) {
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content={`${SITE_URL}/og/${product.ogImg}`} />
+        <link
+          rel="preload"
+          as="image"
+          href={product.images[0]}
+          fetchPriority="high"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}

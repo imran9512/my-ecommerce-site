@@ -45,6 +45,7 @@ export default function ImageGallery({ product, isStrip }) {
                             height={400}
                             className="w-full h-auto object-cover cursor-pointer"
                             priority={idx === 0}
+                            fetchPriority={idx === 0 ? 'high' : undefined}
                         />
                     </div>
                 ))}
