@@ -160,13 +160,13 @@ export default function Header() {
                     </div>
 
                     {/* Right: Links & Cart */}
-                    <div className="flex items-center justify-end space-x-3 text-sm text-gray-700"> {/* FIXED: space-x-2 -> space-x-3 */}
+                    <div className="flex items-center justify-end space-x-3 text-sm text-gray-700">
                         <div className="hidden md:flex items-center space-x-2">
-                            <Link href="/contact" className="px-4 py-3 transition active:scale-95">Contact Us📞</Link> {/* NEW: Padding + scale */}
+                            <Link href="/contact" className="px-4 py-3 transition active:scale-95">Contact Us📞</Link>
                             <span className="text-gray-400">|</span>
                         </div>
-                        <Link href="/faq" className="hidden md:inline px-4 py-3 transition active:scale-95">FAQ❓</Link> {/* NEW: Padding + scale */}
-                        <Link href="/cart" className="flex items-center relative transition-transform active:scale-95"> {/* NEW: Scale */}
+                        <Link href="/faq" className="hidden md:inline px-4 py-3 transition active:scale-95">FAQ❓</Link>
+                        <Link href="/cart" aria-label="Cart" className="flex items-center relative transition-transform active:scale-95">
                             <ShoppingCartIcon className="w-8 h-8" />
                             {cartCount > 0 && (
                                 <span className="absolute -top-2 right-0 bg-red-500 text-white text-[10px] rounded-full px-1.5 min-w-[18px] h-[18px] flex items-center justify-center animate-pulse">

@@ -95,6 +95,7 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
             {/* quantity controls */}
             <div className="mt-2 flex items-left space-x-3">
                 <button
+                    aria-label="Decrease quantity"
                     onClick={() => setQty(Math.max(1, qty - 1))}
                     className="flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full shadow transition"
                 >
@@ -103,7 +104,11 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
                     </svg>
                 </button>
 
+                <label htmlFor="qty-input" className="sr-only">
+                    Quantity
+                </label>
                 <input
+                    id="qty-input"
                     type="number"
                     value={qty}
                     onChange={(e) => setQty(Math.max(1, +e.target.value))}
@@ -112,6 +117,7 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
                 />
 
                 <button
+                    aria-label="Increase quantity"
                     onClick={() => setQty(qty + 1)}
                     className="flex items-center justify-center w-10 h-10 bg-gray-200 hover:bg-gray-300 rounded-full shadow transition"
                 >

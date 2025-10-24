@@ -29,9 +29,9 @@ export default function ProductDetail({ product }) {
             : stockCount < 5 ? 'Low Stock'
                 : 'In Stock';
     const stockColor =
-        stockCount === 0 ? 'bg-red-500'
-            : stockCount < 5 ? 'bg-yellow-500'
-                : 'bg-green-500';
+        stockCount === 0 ? 'bg-red-600'
+            : stockCount < 5 ? 'bg-yellow-700'
+                : 'bg-green-600';
 
     /* --- Cart --- */
     const handleAddToCart = () => {
@@ -104,7 +104,7 @@ export default function ProductDetail({ product }) {
                 {/* Prescription Label */}
                 <div className="flex-shrink-0 ml-2">
                     <div className="text-center">
-                        <span className="text-[9px] text-red-400 font-medium block">Prescription<br />required</span>
+                        <span className="text-[9px] text-red-600 font-medium block">Prescription<br />required</span>
                     </div>
                 </div>
             </div>
@@ -272,7 +272,7 @@ export default function ProductDetail({ product }) {
                         </button>
                         <button
                             onClick={openWhatsApp}
-                            className="flex items-center space-x-1.5 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+                            className="flex items-center space-x-1.5 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                         >
                             <img src="/whatsapp.png" alt="WhatsApp" className="w-6 h-6 mr-1.5" />
                             <span>WhatsApp</span>

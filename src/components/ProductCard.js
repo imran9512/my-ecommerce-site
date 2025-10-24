@@ -2,7 +2,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { BeakerIcon } from '@heroicons/react/24/outline';
-import { getDiscountedPrice } from '@/utils/priceHelpers';
 
 export default function ProductCard({ product }) {
   if (!product.active) return null;
