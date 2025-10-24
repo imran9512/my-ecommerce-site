@@ -5,7 +5,7 @@ export default function useLazyImage() {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        const timer = setTimeout(() => setShow(true), 240); // 120 ms delay
+        const timer = setTimeout(() => setShow(true), 120); // 120 ms delay
         return () => clearTimeout(timer);
     }, []);
 

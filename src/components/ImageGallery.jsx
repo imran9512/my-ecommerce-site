@@ -3,6 +3,20 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
+function PreloadImage({ src }) {
+    // browser-only (hydration safe)
+    useEffect(() => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        link.fetchPriority = 'high';
+        document.head.appendChild(link);
+        return () => document.head.removeChild(link); // clean-up
+    }, [src]);
+    return null;
+}
+
 export default function ImageGallery({ product, isStrip }) {
     const baseImgs = product.images || [];
     const stripImg = product.stripImage;
@@ -38,6 +52,7 @@ export default function ImageGallery({ product, isStrip }) {
             >
                 {images.map((img, idx) => (
                     <div key={idx} id={`slide-${idx}`} className="w-full shrink-0 snap-center">
+                        {idx === 0 && <PreloadImage src={img} />}
                         <Image
                             src={`${img}`}
                             alt={img.split('/')?.pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') || product.name}
