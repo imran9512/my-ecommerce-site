@@ -78,7 +78,7 @@ export default function ProductCard({ product }) {
           alt={product.name}
           width={200}
           height={200}
-          priority={true}
+          //priority={true}
           className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
         />
       </div>
