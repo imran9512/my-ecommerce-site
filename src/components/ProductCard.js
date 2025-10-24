@@ -72,14 +72,16 @@ export default function ProductCard({ product }) {
         </span>
       )}
 
-      <Image
-        src={`${product.images[0]}`}
-        alt={product.name}
-        width={200}
-        height={200}
-        priority
-        className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
-      />
+      <div className="relative w-full aspect-square rounded overflow-hidden">
+        <Image
+          src={`${product.images[0]}`}
+          alt={product.name}
+          width={200}
+          height={200}
+          priority={true}
+          className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
+        />
+      </div>
 
       {/* brand row – multiple names, space-separated */}
       <div className="flex items-center justify-between mt-1">
