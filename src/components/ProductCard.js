@@ -83,7 +83,6 @@ export default function ProductCard({ product }) {
             height={200}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             quality={80}
-            //priority={true}
             className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
           />
         )}

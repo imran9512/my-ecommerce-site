@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
-function PreloadImage({ src }) {
+{/*function PreloadImage({ src }) {
     // browser-only (hydration safe)
     useEffect(() => {
         const link = document.createElement('link');
@@ -15,7 +15,7 @@ function PreloadImage({ src }) {
         return () => document.head.removeChild(link); // clean-up
     }, [src]);
     return null;
-}
+}*/}
 
 export default function ImageGallery({ product, isStrip }) {
     const baseImgs = product.images || [];
@@ -52,7 +52,6 @@ export default function ImageGallery({ product, isStrip }) {
             >
                 {images.map((img, idx) => (
                     <div key={idx} id={`slide-${idx}`} className="w-full shrink-0 snap-center">
-                        {idx === 0 && <PreloadImage src={img} />}
                         <Image
                             src={`${img}`}
                             alt={img.split('/')?.pop()?.replace(/\.(jpg|jpeg|png|webp)$/i, '') || product.name}
