@@ -2,10 +2,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { BeakerIcon } from '@heroicons/react/24/outline';
+import useLazyImage from '@/utils/hooks/useLazyImage';
 
 export default function ProductCard({ product }) {
   if (!product.active) return null;
 
+  const showImage = useLazyImage();
   const outOfStock = product.stock === 0;
 
   /* ---------- 1.  discount table exist ? ---------- */
@@ -73,15 +75,19 @@ export default function ProductCard({ product }) {
       )}
 
       <div className="relative w-full aspect-square rounded overflow-hidden">
-        <Image
-          src={`${product.images[0]}`}
-          alt={product.name}
-          width={200}
-          height={200}
-          //priority={true}
-          className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
-        />
+        {showImage && (
+          <Image
+            src={`${product.images[0]}`}
+            alt={product.name}
+            width={200}
+            height={200}
+            quality={50}
+            //priority={true}
+            className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
+          />
+        )}
       </div>
+
 
       {/* brand row – multiple names, space-separated */}
       <div className="flex items-center justify-between mt-1">

@@ -29,9 +29,9 @@ export default function ProductDetail({ product }) {
             : stockCount < 5 ? 'Low Stock'
                 : 'In Stock';
     const stockColor =
-        stockCount === 0 ? 'bg-red-600'
-            : stockCount < 5 ? 'bg-yellow-700'
-                : 'bg-green-600';
+        stockCount === 0 ? 'border-red-400 border-3 font-semibold'
+            : stockCount < 5 ? 'border-yellow-400 border-3 font-semibold'
+                : 'border-green-400 border-3 font-semibold';
 
     /* --- Cart --- */
     const handleAddToCart = () => {
@@ -150,7 +150,7 @@ export default function ProductDetail({ product }) {
                                             className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-0' : '-translate-x-full'
                                                 }`}
                                         >
-                                            Buy Strip&nbsp;<span className='text-red-700 animate-pulse text-xl mb-1'>≫</span>
+                                            Buy Strip&nbsp;<span className='text-red-700 animate-pulse text-xl mb-0.5'>≫</span>
                                         </span>
                                         <span
                                             className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-full' : 'translate-x-0'
@@ -165,7 +165,7 @@ export default function ProductDetail({ product }) {
 
                             {/* ---- 3. stock pill (right) ---- */}
                             <div className="flex-1 flex justify-end">
-                                <span className={`h-6 px-2 py-1 text-white text-xs rounded-full ${stockColor}`}>
+                                <span className={`h-6 px-2 py-0.5 text-xs rounded-full border-2 ${stockColor}`}>
                                     {stockText}
                                 </span>
                             </div>

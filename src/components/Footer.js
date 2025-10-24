@@ -85,12 +85,13 @@ export default function Footer() {
                             key={key}
                             href={href}
                             onClick={() => setActive(key)}
-                            className={`flex flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-500'}`}
+                            className={`flex flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-600'}`}
+                            aria-label={label}
                         >
-                            <div className="relative"> {/* NEW: Wrapper for precise icon positioning */}
+                            <div className="relative">
                                 <Icon className="w-7 h-7" />
                                 {key === 'cart' && cartCount > 0 && (
-                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] rounded-full px-1 min-w-[18px] h-[18px] flex items-center justify-center animate-pulse"> {/* FIXED: -right-1 for tight overlap on icon edge */}
+                                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] rounded-full px-1 min-w-[18px] h-[18px] flex items-center justify-center animate-pulse">
                                         {cartCount}
                                     </span>
                                 )}
@@ -101,7 +102,8 @@ export default function Footer() {
                         <button
                             key={key}
                             onClick={action}
-                            className={`flex mb-1 mt-0.5 flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-500'}`}
+                            className={`flex mb-1 mt-0.5 flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-600'}`}
+                            aria-label={label}
                         >
                             <Icon className="w-7 h-7" />
                             <span className="text-xs mt-1">{label}</span>
@@ -139,7 +141,7 @@ export default function Footer() {
                                                 e.stopPropagation();
                                                 closeMenu();
                                             }}
-                                            className="bg-white/40 px-4 py-3 rounded shadow hover:bg-slate-50 transition active:scale-95" // FIXED: px-3 py-1.5 -> px-4 py-3 + scale
+                                            className="bg-white/40 px-4 py-3 rounded shadow hover:bg-slate-50 transition active:scale-95"
                                         >
                                             {cat.name}
                                         </Link>
