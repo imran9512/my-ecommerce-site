@@ -147,16 +147,16 @@ export default function ProductDetail({ product }) {
                                     >
                                         {/* sliding text container */}
                                         <span
-                                            className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-0' : '-translate-x-full'
+                                            className={`absolute p-0.5 inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-0' : '-translate-x-full'
                                                 }`}
                                         >
-                                            Buy Strip&nbsp;<span className='text-red-700 animate-pulse text-xl mb-0.5'>≫</span>
+                                            &nbsp;Buy Strip&nbsp;<span className='text-red-700 animate-pulse text-lg'>⮞</span>
                                         </span>
                                         <span
-                                            className={`absolute inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-full' : 'translate-x-0'
+                                            className={`absolute p-0.5 inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-full' : 'translate-x-0'
                                                 }`}
                                         >
-                                            <span className='text-green-700 animate-pulse text-xl mb-1'>≪</span>&nbsp;Buy Pack
+                                            <span className='text-green-700 animate-pulse text-lg'>⮜</span>&nbsp;Buy Pack&nbsp;
                                         </span>
 
                                     </button>
@@ -258,8 +258,8 @@ export default function ProductDetail({ product }) {
                             disabled={stockCount === 0 || adding || !product.price}
                             onClick={handleAddToCart}
                             className={`relative px-6 py-2 rounded text-white transition-all duration-300 ease-in-out
-                ${adding ? 'bg-green-500 scale-105' : 'bg-blue-600 hover:bg-blue-700'}
-                disabled:opacity-60`}
+                                        ${adding ? 'bg-green-500 scale-105' : 'bg-blue-600 hover:bg-blue-700'}
+                                        disabled:opacity-60`}
                         >
                             {adding ? (
                                 <span className="flex items-center space-x-1">
@@ -272,10 +272,10 @@ export default function ProductDetail({ product }) {
                         </button>
                         <button
                             onClick={openWhatsApp}
-                            className="flex items-center space-x-1.5 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                            className="flex items-center space-x-1.5 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500"
                         >
-                            <img src="/whatsapp.png" alt="WhatsApp" className="w-6 h-6 mr-1.5" />
-                            <span>WhatsApp</span>
+                            <img src="/whatsapp.png" alt="WhatsApp" className="w-6 h-6" />
+                            <span className='font-semibold'>WhatsApp</span>
                         </button>
                     </div>
 
