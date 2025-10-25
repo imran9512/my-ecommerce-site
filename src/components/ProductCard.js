@@ -81,7 +81,7 @@ export default function ProductCard({ product }) {
             alt={product.name}
             width={200}
             height={200}
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            //sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             quality={80}
             className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
           />
@@ -92,7 +92,7 @@ export default function ProductCard({ product }) {
       {/* brand row – multiple names, space-separated */}
       <div className="flex items-center justify-between mt-1">
         {product.brand && (
-          <h3 className="-ml-1 underline decoration-2 decoration-red-300 text-[10px]">
+          <h3 className="underline decoration-2 decoration-red-300 text-[10px]">
             {(Array.isArray(product.brand) ? product.brand : [product.brand])
               .map((b) => b.trim())
               .join(' / ')}

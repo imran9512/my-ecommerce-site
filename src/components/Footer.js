@@ -85,28 +85,46 @@ export default function Footer() {
                             key={key}
                             href={href}
                             onClick={() => setActive(key)}
-                            className={`flex flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-600'}`}
+                            className={`flex flex-col items-center transition-transform active:scale-95 ${active === key ? 'scale-105' : ''
+                                }`}
                             aria-label={label}
                         >
                             <div className="relative">
-                                <Icon className="w-7 h-7" />
+                                <Icon
+                                    className={`w-7 h-7 ${active === key ? 'text-green-500' : 'text-blue-400'
+                                        }`}
+                                />
                                 {key === 'cart' && cartCount > 0 && (
                                     <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] rounded-full px-1 min-w-[18px] h-[18px] flex items-center justify-center animate-pulse">
                                         {cartCount}
                                     </span>
                                 )}
                             </div>
-                            <span className="text-xs mt-1">{label}</span>
+                            <span
+                                className={`text-xs mt-1 font-semibold ${active === key ? 'text-green-500' : 'text-blue-700'
+                                    }`}
+                            >
+                                {label}
+                            </span>
                         </Link>
                     ) : (
                         <button
                             key={key}
                             onClick={action}
-                            className={`flex mb-1 mt-0.5 flex-col items-center transition-transform active:scale-95 ${active === key ? 'text-green-500 scale-105' : 'text-sky-600'}`}
+                            className={`flex mb-1 mt-0.5 flex-col items-center transition-transform active:scale-95 ${active === key ? 'scale-105' : ''
+                                }`}
                             aria-label={label}
                         >
-                            <Icon className="w-7 h-7" />
-                            <span className="text-xs mt-1">{label}</span>
+                            <Icon
+                                className={`w-7 h-7 ${active === key ? 'text-green-500' : 'text-blue-400'
+                                    }`}
+                            />
+                            <span
+                                className={`text-xs mt-1 font-semibold ${active === key ? 'text-green-500' : 'text-blue-700'
+                                    }`}
+                            >
+                                {label}
+                            </span>
                         </button>
                     )
                 )}

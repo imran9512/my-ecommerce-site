@@ -154,7 +154,7 @@ export default function Header() {
 
                     {/* Center: Logo - md+ */}
                     <div className="flex justify-center">
-                        <Link href="/" className="transition active:scale-95"> {/* NEW: Scale */}
+                        <Link href="/" className="transition active:scale-95" aria-label="Home">
                             <Image src="/logo.png" alt="Logo" width={90} height={36} className="w-auto h-auto object-contain hidden md:block" />
                         </Link>
                     </div>
