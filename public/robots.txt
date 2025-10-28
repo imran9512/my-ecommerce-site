@@ -1,4 +1,4 @@
-# robots.txt for aapkisehat.com
+# robots.txt
 User-agent: *
 
 # 1. images API explicitly allowed
@@ -11,6 +11,7 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /gallery/
 Disallow: /api/images2/
+Disallow: /search?
 
 # 4. everything else open
 Allow: /
