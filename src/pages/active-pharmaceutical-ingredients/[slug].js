@@ -207,26 +207,30 @@ export default function SaltPage({ products: saltProducts, slug }) {
 /* ---------------------------------------------------------- */
 /*  static paths / props                                      */
 /* ---------------------------------------------------------- */
+const getIndividualSalts = (activeSalt) => {
+    if (!activeSalt) return [];
+    let salts;
+    if (Array.isArray(activeSalt)) {
+        salts = activeSalt;
+    } else {
+        salts = activeSalt.split(',').map(s => s.trim()).filter(s => s);
+    }
+    return salts.map(s => s.toLowerCase().trim().replace(/\s+/g, '-'));
+};
+
 export async function getStaticPaths() {
     const saltSlugs = new Set();
 
     products.forEach((p) => {
-        if (!p.ActiveSalt) return;          // null / undefined skip
-
-        // handle both  string  and  array
-        const salts = Array.isArray(p.ActiveSalt) ? p.ActiveSalt : [p.ActiveSalt];
-
-        salts.forEach((s) => {
-            saltSlugs.add(
-                s.trim().toLowerCase().replace(/\s+/g, '-')
-            );
-        });
+        const individuals = getIndividualSalts(p.ActiveSalt);
+        individuals.forEach(slug => saltSlugs.add(slug));
     });
 
-    // content file keys
-    Object.keys(saltContent).forEach((k) =>
-        saltSlugs.add(k.trim().toLowerCase().replace(/\s+/g, '-'))
-    );
+    // content file keys (split if comma, but probably single)
+    Object.keys(saltContent).forEach((k) => {
+        const individuals = getIndividualSalts(k); // Use same function for safety
+        individuals.forEach(slug => saltSlugs.add(slug));
+    });
 
     return {
         paths: Array.from(saltSlugs).map((slug) => ({ params: { slug } })),
@@ -235,18 +239,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const requested = params.slug.toLowerCase().replace(/\s+/g, '-');
+    const requested = params.slug; // Already processed in path
 
     const filtered = products.filter((p) => {
-        if (!p.ActiveSalt) return false;
-
-        // accept string or array
-        const salts = Array.isArray(p.ActiveSalt) ? p.ActiveSalt : [p.ActiveSalt];
-
-        // true if ANY salt matches the requested slug
-        return salts.some((s) =>
-            s.trim().toLowerCase().replace(/\s+/g, '-') === requested
-        );
+        const individuals = getIndividualSalts(p.ActiveSalt);
+        return individuals.includes(requested);
     });
 
     const hasContent = !!saltContent[requested];

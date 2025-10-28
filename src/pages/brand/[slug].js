@@ -1,3 +1,4 @@
+// src/pages/brand/[slug].js
 import Head from 'next/head';
 import ProductCard from '@/components/ProductCard';
 import products from '@/data/products';
@@ -90,25 +91,32 @@ export default function BrandPage({ products: brandProducts, slug }) {
 }
 
 /* ---------------------------------------------------------- */
-/*  static paths / props                                     */
+/*  static paths / props                                      */
 /* ---------------------------------------------------------- */
+const getIndividualBrands = (brand) => {
+    if (!brand) return [];
+    let brands;
+    if (Array.isArray(brand)) {
+        brands = brand;
+    } else {
+        brands = brand.split(',').map(b => b.trim()).filter(b => b);
+    }
+    return brands.map(b => b.toLowerCase().trim().replace(/\s+/g, '-'));
+};
+
 export async function getStaticPaths() {
     const brandSlugs = new Set();
 
     products.forEach((p) => {
-        if (!p.brand) return;
-
-        // string OR array → array
-        const brands = Array.isArray(p.brand) ? p.brand : [p.brand];
-
-        brands.forEach((b) =>
-            brandSlugs.add(b.trim().toLowerCase().replace(/\s+/g, '-'))
-        );
+        const individuals = getIndividualBrands(p.brand);
+        individuals.forEach(slug => brandSlugs.add(slug));
     });
 
-    Object.keys(brandContent).forEach((k) =>
-        brandSlugs.add(k.trim().toLowerCase().replace(/\s+/g, '-'))
-    );
+    // content file keys (split if comma-separated for safety)
+    Object.keys(brandContent).forEach((k) => {
+        const individuals = getIndividualBrands(k);
+        individuals.forEach(slug => brandSlugs.add(slug));
+    });
 
     return {
         paths: Array.from(brandSlugs).map((slug) => ({ params: { slug } })),
@@ -117,20 +125,17 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-    const requested = params.slug.toLowerCase().replace(/\s+/g, '-');
+    const requested = params.slug; // Already processed in path (lowercase, hyphenated)
 
     const filtered = products.filter((p) => {
-        if (!p.brand) return false;
-
-        const brands = Array.isArray(p.brand) ? p.brand : [p.brand];
-
-        return brands.some((b) =>
-            b.trim().toLowerCase().replace(/\s+/g, '-') === requested
-        );
+        const individuals = getIndividualBrands(p.brand);
+        return individuals.includes(requested);
     });
 
     const hasContent = !!brandContent[requested];
-    if (filtered.length === 0 && !hasContent) return { notFound: true };
+    if (filtered.length === 0 && !hasContent) {
+        return { notFound: true };
+    }
 
     return { props: { products: filtered, slug: requested } };
 }
