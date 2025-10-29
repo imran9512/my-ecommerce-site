@@ -3,8 +3,15 @@
 @tailwind utilities;
 @import "tailwindcss";
 
+/* NEW: Fonts import with swap (agar Google Fonts use kar rahe ho, yahan URLs daal – example Inter font) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 html {
   scroll-behavior: smooth;
+  line-height: 1.5;
+  /* NEW: Better text rendering, consistent LCP */
+  font-family: 'Inter', sans-serif;
+  /* NEW: Set default font (change if different) */
 }
 
 .link-blue a {
@@ -27,10 +34,25 @@ html {
 * {
   touch-action: manipulation;
   /* Prevent double-tap zoom */
+  box-sizing: border-box;
+  /* NEW: Explicit for better layout (Tailwind base mein hai, but safe) */
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .transition {
     transition: all 0.2s ease;
+  }
+}
+
+/* NEW: Reduced motion respect for all (accessibility + perf) */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
