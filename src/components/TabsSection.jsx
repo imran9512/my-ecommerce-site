@@ -1,7 +1,10 @@
 // src/components/TabsSection.jsx
-import { useState, useEffect, useMemo } from 'react';  // NEW: useMemo add for caching
+import { useState, useEffect } from 'react';
+//import { StarIcon } from '@heroicons/react/24/solid';
 import { reviews } from '@/data/reviews';
 import products from '@/data/products';
+//import { descById } from '@/data/productDesc';
+//import { faqsByProduct } from '@/data/faq';
 import { StarIcon, ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
 
 export default function TabsSection({ product, faqItems }) {
@@ -18,20 +21,21 @@ export default function TabsSection({ product, faqItems }) {
     setIsExpanded(false);
   }, [product.id]);
 
-  // NEW: Memoize productReviews (avoid re-filter on every render)
-  const productReviews = useMemo(() =>
-    reviews.filter((r) => r.productId === product.id),
-    [product.id]
-  );
+  // reviews jo is product k hain
+  const productReviews = reviews.filter((r) => r.productId === product.id);
 
-  // NEW: Limit reviews display (sirf 5 product-specific + 5 others, perf ke liye)
-  const limitedProductReviews = useMemo(() => productReviews.slice(0, 5), [productReviews]);
-  const limitedOtherReviews = useMemo(() =>
-    reviews
-      .filter((r) => r.productId !== product.id)
-      .slice(0, 5),  // Limit others bhi
-    [product.id]
-  );
+  // 3 preview
+  //const preview = productReviews.slice(0, 3);
+
+  /*const renderStars = (rating) =>
+    [...Array(5)].map((_, i) => (
+      <StarIcon
+        key={i}
+        className={`w-5 h-5 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+      />
+    ));*/
+
+  //const getProductName = (pid) => products.find((p) => p.id === pid)?.name || '';
 
   const fullHtml = Array.isArray(product.longDesc)
     ? product.longDesc.join('')
@@ -243,8 +247,7 @@ export default function TabsSection({ product, faqItems }) {
           <>
             {/* swipeable container */}
             <div className="flex overflow-x-auto space-x-4 pb-2">
-              {/* UPDATED: Limited product reviews */}
-              {limitedProductReviews.map((r) => {
+              {productReviews.map((r) => {
                 const productName =
                   products.find((p) => p.id === r.productId)?.name || 'Unknown';
                 return (
@@ -279,42 +282,44 @@ export default function TabsSection({ product, faqItems }) {
                   </div>
                 );
               })}
-              {/* UPDATED: Limited other reviews */}
-              {limitedOtherReviews.map((r) => {
-                const productName =
-                  products.find((p) => p.id === r.productId)?.name || 'Unknown';
-                return (
-                  <div
-                    key={r.id}
-                    className="min-w-[300px] w-full md:w-1/3 lg:w-1/3 shrink-0 border border-gray-200 rounded-xl p-4"
-                  >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <p>
-                          <span className="font-semibold text-sm">{r.name}</span> -
-                          <span className="text-xs text-gray-500"> {r.date}</span>
-                        </p>
-                        <p className="text-xs">
-                          Purchased:{' '}
-                          <span className="text-xs text-blue-600 mt-0.5">
-                            {productName}
-                          </span>
-                        </p>
+              {/* 2. Other reviews (different product IDs) */}
+              {reviews
+                .filter((r) => r.productId !== product.id)
+                .map((r) => {
+                  const productName =
+                    products.find((p) => p.id === r.productId)?.name || 'Unknown';
+                  return (
+                    <div
+                      key={r.id}
+                      className="min-w-[300px] w-full md:w-1/3 lg:w-1/3 shrink-0 border border-gray-200 rounded-xl p-4"
+                    >
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p>
+                            <span className="font-semibold text-sm">{r.name}</span> -
+                            <span className="text-xs text-gray-500"> {r.date}</span>
+                          </p>
+                          <p className="text-xs">
+                            Purchased:{' '}
+                            <span className="text-xs text-blue-600 mt-0.5">
+                              {productName}
+                            </span>
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <StarIcon
+                              key={i}
+                              className={`w-4 h-4 ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'
+                                }`}
+                            />
+                          ))}
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        {[...Array(5)].map((_, i) => (
-                          <StarIcon
-                            key={i}
-                            className={`w-4 h-4 ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'
-                              }`}
-                          />
-                        ))}
-                      </div>
+                      <p className="text-sm text-gray-800 mt-2">{r.comment}</p>
                     </div>
-                    <p className="text-sm text-gray-800 mt-2">{r.comment}</p>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
 
             {/* button */}

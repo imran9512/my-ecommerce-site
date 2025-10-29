@@ -81,9 +81,8 @@ export default function ProductCard({ product }) {
             alt={product.name}
             width={200}
             height={200}
-            sizes="300px"  // NEW: Fixed for card width (no over-fetch, CLS fix)
+            //sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             quality={80}
-            loading="lazy"  // NEW: Lazy load for related/off-screen cards (LCP fast)
             className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
           />
         )}

@@ -13,14 +13,6 @@ const nextConfig = {
           ? `https://${process.env.VERCEL_URL}`
           : 'http://localhost:3000',
   },
-  images: {  // NEW: Image optimization for LCP (WebP/AVIF, responsive)
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200],  // Mobile-first breakpoints
-    // Agar external images hain (jaise CDN se), to domains add kar: domains: ['aapkisehat.com']
-  },
-  // experimental: {  // NEW: Streaming for better render (Next.js 14+)
-  //   ppr: true,  // Partial Prerendering – static shell fast, dynamic later
-  //},
   async rewrites() {
     return [...rewritesList];
   },
