@@ -79,10 +79,11 @@ export default function ProductCard({ product }) {
           <Image
             src={`${product.images[0]}`}
             alt={product.name}
-            width={200}
-            height={200}
-            //sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            quality={80}
+            //width={200}
+            //height={200}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+            quality={60}
             className={`w-auto h-auto object-cover rounded ${outOfStock ? 'filter grayscale brightness-75' : ''}`}
           />
         )}
