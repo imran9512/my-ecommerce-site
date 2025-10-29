@@ -225,7 +225,7 @@ export default function ProductPage({ product, related }) {
         <link
           rel="preload"
           as="image"
-          href={product.images[0]}
+          href={`${SITE_URL}${product.images[0]}`}
           fetchPriority="high"
         />
         <script
