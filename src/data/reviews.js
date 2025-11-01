@@ -615,5 +615,45 @@ export const reviews = [
     date: "2021-11-29",
     rating: 4.9,
     comment: "Combined Cytotec and Femara for termination; process was smooth with doctor's input. Side effects were tolerable, and I'm relieved it worked without complications."
+  },
+  {
+    id: "pro51",
+    productId: "pro5",
+    name: "Ahmad Khan",
+    date: "2022-08-13",
+    rating: 5,
+    comment: "I've been using Procial 5mg for a month now, and it's made a real difference in my confidence. No more planning around pills—feels natural. Highly recommend for anyone in Pakistan dealing with ED."
+  },
+  {
+    id: "pro52",
+    productId: "pro5",
+    name: "Jhon",
+    date: "2024-12-03",
+    rating: 4.5,
+    comment: "My partner suggested trying this after some research. It's discreet and effective without harsh side effects. Delivery was quick, and it's helped our relationship a lot."
+  },
+  {
+    id: "pro53",
+    productId: "pro5",
+    name: "Mohsin Shah",
+    date: "2021-03-15",
+    rating: 4.9,
+    comment: "As someone with mild BPH, Procial has eased my urinary issues too. Started on doctor's advice, and it's been smooth. Worth the try if you're hesitant about stronger meds."
+  },
+  {
+    id: "pro54",
+    productId: "pro5",
+    name: "Yaseen",
+    date: "2020-11-02",
+    rating: 5,
+    comment: "Great alternative to pricier brands. Took a few days to kick in, but now I feel more energetic overall. Just make sure to get it from a trusted source in Pakistan."
+  },
+  {
+    id: "pro55",
+    productId: "pro5",
+    name: "Amjad",
+    date: "2022-05-16",
+    rating: 4.6,
+    comment: "Had some initial headaches, but they went away. Procial has improved my daily life without complications. Good value for money here."
   }
 ];

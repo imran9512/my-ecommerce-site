@@ -483,5 +483,31 @@ export const faqsByProduct = {
                      q: `How does letrozole enhance misoprostol in abortion?`,
                      a: `Letrozole (Femara) lowers estrogen to weaken pregnancy support, making misoprostol (Cytotec) more effective at causing contractions and expulsion, potentially shortening the process in clinical settings.`
               }
+       ],
+       'pro5': [
+              {
+                     q: `What is Procial 5mg used for?`,
+                     a: `Procial 5mg is primarily used to treat erectile dysfunction by enhancing blood flow. It can also help with BPH symptoms, making it a versatile option for men's health in Pakistan.`
+              },
+              {
+                     q: `How should I take Procial 5mg?`,
+                     a: `Take one tablet daily at the same time, with or without food. Consistency is key for best results—don't double up if you miss a dose.`
+              },
+              {
+                     q: `Are there any side effects of Procial?`,
+                     a: `Common ones include headache, back pain, or flushing. Serious effects are rare, but seek medical help if you experience chest pain or vision changes.`
+              },
+              {
+                     q: `Is Procial available without a prescription in Pakistan?`,
+                     a: `No, it's a prescription medication. Consult a doctor to ensure it's safe for you, especially if you have heart issues.`
+              },
+              {
+                     q: `How long does it take for Procial 5mg to work?`,
+                     a: `With daily use, effects build up over a few days. You might notice improvements in ED within 3-5 days of starting.`
+              },
+              {
+                     q: `Can women use Procial 5mg?`,
+                     a: `No, it's specifically for men. Women should avoid it, and it's not recommended during pregnancy or breastfeeding.`
+              }
        ]
 };
