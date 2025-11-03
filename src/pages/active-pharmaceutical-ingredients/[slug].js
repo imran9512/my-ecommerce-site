@@ -142,15 +142,15 @@ export default function SaltPage({ products: saltProducts, slug }) {
                 `}</style>
             </Head>
             <div className="container mx-auto px-4 py-8">
-                <h1 className="text-2xl font-bold mb-4 mt-4 text-center capitalize">
-                    {slug.replace(/-/g, ' ')}
+                <h1 className="text-2xl font-bold mb-2 mt-4 text-center capitalize">
+                    {slug.replace(/-/g, ' ')}'s Brand Names In Pakistan
                 </h1>
                 {content.intro && (
                     <div dangerouslySetInnerHTML={{ __html: toHtml(content.intro) }} />
                 )}
                 {/* Dynamic responsive table in intro section */}
                 {activeProducts.length > 0 && (
-                    <div className="overflow-x-auto mb-4 shadow-lg rounded-lg table-scroll" style={{ WebkitOverflowScrolling: 'touch' }}>
+                    <div className="overflow-x-auto mt-4 mb-4 shadow-lg rounded-lg table-scroll" style={{ WebkitOverflowScrolling: 'touch' }}>
                         <table className="min-w-full divide-y divide-gray-200">
                             <thead className="bg-gray-100">
                                 <tr>

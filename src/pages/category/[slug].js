@@ -29,7 +29,7 @@ export default function CategoryPage({ products: categoryProducts, slug }) {
         })),
     };
 
-    const canonical = `${SITE_URL}/category/${slug}`;
+    const canonical = content.canon ? `${SITE_URL}/active-pharmaceutical-ingredients/${content.canon}` : `${SITE_URL}/category/${slug}`;
 
     return (
         <>

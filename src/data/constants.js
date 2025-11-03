@@ -37,7 +37,7 @@ export const categories = [
       { title: 'VIAGRA', children: ["Viagra-Alternatives"] },
       { title: 'CIALIS', children: ["Cialis-Alternatives"] },
       { title: 'Levitra', children: [] },
-      { title: 'Dapoxitine', children: [] },
+      { title: 'Dapoxetine', children: [] },
       { title: 'Combo', children: [] }
     ]
   },

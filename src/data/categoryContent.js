@@ -1,6 +1,7 @@
 // src/data/categoryContent.js
 export default {
   adhd: {
+    canon: "",
     metaTitle: "ADHD Solutions Nootropics in Pakistan Focus & Concentration",
     metaDesc: "Prescription-grade stimulants & non-stimulants to manage ADHD symptoms. get Original Nootropics in Pakistan",
     intro: [
@@ -12,12 +13,14 @@ export default {
     ]
   },
   fitness: {
+    canon: "",
     metaTitle: 'Fitness & Performance Boosters',
     metaDesc: 'Supplements and aids for stamina, endurance and recovery.',
     intro: `<p class="mb-4"></p>`,
     outro: `<p class="mt-6 text-sm text-gray-600"></p>`,
   },
   atomoxetine: {
+    canon: "",
     metaTitle: 'Atomoxetine Price in Pakistan – Attentra & Strattera 40-60 mg | ADHD Focus Pills',
     metaDesc: 'Buy original atomoxetine (Attentra, Strattera) online in Pakistan. Best price, sealed blister. Non-stimulant ADHD focus pill - doctor approved',
     intro: "<h1 class=\"text-center text-3xl font-bold\">Attentra & Strattera in Pakistan</h1>",
@@ -30,5 +33,9 @@ export default {
       "<h2 class=\"text-1xl font-bold\">How to order & what to expect next</h2><p class=\"ml-4\">Click \“Add to Cart\”, select the desired strength (Attentra or Strattera), pay with cash on delivery, and start taking the capsule tomorrow morning. You will receive a bilingual patient leaflet, a dosage diary, and a WhatsApp follow-up reminder on days 7 and 28. If you experience nausea, take the capsule after breakfast. If afternoon fatigue persists, consider adjusting the dose to be taken at bedtime. Order today and turn scattered thoughts into laser-sharp focus – the Pakistani workplace is competitive, but atomoxetine gives you the calm edge you deserve.</p>",
     ],
   },
+  dapoxitine: {
+    canon: "dapoxetine",
+    intro: ''
+  }
   // add as many categories as you like
 };

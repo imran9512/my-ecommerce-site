@@ -509,5 +509,149 @@ export const faqsByProduct = {
                      q: `Can women use Procial 5mg?`,
                      a: `No, it's specifically for men. Women should avoid it, and it's not recommended during pregnancy or breastfeeding.`
               }
+       ],
+       's-kamag': [
+              {
+                     q: `What are Super Kamagra tablets used for?`,
+                     a: `Super Kamagra tablets combine sildenafil and dapoxetine to treat erectile dysfunction and premature ejaculation, offering a complete solution for better sexual performance.`
+              },
+              {
+                     q: `How many Kamagra can I take in a day?`,
+                     a: `Typically, only one Super Kamagra tablet per day is recommended, taken about an hour before activity. Exceeding this can increase side effects—consult your doctor.`
+              },
+              {
+                     q: `Are Super Kamagra tablets available in Pakistan?`,
+                     a: `Yes, 100% Original Super Kamagra tablets in Pakistan are available with us, at very reasonable and competitive prices, and personally imported from India.`
+              },
+              {
+                     q: `What side effects can Super Kamagra cause?`,
+                     a: `Common ones include headache, dizziness, nausea, or flushing. Serious effects are rare, but stop use and seek help if you experience chest pain or vision issues.`
+              },
+              {
+                     q: `Is Super Kamagra safe for everyone?`,
+                     a: `It's generally safe for adult men but not for those with heart problems, on nitrates, or under 18. Always get a prescription to avoid interactions.`
+              }
+       ],
+       'zyogra': [
+              {
+                     q: `What do Zyogra Plus tablets treat?`,
+                     a: `Zyogra Plus tablets target erectile dysfunction and premature ejaculation simultaneously, using sildenafil for erection aid and dapoxetine for timing extension.`
+              },
+              {
+                     q: `How many Zyogra Plus can I take daily?`,
+                     a: `Limit to one tablet per 24 hours, ideally an hour before intimacy. Overdoing it risks amplified side effects—best to follow medical guidance.`
+              },
+              {
+                     q: `Where to find Zyogra Plus tablets in Pakistan?`,
+                     a: `Origina Zyogra Plus tablets in Pakistan are available on our stores, priced is very reasonable, with easy shipping nationwide.`
+              },
+              {
+                     q: `Any common side effects with Zyogra Plus?`,
+                     a: `You might notice dizziness, nasal stuffiness, or mild indigestion. These often ease up, but consult a doc for persistent issues.`
+              },
+              {
+                     q: `Who should avoid Zyogra Plus?`,
+                     a: `Not for those with severe heart ailments, on certain meds like nitrates, or under 18. A prescription check is wise for safety.`
+              }
+       ],
+       'dura60': [
+              {
+                     q: `What is Duraxet 60mg used for?`,
+                     a: `Duraxet 60mg treats premature ejaculation by extending the time to climax, making it a great alternative to discontinued brands like Everlong and Priligy in Pakistan.`
+              },
+              {
+                     q: `How do I take Duraxet 60mg?`,
+                     a: `Swallow one tablet with water 1-3 hours before activity, as needed. Don't exceed one per day, and avoid alcohol to minimize side effects.`
+              },
+              {
+                     q: `Is Duraxet a good alternative to Everlong or Priligy?`,
+                     a: `Yes, as an Iranian high-quality dapoxetine product, it offers similar effectiveness for PE relief, especially since those brands are no longer produced.`
+              },
+              {
+                     q: `What side effects might Duraxet cause?`,
+                     a: `Common ones include dizziness, dry mouth, or fatigue. They're usually temporary; stop and see a doctor if severe symptoms like fainting occur.`
+              },
+              {
+                     q: `Where can I buy Duraxet 60mg in Pakistan?`,
+                     a: `It's available online on our site, with delivery to all cities in Pakistan.`
+              },
+              {
+                     q: `Is Duraxet safe for everyone?`,
+                     a: `It's suitable for most adult men but not for those on MAOIs, with liver issues, or under 18. Consult a physician first.`
+              }
+       ],
+       'xlog60': [
+              {
+                     q: `What does Xtra Long 60mg help with?`,
+                     a: `Xtra Long 60mg is for treating premature ejaculation, offering extended duration as a strong alternative to now-unavailable brands like Everlong and Priligy in Pakistan.`
+              },
+              {
+                     q: `How should I use Xtra Long 60mg?`,
+                     a: `Take one tablet with water 1-2 hours prior to activity, only when needed. Limit to once daily, and steer clear of heavy meals or booze for optimal effect.`
+              },
+              {
+                     q: `Why choose Xtra Long over Everlong or Priligy?`,
+                     a: `With those discontinued, Xtra Long from India provides comparable dapoxetine benefits in quality and speed, readily accessible for Pakistani users.`
+              },
+              {
+                     q: `Possible side effects of Xtra Long?`,
+                     a: `You may feel light nausea, insomnia, or a dry throat initially. These often lessen; consult a doc if they linger or worsen.`
+              },
+              {
+                     q: `How to get Xtra Long 60mg in Pakistan?`,
+                     a: `Order online from us we have imported Xtra Long 60mg from India, we are shipping to all areas of Pakistan.`
+              },
+              {
+                     q: `Is Xtra Long suitable for all?`,
+                     a: `Best for adults without severe heart or psychiatric conditions. Get a prescription to check for drug interactions.`
+              }
+       ],
+       'j-kamag': [
+              {
+                     q: `What is Kamagra 100mg Oral Jelly used for?`,
+                     a: `It's primarily for treating erectile dysfunction in men, using sildenafil to improve blood flow and support erections. The jelly form makes it faster and easier to take than regular pills.`
+              },
+              {
+                     q: `How do I take Kamagra Oral Jelly?`,
+                     a: `Squeeze the contents of one sachet into your mouth 15-60 minutes before activity. Don't exceed 100mg daily, and take it on an empty stomach for best results—avoid mixing with alcohol.`
+              },
+              {
+                     q: `Are there side effects with Kamagra Oral Jelly?`,
+                     a: `Common ones include flushing, headaches, indigestion, or dizziness. Serious effects like chest pain or vision issues are rare; stop use and consult a doctor if they happen.`
+              },
+              {
+                     q: `Is Kamagra Oral Jelly available in Pakistan?`,
+                     a: `Yes, it's imported and we are delivering to all cities in Pakistan. Original Kamagra Jelly at very low price for a 7-sachet pack range.`
+              },
+              {
+                     q: `How does Kamagra Oral Jelly compare to Viagra?`,
+                     a: `Both contain sildenafil, but Kamagra's jelly absorbs quicker and comes flavored. It's a generic from Ajanta Pharma, often cheaper, but requires the same precautions.`
+              },
+              {
+                     q: `Is it safe for everyone to use Kamagra Oral Jelly?`,
+                     a: `Not for those with heart conditions, on nitrates, or with allergies to sildenafil. Always get a doctor's nod, especially if you have health issues like high blood pressure.`
+              }
+       ],
+       'c-kamag': [
+              {
+                     q: `Is chewable Kamagra the same as Viagra?`,
+                     a: `Same active ingredient—sildenafil 100 mg—but faster delivery and a fraction of the price because it’s a generic, not brand-marketed.`
+              },
+              {
+                     q: `Can I split the tab to get 50 mg?`,
+                     a: `Technically yes, but the soft texture crumbles. Better to order the 50 mg version if you know you’re sensitive.`
+              },
+              {
+                     q: `Will it make me last longer?`,
+                     a: `It helps maintain an erection, not delay ejaculation. For stamina combos, consider a lidocaine spray alongside.`
+              },
+              {
+                     q: `Any food interactions besides grapefruit?`,
+                     a: `Heavy, greasy meals can push onset from 15 min to 45 min. Otherwise, you’re free to dine.`
+              },
+              {
+                     q: `How long does the mint taste linger?`,
+                     a: `About 5-10 minutes—just enough to feel fresh, not like you’ve brushed teeth with candy.`
+              }
        ]
 };
