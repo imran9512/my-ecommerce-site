@@ -1207,8 +1207,8 @@ const products = [
     rating: 4.7,
     reviewCount: 6,
     images: [
-      "/api/images/depox/original-zyogra-plus-160-mg.webp",
-      "/api/images/depox/zyogra-plus-price-in-pakistan.webp",
+      "/api/images/depox/zyogra/original-zyogra-plus-160-mg.webp",
+      "/api/images/depox/zyogra/zyogra-plus-price-in-pakistan.webp",
     ],
     ogImg: "zyogra.jpg",
     price: 3050,
