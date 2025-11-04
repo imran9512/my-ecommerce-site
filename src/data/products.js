@@ -1133,7 +1133,7 @@ const products = [
     reviewCount: 5,
     images: [
       "/api/images/depox/duraxet/priligy-alternatives-in-pakistan.webp",
-      "/api/images/depox/duraxet/duraxet-60.webp"
+      "/api/images/depox/duraxet/duraxet-60.webp",
     ],
     ogImg: "priligy-duraxet.jpg",
     price: 4100,
@@ -1172,7 +1172,7 @@ const products = [
     reviewCount: 4,
     images: [
       "/api/images/depox/everlong-as-xtra-long-in-pakistan.webp",
-      "/api/images/depox/extra-long-price-in-pakistan.webp"
+      "/api/images/depox/extra-long-price-in-pakistan.webp",
     ],
     ogImg: "extra-long.jpg",
     price: 3800,
@@ -1208,7 +1208,7 @@ const products = [
     reviewCount: 6,
     images: [
       "/api/images/depox/original-zyogra-plus-160-mg.webp",
-      "/api/images/depox/zyogra-plus-price-in-pakistan.webp"
+      "/api/images/depox/zyogra-plus-price-in-pakistan.webp",
     ],
     ogImg: "zyogra.jpg",
     price: 3050,
