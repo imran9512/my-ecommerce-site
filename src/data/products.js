@@ -886,7 +886,7 @@ const products = [
     name: "SDF Sildenafil 100 mg",
     canon: "",
     ActiveSalt: ["Sildenafil"],
-    brand: "Marham Daru Co.",
+    brand: "Marham Daru Co",
     active: "true",
     categories: ["VIAGRA",
       "for-men",
