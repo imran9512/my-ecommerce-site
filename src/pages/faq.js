@@ -2,7 +2,7 @@
 import Head from 'next/head';
 import { canonical } from '@/utils/seo';
 import { useState } from 'react';
-import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid';
+import { ChevronDownIcon, ChevronUpIcon } from '@/components/icons';
 
 const faqData = [
   {
