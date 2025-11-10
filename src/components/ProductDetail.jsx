@@ -150,13 +150,13 @@ export default function ProductDetail({ product }) {
                                             className={`absolute p-0.5 inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-0' : '-translate-x-full'
                                                 }`}
                                         >
-                                            &nbsp;Buy Strip&nbsp;<span className='text-red-700 animate-pulse text-lg'>🠊</span>
+                                            &nbsp;Buy Strip&nbsp;<span className='text-red-700 animate-pulse text-xl mb-0.5' style={{ fontWeight: 900 }}>&gt;</span>
                                         </span>
                                         <span
                                             className={`absolute p-0.5 inset-0 flex items-center justify-center transition-transform duration-500 ease-in-out ${!isStrip ? 'translate-x-full' : 'translate-x-0'
                                                 }`}
                                         >
-                                            <span className='text-green-700 animate-pulse text-lg'>🠈</span>&nbsp;Buy Pack&nbsp;
+                                            <span className='text-green-700 animate-pulse text-xl mb-0.5' style={{ fontWeight: 900 }}>&lt;</span>&nbsp;Buy Pack&nbsp;
                                         </span>
 
                                     </button>
