@@ -2,13 +2,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import {
-    HomeIcon,
-    MagnifyingGlassIcon,
-    BuildingStorefrontIcon,
-    Bars3Icon,
-    ShoppingCartIcon,
-    ChevronDownIcon,
-} from '@heroicons/react/24/solid';
+    HomeIcon, MagnifyingGlassIcon,
+    BuildingStorefrontIcon, Bars3Icon,
+    ShoppingCartIcon, ChevronDownIcon,
+    WhatsAppIcon,
+} from '@/components/icons';
 import { useCartStore } from '@/stores/cart';
 import { WHATSAPP_NUMBER, categories } from '@/data/constants';
 
@@ -254,8 +252,7 @@ export default function Footer() {
                             onClick={openWhatsApp}
                             className="w-full mt-4 h-8 flex items-center justify-center bg-green-500 text-white rounded-full text-xs font-semibold hover:bg-green-600 transition active:scale-95" // NEW: Scale effect
                         >
-                            <img src="/whatsapp.png" alt="WhatsApp" className="w-4 h-4 mr-1.5" />
-                            WhatsApp Us
+                            <WhatsAppIcon />&nbsp; WhatsApp Us
                         </button>
                     </div>
                 </div>

@@ -10,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@heroicons/react": "^2.2.0",
     "axios": "^1.11.0",
     "jsonwebtoken": "^9.0.2",
     "next": "15.4.2",

@@ -1,6 +1,7 @@
 // src/pages/return-policy.js
 import Head from 'next/head';
 import { canonical } from '@/utils/seo';
+import { WhatsAppIcon } from '@/components/icons';
 import { SITE_NAME, SITE_URL, WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function ReturnPolicy() {
@@ -41,8 +42,7 @@ export default function ReturnPolicy() {
                         href={`https://wa.me/${WHATSAPP_NUMBER}?text=Hi`}
                         className="inline-flex items-center justify-center bg-green-400 text-white px-3 py-0.5 rounded-md ml-2"
                     >
-                        <img src="/whatsapp.png" alt="WhatsApp" className="w-5 h-5 mr-1.5" />
-                        WhatsApp
+                        <WhatsAppIcon />&nbsp; WhatsApp Us
                     </a>
                     {" "}with clear photos. After verification we will dispatch a replacement
                     <strong> at no extra cost</strong>; no return necessary.<strong>( so we Accept returns for defective/wrong products only)</strong>

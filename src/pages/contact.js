@@ -1,6 +1,7 @@
 // src/pages/contact.js
 import Head from 'next/head';
 import { canonical } from '@/utils/seo';
+import { WhatsAppIcon } from '@/components/icons';
 import { WHATSAPP_NUMBER } from '@/data/constants';
 
 export default function ContactPage() {
@@ -39,8 +40,7 @@ export default function ContactPage() {
           onClick={openWhatsApp}
           className="flex items-center m-auto space-x-1.5 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
         >
-          <img src="/whatsapp.png" alt="WhatsApp" className="w-6 h-6 mr-1.5" />
-          <span>WhatsApp</span>
+          <WhatsAppIcon />&nbsp; WhatsApp Us
         </button>
       </div>
     </>

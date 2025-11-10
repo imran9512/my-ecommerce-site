@@ -1,5 +1,5 @@
 // src/pages/reviews.js
-import { StarIcon } from '@heroicons/react/24/solid';
+import StarRating from '@/components/StarRating';
 import { reviews } from '@/data/reviews';
 import products from '@/data/products';
 import Head from 'next/head';
@@ -31,9 +31,7 @@ export default function ReviewsPage() {
                   </div>
                   <div className="flex items-center">
                     <p className="text-xs">{r.rating}&nbsp;</p>
-                    {[...Array(5)].map((_, i) => (
-                      <StarIcon key={i} className={`w-4 h-4 ${i < r.rating ? 'text-yellow-400' : 'text-gray-300'}`} />
-                    ))}
+                    <StarRating rating={r.rating} className="w-4 h-4" />
                   </div>
                 </div>
                 <p className="text-sm text-gray-800 mt-2">{r.comment}</p>

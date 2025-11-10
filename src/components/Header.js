@@ -4,11 +4,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import {
-    Bars3Icon,
-    XMarkIcon,
-    ShoppingCartIcon,
-    ChevronDownIcon,
-} from '@heroicons/react/24/outline';
+    Bars3Icon, XMarkIcon, WhatsAppIcon,
+    ShoppingCartIconOutline, ChevronDownIcon,
+} from '@/components/icons';
 import { useCartStore } from '@/stores/cart';
 import products from '@/data/products';
 import { categories, WHATSAPP_NUMBER } from '@/data/constants';
@@ -167,7 +165,7 @@ export default function Header() {
                         </div>
                         <Link href="/faq" className="hidden md:inline px-4 py-3 transition active:scale-95">FAQ❓</Link>
                         <Link href="/cart" aria-label="Cart" className="flex items-center relative transition-transform active:scale-95">
-                            <ShoppingCartIcon className="w-8 h-8" />
+                            <ShoppingCartIconOutline className="w-8 h-8" />
                             {cartCount > 0 && (
                                 <span className="absolute -top-2 right-0 bg-red-500 text-white text-[10px] rounded-full px-1.5 min-w-[18px] h-[18px] flex items-center justify-center animate-pulse">
                                     {cartCount}
@@ -306,8 +304,7 @@ export default function Header() {
                             onClick={openWhatsApp}
                             className="w-full mt-4 h-10 flex items-center justify-center bg-green-500 text-white rounded-full text-sm font-semibold hover:bg-green-600 transition active:scale-95" // FIXED: h-8 -> h-10, text-xs -> text-sm, scale
                         >
-                            <img src="/whatsapp.png" alt="WhatsApp" className="w-5 h-5 mr-2" /> {/* FIXED: w-4 -> w-5 */}
-                            WhatsApp Us
+                            <WhatsAppIcon />&nbsp; WhatsApp Us
                         </button>
                     </div>
                 </div>

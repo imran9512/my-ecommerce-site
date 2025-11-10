@@ -1,7 +1,7 @@
 // src/components/ProductCard.jsx
 import Image from 'next/image';
 import Link from 'next/link';
-import { BeakerIcon } from '@heroicons/react/24/outline';
+import { BeakerIcon } from '@/components/icons';
 import useLazyImage from '@/utils/hooks/useLazyImage';
 
 export default function ProductCard({ product }) {

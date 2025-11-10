@@ -1,8 +1,8 @@
 // src/components/ProductDetail.jsx
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
-import { BeakerIcon } from '@heroicons/react/24/outline';
-import { CheckIcon } from '@heroicons/react/24/solid';
+import { BeakerIcon, CheckIcon, WhatsAppIcon } from '@/components/icons';
+import StarRating from '@/components/StarRating';
 import QuantityPrice from './QuantityPrice';
 import ImageGallery from './ImageGallery';
 import { WHATSAPP_NUMBER } from '@/data/constants';
@@ -198,22 +198,16 @@ export default function ProductDetail({ product }) {
                             )}
                         </span>
 
-                        <div className="ml-auto flex items-center">
-                            <span className="text-[10px] mr-2 text-gray-600">
+                        <div className="ml-auto flex flex-col items-end">
+                            <div className="flex items-center">
+                                <span className="text-xs font-semibold text-gray-700">
+                                    {product.rating?.toFixed(1)}
+                                </span>
+                                <StarRating rating={product.rating} className="w-5 h-5" />
+                            </div>
+                            <span className="text-[10px] text-gray-600">
                                 {product.reviewCount ?? 0} reviews
                             </span>
-
-                            {[...Array(5)].map((_, i) => (
-                                <svg
-                                    key={i}
-                                    className={`w-5 h-5 ${i < Math.floor(product.rating) ? 'text-yellow-400' : 'text-gray-300'
-                                        }`}
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.967a1 1 0 00.95.69h4.182c.969 0 1.371 1.24.588 1.81l-3.386 2.46a1 1 0 00-.364 1.118l1.287 3.967c.3.921-.755 1.688-1.54 1.118l-3.386-2.46a1 1 0 00-1.176 0l-3.386 2.46c-.784.57-1.838-.197-1.539-1.118l1.287-3.967a1 1 0 00-.364-1.118L2.05 9.394c-.783-.57-.38-1.81.588-1.81h4.182a1 1 0 00.95-.69L9.049 2.927z" />
-                                </svg>
-                            ))}
                         </div>
                     </div>
 
@@ -277,23 +271,7 @@ export default function ProductDetail({ product }) {
                                        transition-transform active:scale-105 hover:scale-105"
                             aria-label="WhatsApp"
                         >
-                            <svg
-                                width="24"
-                                height="24"
-                                viewBox="0 0 19 19"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-9 h-9"
-                            >
-                                <path
-                                    d="M15.255 3.713a8 8 0 0 0-5.684-2.36c-4.433 0-8.043 3.603-8.043 8.036 0 1.394.364 2.771 1.045 3.974l-1.164 4.26 4.354-1.14a8.06 8.06 0 0 0 3.8.957c4.434 0 8.044-3.61 8.044-8.043 0-2.145-.84-4.172-2.352-5.692zM4.283 13.11c-.76-.863-1.18-2.312-1.18-3.72a6.467 6.467 0 0 1 6.46-6.46 6.42 6.42 0 0 1 4.568 1.891 6.42 6.42 0 0 1 1.892 4.568 6.467 6.467 0 0 1-6.46 6.46c-1.258 0-2.596-.404-3.562-1.06l-2.343.609z"
-                                    fill="#fff"
-                                />
-                                <path
-                                    d="M11.748 10.434c.182.064 1.148.539 1.346.641.198.103.333.15.38.23.048.08.048.475-.119.934s-.95.879-1.33.934c-.34.048-.768.072-1.242-.079a12 12 0 0 1-1.125-.412c-1.979-.854-3.27-2.842-3.364-2.976-.103-.143-.8-1.069-.8-2.035s.507-1.448.689-1.646a.72.72 0 0 1 .522-.246h.38c.12 0 .285-.047.444.34.166.396.562 1.362.61 1.465a.38.38 0 0 1 .015.349c-.063.134-.095.213-.198.324a8 8 0 0 1-.293.348c-.095.095-.198.206-.087.404.119.198.507.84 1.093 1.362.752.673 1.385.879 1.583.974s.309.079.428-.048c.118-.135.49-.578.625-.776s.261-.166.443-.095z"
-                                    fill="#fff"
-                                />
-                            </svg>
+                            <WhatsAppIcon className="w-9 h-9" />
                         </button>
                     </div>
 
