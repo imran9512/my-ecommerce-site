@@ -15,23 +15,25 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
 
     /* -------------------- 2.  discount table exist ? -------------------- */
     let raw = product.qtyDiscount || {};
-    const hasDiscount = Array.isArray(raw) ? raw.length > 0 : Object.keys(raw).length > 0;
+    const isStrip = unitPrice !== product.price;
+    if (isStrip && product.stripQtyDiscount) {
+        raw = product.stripQtyDiscount || {};
+    }
+
+    let hasDiscount = Array.isArray(raw) ? raw.length > 0 : Object.keys(raw).length > 0;
 
     if (hasDiscount && Array.isArray(raw)) {
         // segment → flat (same old logic)
         const flat = {};
         raw.forEach((seg) => {
-            const step = (seg.end - seg.start) / (seg.to - seg.from);
+            const step = (seg.to > seg.from) ? (seg.end - seg.start) / (seg.to - seg.from) : 0;
             for (let q = seg.from; q <= seg.to; q++) flat[q] = seg.start + (q - seg.from) * step;
         });
         raw = flat;
     }
 
-    const isStrip = unitPrice !== product.price;
-    if (isStrip) raw = {};                      // strip → no discount anyway
-
     const priceForQty = (q) => getDiscountedPrice(base, raw, q);
-    const lowestPrice = hasDiscount && !isStrip
+    const lowestPrice = hasDiscount
         ? Math.min(...Object.values(raw).map((p) => Math.round(base - base * p / 100)), Math.round(base))
         : Math.round(base);
 
@@ -69,15 +71,13 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
             {/* price badge */}
             <div className="flex items-end space-x-2">
                 <span className="text-xl font-bold">
-                    {isStrip
-                        ? `Rs ${Math.round(base).toLocaleString()}`
-                        : qty === 1 && hasDiscount
-                            ? `Rs ${Math.round(base).toLocaleString()} – ${lowestPrice.toLocaleString()}`
-                            : `Rs ${currentUnit.toLocaleString()}`}
+                    {qty === 1 && hasDiscount
+                        ? `Rs ${Math.round(base).toLocaleString()} – ${lowestPrice.toLocaleString()}`
+                        : `Rs ${currentUnit.toLocaleString()}`}
                 </span>
 
                 {/* discount visuals only if discount exists AND actually saving */}
-                {hasDiscount && !isStrip && Math.round(base) !== currentUnit && (
+                {hasDiscount && Math.round(base) !== currentUnit && (
                     <>
                         <span className="line-through text-gray-500">Rs {Math.round(base).toLocaleString()}</span>
                         <span className="text-green-600 text-sm">Saved Rs {saved.toLocaleString()}</span>
@@ -86,7 +86,7 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
             </div>
 
             {/* “As low as” only when discount present */}
-            {hasDiscount && !isStrip && qty !== 1 && (
+            {hasDiscount && qty !== 1 && (
                 <p className="text-sm inline-block shadow-lg font-semibold text-red-800">
                     As low as Rs {lowestPrice.toLocaleString()}
                 </p>
@@ -130,7 +130,7 @@ export default function QuantityPrice({ product, qty, setQty, unitPrice }) {
             </div>
 
             {/* discount dropdown ONLY if discounts exist */}
-            {hasDiscount && !isStrip && visibleRows.length > 0 && (
+            {hasDiscount && visibleRows.length > 0 && (
                 <div className="relative w-auto max-w-md" ref={wrapperRef}>
                     <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between px-4 py-1 text-sm font-semibold bg-red-200 rounded-md">
                         Get Discount on Quantity

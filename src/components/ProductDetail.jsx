@@ -45,7 +45,7 @@ export default function ProductDetail({ product }) {
             images: [product.images?.[0] || '/placeholder.png'],
             price: isStrip ? product.stripPrice : product.price,
             image: isStrip ? product.stripImage : product.images?.[0],
-            qtyDiscount: product.qtyDiscount || [],
+            qtyDiscount: isStrip ? product.stripQtyDiscount || [] : product.qtyDiscount || [],
             stripPrice: product.stripPrice || '',
             quantity: qty,
             totalPrice: isStrip ? product.stripPrice : product.price,

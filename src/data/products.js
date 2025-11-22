@@ -40,6 +40,9 @@ const products = [
       "STR40",
       "RIT10"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -87,6 +90,9 @@ const products = [
       "STR40",
       "ATTV70"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -133,6 +139,9 @@ const products = [
       "RIT10",
       "ATTV70"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -182,6 +191,9 @@ const products = [
       "RIT10",
       "ATTV70"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -228,7 +240,10 @@ const products = [
       "STR40",
       "RIT10",
       "ATTV70"],
-    stripPrice: "1550",
+    stripPrice: "1690",
+    stripQtyDiscount: [
+      { from: 2, to: 10, start: 4, end: 10.4 },
+    ],
     stripImage: "/api/images/ritalin/practisa/treatment-of-adhd-in-pakistan.webp",
     stripStock: true,
     stripTabs: "10",
@@ -277,6 +292,9 @@ const products = [
       "RIT10",
       "ATTV70"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -325,6 +343,9 @@ const products = [
       "RIT10",
       "ATTV70"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -373,6 +394,9 @@ const products = [
       "RIT10",
       "ATTV70"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -424,6 +448,9 @@ const products = [
       "STR40",
       "RIT10"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -458,6 +485,9 @@ const products = [
     specialNote: "",
     related: [],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -500,6 +530,9 @@ const products = [
       "STR40", "RIT10",
       "ATTV70"],
     stripPrice: "3950",
+    stripQtyDiscount: [
+      { from: 2, to: 3, start: 4, end: 6 },
+    ],
     stripImage: "/api/images/modi/modi100/4.webp",
     stripStock: true,
     stripTabs: "10",
@@ -538,6 +571,9 @@ const products = [
       "STR60", "STR40", "RIT10",
       "ATTV70"],
     stripPrice: "5980",
+    stripQtyDiscount: [
+      { from: 2, to: 3, start: 4, end: 6 },
+    ],
     stripImage: "/img/modi200/modafinil-200mg-price-in-pakistan.webp",
     stripStock: true,
     stripTabs: "10",
@@ -582,6 +618,9 @@ const products = [
       "STR40",
       "RIT10"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -626,6 +665,9 @@ const products = [
       "STR60",
       "RIT10"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -673,6 +715,9 @@ const products = [
       "STR40",
       "RIT10"],
     stripPrice: "1750",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "/api/images/ritalin/catapres/original-catapres-100-mcg.webp",
     stripStock: true,
     stripTabs: "10",
@@ -714,6 +759,9 @@ const products = [
     related: ["VG100-O", "pro5", "002", "004",
       "LV10", "LV4", "PML", "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -753,6 +801,9 @@ const products = [
       "004", "DOST05", "LV4",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "5790",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "/api/images/tadalafil/cialis-original/cialis-tablet-uses.webp",
     stripStock: true,
     stripTabs: "2",
@@ -795,6 +846,9 @@ const products = [
       "004", "LV10",
       "LV4", "PML"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -835,6 +889,9 @@ const products = [
       "LV10", "LV4", "pro5",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -874,7 +931,10 @@ const products = [
       "002", "004",
       "LV10", "LV4", "022",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
-    stripPrice: "4700",
+    stripPrice: "4850",
+    stripQtyDiscount: [
+      { from: 2, to: 3, start: 2, end: 4 },
+    ],
     stripImage: "/api/images/procial/procial-5mg-price-in-pakistan.webp",
     stripStock: true,
     stripTabs: "10",
@@ -914,7 +974,10 @@ const products = [
       "VG100-O", "002", "DS1",
       "LV10", "LV4", "PML",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
-    stripPrice: "2150",
+    stripPrice: "2250",
+    stripQtyDiscount: [
+      { from: 2, to: 2, start: 4, end: 4 },
+    ],
     stripImage: "/api/images/SDF100/2.webp",
     stripStock: true,
     stripTabs: "4",
@@ -954,6 +1017,9 @@ const products = [
       "LV4", "PML", "VG50-O",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -993,6 +1059,9 @@ const products = [
       "LV4", "PML",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1031,6 +1100,9 @@ const products = [
       "004", "DOST05", "LV4",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1071,6 +1143,9 @@ const products = [
       "DOST05", "LV10",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1110,6 +1185,9 @@ const products = [
       "DS1", "022", "LV10",
       "LV4", "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1149,6 +1227,9 @@ const products = [
       "DS1", "022", "LV10",
       "LV4", "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1187,6 +1268,9 @@ const products = [
       "VG100-O", "002", "DOST05", "004",
       "DS1", "022", "LV10", "LV4",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1223,6 +1307,9 @@ const products = [
       "VG100-O", "002", "DOST05", "004",
       "DS1", "022", "LV10", "LV4",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1260,6 +1347,9 @@ const products = [
       "VG100-O", "002", "DOST05", "004",
       "DS1", "022", "LV10", "LV4",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1297,6 +1387,9 @@ const products = [
       "VG100-O", "002", "DOST05", "004",
       "DS1", "022", "LV10", "LV4",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1336,6 +1429,9 @@ const products = [
       "VG100-O", "002", "DOST05", "004",
       "DS1", "022", "LV10", "LV4",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1373,6 +1469,9 @@ const products = [
       "ANI1", "LV10", "LV4", "PML",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1412,6 +1511,9 @@ const products = [
     related: ["001", "pro5", "004", "ER1", "DS1", "LV10", "LV4", "PML",
       "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1450,6 +1552,9 @@ const products = [
     related: ["001", "pro5", "004", "DS1", "LV10", "LV4",
       "PML", "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1488,6 +1593,9 @@ const products = [
     related: ["DOST05", "VG100-O", "002", "022", "004", "LV10",
       "LV4", "xlog60", "zyogra", "s-kamag", "j-kamag", "c-kamag",],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1531,6 +1639,9 @@ const products = [
       "cytoB",
       "femaraB"],
     stripPrice: "3980",
+    stripQtyDiscount: [
+      { from: 2, to: 3, start: 2, end: 4 },
+    ],
     stripImage: "/api/images/others/valtrex/valtrex-500-mg-tablet.webp",
     stripStock: true,
     stripTabs: "14",
@@ -1567,6 +1678,9 @@ const products = [
       "cyto+fem",
       "VLTR"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1606,6 +1720,9 @@ const products = [
       "cytoB",
       "femaraB"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1648,6 +1765,9 @@ const products = [
       "cytoB",
       "femaraB"],
     stripPrice: "",
+    stripQtyDiscount: [
+
+    ],
     stripImage: "",
     stripStock: false,
     stripTabs: "",
@@ -1685,6 +1805,9 @@ const products = [
       "VLTR",
       "femaraB"],
     stripPrice: "5750",
+    stripQtyDiscount: [
+      { from: 2, to: 3, start: 2, end: 4 },
+    ],
     stripImage: "/api/images/others/cyto-femara/abortion-pills-price-in-pakistan.webp",
     stripStock: true,
     stripTabs: "12",
@@ -1723,6 +1846,9 @@ const products = [
       "VLTR",
       "cytoB",],
     stripPrice: "5750",
+    stripQtyDiscount: [
+      { from: 2, to: 3, start: 2, end: 4 },
+    ],
     stripImage: "/api/images/others/cyto-femara/letrozole-tablet-pregnency.webp",
     stripStock: true,
     stripTabs: "12",

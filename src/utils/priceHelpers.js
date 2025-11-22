@@ -2,12 +2,17 @@
 
 // ---- 1.  convert segment array → flat map  ----
 export const normalizeDiscount = (product) => {
-    const raw = product.qtyDiscount || {};
-    if (!Array.isArray(raw)) return raw;          // already flat
+    //const raw = product.qtyDiscount || {};
+    //if (!Array.isArray(raw)) return raw;
+    const raw = (product.id?.endsWith('-strip') && product.stripQtyDiscount)
+        ? product.stripQtyDiscount
+        : product.qtyDiscount || {};
+
+    if (!Array.isArray(raw)) return raw;
 
     const flat = {};
     raw.forEach(seg => {
-        const step = (seg.end - seg.start) / (seg.to - seg.from);
+        const step = (seg.to > seg.from) ? (seg.end - seg.start) / (seg.to - seg.from) : 0;
         for (let q = seg.from; q <= seg.to; q++) {
             flat[q] = seg.start + (q - seg.from) * step;
         }

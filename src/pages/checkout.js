@@ -97,14 +97,15 @@ export default function CheckoutPage() {
 
   /* ----------  totals  ---------- */
   const subtotal = items.reduce((sum, it) => {
-    const unit = it.id.endsWith('-strip') ? Math.round(it.price) : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+    const unit = getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
     return sum + unit * it.quantity;
   }, 0);
 
   const discount = form.payment_method === 'Online' ? (subtotal * ONLINE_DISCOUNT_PERCENT) / 100 : 0;
   const grandTotal = subtotal - discount;
   const stripOnly = cartContainsOnlyStrips(items);
-  const courierChargeS = stripOnly ? STRIP_DELIVERY_CHARGE : 0;
+  const totalStripQty = stripOnly ? items.reduce((sum, it) => sum + it.quantity, 0) : 0;
+  const courierChargeS = stripOnly && totalStripQty === 1 ? STRIP_DELIVERY_CHARGE : 0;
   const stripDelivery = courierChargeS;
   const courierCharge = COURIER_OPTIONS.find(c => c.name === form.courier_option)?.charge || 0;
   const finalTotal = grandTotal + courierCharge + courierChargeS;
@@ -270,7 +271,7 @@ export default function CheckoutPage() {
               )}
               <p>Courier: + Rs {courierCharge.toFixed(2)}</p>
               {courierChargeS > 0 && (
-                <p>Strip delivery charges: Rs {courierChargeS}</p>
+                <p>Delivery Charges (For Single Strip): Rs {courierChargeS}</p>
               )}
               <p className="text-xl font-bold">Grand Total: Rs {finalTotal.toFixed(2)}</p>
             </div>
@@ -292,9 +293,7 @@ export default function CheckoutPage() {
               <p>Cart is empty</p>
             ) : (
               items.map(it => {
-                const unit = it.id.endsWith('-strip')
-                  ? Math.round(it.price)
-                  : getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
+                const unit = getDiscountedPrice(it.price, it.qtyDiscount, it.quantity);
                 const line = unit * it.quantity;
 
                 return (

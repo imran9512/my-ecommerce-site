@@ -15,9 +15,7 @@ export default function CartPage() {
   const remove = useCartStore(s => s.removeItem);
 
   const grandTotal = items.reduce((sum, it) => {
-    const unit = it.id.endsWith('-strip')
-      ? Math.round(it.price)
-      : getDiscountedPrice(it.price, normalizeDiscount(it), it.quantity);
+    const unit = getDiscountedPrice(it.price, normalizeDiscount(it), it.quantity);
     return sum + unit * it.quantity;
   }, 0);
 
@@ -26,7 +24,10 @@ export default function CartPage() {
 
   // Check if all items are strips
   const allStrips = cartContainsOnlyStrips(items);
-  const courierCharge = allStrips ? STRIP_DELIVERY_CHARGE : 0;
+
+  // Calculate total strip quantity if only strips
+  const totalStripQty = allStrips ? items.reduce((sum, it) => sum + it.quantity, 0) : 0;
+  const courierCharge = allStrips && totalStripQty === 1 ? STRIP_DELIVERY_CHARGE : 0;
   const finalTotal = grandTotal + courierCharge;
 
   return (
@@ -47,9 +48,7 @@ export default function CartPage() {
         ) : (
           <>
             {items.map(item => {
-              const unit = item.id.endsWith('-strip')
-                ? Math.round(item.price)
-                : getDiscountedPrice(item.price, normalizeDiscount(item), item.quantity);
+              const unit = getDiscountedPrice(item.price, normalizeDiscount(item), item.quantity);
               const line = unit * item.quantity;
               const saved = Math.round((item.price - unit) * item.quantity);
 
@@ -101,8 +100,8 @@ export default function CartPage() {
                 </>
               )}
 
-              {allStrips && (
-                <p className="text-sm text-gray-600">Strip delivery charges: Rs {courierCharge.toLocaleString()}</p>
+              {allStrips && totalStripQty === 1 && (
+                <p className="text-sm text-gray-600">Delivery Charges (For Single Strip): Rs {courierCharge.toLocaleString()}</p>
               )}
 
               <p className="text-xl font-bold">
