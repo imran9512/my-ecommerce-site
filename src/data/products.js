@@ -240,7 +240,7 @@ const products = [
       "STR40",
       "RIT10",
       "ATTV70"],
-    stripPrice: "1690",
+    stripPrice: "1790",
     stripQtyDiscount: [
       { from: 2, to: 10, start: 4, end: 10.4 },
     ],
