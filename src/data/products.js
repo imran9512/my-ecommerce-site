@@ -242,7 +242,7 @@ const products = [
       "ATTV70"],
     stripPrice: "1790",
     stripQtyDiscount: [
-      { from: 2, to: 10, start: 4, end: 20 },
+      { from: 2, to: 8, start: 4, end: 20 },
     ],
     stripImage: "/api/images/ritalin/practisa/treatment-of-adhd-in-pakistan.webp",
     stripStock: true,
