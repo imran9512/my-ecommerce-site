@@ -13,17 +13,26 @@ class MyDocument extends Document {
             name="google-site-verification"
             content={GOOGLE_SEARCH_CONSOLE_TAG.match(/content="([^"]+)"/)[1]}
           />
+          {/* ==================== Google Analytics (GA4) ==================== */}
+          {/* Part 1: gtag.js script */}
+          <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-6P270PLJD0"
+          />
 
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-BJ9QK4H14S"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-BJ9QK4H14S');
-</script>
+          {/* Part 2: gtag config */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-6P270PLJD0', {
+                  send_page_view: true
+                });
+              `,
+            }}
+          />
 
         </Head>
         <body>
