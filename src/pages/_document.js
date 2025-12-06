@@ -17,7 +17,7 @@ class MyDocument extends Document {
           {/* Part 1: gtag.js script */}
           <script
             async
-            src="https://www.googletagmanager.com/gtag/js?id=G-6P270PLJD0"
+            src="https://www.googletagmanager.com/gtag/js?id=G-BJ9QK4H14S"
           />
 
           {/* Part 2: gtag config */}
@@ -27,7 +27,7 @@ class MyDocument extends Document {
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
-                gtag('config', 'G-6P270PLJD0', {
+                gtag('config', 'G-BJ9QK4H14S', {
                   send_page_view: true
                 });
               `,
